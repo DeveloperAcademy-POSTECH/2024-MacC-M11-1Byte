@@ -37,6 +37,7 @@
 		1F79EDC12CC0A25D0079088B = {
 			isa = PBXGroup;
 			children = (
+				1F8591172CC0A68500253B38 /* .gitignore */,
 				1F79EDCC2CC0A25D0079088B /* OneByte */,
 				1F79EDCB2CC0A25D0079088B /* Products */,
 			);
@@ -53,7 +54,6 @@
 		1F79EDCC2CC0A25D0079088B /* OneByte */ = {
 			isa = PBXGroup;
 			children = (
-				1F8591172CC0A68500253B38 /* .gitignore */,
 				1F79EDCD2CC0A25D0079088B /* OneByteApp.swift */,
 				1F79EDCF2CC0A25D0079088B /* ContentView.swift */,
 				1F79EDD12CC0A25E0079088B /* Assets.xcassets */,
