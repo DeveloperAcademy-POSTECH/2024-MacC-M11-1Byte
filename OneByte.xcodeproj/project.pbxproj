@@ -11,7 +11,8 @@
 		1F79EDD22CC0A25E0079088B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F79EDD12CC0A25E0079088B /* Assets.xcassets */; };
 		1F79EDD52CC0A25E0079088B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F79EDD42CC0A25E0079088B /* Preview Assets.xcassets */; };
 		1F8591182CC0A68500253B38 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 1F8591172CC0A68500253B38 /* .gitignore */; };
-		615A0A0B2CC0ADA800908531 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A0A2CC0ADA800908531 /* TabBarView.swift */; };
+		1FA420942CC0DC19001CB92D /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA420932CC0DC19001CB92D /* Color+.swift */; };
+		615A0A0B2CC0ADA800908531 /* TabBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A0A2CC0ADA800908531 /* TabBarManager.swift */; };
 		615A0A0D2CC0AE8700908531 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A0C2CC0AE8700908531 /* TaskView.swift */; };
 		615A0A0F2CC0AEA400908531 /* ObjectiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A0E2CC0AEA400908531 /* ObjectiveView.swift */; };
 		615A0A112CC0AEB800908531 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A102CC0AEB800908531 /* MyPageView.swift */; };
@@ -23,7 +24,8 @@
 		1F79EDD12CC0A25E0079088B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1F79EDD42CC0A25E0079088B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1F8591172CC0A68500253B38 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		615A0A0A2CC0ADA800908531 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		1FA420932CC0DC19001CB92D /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
+		615A0A0A2CC0ADA800908531 /* TabBarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarManager.swift; sourceTree = "<group>"; };
 		615A0A0C2CC0AE8700908531 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		615A0A0E2CC0AEA400908531 /* ObjectiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectiveView.swift; sourceTree = "<group>"; };
 		615A0A102CC0AEB800908531 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
@@ -60,9 +62,8 @@
 		1F79EDCC2CC0A25D0079088B /* OneByte */ = {
 			isa = PBXGroup;
 			children = (
-				1F79EDCD2CC0A25D0079088B /* OneByteApp.swift */,
-				615A0A122CC0AEBC00908531 /* TabBar */,
-				1F79EDD12CC0A25E0079088B /* Assets.xcassets */,
+				1FA4208C2CC0DBDB001CB92D /* Source */,
+				1FA4208B2CC0DBD3001CB92D /* Resource */,
 				1F79EDD32CC0A25E0079088B /* Preview Content */,
 			);
 			path = OneByte;
@@ -76,15 +77,81 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		615A0A122CC0AEBC00908531 /* TabBar */ = {
+		1FA4208B2CC0DBD3001CB92D /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				1F79EDD12CC0A25E0079088B /* Assets.xcassets */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		1FA4208C2CC0DBDB001CB92D /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				1FA420952CC0DC2F001CB92D /* Application */,
+				1FA420922CC0DC10001CB92D /* Extension */,
+				1FA420912CC0DC0C001CB92D /* Model */,
+				1FA4208D2CC0DBDF001CB92D /* View */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		1FA4208D2CC0DBDF001CB92D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1FA4208E2CC0DBE3001CB92D /* TaskView */,
+				1FA420902CC0DBEE001CB92D /* ObjectiveView */,
+				1FA4208F2CC0DBE9001CB92D /* MyPageView */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1FA4208E2CC0DBE3001CB92D /* TaskView */ = {
 			isa = PBXGroup;
 			children = (
 				615A0A0C2CC0AE8700908531 /* TaskView.swift */,
-				615A0A0E2CC0AEA400908531 /* ObjectiveView.swift */,
-				615A0A102CC0AEB800908531 /* MyPageView.swift */,
-				615A0A0A2CC0ADA800908531 /* TabBarView.swift */,
 			);
-			path = TabBar;
+			path = TaskView;
+			sourceTree = "<group>";
+		};
+		1FA4208F2CC0DBE9001CB92D /* MyPageView */ = {
+			isa = PBXGroup;
+			children = (
+				615A0A102CC0AEB800908531 /* MyPageView.swift */,
+			);
+			path = MyPageView;
+			sourceTree = "<group>";
+		};
+		1FA420902CC0DBEE001CB92D /* ObjectiveView */ = {
+			isa = PBXGroup;
+			children = (
+				615A0A0E2CC0AEA400908531 /* ObjectiveView.swift */,
+			);
+			path = ObjectiveView;
+			sourceTree = "<group>";
+		};
+		1FA420912CC0DC0C001CB92D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1FA420922CC0DC10001CB92D /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				1FA420932CC0DC19001CB92D /* Color+.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		1FA420952CC0DC2F001CB92D /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				1F79EDCD2CC0A25D0079088B /* OneByteApp.swift */,
+				615A0A0A2CC0ADA800908531 /* TabBarManager.swift */,
+			);
+			path = Application;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -158,7 +225,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				615A0A0B2CC0ADA800908531 /* TabBarView.swift in Sources */,
+				615A0A0B2CC0ADA800908531 /* TabBarManager.swift in Sources */,
+				1FA420942CC0DC19001CB92D /* Color+.swift in Sources */,
 				1F79EDCE2CC0A25D0079088B /* OneByteApp.swift in Sources */,
 				615A0A0F2CC0AEA400908531 /* ObjectiveView.swift in Sources */,
 				615A0A0D2CC0AE8700908531 /* TaskView.swift in Sources */,

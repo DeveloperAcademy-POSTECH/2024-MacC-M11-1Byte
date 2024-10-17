@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TabBarView: View {
+struct TabBarManager: View {
     var body: some View {
         TabView {
             TaskView()
