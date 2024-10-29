@@ -16,7 +16,7 @@ struct TabBarManager: View {
                     Text("할 일")
                 }
             
-            ObjectiveView()
+            MandalartView()
                 .tabItem {
                     Image(systemName: "chart.bar.xaxis.ascending.badge.clock")
                     Text("목표")

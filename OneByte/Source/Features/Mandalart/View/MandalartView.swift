@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct ObjectiveView: View {
+struct MandalartView: View {
     var body: some View {
-        Text("목표 뷰")
+        Text("만다라트 뷰")
     }
 }
