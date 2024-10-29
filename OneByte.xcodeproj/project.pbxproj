@@ -13,6 +13,7 @@
 		1F7C9C242CD083AD00BAC358 /* UseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7C9C232CD083AD00BAC358 /* UseCase.swift */; };
 		1F7C9C262CD083BB00BAC358 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7C9C252CD083BB00BAC358 /* Network.swift */; };
 		1F7C9C282CD083CC00BAC358 /* MainGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7C9C272CD083CC00BAC358 /* MainGoal.swift */; };
+		1F7C9C2A2CD084BB00BAC358 /* TempButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7C9C292CD084BB00BAC358 /* TempButton.swift */; };
 		1F8591182CC0A68500253B38 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 1F8591172CC0A68500253B38 /* .gitignore */; };
 		1FA420942CC0DC19001CB92D /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA420932CC0DC19001CB92D /* Color+.swift */; };
 		615A0A0B2CC0ADA800908531 /* TabBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A0A2CC0ADA800908531 /* TabBarManager.swift */; };
@@ -29,6 +30,7 @@
 		1F7C9C232CD083AD00BAC358 /* UseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCase.swift; sourceTree = "<group>"; };
 		1F7C9C252CD083BB00BAC358 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		1F7C9C272CD083CC00BAC358 /* MainGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGoal.swift; sourceTree = "<group>"; };
+		1F7C9C292CD084BB00BAC358 /* TempButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempButton.swift; sourceTree = "<group>"; };
 		1F8591172CC0A68500253B38 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		1FA420932CC0DC19001CB92D /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		615A0A0A2CC0ADA800908531 /* TabBarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarManager.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 		1F7C9C0E2CD0727700BAC358 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				1F7C9C292CD084BB00BAC358 /* TempButton.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				615A0A0B2CC0ADA800908531 /* TabBarManager.swift in Sources */,
+				1F7C9C2A2CD084BB00BAC358 /* TempButton.swift in Sources */,
 				1F7C9C282CD083CC00BAC358 /* MainGoal.swift in Sources */,
 				1FA420942CC0DC19001CB92D /* Color+.swift in Sources */,
 				1F7C9C262CD083BB00BAC358 /* Network.swift in Sources */,
