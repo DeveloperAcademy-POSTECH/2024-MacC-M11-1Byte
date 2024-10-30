@@ -11,7 +11,7 @@ import SwiftUI
 struct OneByteApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TabBarManager()
         }
     }
 }
