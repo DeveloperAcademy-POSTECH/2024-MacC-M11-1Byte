@@ -11,7 +11,7 @@ struct MandalartView: View {
     
     var body: some View {
         let createService = ClientCreateService()
-        let viewModel = MadalArtCRUDTestViewModel(createService: createService)
-        MandalArtCRUDTestView(viewModel: viewModel) // 뷰에 뷰모델 전달
+        let viewModel = CUTestViewModel(createService: createService)
+        CUTestView(viewModel: viewModel) // 뷰에 뷰모델 전달
     }
 }

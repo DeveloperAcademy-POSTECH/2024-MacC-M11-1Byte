@@ -10,21 +10,25 @@ import SwiftData
 
 // 클라이언트에서 생성하기 구체화
 class ClientCreateService: CreateGoalUseCase {
-    private var mainGoals: [MainGoal] = []
-    private var subGoals: [SubGoal] = []
-    private var detailGoals: [DetailGoal] = []
     
-    func createMainGoal(title: String, isAchieved: Bool, subGoals: [SubGoal]) -> MainGoal {
-        let newMainGoal = MainGoal(id: UUID(), title: title, isAchieved: false, subGoals: [])
-        mainGoals.append(newMainGoal)
-        
+    var mainGoals: [MainGoal] = []
+    var subGoals: [SubGoal] = []
+    var detailGoals: [DetailGoal] = []
+    
+    func createMainGoal(title: String, isAchieved: Bool) -> MainGoal {
+        print("Creating MainGoal with title: \(title)")
+        let newMainGoal = MainGoal(id: UUID(), title: title, isAchieved: false)
+        print(newMainGoal.id)
+        print(newMainGoal.subGoals)
+        print(newMainGoal.isAchieved)
+        print("Successfully created MainGoal: \(newMainGoal.title)")
         return newMainGoal
     }
     
-    func createSubGoal(mainGoalID: UUID, title: String, isAchieved: Bool, detailGoals: [DetailGoal]) -> SubGoal {
-        let newSubGoal = SubGoal(id: UUID(), title: title, isAchieved: false, detailGoals: [])
-        subGoals.append(newSubGoal)
-        
+    func createSubGoal(mainGoalID: UUID, title: String, isAchieved: Bool) -> SubGoal? {
+        let newSubGoal = SubGoal(id: UUID(), title: title, isAchieved: isAchieved)
+        print(newSubGoal.id)
+        print(mainGoalID)
         return newSubGoal
     }
     
