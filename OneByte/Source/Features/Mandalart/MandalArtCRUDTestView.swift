@@ -76,15 +76,15 @@ struct SubGoalView: View {
     @Query private var subGoals: [SubGoal] // mainGoal에 속한 subGoals를 가져오는 query
     
     init(mainGoalId: UUID, viewModel: CUTestViewModel, mainGoal: MainGoal) {
-            self.mainGoalId = mainGoalId
-            self.viewModel = viewModel
-            self.mainGoal = mainGoal
-            
-            // mainGoal에 속한 subGoals만 필터링
-            _subGoals = Query(filter: #Predicate<SubGoal> { subGoal in
-                subGoal.mainGoal?.id == mainGoalId
-            })
-        }
+        self.mainGoalId = mainGoalId
+        self.viewModel = viewModel
+        self.mainGoal = mainGoal
+        
+        // mainGoal에 속한 subGoals만 필터링
+        _subGoals = Query(filter: #Predicate<SubGoal> { subGoal in
+            subGoal.mainGoal?.id == mainGoalId
+        })
+    }
     var body: some View {
         VStack {
             VStack {
@@ -106,11 +106,64 @@ struct SubGoalView: View {
             
             // SubGoal 목록
             List(subGoals, id: \.id) { subGoal in
-                Text(subGoal.title)
-                    .font(.headline)
+                NavigationLink(destination: detailGoalView(subGoalId: subGoal.id, viewModel: viewModel, subGoal: subGoal)){
+                    Text(subGoal.title)
+                        .font(.headline)
+                }
             }
         }
         .navigationTitle(mainGoal.title)
     }
 }
+
+struct detailGoalView: View {
+    @Environment(\.modelContext) var modelContext
+    @State private var detailGoalTitle: String = ""
+    let subGoalId: UUID
+    @ObservedObject var viewModel: CUTestViewModel
+    let subGoal: SubGoal
+    
+    @Query private var detailGoals: [DetailGoal]
+    
+    init(subGoalId: UUID, viewModel: CUTestViewModel, subGoal: SubGoal) {
+        self.subGoalId = subGoalId
+        self.viewModel = viewModel
+        self.subGoal = subGoal
+        
+        // mainGoal에 속한 subGoals만 필터링
+        _detailGoals = Query(filter: #Predicate<DetailGoal> { detailGoal in
+            detailGoal.subGoal?.id == subGoalId
+        })
+    }
+    
+    var body: some View {
+        VStack {
+            VStack {
+                TextField("디테일 골을 입력해주세요", text: $detailGoalTitle)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+                
+                Button("디테일Goal 생성") {
+//                    viewModel.createDetailGoal(subGoal: subGoal, title: detailGoalTitle)
+                    if let newDetailGoal = viewModel.createDetailGoal(subGoal: subGoal, title: detailGoalTitle) {
+                        modelContext.insert(newDetailGoal)
+                        detailGoalTitle = ""  // 입력 필드 초기화
+                    }
+                }
+                .padding()
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .cornerRadius(8)
+            }
+            
+            // detailGoal 목록
+            List(detailGoals, id: \.id) { detailGoal in
+                Text(detailGoal.title)
+                    .font(.headline)
+            }
+        }
+        .navigationTitle(subGoal.title)
+    }
+}
+
 

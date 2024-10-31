@@ -14,6 +14,7 @@ class CUTestViewModel: ObservableObject {
     
 //    @Published var mainGoals: [MainGoal] = []
     @Published var subGoals: [SubGoal] = []
+    @Published var detailGoals: [DetailGoal] = []
     
     private let createService: ClientCreateService
     
@@ -27,8 +28,15 @@ class CUTestViewModel: ObservableObject {
         return newGoal
     }
     
+    // 서브골 생성
     func createSubGoal(mainGoal: MainGoal, title: String) -> SubGoal? {
         let newSubGoal = createService.createSubGoal(mainGoal: mainGoal, title: title, isAchieved: false)
         return newSubGoal
+    }
+    
+    // 디테일골 생성
+    func createDetailGoal(subGoal: SubGoal, title: String) -> DetailGoal? {
+        let newDetailGoal = createService.createDetailGoal(subGoal: subGoal, title: title, isAchieved: false)
+        return newDetailGoal
     }
 }

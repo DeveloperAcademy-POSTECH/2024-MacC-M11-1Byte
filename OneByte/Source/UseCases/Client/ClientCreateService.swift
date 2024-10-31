@@ -33,9 +33,13 @@ class ClientCreateService: CreateGoalUseCase {
         return newSubGoal
     }
     
-    func createDetailGoal(subGoalID: UUID, title: String, isAchieved: Bool) -> DetailGoal {
-        let newDetailGoal = DetailGoal(id: UUID(), title: title, isAchieved: false)
-        detailGoals.append(newDetailGoal)
+    func createDetailGoal(subGoal: SubGoal, title: String, isAchieved: Bool) -> DetailGoal? {
+        let newDetailGoal = DetailGoal(id: UUID(), title: title, isAchieved: isAchieved)
+        newDetailGoal.subGoal = subGoal
+        print("newDetailGoal.id: \(newDetailGoal.id)")
+        print("subGoal.id: \(subGoal.id)")
+        print("newDetailGoal.isAchieved: \(newDetailGoal.isAchieved)")
+        print("newDetailGoal.title: \(newDetailGoal.title)")
         
         return newDetailGoal
     }
