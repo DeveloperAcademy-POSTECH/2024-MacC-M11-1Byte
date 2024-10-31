@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct MandalartView: View {
+    
     var body: some View {
-        Text("만다라트 뷰")
+        let createService = ClientCreateService()
+        let viewModel = MadalArtCRUDTestViewModel(createService: createService)
+        MandalArtCRUDTestView(viewModel: viewModel) // 뷰에 뷰모델 전달
     }
 }
