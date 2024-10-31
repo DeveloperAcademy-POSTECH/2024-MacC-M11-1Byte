@@ -1,3 +1,10 @@
+//
+//  ObjectiveView.swift
+//  OneByte
+//
+//  Created by 트루디 on 10/29/24.
+//
+
 import SwiftUI
 import SwiftData
 
@@ -32,7 +39,7 @@ struct CUTestView: View {
                 .cornerRadius(8)
                 
                 List(mainGoals, id: \.id) { goal in // 메인골 리스트
-                    NavigationLink(destination: SubGoalView(mainGoalId: goal.id, viewModel: CUTestViewModel(), mainGoal: goal)) {
+                    NavigationLink(destination: SubGoalView(mainGoalId: goal.id, viewModel: viewModel, mainGoal: goal)) {
                         Text(goal.title).font(.headline)
                     }
                 }
@@ -63,20 +70,21 @@ struct SubGoalView: View {
     @Environment(\.modelContext) var modelContext
     @State private var subGoalTitle: String = ""
     let mainGoalId: UUID
-    @StateObject var viewModel: CUTestViewModel
+    @ObservedObject var viewModel: CUTestViewModel
     let mainGoal: MainGoal
     
     @Query private var subGoals: [SubGoal] // mainGoal에 속한 subGoals를 가져오는 query
     
-//    init(mainGoal: MainGoal, viewModel: CUTestViewModel = CUTestViewModel()) {
-//        self.mainGoal = mainGoal
-//        self.viewModel = viewModel
-//        // mainGoal에 속한 subGoals만 필터링
-//        _subGoals = Query(filter: #Predicate<SubGoal> { subGoal in
-//            subGoal.mainGoal?.id == mainGoal.id
-//        })
-//    }
-    
+    init(mainGoalId: UUID, viewModel: CUTestViewModel, mainGoal: MainGoal) {
+            self.mainGoalId = mainGoalId
+            self.viewModel = viewModel
+            self.mainGoal = mainGoal
+            
+            // mainGoal에 속한 subGoals만 필터링
+            _subGoals = Query(filter: #Predicate<SubGoal> { subGoal in
+                subGoal.mainGoal?.id == mainGoalId
+            })
+        }
     var body: some View {
         VStack {
             VStack {
@@ -85,7 +93,7 @@ struct SubGoalView: View {
                     .padding()
                 
                 Button("서브Goal 생성") {
-                    if let newSubGoal = viewModel.createSubGoal(mainGoal: mainGoalId, title: subGoalTitle) {
+                    if let newSubGoal = viewModel.createSubGoal(mainGoal: mainGoal, title: subGoalTitle) {
                         modelContext.insert(newSubGoal)
                         subGoalTitle = ""  // 입력 필드 초기화
                     }

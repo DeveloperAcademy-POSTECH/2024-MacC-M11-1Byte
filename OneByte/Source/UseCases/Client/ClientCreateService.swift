@@ -25,10 +25,11 @@ class ClientCreateService: CreateGoalUseCase {
         return newMainGoal
     }
     
-    func createSubGoal(mainGoalID: UUID, title: String, isAchieved: Bool) -> SubGoal? {
+    func createSubGoal(mainGoal: MainGoal, title: String, isAchieved: Bool) -> SubGoal? {
         let newSubGoal = SubGoal(id: UUID(), title: title, isAchieved: isAchieved)
+        newSubGoal.mainGoal = mainGoal
         print(newSubGoal.id)
-        print(mainGoalID)
+        print(mainGoal.id)
         return newSubGoal
     }
     

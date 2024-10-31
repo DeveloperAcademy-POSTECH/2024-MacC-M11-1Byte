@@ -27,8 +27,8 @@ class CUTestViewModel: ObservableObject {
         return newGoal
     }
     
-    func createSubGoal(mainGoal: UUID, title: String) -> SubGoal? {
-        let newSubGoal = createService.createSubGoal(mainGoalID: mainGoal, title: title, isAchieved: false)
+    func createSubGoal(mainGoal: MainGoal, title: String) -> SubGoal? {
+        let newSubGoal = createService.createSubGoal(mainGoal: mainGoal, title: title, isAchieved: false)
         return newSubGoal
     }
 }

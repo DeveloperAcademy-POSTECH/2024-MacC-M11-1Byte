@@ -9,7 +9,7 @@ import Foundation
 
 protocol CreateGoalUseCase {
     func createMainGoal(title: String, isAchieved: Bool) -> MainGoal
-    func createSubGoal(mainGoalID: UUID, title: String, isAchieved: Bool) -> SubGoal?
+    func createSubGoal(mainGoal: MainGoal, title: String, isAchieved: Bool) -> SubGoal?
     func createDetailGoal(subGoalID: UUID, title: String, isAchieved: Bool) -> DetailGoal
 }
 
