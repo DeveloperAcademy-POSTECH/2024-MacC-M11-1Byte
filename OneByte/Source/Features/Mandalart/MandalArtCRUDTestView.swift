@@ -11,17 +11,16 @@ import SwiftData
 struct CUTestView: View {
     
     @Environment(\.modelContext) var modelContext
-    
-    @StateObject private var viewModel: CUTestViewModel
-    init(viewModel: CUTestViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
-    }
+    @Query private var mainGoals: [MainGoal]
     
     @State var goalTitle: String = ""
     @State private var selectedGoal: MainGoal? // 수정할 메인골
     @State private var isEditing = false
     
-    @Query private var mainGoals: [MainGoal]
+    @StateObject private var viewModel: CUTestViewModel
+    init(viewModel: CUTestViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
     
     var body: some View {
         NavigationView {
@@ -100,6 +99,7 @@ struct CUTestView: View {
                 }
             }
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
