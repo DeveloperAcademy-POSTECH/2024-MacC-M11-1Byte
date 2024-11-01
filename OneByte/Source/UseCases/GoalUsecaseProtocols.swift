@@ -7,16 +7,16 @@
 
 import Foundation
 
-protocol CreateGoalUseCase: ObservableObject {
+protocol CreateGoalUseCase {
     func createMainGoal(title: String, isAchieved: Bool) -> MainGoal
     func createSubGoal(mainGoal: MainGoal, title: String, isAchieved: Bool) -> SubGoal?
     func createDetailGoal(subGoal: SubGoal, title: String, isAchieved: Bool) -> DetailGoal?
 }
 
 protocol UpdateGoalUseCase {
-    func updateMainGoal(id: UUID, newTitle: String, isAchieved: Bool) -> MainGoal
-    func updateSubGoal(id: UUID, newTitle: String, isAchieved: Bool) -> SubGoal
-    func updateDetailGoal(id: UUID, newTitle: String, isAchieved: Bool) -> DetailGoal
+    func updateMainGoal(id: UUID, newTitle: String, isAchieved: Bool) -> MainGoal?
+    func updateSubGoal(id: UUID, newTitle: String, isAchieved: Bool) -> SubGoal?
+    func updateDetailGoal(id: UUID, newTitle: String, isAchieved: Bool) -> DetailGoal?
 }
 
 protocol ReadGoalUseCase {

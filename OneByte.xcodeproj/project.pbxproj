@@ -26,6 +26,7 @@
 		615A0A0D2CC0AE8700908531 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A0C2CC0AE8700908531 /* TaskView.swift */; };
 		615A0A0F2CC0AEA400908531 /* MandalartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A0E2CC0AEA400908531 /* MandalartView.swift */; };
 		615A0A112CC0AEB800908531 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A102CC0AEB800908531 /* MyPageView.swift */; };
+		6199E8DD2CD471C600D70919 /* ClientDeleteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6199E8DC2CD471C600D70919 /* ClientDeleteService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		615A0A0C2CC0AE8700908531 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		615A0A0E2CC0AEA400908531 /* MandalartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalartView.swift; sourceTree = "<group>"; };
 		615A0A102CC0AEB800908531 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
+		6199E8DC2CD471C600D70919 /* ClientDeleteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientDeleteService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,8 +135,8 @@
 		1F7C9C132CD0731F00BAC358 /* Mandalart */ = {
 			isa = PBXGroup;
 			children = (
-				613904E72CD20457008E591D /* MandalArtCRUDTestView.swift */,
 				613904E92CD21A0B008E591D /* MadalArtCRUDTestViewModel.swift */,
+				613904E72CD20457008E591D /* MandalArtCRUDTestView.swift */,
 				1F7C9C142CD0735500BAC358 /* View */,
 			);
 			path = Mandalart;
@@ -188,6 +190,7 @@
 				1F7C9C2B2CD1FC1E00BAC358 /* ClientCreateService.swift */,
 				1F7C9C2D2CD1FCB600BAC358 /* ClientUpdateService.swift */,
 				1F7C9C2F2CD1FCEA00BAC358 /* ClientReadService.swift */,
+				6199E8DC2CD471C600D70919 /* ClientDeleteService.swift */,
 			);
 			path = Client;
 			sourceTree = "<group>";
@@ -322,6 +325,7 @@
 				615A0A0F2CC0AEA400908531 /* MandalartView.swift in Sources */,
 				1F7C9C242CD083AD00BAC358 /* GoalUsecaseProtocols.swift in Sources */,
 				613904EA2CD21A0B008E591D /* MadalArtCRUDTestViewModel.swift in Sources */,
+				6199E8DD2CD471C600D70919 /* ClientDeleteService.swift in Sources */,
 				615A0A0D2CC0AE8700908531 /* TaskView.swift in Sources */,
 				1F7C9C302CD1FCEA00BAC358 /* ClientReadService.swift in Sources */,
 				615A0A112CC0AEB800908531 /* MyPageView.swift in Sources */,

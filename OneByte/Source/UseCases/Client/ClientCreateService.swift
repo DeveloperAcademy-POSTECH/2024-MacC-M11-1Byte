@@ -11,10 +11,6 @@ import SwiftData
 // 클라이언트에서 생성하기 구체화
 class ClientCreateService: CreateGoalUseCase {
     
-    var mainGoals: [MainGoal] = []
-    var subGoals: [SubGoal] = []
-    var detailGoals: [DetailGoal] = []
-    
     func createMainGoal(title: String, isAchieved: Bool) -> MainGoal {
         print("Creating MainGoal with title: \(title)")
         let newMainGoal = MainGoal(id: UUID(), title: title, isAchieved: false)
