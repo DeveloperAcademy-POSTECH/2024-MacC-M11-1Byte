@@ -19,21 +19,22 @@ class CUTestViewModel: ObservableObject {
     }
     
     // 메인골 생성
-    func createMainGoal(title: String, isAchieved: Bool) -> MainGoal {
+    func createMainGoal(modelContext: ModelContext, title: String, isAchieved: Bool) {
         let newGoal = createService.createMainGoal(title: title, isAchieved: false)
-        return newGoal
+        modelContext.insert(newGoal)
+//        return newGoal
     }
     
     // 서브골 생성
-    func createSubGoal(mainGoal: MainGoal, title: String, isAchieved: Bool) -> SubGoal? {
-        let newSubGoal = createService.createSubGoal(mainGoal: mainGoal, title: title, isAchieved: false)
-        return newSubGoal
+    func createSubGoal(modelContext: ModelContext, mainGoal: MainGoal, title: String, isAchieved: Bool) {
+        guard let newSubGoal = createService.createSubGoal(mainGoal: mainGoal, title: title, isAchieved: false) else { return }
+        modelContext.insert(newSubGoal)
     }
     
     // 디테일골 생성
-    func createDetailGoal(subGoal: SubGoal, title: String, isAchieved: Bool) -> DetailGoal? {
-        let newDetailGoal = createService.createDetailGoal(subGoal: subGoal, title: title, isAchieved: false)
-        return newDetailGoal
+    func createDetailGoal(modelContext: ModelContext, subGoal: SubGoal, title: String, isAchieved: Bool) {
+        guard let newDetailGoal = createService.createDetailGoal(subGoal: subGoal, title: title, isAchieved: false) else { return }
+        modelContext.insert(newDetailGoal)
     }
     
 //    // 메인골 업데이트

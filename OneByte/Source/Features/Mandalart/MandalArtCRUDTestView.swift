@@ -46,8 +46,7 @@ struct CUTestView: View {
                         .padding()
                     
                     Button(action: {
-                        let newGoal = viewModel.createMainGoal(title: goalTitle, isAchieved: false)
-                        modelContext.insert(newGoal)
+                        viewModel.createMainGoal(modelContext: modelContext, title: goalTitle, isAchieved: false)
                         goalTitle = ""
                     }, label: {
                         Text("메인Goal 생성")
@@ -149,10 +148,8 @@ struct SubGoalView: View {
                     .padding()
                 
                 Button(action: {
-                    if let newSubGoal = viewModel.createSubGoal(mainGoal: mainGoal, title: subGoalTitle, isAchieved: false) {
-                        modelContext.insert(newSubGoal)
-                        subGoalTitle = ""
-                    }
+                    viewModel.createSubGoal(modelContext: modelContext, mainGoal: mainGoal, title: subGoalTitle, isAchieved: false)
+                    subGoalTitle = ""
                 }, label: {
                     Text("서브Goal 생성")
                 })
@@ -253,10 +250,8 @@ struct detailGoalView: View {
                     .padding()
                 
                 Button(action: {
-                    if let newDetailGoal = viewModel.createDetailGoal(subGoal: subGoal, title: detailGoalTitle, isAchieved: false) {
-                        modelContext.insert(newDetailGoal)
-                        detailGoalTitle = ""
-                    }
+                    viewModel.createDetailGoal(modelContext: modelContext, subGoal: subGoal, title: detailGoalTitle, isAchieved: false)
+                    detailGoalTitle = ""
                 }, label: {
                     Text("detail Goal 생성")
                 })
