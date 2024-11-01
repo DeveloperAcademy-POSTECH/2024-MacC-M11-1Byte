@@ -19,7 +19,6 @@ class MainGoal {
         self.id = id
         self.title = title
         self.isAchieved = isAchieved
-        self.subGoals = []
     }
 }
 
@@ -35,10 +34,8 @@ class SubGoal {
         self.id = id
         self.title = title
         self.isAchieved = isAchieved
-        self.detailGoals = []
     }
 }
-
 
 @Model
 class DetailGoal {
