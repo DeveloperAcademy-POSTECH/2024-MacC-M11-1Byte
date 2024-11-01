@@ -133,8 +133,8 @@
 		1F7C9C132CD0731F00BAC358 /* Mandalart */ = {
 			isa = PBXGroup;
 			children = (
-				613904E72CD20457008E591D /* MandalArtCRUDTestView.swift */,
 				613904E92CD21A0B008E591D /* MadalArtCRUDTestViewModel.swift */,
+				613904E72CD20457008E591D /* MandalArtCRUDTestView.swift */,
 				1F7C9C142CD0735500BAC358 /* View */,
 			);
 			path = Mandalart;
