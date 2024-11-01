@@ -23,7 +23,7 @@
 		613904E82CD20457008E591D /* MandalArtCRUDTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E72CD20457008E591D /* MandalArtCRUDTestView.swift */; };
 		613904EA2CD21A0B008E591D /* MadalArtCRUDTestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E92CD21A0B008E591D /* MadalArtCRUDTestViewModel.swift */; };
 		615A0A0B2CC0ADA800908531 /* TabBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A0A2CC0ADA800908531 /* TabBarManager.swift */; };
-		615A0A0D2CC0AE8700908531 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A0C2CC0AE8700908531 /* TaskView.swift */; };
+		615A0A0D2CC0AE8700908531 /* ReflectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A0C2CC0AE8700908531 /* ReflectionView.swift */; };
 		615A0A0F2CC0AEA400908531 /* MandalartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A0E2CC0AEA400908531 /* MandalartView.swift */; };
 		615A0A112CC0AEB800908531 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A102CC0AEB800908531 /* MyPageView.swift */; };
 /* End PBXBuildFile section */
@@ -46,7 +46,7 @@
 		613904E72CD20457008E591D /* MandalArtCRUDTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalArtCRUDTestView.swift; sourceTree = "<group>"; };
 		613904E92CD21A0B008E591D /* MadalArtCRUDTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadalArtCRUDTestViewModel.swift; sourceTree = "<group>"; };
 		615A0A0A2CC0ADA800908531 /* TabBarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarManager.swift; sourceTree = "<group>"; };
-		615A0A0C2CC0AE8700908531 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
+		615A0A0C2CC0AE8700908531 /* ReflectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionView.swift; sourceTree = "<group>"; };
 		615A0A0E2CC0AEA400908531 /* MandalartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalartView.swift; sourceTree = "<group>"; };
 		615A0A102CC0AEB800908531 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -148,18 +148,18 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		1F7C9C162CD0736700BAC358 /* Task */ = {
+		1F7C9C162CD0736700BAC358 /* Reflection */ = {
 			isa = PBXGroup;
 			children = (
 				1F7C9C172CD0737800BAC358 /* View */,
 			);
-			path = Task;
+			path = Reflection;
 			sourceTree = "<group>";
 		};
 		1F7C9C172CD0737800BAC358 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				615A0A0C2CC0AE8700908531 /* TaskView.swift */,
+				615A0A0C2CC0AE8700908531 /* ReflectionView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -167,8 +167,8 @@
 		1F7C9C192CD073BC00BAC358 /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				1F7C9C162CD0736700BAC358 /* Task */,
 				1F7C9C132CD0731F00BAC358 /* Mandalart */,
+				1F7C9C162CD0736700BAC358 /* Reflection */,
 				1F7C9C102CD072D700BAC358 /* MyPage */,
 			);
 			path = Features;
@@ -322,7 +322,7 @@
 				615A0A0F2CC0AEA400908531 /* MandalartView.swift in Sources */,
 				1F7C9C242CD083AD00BAC358 /* GoalUsecaseProtocols.swift in Sources */,
 				613904EA2CD21A0B008E591D /* MadalArtCRUDTestViewModel.swift in Sources */,
-				615A0A0D2CC0AE8700908531 /* TaskView.swift in Sources */,
+				615A0A0D2CC0AE8700908531 /* ReflectionView.swift in Sources */,
 				1F7C9C302CD1FCEA00BAC358 /* ClientReadService.swift in Sources */,
 				615A0A112CC0AEB800908531 /* MyPageView.swift in Sources */,
 				613904E62CD1D419008E591D /* MemberModel.swift in Sources */,
