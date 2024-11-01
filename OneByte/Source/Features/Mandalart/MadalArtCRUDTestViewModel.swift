@@ -18,7 +18,6 @@ class CUTestViewModel: ObservableObject {
         
     }
     
-    
     // 메인골 생성
     func createMainGoal(title: String, isAchieved: Bool) -> MainGoal {
         let newGoal = createService.createMainGoal(title: title, isAchieved: false)
