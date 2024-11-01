@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol CreateGoalUseCase {
+protocol CreateGoalUseCase: ObservableObject {
     func createMainGoal(title: String, isAchieved: Bool) -> MainGoal
     func createSubGoal(mainGoal: MainGoal, title: String, isAchieved: Bool) -> SubGoal?
     func createDetailGoal(subGoal: SubGoal, title: String, isAchieved: Bool) -> DetailGoal?

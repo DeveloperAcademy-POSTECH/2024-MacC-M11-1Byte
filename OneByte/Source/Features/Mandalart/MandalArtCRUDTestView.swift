@@ -13,13 +13,15 @@ struct CUTestView: View {
     @Environment(\.modelContext) var modelContext
     
     @StateObject private var viewModel: CUTestViewModel
+    init(viewModel: CUTestViewModel = CUTestViewModel(createService: ClientCreateService())) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
+    
     @State var goalTitle: String = ""
     
     @Query private var mainGoals: [MainGoal]
     
-    init(viewModel: CUTestViewModel = CUTestViewModel()) {
-        _viewModel = StateObject(wrappedValue: viewModel)
-    }
+    
     
     var body: some View {
         NavigationView {
@@ -29,7 +31,7 @@ struct CUTestView: View {
                     .padding()
                 
                 Button("메인Goal 생성") {
-                    let newGoal = viewModel.createMainGoal(title: goalTitle)
+                    let newGoal = viewModel.createMainGoal(title: goalTitle, isAchieved: false)
                     modelContext.insert(newGoal)
                     goalTitle = ""  // Reset the input field
                 }
@@ -93,7 +95,7 @@ struct SubGoalView: View {
                     .padding()
                 
                 Button("서브Goal 생성") {
-                    if let newSubGoal = viewModel.createSubGoal(mainGoal: mainGoal, title: subGoalTitle) {
+                    if let newSubGoal = viewModel.createSubGoal(mainGoal: mainGoal, title: subGoalTitle, isAchieved: false) {
                         modelContext.insert(newSubGoal)
                         subGoalTitle = ""  // 입력 필드 초기화
                     }
@@ -145,7 +147,7 @@ struct detailGoalView: View {
                 
                 Button("디테일Goal 생성") {
 //                    viewModel.createDetailGoal(subGoal: subGoal, title: detailGoalTitle)
-                    if let newDetailGoal = viewModel.createDetailGoal(subGoal: subGoal, title: detailGoalTitle) {
+                    if let newDetailGoal = viewModel.createDetailGoal(subGoal: subGoal, title: detailGoalTitle, isAchieved: false) {
                         modelContext.insert(newDetailGoal)
                         detailGoalTitle = ""  // 입력 필드 초기화
                     }
