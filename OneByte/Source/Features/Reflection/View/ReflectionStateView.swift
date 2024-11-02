@@ -8,11 +8,28 @@
 import SwiftUI
 
 struct ReflectionStateView: View {
+    
+    @Environment(NavigationManager.self) var navigationManager
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text("스티커 선택")
+            
+            Button {
+                navigationManager.popToRoot() // 회고 메인 뷰로 이동
+            } label: {
+                Text("회고 메인 뷰로 이동")
+            }
+            
+            Text("메모")
+        }
+        .navigationDestination(for: PathType.self) { pathType in
+            pathType.NavigatingView()
+        }
     }
 }
 
 #Preview {
     ReflectionStateView()
+        .environment(NavigationManager())
 }
