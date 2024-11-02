@@ -22,6 +22,8 @@
 		1F88AB3B2CD609010009730D /* ReflectionStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F88AB3A2CD609010009730D /* ReflectionStartView.swift */; };
 		1F88AB3D2CD609170009730D /* ReflectionCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F88AB3C2CD609170009730D /* ReflectionCommentView.swift */; };
 		1F88AB3F2CD609220009730D /* ReflectionStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F88AB3E2CD609220009730D /* ReflectionStateView.swift */; };
+		1F88AB412CD6101C0009730D /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F88AB402CD6101C0009730D /* Date+.swift */; };
+		1F88AB432CD613240009730D /* FeedbackSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F88AB422CD613240009730D /* FeedbackSheetView.swift */; };
 		1FA420942CC0DC19001CB92D /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA420932CC0DC19001CB92D /* Color+.swift */; };
 		613904E62CD1D419008E591D /* MemberModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E52CD1D419008E591D /* MemberModel.swift */; };
 		613904E82CD20457008E591D /* MandalArtCRUDTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E72CD20457008E591D /* MandalArtCRUDTestView.swift */; };
@@ -49,6 +51,8 @@
 		1F88AB3A2CD609010009730D /* ReflectionStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionStartView.swift; sourceTree = "<group>"; };
 		1F88AB3C2CD609170009730D /* ReflectionCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionCommentView.swift; sourceTree = "<group>"; };
 		1F88AB3E2CD609220009730D /* ReflectionStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionStateView.swift; sourceTree = "<group>"; };
+		1F88AB402CD6101C0009730D /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
+		1F88AB422CD613240009730D /* FeedbackSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackSheetView.swift; sourceTree = "<group>"; };
 		1FA420932CC0DC19001CB92D /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		613904E52CD1D419008E591D /* MemberModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberModel.swift; sourceTree = "<group>"; };
 		613904E72CD20457008E591D /* MandalArtCRUDTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalArtCRUDTestView.swift; sourceTree = "<group>"; };
@@ -170,6 +174,7 @@
 				615A0A0C2CC0AE8700908531 /* ReflectionView.swift */,
 				1F88AB3A2CD609010009730D /* ReflectionStartView.swift */,
 				1F88AB3C2CD609170009730D /* ReflectionCommentView.swift */,
+				1F88AB422CD613240009730D /* FeedbackSheetView.swift */,
 				1F88AB3E2CD609220009730D /* ReflectionStateView.swift */,
 			);
 			path = View;
@@ -238,6 +243,7 @@
 			isa = PBXGroup;
 			children = (
 				1FA420932CC0DC19001CB92D /* Color+.swift */,
+				1F88AB402CD6101C0009730D /* Date+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -323,6 +329,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F88AB412CD6101C0009730D /* Date+.swift in Sources */,
 				615A0A0B2CC0ADA800908531 /* TabBarManager.swift in Sources */,
 				1F7C9C2C2CD1FC1E00BAC358 /* ClientCreateService.swift in Sources */,
 				1F7C9C2A2CD084BB00BAC358 /* TempButton.swift in Sources */,
@@ -339,6 +346,7 @@
 				1F88AB392CD607F90009730D /* NavigationManager.swift in Sources */,
 				615A0A0D2CC0AE8700908531 /* ReflectionView.swift in Sources */,
 				1F7C9C302CD1FCEA00BAC358 /* ClientReadService.swift in Sources */,
+				1F88AB432CD613240009730D /* FeedbackSheetView.swift in Sources */,
 				615A0A112CC0AEB800908531 /* MyPageView.swift in Sources */,
 				613904E62CD1D419008E591D /* MemberModel.swift in Sources */,
 				1F88AB3D2CD609170009730D /* ReflectionCommentView.swift in Sources */,
