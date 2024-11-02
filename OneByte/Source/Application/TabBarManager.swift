@@ -8,18 +8,19 @@
 import SwiftUI
 
 struct TabBarManager: View {
+    
     var body: some View {
         TabView {
-            TaskView()
-                .tabItem {
-                    Image(systemName: "house.fill")
-                    Text("할 일")
-                }
-            
             MandalartView()
                 .tabItem {
+                    Image(systemName: "house.fill")
+                    Text("홈")
+                }
+            
+            ReflectionView()
+                .tabItem {
                     Image(systemName: "chart.bar.xaxis.ascending.badge.clock")
-                    Text("목표")
+                    Text("회고")
                 }
             
             MyPageView()
@@ -29,4 +30,8 @@ struct TabBarManager: View {
                 }
         }
     }
+}
+
+#Preview {
+    TabBarManager()
 }

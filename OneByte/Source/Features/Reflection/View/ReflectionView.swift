@@ -7,8 +7,12 @@
 
 import SwiftUI
 
-struct TaskView: View {
+struct ReflectionView: View {
     var body: some View {
         Text("할 일 뷰")
     }
+}
+
+#Preview {
+    ReflectionView()
 }
