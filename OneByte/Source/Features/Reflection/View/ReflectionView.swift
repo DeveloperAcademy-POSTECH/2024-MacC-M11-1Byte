@@ -8,11 +8,28 @@
 import SwiftUI
 
 struct ReflectionView: View {
+    
+    @State private var navigationManager = NavigationManager()
+    
     var body: some View {
-        Text("할 일 뷰")
+        NavigationStack(path: $navigationManager.path) {
+            VStack {
+                Button {
+                    navigationManager.push(to: .start)
+                } label: {
+                    Text("월 선택 후 화면이동")
+                }
+            }
+            .navigationTitle(Date().YearString)
+            .navigationDestination(for: PathType.self) { pathType in
+                pathType.NavigatingView()
+            }
+        }
+        .environment(navigationManager)
     }
 }
 
 #Preview {
     ReflectionView()
+        .environment(NavigationManager())
 }
