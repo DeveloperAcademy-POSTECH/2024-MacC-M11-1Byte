@@ -8,8 +8,20 @@
 import SwiftUI
 
 struct ReflectionView: View {
+    
+    @State private var navigationManager = NavigationManager()
+    
     var body: some View {
-        Text("할 일 뷰")
+        NavigationStack(path: $navigationManager.path) {
+            VStack {
+                Button {
+                    navigationManager.push(to: .start)
+                } label: {
+                    Text("다음 뷰로 이동")
+                }
+            }
+        }
+        .environment(navigationManager)
     }
 }
 

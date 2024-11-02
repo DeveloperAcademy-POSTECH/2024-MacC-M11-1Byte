@@ -18,6 +18,10 @@
 		1F7C9C2E2CD1FCB600BAC358 /* ClientUpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7C9C2D2CD1FCB600BAC358 /* ClientUpdateService.swift */; };
 		1F7C9C302CD1FCEA00BAC358 /* ClientReadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7C9C2F2CD1FCEA00BAC358 /* ClientReadService.swift */; };
 		1F8591182CC0A68500253B38 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 1F8591172CC0A68500253B38 /* .gitignore */; };
+		1F88AB392CD607F90009730D /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F88AB382CD607F90009730D /* NavigationManager.swift */; };
+		1F88AB3B2CD609010009730D /* ReflectionStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F88AB3A2CD609010009730D /* ReflectionStartView.swift */; };
+		1F88AB3D2CD609170009730D /* ReflectionCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F88AB3C2CD609170009730D /* ReflectionCommentView.swift */; };
+		1F88AB3F2CD609220009730D /* ReflectionStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F88AB3E2CD609220009730D /* ReflectionStateView.swift */; };
 		1FA420942CC0DC19001CB92D /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA420932CC0DC19001CB92D /* Color+.swift */; };
 		613904E62CD1D419008E591D /* MemberModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E52CD1D419008E591D /* MemberModel.swift */; };
 		613904E82CD20457008E591D /* MandalArtCRUDTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E72CD20457008E591D /* MandalArtCRUDTestView.swift */; };
@@ -41,6 +45,10 @@
 		1F7C9C2D2CD1FCB600BAC358 /* ClientUpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientUpdateService.swift; sourceTree = "<group>"; };
 		1F7C9C2F2CD1FCEA00BAC358 /* ClientReadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientReadService.swift; sourceTree = "<group>"; };
 		1F8591172CC0A68500253B38 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		1F88AB382CD607F90009730D /* NavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManager.swift; sourceTree = "<group>"; };
+		1F88AB3A2CD609010009730D /* ReflectionStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionStartView.swift; sourceTree = "<group>"; };
+		1F88AB3C2CD609170009730D /* ReflectionCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionCommentView.swift; sourceTree = "<group>"; };
+		1F88AB3E2CD609220009730D /* ReflectionStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionStateView.swift; sourceTree = "<group>"; };
 		1FA420932CC0DC19001CB92D /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		613904E52CD1D419008E591D /* MemberModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberModel.swift; sourceTree = "<group>"; };
 		613904E72CD20457008E591D /* MandalArtCRUDTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalArtCRUDTestView.swift; sourceTree = "<group>"; };
@@ -160,6 +168,9 @@
 			isa = PBXGroup;
 			children = (
 				615A0A0C2CC0AE8700908531 /* ReflectionView.swift */,
+				1F88AB3A2CD609010009730D /* ReflectionStartView.swift */,
+				1F88AB3C2CD609170009730D /* ReflectionCommentView.swift */,
+				1F88AB3E2CD609220009730D /* ReflectionStateView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -236,6 +247,7 @@
 			children = (
 				1F79EDCD2CC0A25D0079088B /* OneByteApp.swift */,
 				615A0A0A2CC0ADA800908531 /* TabBarManager.swift */,
+				1F88AB382CD607F90009730D /* NavigationManager.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -318,14 +330,18 @@
 				613904E82CD20457008E591D /* MandalArtCRUDTestView.swift in Sources */,
 				1FA420942CC0DC19001CB92D /* Color+.swift in Sources */,
 				1F7C9C262CD083BB00BAC358 /* Network.swift in Sources */,
+				1F88AB3F2CD609220009730D /* ReflectionStateView.swift in Sources */,
 				1F79EDCE2CC0A25D0079088B /* OneByteApp.swift in Sources */,
+				1F88AB3B2CD609010009730D /* ReflectionStartView.swift in Sources */,
 				615A0A0F2CC0AEA400908531 /* MandalartView.swift in Sources */,
 				1F7C9C242CD083AD00BAC358 /* GoalUsecaseProtocols.swift in Sources */,
 				613904EA2CD21A0B008E591D /* MadalArtCRUDTestViewModel.swift in Sources */,
+				1F88AB392CD607F90009730D /* NavigationManager.swift in Sources */,
 				615A0A0D2CC0AE8700908531 /* ReflectionView.swift in Sources */,
 				1F7C9C302CD1FCEA00BAC358 /* ClientReadService.swift in Sources */,
 				615A0A112CC0AEB800908531 /* MyPageView.swift in Sources */,
 				613904E62CD1D419008E591D /* MemberModel.swift in Sources */,
+				1F88AB3D2CD609170009730D /* ReflectionCommentView.swift in Sources */,
 				1F7C9C2E2CD1FCB600BAC358 /* ClientUpdateService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
