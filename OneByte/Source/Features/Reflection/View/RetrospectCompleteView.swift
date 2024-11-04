@@ -15,29 +15,33 @@ struct RetrospectCompleteView: View {
     
     var body: some View {
         VStack {
-            Text("스티커 선택")
+            VStack {
+                Text("6월의 회고가 완료되었습니다.")
+                    .bold()
+                    .font(.title2)
+                
+                Text("올해의 목표에 한발 더 가까워지셨어요.")
+            }
+            
+            Spacer()
+            
+            Image(systemName: "camera.macro.circle.fill")
+                .resizable()
+                .frame(width: 233, height: 288)
+            
+            Spacer()
             
             Button {
-                navigationManager.popToRoot() // 회고 메인 뷰로 이동
+                navigationManager.popToRoot()
             } label: {
-                Text("회고 메인 뷰로 이동")
+                Text("완료하기")
+                    .foregroundStyle(.black)
             }
-            
-            HStack {
-                Text("피드백")
-                
-                Button {
-                    isSheetPresented = true
-                    // Task별 선택해서 회고남길 수 있는 action
-                } label: {
-                    Image(systemName: "plus.circle")
-                        .tint(.black)
-                }
-                .sheet(isPresented: $isSheetPresented) {
-                    FeedbackSheetView()
-                        .presentationDetents([.medium]) // 시트 높이 조절
-                }
-            }
+            .frame(maxWidth: .infinity)
+            .frame(height: 40)
+            .background(.blue)
+            .cornerRadius(8)
+            .padding()
         }
         .navigationDestination(for: PathType.self) { pathType in
             pathType.NavigatingView()
