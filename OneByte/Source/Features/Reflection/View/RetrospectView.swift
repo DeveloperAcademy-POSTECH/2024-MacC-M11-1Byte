@@ -11,32 +11,84 @@ struct RetrospectView: View {
     
     @Environment(NavigationManager.self) var navigationManager
     
+    @State private var isSheetPresented = false // 피드백 Sheet
+    
     var body: some View {
         VStack {
-            Text("서브 골을 클릭해서 아이콘을 표시해봐요.")
-            
-            Button {
-                navigationManager.push(to: .complete)
-            } label: {
-                Text("다음 뷰로 이동")
+            HStack {
+                Text("취미에 대한 회고와\n진행도를 체크해보세요")
+                    .font(.title2)
+                    .bold()
+                Spacer()
+                Image(systemName: "exclamationmark.circle")
+                    .resizable()
+                    .frame(width: 29, height: 29)
+                    .foregroundStyle(.gray)
             }
+            .padding()
             
-            Text("메모")
+            VStack {
+                HStack {
+                    Text("3x3 Subgoal 공간")
+                }
+                .frame(maxWidth: .infinity)
+                .frame(height: 300)
+                .background(.gray)
+            }
+            .padding()
             
             HStack {
-                Button {
-                    // 메모 취소 action
-                } label: {
-                    Text("취소")
-                }
+                Text("피드백")
+                    .font(.title2)
+                    .bold()
+                
+                Spacer()
                 
                 Button {
-                    // 메모 저장 action
+                    // 피드백 추가 action
+                    isSheetPresented = true
                 } label: {
-                    Text("완료")
+                    Text("추가하기")
+                        .foregroundStyle(.black)
                 }
+                .cornerRadius(30)
+                .padding(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 30)
+                        .stroke(Color.black, lineWidth: 2)
+                )
+            }
+            .padding(.horizontal)
+            
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack {
+                    Text("피드백이 쌓이는 공간")
+                    Text("피드백이 쌓이는 공간")
+                    Text("피드백이 쌓이는 공간")
+                }
+                .frame(maxHeight: .infinity)
+                .padding()
+            }
+            
+            Button {
+                // 현재 Subgoal 회고 저장 action
+                navigationManager.push(to: .select)
+            } label: {
+                Text("저장하기")
+                    .foregroundStyle(.black)
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: 40)
+            .background(.blue)
+            .cornerRadius(8)
+            .padding()
+            .sheet(isPresented: $isSheetPresented) {
+                FeedbackSheetView()
+                    .presentationDetents([.medium])
             }
         }
+        .navigationTitle("취미")
+        .navigationBarTitleDisplayMode(.inline)
         .navigationDestination(for: PathType.self) { pathType in
             pathType.NavigatingView()
         }
