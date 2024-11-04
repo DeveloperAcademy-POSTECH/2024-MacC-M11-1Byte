@@ -10,6 +10,7 @@ import SwiftUI
 struct RetrospectTotalView: View {
     
     @Environment(NavigationManager.self) var navigationManager
+    @Environment(\.dismiss) var dismiss
     
     let items = Array(1...12) // 뷰 테스트용 임시 변수
     
@@ -40,6 +41,18 @@ struct RetrospectTotalView: View {
         }
         .navigationTitle("회고 모아보기")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    dismiss()
+                }) {
+                    HStack {
+                        Image(systemName: "chevron.left")
+                            .tint(.black)
+                    }
+                }
+            }
+        }
         .navigationDestination(for: PathType.self) { pathType in
             pathType.NavigatingView()
         }

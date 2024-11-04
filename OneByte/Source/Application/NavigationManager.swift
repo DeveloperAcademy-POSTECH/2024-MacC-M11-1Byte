@@ -21,18 +21,23 @@ extension PathType {
         switch self {
         case .main:
             RetrospectMainView()
+                .navigationBarBackButtonHidden()
             
         case .total:
             RetrospectTotalView()
+                .navigationBarBackButtonHidden()
             
         case .select:
             RetrospectSelectView()
+                .navigationBarBackButtonHidden()
             
         case .retrospect:
             RetrospectView()
+                .navigationBarBackButtonHidden()
             
         case .complete:
             RetrospectCompleteView()
+                .navigationBarBackButtonHidden()
         }
         
     }

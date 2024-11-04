@@ -22,6 +22,7 @@ struct RetrospectCompleteView: View {
                 
                 Text("올해의 목표에 한발 더 가까워지셨어요.")
             }
+            .padding(.top, 20)
             
             Spacer()
             

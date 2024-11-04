@@ -10,6 +10,7 @@ import SwiftUI
 struct RetrospectSelectView: View {
     
     @Environment(NavigationManager.self) var navigationManager
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         VStack {
@@ -22,7 +23,6 @@ struct RetrospectSelectView: View {
             .padding()
             
             Spacer()
-            
             
             VStack { // 원형 Subgoal List
                 Circle()
@@ -59,6 +59,18 @@ struct RetrospectSelectView: View {
             .padding()
         }
         .toolbar(.hidden, for: .tabBar) // Hide Tabbar
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    dismiss()
+                }) {
+                    HStack {
+                        Image(systemName: "chevron.left")
+                            .tint(.black)
+                    }
+                }
+            }
+        }
         .navigationDestination(for: PathType.self) { pathType in
             pathType.NavigatingView()
         }

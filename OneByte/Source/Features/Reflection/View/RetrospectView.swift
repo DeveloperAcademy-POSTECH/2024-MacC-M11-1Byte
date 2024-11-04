@@ -10,6 +10,7 @@ import SwiftUI
 struct RetrospectView: View {
     
     @Environment(NavigationManager.self) var navigationManager
+    @Environment(\.dismiss) var dismiss
     
     @State private var isSheetPresented = false // 피드백 Sheet
     
@@ -72,7 +73,7 @@ struct RetrospectView: View {
             
             Button {
                 // 현재 Subgoal 회고 저장 action
-                navigationManager.push(to: .select)
+                dismiss()
             } label: {
                 Text("저장하기")
                     .foregroundStyle(.black)
@@ -89,6 +90,18 @@ struct RetrospectView: View {
         }
         .navigationTitle("취미")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    dismiss()
+                }) {
+                    HStack {
+                        Image(systemName: "chevron.left")
+                            .tint(.black)
+                    }
+                }
+            }
+        }
         .navigationDestination(for: PathType.self) { pathType in
             pathType.NavigatingView()
         }
