@@ -13,14 +13,52 @@ struct RetrospectSelectView: View {
     
     var body: some View {
         VStack {
-            Text("만다라트를 점검해보아요.")
+            HStack {
+                Text("하위 목표를 선택해\n5월의 회고를 진행해보세요")
+                    .font(.title2)
+                    .bold()
+                Spacer()
+            }
+            .padding()
+            
+            Spacer()
+            
+            
+            VStack { // 원형 Subgoal List
+                Circle()
+                    .fill(.gray)
+                    .frame(width: 100, height: 100)
+                    .overlay(
+                        Text("저축")
+                            .font(.headline)
+                    )
+                    .onTapGesture {
+                        navigationManager.push(to: .retrospect)
+                    }
+                
+                Circle()
+                    .fill(.gray)
+                    .frame(width: 100)
+                
+                Circle()
+                    .fill(.gray)
+                    .frame(width: 100)
+            }
+            Spacer()
             
             Button {
-                navigationManager.push(to: .retrospect)
+                navigationManager.push(to: .complete)
             } label: {
-                Text("점검 시작하기")
+                Text("회고 끝내기")
+                    .foregroundStyle(.black)
             }
+            .frame(maxWidth: .infinity)
+            .frame(height: 40)
+            .background(.blue)
+            .cornerRadius(8)
+            .padding()
         }
+        .toolbar(.hidden, for: .tabBar) // Hide Tabbar
         .navigationDestination(for: PathType.self) { pathType in
             pathType.NavigatingView()
         }

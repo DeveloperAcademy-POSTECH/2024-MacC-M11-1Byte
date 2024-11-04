@@ -16,7 +16,7 @@ struct RetrospectMainView: View {
             VStack {
                 HStack {
                     Text("베로님은\n총 5개의 꽃을 피웠어요") // 나중에 데이터 값으로 수정
-                        .font(.title3)
+                        .font(.title2)
                         .bold()
                     Spacer()
                 }
@@ -27,7 +27,7 @@ struct RetrospectMainView: View {
                     .aspectRatio(contentMode: .fit)
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .frame(height: 300)
+                    .frame(height: 280)
                 
                 Text("다음 회고까지 D-13") // 나중에 날짜 데이터 값으로 수정
                     .bold()
