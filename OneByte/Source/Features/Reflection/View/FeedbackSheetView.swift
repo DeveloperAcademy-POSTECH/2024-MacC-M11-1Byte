@@ -73,13 +73,14 @@ struct FeedbackSheetView: View {
                 
                 Button {
                     // 피드백 Sheet 완료 -> 저장시키는 action
+                    print("Button Tapped : 피드백 저장")
                     dismiss()
                 } label: {
                     Text("저장")
                         .foregroundStyle(.white)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 40)
                 }
-                .frame(maxWidth: .infinity)
-                .frame(height: 40)
                 .background(.black)
                 .cornerRadius(8)
                 .padding()

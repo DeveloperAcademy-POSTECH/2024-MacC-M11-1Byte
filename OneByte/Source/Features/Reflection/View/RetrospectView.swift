@@ -46,6 +46,7 @@ struct RetrospectView: View {
                 
                 Button {
                     // 피드백 추가 action
+                    print("Button Tapped : 추가하기")
                     isSheetPresented = true
                 } label: {
                     Text("추가하기")
@@ -77,13 +78,13 @@ struct RetrospectView: View {
             
             Button {
                 // 현재 Subgoal 회고 저장 action
+                print("Button Tapped : 저장하기")
                 navigationManager.pop()
             } label: {
                 Text("저장하기")
+                    .frame(maxWidth: .infinity, minHeight: 40)
                     .foregroundStyle(.black)
             }
-            .frame(maxWidth: .infinity)
-            .frame(height: 40)
             .background(.blue)
             .cornerRadius(8)
             .padding()
@@ -101,9 +102,6 @@ struct RetrospectView: View {
                     }
                 }
             }
-        }
-        .navigationDestination(for: PathType.self) { pathType in
-            pathType.NavigatingView()
         }
     }
 }

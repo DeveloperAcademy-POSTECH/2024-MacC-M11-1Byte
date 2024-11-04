@@ -11,8 +11,6 @@ struct RetrospectCompleteView: View {
     
     @Environment(NavigationManager.self) var navigationManager
     
-    @State private var isSheetPresented = false
-    
     var body: some View {
         VStack {
             VStack {
@@ -33,19 +31,17 @@ struct RetrospectCompleteView: View {
             Spacer()
             
             Button {
+                print("Button Tapped : 회고 완료하기")
                 navigationManager.popToRoot()
             } label: {
                 Text("완료하기")
                     .foregroundStyle(.black)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 40)
             }
-            .frame(maxWidth: .infinity)
-            .frame(height: 40)
             .background(.blue)
             .cornerRadius(8)
             .padding()
-        }
-        .navigationDestination(for: PathType.self) { pathType in
-            pathType.NavigatingView()
         }
     }
 }

@@ -37,8 +37,8 @@ struct RetrospectMainView: View {
                 } label: {
                     Text("회고 하기")
                         .font(.system(size: 16))
+                        .frame(width: 225, height: 38)
                 }
-                .frame(width: 225, height: 38)
                 .background(.blue)
                 .foregroundStyle(.white)
                 .cornerRadius(8)

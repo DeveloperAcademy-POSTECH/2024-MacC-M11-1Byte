@@ -52,9 +52,6 @@ struct RetrospectTotalView: View {
                 }
             }
         }
-        .navigationDestination(for: PathType.self) { pathType in
-            pathType.NavigatingView()
-        }
     }
 }
 

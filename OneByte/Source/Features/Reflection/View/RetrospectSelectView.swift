@@ -47,13 +47,14 @@ struct RetrospectSelectView: View {
             Spacer()
             
             Button {
+                print("Button Tapped : 회고끝내기")
                 navigationManager.push(to: .complete)
             } label: {
                 Text("회고 끝내기")
                     .foregroundStyle(.black)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 40)
             }
-            .frame(maxWidth: .infinity)
-            .frame(height: 40)
             .background(.blue)
             .cornerRadius(8)
             .padding()
@@ -73,9 +74,6 @@ struct RetrospectSelectView: View {
             }
         }
         .toolbar(tabBarVisible ? .visible : .hidden, for: .tabBar)
-        .navigationDestination(for: PathType.self) { pathType in
-            pathType.NavigatingView()
-        }
     }
 }
 
