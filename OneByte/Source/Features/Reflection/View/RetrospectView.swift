@@ -57,6 +57,11 @@ struct RetrospectView: View {
                     RoundedRectangle(cornerRadius: 30)
                         .stroke(Color.black, lineWidth: 2)
                 )
+                .sheet(isPresented: $isSheetPresented) {
+                    // 나중에 Custom Sheet로 바꿔야 할 수도 있음
+                    FeedbackSheetView()
+                        .presentationDetents([.height(UIScreen.main.bounds.height * 1 / 2)])
+                }
             }
             .padding(.horizontal)
             
