@@ -10,7 +10,7 @@ import SwiftUI
 struct RetrospectSelectView: View {
     
     @Environment(NavigationManager.self) var navigationManager
-    @Environment(\.dismiss) var dismiss
+    @State  private  var tabBarVisible: Bool  =  false // Hide TabBar 변수
     
     var body: some View {
         VStack {
@@ -62,7 +62,8 @@ struct RetrospectSelectView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {
-                    dismiss()
+                    self .tabBarVisible =  true
+                    navigationManager.pop()
                 }) {
                     HStack {
                         Image(systemName: "chevron.left")
@@ -71,6 +72,7 @@ struct RetrospectSelectView: View {
                 }
             }
         }
+        .toolbar(tabBarVisible ? .visible : .hidden, for: .tabBar)
         .navigationDestination(for: PathType.self) { pathType in
             pathType.NavigatingView()
         }
