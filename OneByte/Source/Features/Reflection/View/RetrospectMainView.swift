@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ReflectionView: View {
+struct RetrospectMainView: View {
     
     @State private var navigationManager = NavigationManager()
     
@@ -15,7 +15,7 @@ struct ReflectionView: View {
         NavigationStack(path: $navigationManager.path) {
             VStack {
                 Button {
-                    navigationManager.push(to: .start)
+                    navigationManager.push(to: .select)
                 } label: {
                     Text("월 선택 후 화면이동")
                 }
@@ -30,6 +30,6 @@ struct ReflectionView: View {
 }
 
 #Preview {
-    ReflectionView()
+    RetrospectMainView()
         .environment(NavigationManager())
 }

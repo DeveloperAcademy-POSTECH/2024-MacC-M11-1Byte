@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ReflectionStartView: View {
+struct RetrospectSelectView: View {
     
     @Environment(NavigationManager.self) var navigationManager
     
@@ -16,7 +16,7 @@ struct ReflectionStartView: View {
             Text("만다라트를 점검해보아요.")
             
             Button {
-                navigationManager.push(to: .comment)
+                navigationManager.push(to: .retrospect)
             } label: {
                 Text("점검 시작하기")
             }
@@ -28,6 +28,6 @@ struct ReflectionStartView: View {
 }
 
 #Preview {
-    ReflectionStartView()
+    RetrospectSelectView()
         .environment(NavigationManager())
 }

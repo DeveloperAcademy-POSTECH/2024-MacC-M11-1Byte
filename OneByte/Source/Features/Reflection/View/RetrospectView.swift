@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ReflectionCommentView: View {
+struct RetrospectView: View {
     
     @Environment(NavigationManager.self) var navigationManager
     
@@ -16,7 +16,7 @@ struct ReflectionCommentView: View {
             Text("서브 골을 클릭해서 아이콘을 표시해봐요.")
             
             Button {
-                navigationManager.push(to: .state)
+                navigationManager.push(to: .complete)
             } label: {
                 Text("다음 뷰로 이동")
             }
@@ -44,6 +44,6 @@ struct ReflectionCommentView: View {
 }
 
 #Preview {
-    ReflectionCommentView()
+    RetrospectView()
         .environment(NavigationManager())
 }

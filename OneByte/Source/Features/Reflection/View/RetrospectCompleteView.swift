@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ReflectionStateView: View {
+struct RetrospectCompleteView: View {
     
     @Environment(NavigationManager.self) var navigationManager
     
@@ -46,6 +46,6 @@ struct ReflectionStateView: View {
 }
 
 #Preview {
-    ReflectionStateView()
+    RetrospectCompleteView()
         .environment(NavigationManager())
 }
