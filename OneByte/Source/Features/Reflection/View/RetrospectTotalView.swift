@@ -42,9 +42,9 @@ struct RetrospectTotalView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: {
+                Button {
                     navigationManager.pop()
-                }) {
+                } label: {
                     HStack {
                         Image(systemName: "chevron.left")
                             .tint(.black)

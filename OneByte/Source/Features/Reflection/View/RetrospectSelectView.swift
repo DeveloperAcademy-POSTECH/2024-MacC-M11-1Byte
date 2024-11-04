@@ -61,10 +61,10 @@ struct RetrospectSelectView: View {
         .toolbar(.hidden, for: .tabBar) // Hide Tabbar
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: {
+                Button{
                     self .tabBarVisible =  true
                     navigationManager.pop()
-                }) {
+                } label: {
                     HStack {
                         Image(systemName: "chevron.left")
                             .tint(.black)

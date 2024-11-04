@@ -11,7 +11,7 @@ struct RetrospectView: View {
     
     @Environment(NavigationManager.self) var navigationManager
     
-    @State private var isSheetPresented = false // 피드백 Sheet
+    @State private var isSheetPresented = false // 피드백 Sheet Bool
     
     var body: some View {
         VStack {
@@ -82,18 +82,14 @@ struct RetrospectView: View {
             .background(.blue)
             .cornerRadius(8)
             .padding()
-            .sheet(isPresented: $isSheetPresented) {
-                FeedbackSheetView()
-                    .presentationDetents([.medium])
-            }
         }
         .navigationTitle("취미")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: {
+                Button {
                     navigationManager.pop()
-                }) {
+                } label: {
                     HStack {
                         Image(systemName: "chevron.left")
                             .tint(.black)
