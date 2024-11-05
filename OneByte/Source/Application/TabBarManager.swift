@@ -8,10 +8,13 @@
 import SwiftUI
 
 struct TabBarManager: View {
+    let createService = ClientCreateService()
+//    let updateService = ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: [])
+    let viewModel = CUTestViewModel(createService: ClientCreateService())
     
     var body: some View {
         TabView {
-            MandalartView()
+            MandalartView(viewModel: viewModel)
                 .tabItem {
                     Image(systemName: "house.fill")
                     Text("홈")

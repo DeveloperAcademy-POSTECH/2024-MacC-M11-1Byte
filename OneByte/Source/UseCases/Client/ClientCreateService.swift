@@ -11,32 +11,76 @@ import SwiftData
 // 클라이언트에서 생성하기 구체화
 class ClientCreateService: CreateGoalUseCase {
     
-    func createMainGoal( title: String, isAchieved: Bool) -> MainGoal {
-        print("Creating MainGoal with title: \(title)")
-        let newMainGoal = MainGoal(title: title, isAchieved: false)
-        print(newMainGoal.id)
-        print(newMainGoal.subGoals)
-        print(newMainGoal.isAchieved)
-        print("Successfully created MainGoal: \(newMainGoal.title)")
-        return newMainGoal
+    func createMainGoal(id: Int, title: String, isAchieved: Bool, goalYear: Int, createdTime: Date, modifiedTime: Date, subGoals: [SubGoal]) -> MainGoal {
+        return MainGoal(id: id, title: title, isAchieved: isAchieved, goalYear: goalYear, createdTime: createdTime, modifiedTime: modifiedTime, subGoals: subGoals)
     }
     
-    func createSubGoal(mainGoal: MainGoal, title: String, isAchieved: Bool) -> SubGoal? {
-        let newSubGoal = SubGoal(id: UUID(), title: title, isAchieved: isAchieved)
-        newSubGoal.mainGoal = mainGoal
-        print(newSubGoal.id)
-        print(mainGoal.id)
-        return newSubGoal
+    func createSubGoal(id: Int, title: String, memo: String, isAchieved: Bool, createdTime: Date, modifiedTime: Date, mainGoalId: Int, detailGoals: [DetailGoal]) -> SubGoal {
+        return SubGoal(id: id, title: title, memo: memo, isAchieved: isAchieved, createdTime: createdTime, modifiedTime: modifiedTime, mainGoalId: mainGoalId, detailGoals: detailGoals)
     }
     
-    func createDetailGoal(subGoal: SubGoal, title: String, isAchieved: Bool) -> DetailGoal? {
-        let newDetailGoal = DetailGoal(id: UUID(), title: title, isAchieved: isAchieved)
-        newDetailGoal.subGoal = subGoal
-        print("newDetailGoal.id: \(newDetailGoal.id)")
-        print("subGoal.id: \(subGoal.id)")
-        print("newDetailGoal.isAchieved: \(newDetailGoal.isAchieved)")
-        print("newDetailGoal.title: \(newDetailGoal.title)")
+    func createDetailGoal(id: Int, title: String, memo: String, isAchieved: Bool, createdTime: Date, modifiedTime: Date, subGoalId: Int) -> DetailGoal {
+        return DetailGoal(id: id, title: title, memo: memo, isAchieved: isAchieved, createdTime: createdTime, modifiedTime: modifiedTime, subGoalId: subGoalId)
+    }
+    
+    func saveGoalsFromJSON(json: [String: Any], modelContext: ModelContext) {
+        guard let mainGoalsArray = json["mainGoals"] as? [[String: Any]] else { return }
         
-        return newDetailGoal
+        for mainGoalDict in mainGoalsArray {
+            if let mainGoalId = mainGoalDict["id"] as? Int,
+               let title = mainGoalDict["title"] as? String,
+               let isAchieved = mainGoalDict["isAchieved"] as? Bool,
+               let goalYear = mainGoalDict["goalYear"] as? Int,
+               let createdTimeString = mainGoalDict["createdTime"] as? String,
+               let modifiedTimeString = mainGoalDict["modifiedTime"] as? String,
+               let createdTime = ISO8601DateFormatter().date(from: createdTimeString),
+               let modifiedTime = ISO8601DateFormatter().date(from: modifiedTimeString),
+               let subGoalsArray = mainGoalDict["subGoals"] as? [[String: Any]] {
+                
+                var subGoals: [SubGoal] = []
+                
+                for subGoalDict in subGoalsArray {
+                    if let subGoalId = subGoalDict["id"] as? Int,
+                       let title = subGoalDict["title"] as? String,
+                       let memo = subGoalDict["memo"] as? String,
+                       let isAchieved = subGoalDict["isAchieved"] as? Bool,
+                       let subCreatedTimeString = subGoalDict["createdTime"] as? String,
+                       let subModifiedTimeString = subGoalDict["modifiedTime"] as? String,
+                       let subCreatedTime = ISO8601DateFormatter().date(from: subCreatedTimeString),
+                       let subModifiedTime = ISO8601DateFormatter().date(from: subModifiedTimeString),
+                       let detailGoalsArray = subGoalDict["detailGoals"] as? [[String: Any]] {
+                        
+                        var detailGoals: [DetailGoal] = []
+                        
+                        for detailGoalDict in detailGoalsArray {
+                            if let detailGoalId = detailGoalDict["id"] as? Int,
+                               let title = detailGoalDict["title"] as? String,
+                               let memo = detailGoalDict["memo"] as? String,
+                               let isAchieved = detailGoalDict["isAchieved"] as? Bool,
+                               let detailCreatedTimeString = detailGoalDict["createdTime"] as? String,
+                               let detailModifiedTimeString = detailGoalDict["modifiedTime"] as? String,
+                               let detailCreatedTime = ISO8601DateFormatter().date(from: detailCreatedTimeString),
+                               let detailModifiedTime = ISO8601DateFormatter().date(from: detailModifiedTimeString) {
+                                
+                                let detailGoal = createDetailGoal(id: detailGoalId, title: title, memo: memo, isAchieved: isAchieved, createdTime: detailCreatedTime, modifiedTime: detailModifiedTime, subGoalId: subGoalId)
+                                detailGoals.append(detailGoal)
+                            }
+                        }
+                        
+                        let subGoal = createSubGoal(id: subGoalId, title: title, memo: memo, isAchieved: isAchieved, createdTime: subCreatedTime, modifiedTime: subModifiedTime, mainGoalId: mainGoalId, detailGoals: detailGoals)
+                        subGoals.append(subGoal)
+                    }
+                }
+                
+                let mainGoal = createMainGoal(id: mainGoalId, title: title, isAchieved: isAchieved, goalYear: goalYear, createdTime: createdTime, modifiedTime: modifiedTime, subGoals: subGoals)
+                modelContext.insert(mainGoal)
+            }
+        }
+        
+        do {
+            try modelContext.save()
+        } catch {
+            print("Error saving goals from JSON: \(error)")
+        }
     }
 }
