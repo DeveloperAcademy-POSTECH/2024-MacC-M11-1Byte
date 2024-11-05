@@ -18,9 +18,9 @@
 //}
 
 // MARK: 제이슨 데이터 넣고 스위프트 데이터에 저장하는 뷰 & 기능
-import SwiftUI
-import SwiftData
-
+//import SwiftUI
+//import SwiftData
+//
 //struct MandalartView: View {
 //    @Environment(\.modelContext) private var modelContext
 //    @StateObject private var viewModel = CUTestViewModel(createService: ClientCreateService())
@@ -649,7 +649,7 @@ import SwiftData
 //                }
 //"""
 //                    
-////                    viewModel.saveGoalsFromJSON(jsonString: json, modelContext: modelContext)
+//                    viewModel.saveGoalsFromJSON(jsonString: json, modelContext: modelContext)
 //                    isDataSaved = true
 //                }
 //                
@@ -660,38 +660,38 @@ import SwiftData
 //        }
 //    }
 //}
-
-struct GoalListView: View {
-    
-    @Query private var mainGoals: [MainGoal] // 메인골 가져오기
-    @Environment(\.modelContext) private var modelContext
-    @StateObject private var viewModel = CUTestViewModel(createService: ClientCreateService())
-    
-    @State var goalTitle: String = ""
-    @State private var selectedGoal: MainGoal? // 수정할 메인골
-
-    var body: some View {
-        List(mainGoals) { goal in
-            VStack(alignment: .leading) {
-                Text(goal.title)
-                    .font(.headline)
-                Text("Year: \(goal.goalYear)")
-
-                // 서브골 표시
-                ForEach(goal.subGoals) { subGoal in
-                    VStack(alignment: .leading) {
-                        Text(" - SubGoal: \(subGoal.title)")
-                            .bold()
-                            .font(.title)
-                        
-                        // 디테일골 표시
-                        ForEach(subGoal.detailGoals) { detailGoal in
-                            Text("   - DetailGoal: \(detailGoal.title)")
-                        }
-                    }
-                }
-            }
-        }
-        .navigationTitle("Goals")
-    }
-}
+//
+//struct GoalListView: View {
+//    
+//    @Query private var mainGoals: [MainGoal] // 메인골 가져오기
+//    @Environment(\.modelContext) private var modelContext
+//    @StateObject private var viewModel = CUTestViewModel(createService: ClientCreateService())
+//    
+//    @State var goalTitle: String = ""
+//    @State private var selectedGoal: MainGoal? // 수정할 메인골
+//
+//    var body: some View {
+//        List(mainGoals) { goal in
+//            VStack(alignment: .leading) {
+//                Text(goal.title)
+//                    .font(.headline)
+//                Text("Year: \(goal.goalYear)")
+//
+//                // 서브골 표시
+//                ForEach(goal.subGoals) { subGoal in
+//                    VStack(alignment: .leading) {
+//                        Text(" - SubGoal: \(subGoal.title)")
+//                            .bold()
+//                            .font(.title)
+//                        
+//                        // 디테일골 표시
+//                        ForEach(subGoal.detailGoals) { detailGoal in
+//                            Text("   - DetailGoal: \(detailGoal.title)")
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        .navigationTitle("Goals")
+//    }
+//}

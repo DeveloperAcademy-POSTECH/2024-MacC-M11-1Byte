@@ -8,95 +8,14 @@ import SwiftUI
 import SwiftData
 
 struct MandalartView: View {
-    // 저장된 MainGoal 데이터를 불러옴
     @Query private var mainGoals: [MainGoal]
-    
-    let outerColumns = Array(repeating: GridItem(.flexible()), count: 3) // 외부 3x3 그리드
-    let innerColumns = Array(repeating: GridItem(.flexible()), count: 3) // 내부 3x3 그리드
-    
-    @State var isPresented = false
+    @State private var isPresented = false
     @State private var selectedSubGoal: SubGoal?
     
     var body: some View {
         NavigationStack {
             if let mainGoal = mainGoals.first {
-                LazyVGrid(columns: outerColumns, spacing: 10) {
-                    ForEach(0..<9, id: \.self) { outerIndex in
-                        if outerIndex == 4 {
-                            // 외부 그리드의 중앙 셀: MainGoal과 SubGoals만 표시, 클릭 시 NavigationLink로 이동
-                            NavigationLink(destination: MainGoalDetailGridView(mainGoal: mainGoal)) {
-                                LazyVGrid(columns: innerColumns, spacing: 5) {
-                                    ForEach(0..<9, id: \.self) { innerIndex in
-                                        if innerIndex == 4 {
-                                            // 내부 그리드 중앙에 MainGoal 표시
-                                            Text(mainGoal.title)
-                                                .font(.system(size: 12))
-                                                .frame(width: 40, height: 40)
-                                                .background(Color.blue)
-                                                .foregroundColor(.white)
-                                                .cornerRadius(8)
-                                        } else {
-                                            // 나머지 셀에 SubGoals 표시
-                                            let subGoalIndex = innerIndex < 4 ? innerIndex : innerIndex - 1
-                                            if subGoalIndex < mainGoal.subGoals.count {
-                                                Text(mainGoal.subGoals[subGoalIndex].title)
-                                                    .font(.system(size: 7))
-                                                    .frame(width: 40, height: 40)
-                                                    .background(Color.green)
-                                                    .foregroundColor(.white)
-                                                    .cornerRadius(8)
-                                                    .sheet(isPresented: $isPresented) {
-                                                        if let subGoal = selectedSubGoal {
-                                                            SubGoalsheetView(subGoal: Binding(get: { subGoal }, set: { selectedSubGoal = $0 }), isPresented: $isPresented)
-                                                        }
-                                                    }
-                                                
-                                            }
-                                        }
-                                    }
-                                }
-                                .padding()
-                                .background(Color.gray.opacity(0.2))
-                                .cornerRadius(8)
-                            }
-                        } else {
-                            // 외부 그리드의 나머지 셀: SubGoal과 DetailGoals 표시
-                            let subGoalIndex = outerIndex < 4 ? outerIndex : outerIndex - 1
-                            if subGoalIndex < mainGoal.subGoals.count {
-                                NavigationLink(destination: DetailGridView(subGoal: mainGoal.subGoals[subGoalIndex])) {
-                                    LazyVGrid(columns: innerColumns, spacing: 5) {
-                                        ForEach(0..<9, id: \.self) { innerIndex in
-                                            if innerIndex == 4 {
-                                                // 내부 그리드의 가운데 셀에 각 SubGoal 표시
-                                                Text(mainGoal.subGoals[subGoalIndex].title)
-                                                    .font(.system(size: 7))
-                                                    .frame(width: 40, height: 40)
-                                                    .background(Color.green)
-                                                    .foregroundColor(.white)
-                                                    .cornerRadius(8)
-                                            } else {
-                                                // 나머지 셀에 해당 SubGoal의 DetailGoals 표시
-                                                let detailGoalIndex = innerIndex < 4 ? innerIndex : innerIndex - 1
-                                                if detailGoalIndex < mainGoal.subGoals[subGoalIndex].detailGoals.count {
-                                                    Text(mainGoal.subGoals[subGoalIndex].detailGoals[detailGoalIndex].title)
-                                                        .font(.system(size: 7))
-                                                        .frame(width: 40, height: 40)
-                                                        .background(Color.yellow)
-                                                        .foregroundColor(.black)
-                                                        .cornerRadius(8)
-                                                }
-                                            }
-                                        }
-                                    }
-                                    .padding()
-                                    .background(Color.gray.opacity(0.2))
-                                    .cornerRadius(8)
-                                }
-                            }
-                        }
-                    }
-                }
-                .padding()
+                OuterGridView(mainGoal: mainGoal, isPresented: $isPresented, selectedSubGoal: $selectedSubGoal)
             } else {
                 Text("MainGoal 데이터를 찾을 수 없습니다.")
                     .foregroundColor(.gray)
@@ -105,6 +24,95 @@ struct MandalartView: View {
         }
     }
 }
+
+struct OuterGridView: View {
+    let mainGoal: MainGoal
+    @Binding var isPresented: Bool
+    @Binding var selectedSubGoal: SubGoal?
+    
+    private let outerColumns = Array(repeating: GridItem(.flexible()), count: 3)
+    
+    var body: some View {
+        LazyVGrid(columns: outerColumns, spacing: 10) {
+            ForEach(mainGoal.subGoals.sorted(by: { $0.id < $1.id})) { subGoal in
+                SubGoalCell(subGoal: subGoal, isPresented: $isPresented, selectedSubGoal: $selectedSubGoal)
+            }
+        }
+        .padding()
+    }
+}
+
+
+struct MainGoalCell: View {
+    let mainGoal: MainGoal
+    
+    private let innerColumns = Array(repeating: GridItem(.flexible()), count: 3)
+    
+    var body: some View {
+        NavigationLink(destination: MainGoalDetailGridView(mainGoal: mainGoal)) {
+            LazyVGrid(columns: innerColumns, spacing: 5) {
+                ForEach(mainGoal.subGoals.sorted(by: { $0.id < $1.id })) { subGoal in
+                    Text(subGoal.title)
+                        .font(.system(size: 10))
+                        .frame(width: 60, height: 60)
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                }
+            }
+            .padding()
+            .background(Color.gray.opacity(0.2))
+            .cornerRadius(8)
+        }
+    }
+}
+
+struct SubGoalCell: View {
+    let subGoal: SubGoal
+    @Binding var isPresented: Bool
+    @Binding var selectedSubGoal: SubGoal?
+
+    private let innerColumns = Array(repeating: GridItem(.flexible()), count: 3)
+
+    var body: some View {
+        NavigationLink(destination: DetailGridView(subGoal: subGoal)) {
+            LazyVGrid(columns: innerColumns, spacing: 5) {
+                // 디테일골을 order에 따라 정렬
+                let detailGoalsSorted = subGoal.detailGoals.sorted(by: { $0.id < $1.id })
+                
+                ForEach(0..<9, id: \.self) { innerIndex in
+                    if innerIndex == 4 {
+                        // 서브골 제목 표시
+                        Text(subGoal.title)
+                            .font(.system(size: 7))
+                            .frame(width: 40, height: 40)
+                            .background(Color.green)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                    } else {
+                        // 디테일골 인덱스 계산
+                        let detailGoalIndex = innerIndex < 4 ? innerIndex : innerIndex - 1
+                        // 디테일골의 개수 확인 후 표시
+                        if detailGoalIndex < detailGoalsSorted.count {
+                            let detailGoal = detailGoalsSorted[detailGoalIndex]
+                            Text(detailGoal.title)
+                                .font(.system(size: 7))
+                                .frame(width: 40, height: 40)
+                                .background(Color.yellow)
+                                .foregroundColor(.black)
+                                .cornerRadius(8)
+                        }
+                    }
+                }
+            }
+            .padding()
+            .background(Color.gray.opacity(0.2))
+            .cornerRadius(8)
+        }
+    }
+}
+
+
 
 // 메인 목표(MainGoal)와 관련된 SubGoals를 3x3 그리드로 표시하는 뷰
 struct MainGoalDetailGridView: View {
@@ -144,40 +152,25 @@ struct MainGoalDetailGridView: View {
 
 // 클릭된 셀의 SubGoal 및 관련된 DetailGoals만 3x3 그리드로 표시하는 뷰
 struct DetailGridView: View {
-    let subGoal: SubGoal // 선택된 SubGoal
-    
+    let subGoal: SubGoal
+
     let innerColumns = Array(repeating: GridItem(.flexible()), count: 3)
-    
+
     var body: some View {
         LazyVGrid(columns: innerColumns, spacing: 10) {
-            ForEach(0..<9, id: \.self) { index in
-                if index == 4 {
-                    // 가운데 셀에 SubGoal 제목 표시
-                    Text(subGoal.title)
-                        .font(.system(size: 12))
-                        .frame(width: 60, height: 60)
-                        .background(Color.green)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
-                } else {
-                    // 나머지 셀에는 DetailGoals 표시
-                    let detailGoalIndex = index < 4 ? index : index - 1
-                    if detailGoalIndex < subGoal.detailGoals.count {
-                        Text(subGoal.detailGoals[detailGoalIndex].title)
-                            .font(.system(size: 10))
-                            .frame(width: 60, height: 60)
-                            .background(Color.yellow)
-                            .foregroundColor(.black)
-                            .cornerRadius(8)
-                    }
-                }
+            ForEach(subGoal.detailGoals.sorted(by: { $0.id < $1.id })) { detailGoal in
+                Text(detailGoal.title)
+                    .font(.system(size: 10))
+                    .frame(width: 60, height: 60)
+                    .background(Color.yellow)
+                    .foregroundColor(.black)
+                    .cornerRadius(8)
             }
         }
         .padding()
         .navigationTitle(subGoal.title)
     }
 }
-
 struct SubGoalsheetView: View {
     @Environment(\.managedObjectContext) private var context
     @Binding var subGoal: SubGoal

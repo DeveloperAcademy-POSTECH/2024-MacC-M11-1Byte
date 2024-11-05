@@ -5,10 +5,10 @@
 //  Created by 이상도 on 10/30/24.
 //
 
+// ClientCreateService.swift
 import SwiftUI
 import SwiftData
 
-// 클라이언트에서 생성하기 구체화
 class ClientCreateService: CreateGoalUseCase {
     
     func createMainGoal(id: Int, title: String, goalYear: Int, createdTime: Date, modifiedTime: Date, subGoals: [SubGoal]) -> MainGoal {
@@ -38,6 +38,7 @@ class ClientCreateService: CreateGoalUseCase {
                 
                 var subGoals: [SubGoal] = []
                 
+                // JSON 순서대로 subGoals 생성
                 for subGoalDict in subGoalsArray {
                     if let subGoalId = subGoalDict["id"] as? Int,
                        let title = subGoalDict["title"] as? String,
@@ -50,6 +51,7 @@ class ClientCreateService: CreateGoalUseCase {
                         
                         var detailGoals: [DetailGoal] = []
                         
+                        // JSON 순서대로 detailGoals 생성
                         for detailGoalDict in detailGoalsArray {
                             if let detailGoalId = detailGoalDict["id"] as? Int,
                                let title = detailGoalDict["title"] as? String,

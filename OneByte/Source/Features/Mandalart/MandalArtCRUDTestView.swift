@@ -45,7 +45,7 @@
 //                        .padding()
 //                    
 //                    Button(action: {
-//                        viewModel.createMainGoal(modelContext: modelContext, title: goalTitle, isAchieved: false)
+//                        viewModel.createMainGoal(modelContext: modelContext, id: , title: <#T##String#>, goalYear: <#T##Int#>, createdTime: <#T##Date#>, modifiedTime: <#T##Date#>, subGoals: <#T##[SubGoal]#>)
 //                        goalTitle = ""
 //                    }, label: {
 //                        Text("메인Goal 생성")
