@@ -12,13 +12,13 @@ import SwiftUI
 struct ServerMainGoal: Codable {
     let id: Int
     let title: String
-    let isAchieved: Bool
+    let goalYear: Int
     let createdTime, modifiedTime: String
     let subGoals: [ServerSubGoal]
 
     enum CodingKeys: String, CodingKey {
         case id = "mainGoalId"
-        case title, isAchieved, createdTime, modifiedTime, subGoals
+        case title, goalYear, createdTime, modifiedTime, subGoals
     }
 }
 
@@ -26,13 +26,13 @@ struct ServerMainGoal: Codable {
 struct ServerSubGoal: Codable {
     let id: Int?
     let title: String
-    let isAchieved: Bool
+    let memo: String
     let createdTime, modifiedTime: String
     let detailGoals: [ServerDetailGoal]
     let mainGoalID: Int?
 
     enum CodingKeys: String, CodingKey {
-        case id, title, isAchieved, createdTime, modifiedTime, detailGoals
+        case id, title, memo, createdTime, modifiedTime, detailGoals
         case mainGoalID = "subGoalId"
     }
 }

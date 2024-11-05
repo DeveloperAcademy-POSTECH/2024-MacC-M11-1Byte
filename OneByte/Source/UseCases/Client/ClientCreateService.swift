@@ -11,12 +11,12 @@ import SwiftData
 // 클라이언트에서 생성하기 구체화
 class ClientCreateService: CreateGoalUseCase {
     
-    func createMainGoal(id: Int, title: String, isAchieved: Bool, goalYear: Int, createdTime: Date, modifiedTime: Date, subGoals: [SubGoal]) -> MainGoal {
-        return MainGoal(id: id, title: title, isAchieved: isAchieved, goalYear: goalYear, createdTime: createdTime, modifiedTime: modifiedTime, subGoals: subGoals)
+    func createMainGoal(id: Int, title: String, goalYear: Int, createdTime: Date, modifiedTime: Date, subGoals: [SubGoal]) -> MainGoal {
+        return MainGoal(id: id, title: title, goalYear: goalYear, createdTime: createdTime, modifiedTime: modifiedTime, subGoals: subGoals)
     }
     
-    func createSubGoal(id: Int, title: String, memo: String, isAchieved: Bool, createdTime: Date, modifiedTime: Date, mainGoalId: Int, detailGoals: [DetailGoal]) -> SubGoal {
-        return SubGoal(id: id, title: title, memo: memo, isAchieved: isAchieved, createdTime: createdTime, modifiedTime: modifiedTime, mainGoalId: mainGoalId, detailGoals: detailGoals)
+    func createSubGoal(id: Int, title: String, memo: String, createdTime: Date, modifiedTime: Date, mainGoalId: Int, detailGoals: [DetailGoal]) -> SubGoal {
+        return SubGoal(id: id, title: title, memo: memo, createdTime: createdTime, modifiedTime: modifiedTime, mainGoalId: mainGoalId, detailGoals: detailGoals)
     }
     
     func createDetailGoal(id: Int, title: String, memo: String, isAchieved: Bool, createdTime: Date, modifiedTime: Date, subGoalId: Int) -> DetailGoal {
@@ -29,7 +29,6 @@ class ClientCreateService: CreateGoalUseCase {
         for mainGoalDict in mainGoalsArray {
             if let mainGoalId = mainGoalDict["id"] as? Int,
                let title = mainGoalDict["title"] as? String,
-               let isAchieved = mainGoalDict["isAchieved"] as? Bool,
                let goalYear = mainGoalDict["goalYear"] as? Int,
                let createdTimeString = mainGoalDict["createdTime"] as? String,
                let modifiedTimeString = mainGoalDict["modifiedTime"] as? String,
@@ -43,7 +42,6 @@ class ClientCreateService: CreateGoalUseCase {
                     if let subGoalId = subGoalDict["id"] as? Int,
                        let title = subGoalDict["title"] as? String,
                        let memo = subGoalDict["memo"] as? String,
-                       let isAchieved = subGoalDict["isAchieved"] as? Bool,
                        let subCreatedTimeString = subGoalDict["createdTime"] as? String,
                        let subModifiedTimeString = subGoalDict["modifiedTime"] as? String,
                        let subCreatedTime = ISO8601DateFormatter().date(from: subCreatedTimeString),
@@ -67,12 +65,12 @@ class ClientCreateService: CreateGoalUseCase {
                             }
                         }
                         
-                        let subGoal = createSubGoal(id: subGoalId, title: title, memo: memo, isAchieved: isAchieved, createdTime: subCreatedTime, modifiedTime: subModifiedTime, mainGoalId: mainGoalId, detailGoals: detailGoals)
+                        let subGoal = createSubGoal(id: subGoalId, title: title, memo: memo, createdTime: subCreatedTime, modifiedTime: subModifiedTime, mainGoalId: mainGoalId, detailGoals: detailGoals)
                         subGoals.append(subGoal)
                     }
                 }
                 
-                let mainGoal = createMainGoal(id: mainGoalId, title: title, isAchieved: isAchieved, goalYear: goalYear, createdTime: createdTime, modifiedTime: modifiedTime, subGoals: subGoals)
+                let mainGoal = createMainGoal(id: mainGoalId, title: title, goalYear: goalYear, createdTime: createdTime, modifiedTime: modifiedTime, subGoals: subGoals)
                 modelContext.insert(mainGoal)
             }
         }

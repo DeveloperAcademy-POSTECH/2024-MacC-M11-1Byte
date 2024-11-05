@@ -11,16 +11,14 @@ import SwiftUI
 class MainGoal {
     var id: Int
     var title: String
-    var isAchieved: Bool
     var goalYear: Int
     var createdTime: Date
     var modifiedTime: Date
     var subGoals: [SubGoal]
     
-    init(id: Int, title: String, isAchieved: Bool, goalYear: Int, createdTime: Date, modifiedTime: Date, subGoals: [SubGoal]) {
+    init(id: Int, title: String, goalYear: Int, createdTime: Date, modifiedTime: Date, subGoals: [SubGoal]) {
         self.id = id
         self.title = title
-        self.isAchieved = isAchieved
         self.goalYear = goalYear
         self.createdTime = createdTime
         self.modifiedTime = modifiedTime
@@ -33,17 +31,15 @@ class SubGoal {
     var id: Int
     var title: String
     var memo: String
-    var isAchieved: Bool
     var createdTime: Date
     var modifiedTime: Date
     var mainGoalId: Int  // MainGoal의 ID로 연결
     var detailGoals: [DetailGoal]
     
-    init(id: Int, title: String, memo: String, isAchieved: Bool, createdTime: Date, modifiedTime: Date, mainGoalId: Int, detailGoals: [DetailGoal]) {
+    init(id: Int, title: String, memo: String, createdTime: Date, modifiedTime: Date, mainGoalId: Int, detailGoals: [DetailGoal]) {
         self.id = id
         self.title = title
         self.memo = memo
-        self.isAchieved = isAchieved
         self.createdTime = createdTime
         self.modifiedTime = modifiedTime
         self.mainGoalId = mainGoalId

@@ -14,7 +14,7 @@ struct TabBarManager: View {
     
     var body: some View {
         TabView {
-            MandalartView(viewModel: viewModel)
+            MandalartView()
                 .tabItem {
                     Image(systemName: "house.fill")
                     Text("홈")

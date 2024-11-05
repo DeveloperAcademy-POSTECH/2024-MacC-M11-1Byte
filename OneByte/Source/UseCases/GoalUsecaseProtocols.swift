@@ -9,8 +9,8 @@ import Foundation
 import SwiftData
 
 protocol CreateGoalUseCase {
-    func createMainGoal(id: Int, title: String, isAchieved: Bool, goalYear: Int, createdTime: Date, modifiedTime: Date, subGoals: [SubGoal]) -> MainGoal
-    func createSubGoal(id: Int, title: String, memo: String, isAchieved: Bool, createdTime: Date, modifiedTime: Date, mainGoalId: Int, detailGoals: [DetailGoal]) -> SubGoal
+    func createMainGoal(id: Int, title: String, goalYear: Int, createdTime: Date, modifiedTime: Date, subGoals: [SubGoal]) -> MainGoal
+    func createSubGoal(id: Int, title: String, memo: String, createdTime: Date, modifiedTime: Date, mainGoalId: Int, detailGoals: [DetailGoal]) -> SubGoal
     func createDetailGoal(id: Int, title: String, memo: String, isAchieved: Bool, createdTime: Date, modifiedTime: Date, subGoalId: Int) -> DetailGoal
     func saveGoalsFromJSON(json: [String: Any], modelContext: ModelContext)
 }
