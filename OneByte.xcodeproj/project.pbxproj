@@ -32,6 +32,7 @@
 		615A0A0D2CC0AE8700908531 /* ReflectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A0C2CC0AE8700908531 /* ReflectionView.swift */; };
 		615A0A0F2CC0AEA400908531 /* MandalartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A0E2CC0AEA400908531 /* MandalartView.swift */; };
 		615A0A112CC0AEB800908531 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A102CC0AEB800908531 /* MyPageView.swift */; };
+		61D8C2C72CDB9E4000DDF398 /* MandalartButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D8C2C62CDB9E4000DDF398 /* MandalartButtonModifier.swift */; };
 		61F80E732CD76165003A213B /* GoalModelsFromServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F80E722CD76165003A213B /* GoalModelsFromServer.swift */; };
 		61F80E752CD761BC003A213B /* MandalArtTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F80E742CD761BC003A213B /* MandalArtTest.swift */; };
 /* End PBXBuildFile section */
@@ -63,6 +64,7 @@
 		615A0A0C2CC0AE8700908531 /* ReflectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflectionView.swift; sourceTree = "<group>"; };
 		615A0A0E2CC0AEA400908531 /* MandalartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalartView.swift; sourceTree = "<group>"; };
 		615A0A102CC0AEB800908531 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
+		61D8C2C62CDB9E4000DDF398 /* MandalartButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalartButtonModifier.swift; sourceTree = "<group>"; };
 		61F80E722CD76165003A213B /* GoalModelsFromServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalModelsFromServer.swift; sourceTree = "<group>"; };
 		61F80E742CD761BC003A213B /* MandalArtTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalArtTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				1F7C9C292CD084BB00BAC358 /* TempButton.swift */,
+				61D8C2C62CDB9E4000DDF398 /* MandalartButtonModifier.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 				613904E62CD1D419008E591D /* MemberModel.swift in Sources */,
 				1F88AB3D2CD609170009730D /* ReflectionCommentView.swift in Sources */,
 				1F7C9C2E2CD1FCB600BAC358 /* ClientUpdateService.swift in Sources */,
+				61D8C2C72CDB9E4000DDF398 /* MandalartButtonModifier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
