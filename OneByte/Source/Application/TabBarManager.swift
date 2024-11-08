@@ -21,7 +21,7 @@ struct TabBarManager: View {
                     Text("홈")
                 }
             
-            ReflectionView()
+            RetrospectMainView()
                 .tabItem {
                     Image(systemName: "chart.bar.xaxis.ascending.badge.clock")
                     Text("회고")

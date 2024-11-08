@@ -9,9 +9,10 @@ import SwiftUI
 
 enum PathType: Hashable {
     case main
-    case start
-    case comment
-    case state
+    case total
+    case select
+    case retrospect
+    case complete
 }
 
 extension PathType {
@@ -19,18 +20,25 @@ extension PathType {
     func NavigatingView() -> some View {
         switch self {
         case .main:
-            ReflectionView()
+            RetrospectMainView()
+                .navigationBarBackButtonHidden()
             
-        case .start:
-            ReflectionStartView()
+        case .total:
+            RetrospectTotalView()
+                .navigationBarBackButtonHidden()
             
-        case .comment:
-            ReflectionCommentView()
+        case .select:
+            RetrospectSelectView()
+                .navigationBarBackButtonHidden()
             
-        case .state:
-            ReflectionStateView()
+        case .retrospect:
+            RetrospectView()
+                .navigationBarBackButtonHidden()
+            
+        case .complete:
+            RetrospectCompleteView()
+                .navigationBarBackButtonHidden()
         }
-        
     }
 }
 
