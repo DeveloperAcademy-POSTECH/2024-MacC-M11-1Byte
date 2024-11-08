@@ -144,6 +144,7 @@ struct MainGoalDetailGridView: View {
             ForEach(0..<9, id: \.self) { index in
                 if index == 4 {
                     // 가운데 셀에 MainGoal 제목 표시
+                    
                     Text(mainGoal.title)
                         .modifier(NextMandalartButtonModifier(color: Color.blue))
                     
@@ -218,11 +219,13 @@ struct DetailGridView: View {
 
 
 struct SubGoalsheetView: View {
+    @Environment(\.modelContext) private var modelContext  // SwiftData 컨텍스트
     @Environment(\.managedObjectContext) private var context
     @Binding var subGoal: SubGoal? // 옵셔널로 변경
     @Binding var isPresented: Bool
     @State private var newTitle: String = ""
     @State private var newMemo: String = ""
+    private let viewModel = CUTestViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     
     var body: some View {
         VStack(spacing: 20) {
@@ -281,8 +284,9 @@ struct SubGoalsheetView: View {
                 
                 Button(action: {
                     if let subGoal = subGoal {
-                        updateSubGoalTitle(for: subGoal)
+                        viewModel.updateSubGoal(subGoal: subGoal, modelContext: modelContext, newTitle: newTitle, newMemo: newMemo)
                     }
+                    isPresented = false
                 }) {
                     Text("저장")
                         .frame(maxWidth: .infinity)
@@ -295,14 +299,11 @@ struct SubGoalsheetView: View {
         }
         .padding()
     }
-    
-    private func updateSubGoalTitle(for subGoal: SubGoal) {
-        subGoal.title = newTitle // 제목 업데이트
-        subGoal.memo = newMemo
-        isPresented = false
-    }
 }
+
 struct DetailGoalsheetView: View {
+    @Environment(\.modelContext) private var modelContext  // SwiftData 컨텍스트
+    private let viewModel = CUTestViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     @Environment(\.managedObjectContext) private var context
     @Binding var detailGoal: DetailGoal?
     //    @Binding var subGoal: SubGoal? // 옵셔널로 변경
@@ -355,7 +356,6 @@ struct DetailGoalsheetView: View {
                     }
                 }
             
-            // 성취완료
             // 성취 완료 토글 스위치
             Toggle(isAchieved ? "성취 완료" : "미완료", isOn: $isAchieved)
                 .padding()
@@ -374,7 +374,7 @@ struct DetailGoalsheetView: View {
                 
                 Button(action: {
                     if let detailGoal = detailGoal {
-                        updateDetailGoalTitle(for: detailGoal)
+                        viewModel.updateDetailGoal(detailGoal: detailGoal, modelContext: modelContext, newTitle: newTitle, newMemo: newMemo, isAchieved: isAchieved)
                     }
                 }) {
                     Text("저장")
@@ -388,11 +388,84 @@ struct DetailGoalsheetView: View {
         }
         .padding()
     }
+}
+
+struct MainGoalsheetView: View {
+    @Environment(\.modelContext) private var modelContext  // SwiftData 컨텍스트
+    @Environment(\.managedObjectContext) private var context
+    @Binding var mainGoal: MainGoal? // 옵셔널로 변경
+    @Binding var isPresented: Bool
+    @State private var newTitle: String = ""
+    @State private var newMemo: String = ""
+    @State private var newGoalYear: String = ""
+    private let viewModel = CUTestViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     
-    private func updateDetailGoalTitle(for detailGoal: DetailGoal) {
-        detailGoal.title = newTitle // 제목 업데이트
-        detailGoal.memo = newMemo
-        detailGoal.isAchieved = isAchieved
-        isPresented = false
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("최종 목표")
+                .font(.headline)
+            
+            // 최종 목표 제목 입력란
+            TextField("최종 목표를 입력해주세요", text: $newTitle)
+                .padding()
+                .background(Color(UIColor.systemGray6))
+                .cornerRadius(8)
+                .overlay(
+                    HStack {
+                        Spacer()
+                        Text("\(newTitle.count)/15")
+                            .padding(.trailing, 8)
+                            .foregroundColor(.gray)
+                    }
+                )
+            // 연도 입력
+            TextField("연도 입력", text: $newGoalYear)
+                .padding()
+                .background(Color(UIColor.systemGray6))
+                .cornerRadius(8)
+                .keyboardType(.numberPad)
+                .overlay(
+                    HStack {
+                        Spacer()
+                        Text("\(newGoalYear.count)/4")
+                            .padding(.trailing, 8)
+                            .foregroundColor(.gray)
+                    }
+                )
+            
+            // 버튼 영역
+            HStack {
+                Button(action: {
+                    isPresented = false
+                }) {
+                    Text("취소")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.gray.opacity(0.2))
+                        .cornerRadius(8)
+                }
+                
+                Button(action: {
+                    if let mainGoal = mainGoal, let goalYear = Int(newGoalYear) {
+                        viewModel.updateMainGoal(mainGoal: mainGoal, modelContext: modelContext, id: mainGoal.id, newTitle: newTitle, newGoalYear: goalYear)
+                    }
+                    isPresented = false
+                }) {
+                    Text("저장")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.black)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                }
+            }
+        }
+        .padding()
+        .onAppear {
+            if let mainGoal = mainGoal {
+                newTitle = mainGoal.title
+                newGoalYear = String(mainGoal.goalYear)
+            }
+        }
     }
 }
