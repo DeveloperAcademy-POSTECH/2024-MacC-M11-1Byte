@@ -14,7 +14,7 @@ struct OnboardingExplainPageView: View {
     
     var body: some View {
         VStack {
-            // 상단 Lottie
+            // 상단 Lottie 들어갈 공간
             HStack {
                 nowOnboard.explainImage
                     .resizable()

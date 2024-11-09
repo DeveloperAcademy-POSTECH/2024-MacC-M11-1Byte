@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// MARK: 온보딩 설명 Pages Enumeration 데이터
 enum OnboardingExplain: CaseIterable {
     
     case first, second, third, fourth

@@ -68,9 +68,10 @@ struct EnterSubgoalView: View {
             
             // 중앙 3x3 View
             HStack {
-                Image(systemName: "timelapse")
-                    .resizable()
-                    .frame(width: 300, height: 300)
+                
+//                Image(systemName: "timelapse")
+//                    .resizable()
+//                    .frame(width: 300, height: 300)
             }
             .padding()
             

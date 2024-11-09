@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// MARK: 온보딩 전체 흐름 Enumeration 데이터
 enum Onboarding {
     
     case start, question, maingoal, subgoal, detailgoal, finish

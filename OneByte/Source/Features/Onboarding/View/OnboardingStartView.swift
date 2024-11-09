@@ -9,9 +9,8 @@ import SwiftUI
 
 struct OnboardingStartView: View {
     
-    @State private var navigationManager = NavigationManager()
-    
     @Environment(\.modelContext) private var modelContext
+    @State private var navigationManager = NavigationManager()
     
     @State var viewModel = OnboardingViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     
@@ -55,7 +54,7 @@ struct OnboardingStartView: View {
                 pathType.NavigatingView()
             }
             .onAppear {
-                viewModel.createGoals(modelContext: modelContext)
+                viewModel.createGoals(modelContext: modelContext) // 온보딩 등장시 데이터 생성
             }
         }
         .environment(navigationManager)
