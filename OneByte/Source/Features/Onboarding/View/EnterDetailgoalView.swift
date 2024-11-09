@@ -11,7 +11,6 @@ import SwiftData
 struct EnterDetailgoalView: View {
     
     @Environment(NavigationManager.self) var navigationManager
-    @Environment(\.dismiss) private var dismiss // Onboarding dismiss
     @AppStorage("isFirstOnboarding") private var isFirstOnboarding: Bool? // 온보딩 첫 동작시에만
     
     @Environment(\.modelContext) private var modelContext
@@ -54,7 +53,7 @@ struct EnterDetailgoalView: View {
             
             VStack(spacing: 10) {
                 Text(nowOnboard.onboardingSubTitle)
-                    .font(.Pretendard.Regular.size17)
+                    .font(.Pretendard.Bold.size17)
                     .foregroundStyle(Color(hex: "919191"))
                     .multilineTextAlignment(.center)
                 

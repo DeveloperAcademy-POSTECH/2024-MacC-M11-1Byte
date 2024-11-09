@@ -18,10 +18,10 @@ struct OnboardingFinishView: View {
         VStack {
             // 상단 캐릭터 이미지 & 텍스트
             VStack(spacing: 10) {
-                Image(systemName: "timelapse")
+                Image("Dara4")
                     .resizable()
-                    .frame(width: 100, height: 100)
-                    .padding()
+                    .scaledToFit()
+                    .frame(height: 113)
                 
                 Text(nowOnboard.onboardingTitle)
                     .font(.Pretendard.Bold.size26)
@@ -32,6 +32,7 @@ struct OnboardingFinishView: View {
                     .foregroundStyle(Color(hex: "919191"))
             }
             .padding()
+            .padding(.top)
             
             Spacer()
             

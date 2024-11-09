@@ -49,9 +49,11 @@ struct QuestionView: View {
             
             // 중앙 캐릭터 이미지
             HStack {
-                Image(systemName: "timelapse")
+                Image("Dara2")
                     .resizable()
-                    .frame(width: 300, height: 300)
+                    .scaledToFit()
+                    .frame(height: 224)
+                    .padding(.leading, 70)
             }
             .padding()
             

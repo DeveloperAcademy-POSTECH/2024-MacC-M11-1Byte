@@ -34,9 +34,10 @@ struct OnboardingStartView: View {
                 
                 // 중앙 캐릭터 이미지
                 HStack {
-                    Image(systemName: "timelapse")
+                    Image("Dara1")
                         .resizable()
-                        .frame(width: 300, height: 300)
+                        .scaledToFit()
+                        .frame(height: 215)
                 }
                 .padding()
                 
@@ -65,4 +66,5 @@ struct OnboardingStartView: View {
 #Preview {
     OnboardingStartView()
         .environment(NavigationManager())
+        .modelContainer(for: [MainGoal.self, SubGoal.self, DetailGoal.self], inMemory: true) // 임시 컨테이너 생성
 }

@@ -27,11 +27,11 @@ struct NextButton<Content: View>: View {
             }
         }) {
             label
-                .font(.Pretendard.Regular.size18)
+                .font(isEnabled ? .Pretendard.Medium.size18 : .Pretendard.Regular.size18)
                 .foregroundStyle(.white)
                 .frame(maxWidth: .infinity)
                 .frame(height: 53)
-                .background(isEnabled ? Color(hex: "636363") : Color(hex: "C9C9C9"))
+                .background(isEnabled ? Color(hex: "538F53") : Color(hex: "C9C9C9"))
                 .clipShape(RoundedRectangle(cornerRadius: 16))
         }
         .disabled(!isEnabled) // 버튼이 비활성화된 경우 터치가 불가능하게 설정

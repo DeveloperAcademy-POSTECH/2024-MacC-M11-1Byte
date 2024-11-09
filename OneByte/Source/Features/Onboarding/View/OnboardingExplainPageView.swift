@@ -18,8 +18,8 @@ struct OnboardingExplainPageView: View {
             HStack {
                 nowOnboard.explainImage
                     .resizable()
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 353)
+                    .scaledToFit()
+                    .frame(height: 225)
             }
             .padding()
             

@@ -47,7 +47,7 @@ enum OnboardingExplain: CaseIterable {
         case .third:
             return Image(systemName: "command.circle.fill")
         case .fourth:
-            return Image(systemName: "command.square")
+            return Image("Dara3")
         }
     }
 }
