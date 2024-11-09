@@ -17,6 +17,7 @@
 		1F7C9C2A2CD084BB00BAC358 /* TempButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7C9C292CD084BB00BAC358 /* TempButton.swift */; };
 		1F7C9C2C2CD1FC1E00BAC358 /* ClientCreateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7C9C2B2CD1FC1E00BAC358 /* ClientCreateService.swift */; };
 		1F7C9C2E2CD1FCB600BAC358 /* ClientUpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7C9C2D2CD1FCB600BAC358 /* ClientUpdateService.swift */; };
+		1F7C9C302CD1FCEA00BAC358 /* ClientReadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F7C9C2F2CD1FCEA00BAC358 /* ClientReadService.swift */; };
 		1F8591182CC0A68500253B38 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 1F8591172CC0A68500253B38 /* .gitignore */; };
 		1F88AB392CD607F90009730D /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F88AB382CD607F90009730D /* NavigationManager.swift */; };
 		1F88AB3B2CD609010009730D /* RetrospectSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F88AB3A2CD609010009730D /* RetrospectSelectView.swift */; };
@@ -27,14 +28,12 @@
 		1FA420942CC0DC19001CB92D /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA420932CC0DC19001CB92D /* Color+.swift */; };
 		1FD066DF2CD906740026D12D /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD066DE2CD906740026D12D /* UserRepository.swift */; };
 		613904E62CD1D419008E591D /* MemberModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E52CD1D419008E591D /* MemberModel.swift */; };
+		613904E82CD20457008E591D /* MandalArtCRUDTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E72CD20457008E591D /* MandalArtCRUDTestView.swift */; };
 		613904EA2CD21A0B008E591D /* MadalArtCRUDTestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E92CD21A0B008E591D /* MadalArtCRUDTestViewModel.swift */; };
 		615A0A0B2CC0ADA800908531 /* TabBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A0A2CC0ADA800908531 /* TabBarManager.swift */; };
 		615A0A0D2CC0AE8700908531 /* RetrospectMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A0C2CC0AE8700908531 /* RetrospectMainView.swift */; };
 		615A0A0F2CC0AEA400908531 /* MandalartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A0E2CC0AEA400908531 /* MandalartView.swift */; };
 		615A0A112CC0AEB800908531 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A102CC0AEB800908531 /* MyPageView.swift */; };
-		61D8C2C72CDB9E4000DDF398 /* MandalartButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D8C2C62CDB9E4000DDF398 /* MandalartButtonModifier.swift */; };
-		61D8C2C92CDCE13C00DDF398 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D8C2C82CDCE13C00DDF398 /* ContentView.swift */; };
-		61F80E732CD76165003A213B /* GoalModelsFromServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F80E722CD76165003A213B /* GoalModelsFromServer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +48,7 @@
 		1F7C9C292CD084BB00BAC358 /* TempButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempButton.swift; sourceTree = "<group>"; };
 		1F7C9C2B2CD1FC1E00BAC358 /* ClientCreateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientCreateService.swift; sourceTree = "<group>"; };
 		1F7C9C2D2CD1FCB600BAC358 /* ClientUpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientUpdateService.swift; sourceTree = "<group>"; };
+		1F7C9C2F2CD1FCEA00BAC358 /* ClientReadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientReadService.swift; sourceTree = "<group>"; };
 		1F8591172CC0A68500253B38 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		1F88AB382CD607F90009730D /* NavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManager.swift; sourceTree = "<group>"; };
 		1F88AB3A2CD609010009730D /* RetrospectSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectSelectView.swift; sourceTree = "<group>"; };
@@ -59,14 +59,12 @@
 		1FA420932CC0DC19001CB92D /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		1FD066DE2CD906740026D12D /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		613904E52CD1D419008E591D /* MemberModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberModel.swift; sourceTree = "<group>"; };
+		613904E72CD20457008E591D /* MandalArtCRUDTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalArtCRUDTestView.swift; sourceTree = "<group>"; };
 		613904E92CD21A0B008E591D /* MadalArtCRUDTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadalArtCRUDTestViewModel.swift; sourceTree = "<group>"; };
 		615A0A0A2CC0ADA800908531 /* TabBarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarManager.swift; sourceTree = "<group>"; };
 		615A0A0C2CC0AE8700908531 /* RetrospectMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectMainView.swift; sourceTree = "<group>"; };
 		615A0A0E2CC0AEA400908531 /* MandalartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalartView.swift; sourceTree = "<group>"; };
 		615A0A102CC0AEB800908531 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
-		61D8C2C62CDB9E4000DDF398 /* MandalartButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalartButtonModifier.swift; sourceTree = "<group>"; };
-		61D8C2C82CDCE13C00DDF398 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		61F80E722CD76165003A213B /* GoalModelsFromServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalModelsFromServer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,7 +117,6 @@
 			isa = PBXGroup;
 			children = (
 				1F7C9C292CD084BB00BAC358 /* TempButton.swift */,
-				61D8C2C62CDB9E4000DDF398 /* MandalartButtonModifier.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -153,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				613904E92CD21A0B008E591D /* MadalArtCRUDTestViewModel.swift */,
+				613904E72CD20457008E591D /* MandalArtCRUDTestView.swift */,
 				1F7C9C142CD0735500BAC358 /* View */,
 			);
 			path = Mandalart;
@@ -162,7 +160,6 @@
 			isa = PBXGroup;
 			children = (
 				615A0A0E2CC0AEA400908531 /* MandalartView.swift */,
-				61D8C2C82CDCE13C00DDF398 /* ContentView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -211,6 +208,7 @@
 			children = (
 				1F7C9C2B2CD1FC1E00BAC358 /* ClientCreateService.swift */,
 				1F7C9C2D2CD1FCB600BAC358 /* ClientUpdateService.swift */,
+				1F7C9C2F2CD1FCEA00BAC358 /* ClientReadService.swift */,
 			);
 			path = Client;
 			sourceTree = "<group>";
@@ -243,7 +241,6 @@
 			children = (
 				1F7C9C272CD083CC00BAC358 /* GoalModels.swift */,
 				613904E52CD1D419008E591D /* MemberModel.swift */,
-				61F80E722CD76165003A213B /* GoalModelsFromServer.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -346,15 +343,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				61F80E732CD76165003A213B /* GoalModelsFromServer.swift in Sources */,
 				1F88AB412CD6101C0009730D /* Date+.swift in Sources */,
 				615A0A0B2CC0ADA800908531 /* TabBarManager.swift in Sources */,
 				1F7C9C2C2CD1FC1E00BAC358 /* ClientCreateService.swift in Sources */,
 				1F7C9C2A2CD084BB00BAC358 /* TempButton.swift in Sources */,
 				1F7C9C282CD083CC00BAC358 /* GoalModels.swift in Sources */,
+				613904E82CD20457008E591D /* MandalArtCRUDTestView.swift in Sources */,
 				1FA420942CC0DC19001CB92D /* Color+.swift in Sources */,
 				1F7C9C262CD083BB00BAC358 /* Network.swift in Sources */,
-				61D8C2C92CDCE13C00DDF398 /* ContentView.swift in Sources */,
 				1F88AB3F2CD609220009730D /* RetrospectCompleteView.swift in Sources */,
 				1F79EDCE2CC0A25D0079088B /* OneByteApp.swift in Sources */,
 				1F35C47D2CD89E790013C731 /* RetrospectTotalView.swift in Sources */,
@@ -363,14 +359,14 @@
 				1F7C9C242CD083AD00BAC358 /* GoalUsecaseProtocols.swift in Sources */,
 				1FD066DF2CD906740026D12D /* UserRepository.swift in Sources */,
 				613904EA2CD21A0B008E591D /* MadalArtCRUDTestViewModel.swift in Sources */,
-				1F88AB392CD607F90009730D /* NavigationManager.swift in Sources */
+				1F88AB392CD607F90009730D /* NavigationManager.swift in Sources */,
 				615A0A0D2CC0AE8700908531 /* RetrospectMainView.swift in Sources */,
+				1F7C9C302CD1FCEA00BAC358 /* ClientReadService.swift in Sources */,
 				1F88AB432CD613240009730D /* FeedbackSheetView.swift in Sources */,
 				615A0A112CC0AEB800908531 /* MyPageView.swift in Sources */,
 				613904E62CD1D419008E591D /* MemberModel.swift in Sources */,
 				1F88AB3D2CD609170009730D /* RetrospectView.swift in Sources */,
 				1F7C9C2E2CD1FCB600BAC358 /* ClientUpdateService.swift in Sources */,
-				61D8C2C72CDB9E4000DDF398 /* MandalartButtonModifier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
