@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// MARK: 온보딩화면에서 사용되는 Progress
 struct OnboardingProgressBar: View {
     
     var value: Double
@@ -23,9 +24,9 @@ struct OnboardingProgressBar: View {
                 Rectangle()
                     .frame(width: min(CGFloat(value) * geometry.size.width, geometry.size.width),
                            height: geometry.size.height)
-                    .foregroundColor(Color(hex: "636363"))
+                    .foregroundColor(Color(hex: "538F53"))
                     .animation(.linear, value: value)
-                    .frame(height: 5)
+                    .frame(height: 10)
             }
             .cornerRadius(5)
         }

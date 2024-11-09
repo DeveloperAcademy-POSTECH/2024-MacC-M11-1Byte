@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// MARK: 온보딩 3x3뷰에서의 Custom하기 위한 RoundedRectangle
 struct CustomCornerRoundedRectangle: Shape {
     var topLeft: CGFloat
     var topRight: CGFloat
