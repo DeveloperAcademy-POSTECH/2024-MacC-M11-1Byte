@@ -47,7 +47,6 @@
 		1FB10A402CDF7F4B00D54EC5 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A3F2CDF7F4B00D54EC5 /* OnboardingViewModel.swift */; };
 		1FE2B8D62CDFAF8600781E20 /* Int+GridExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE2B8D52CDFAF8600781E20 /* Int+GridExtensions.swift */; };
 		1FE2B8D82CDFB12500781E20 /* CustomCornerRoundedRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE2B8D72CDFB12500781E20 /* CustomCornerRoundedRectangle.swift */; };
-		613904E62CD1D419008E591D /* MemberModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E52CD1D419008E591D /* MemberModel.swift */; };
 		613904E82CD20457008E591D /* MandalartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E72CD20457008E591D /* MandalartView.swift */; };
 		613904EA2CD21A0B008E591D /* MadalArtCRUDTestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E92CD21A0B008E591D /* MadalArtCRUDTestViewModel.swift */; };
 		615A0A0B2CC0ADA800908531 /* TabBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A0A2CC0ADA800908531 /* TabBarManager.swift */; };
@@ -103,7 +102,6 @@
 		1FB10A3F2CDF7F4B00D54EC5 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		1FE2B8D52CDFAF8600781E20 /* Int+GridExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+GridExtensions.swift"; sourceTree = "<group>"; };
 		1FE2B8D72CDFB12500781E20 /* CustomCornerRoundedRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCornerRoundedRectangle.swift; sourceTree = "<group>"; };
-		613904E52CD1D419008E591D /* MemberModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberModel.swift; sourceTree = "<group>"; };
 		613904E72CD20457008E591D /* MandalartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalartView.swift; sourceTree = "<group>"; };
 		613904E92CD21A0B008E591D /* MadalArtCRUDTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadalArtCRUDTestViewModel.swift; sourceTree = "<group>"; };
 		615A0A0A2CC0ADA800908531 /* TabBarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarManager.swift; sourceTree = "<group>"; };
@@ -146,8 +144,8 @@
 		1F4D8BEE2CDF4F9200A0B5CC /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				1FB10A3D2CDF7EDD00D54EC5 /* View */,
 				1FB10A3E2CDF7EEF00D54EC5 /* ViewModel */,
+				1FB10A3D2CDF7EDD00D54EC5 /* View */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -308,7 +306,6 @@
 			isa = PBXGroup;
 			children = (
 				1F7C9C272CD083CC00BAC358 /* GoalModels.swift */,
-				613904E52CD1D419008E591D /* MemberModel.swift */,
 				1F4D8BF12CDF4FC300A0B5CC /* Onboarding.swift */,
 				1FB10A372CDF5FE800D54EC5 /* OnboardingExplain.swift */,
 			);
@@ -495,7 +492,6 @@
 				618FD0762CDF11410003450D /* UpdateService.swift in Sources */,
 				1FB10A292CDF515300D54EC5 /* QuestionView.swift in Sources */,
 				1F4D8BF22CDF4FC300A0B5CC /* Onboarding.swift in Sources */,
-				613904E62CD1D419008E591D /* MemberModel.swift in Sources */,
 				1F88AB3D2CD609170009730D /* RetrospectView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
