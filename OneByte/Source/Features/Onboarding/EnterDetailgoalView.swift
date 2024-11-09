@@ -1,5 +1,5 @@
 //
-//  EnterMainGoal.swift
+//  EnterDetailgoalView.swift
 //  OneByte
 //
 //  Created by 이상도 on 11/9/24.
@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct EnterMaingoalView: View {
+struct EnterDetailgoalView: View {
     
     @Environment(NavigationManager.self) var navigationManager
     
-    var nowOnboard: Onboarding = .maingoal
+    var nowOnboard: Onboarding = .detailgoal
     
     var body: some View {
         VStack {
@@ -25,22 +25,29 @@ struct EnterMaingoalView: View {
                             .bold()
                     }
                 }
-                OnboardingProgressBar(value: 2/5)
+                OnboardingProgressBar(value: 4/5)
                     .frame(height: 10)
                     .padding()
                     .padding(.trailing)
             }
             .padding(.horizontal)
             
-            Text(nowOnboard.onboardingTitle)
-                .font(.system(size: 26, weight: .bold))
-                .multilineTextAlignment(.center)
+            VStack(spacing: 10) {
+                Text(nowOnboard.onboardingSubTitle)
+                    .font(.system(size: 17, weight: .bold))
+                    .foregroundStyle(Color(hex: "919191"))
+                    .multilineTextAlignment(.center)
+                
+                Text(nowOnboard.onboardingTitle)
+                    .font(.system(size: 26, weight: .bold))
+                    .multilineTextAlignment(.center)
+            }
             
             ZStack {
                 RoundedRectangle(cornerRadius: 20)
                     .fill(Color.blue)
                     .frame(maxWidth: .infinity)
-                    .frame(height: 100)
+                    .frame(height: 80)
                 HStack {
                     Text("TIP")
                     Text(nowOnboard.onboardingTipMessage)
@@ -49,7 +56,6 @@ struct EnterMaingoalView: View {
                 }
             }
             .padding()
-            
             
             Spacer()
             
@@ -63,8 +69,15 @@ struct EnterMaingoalView: View {
             Spacer()
             
             HStack {
+                PassButton {
+                    // 건너뛰기
+                } label: {
+                    Text("건너 뛰기")
+                        .font(.system(size: 18))
+                }
+                
                 NextButton {
-                    navigationManager.push(to: .onboardSubgoal)
+                    //                navigationManager.push(to: .onboardMainGoal)
                 } label: {
                     Text("다음")
                         .font(.system(size: 18))
@@ -77,6 +90,6 @@ struct EnterMaingoalView: View {
 }
 
 #Preview {
-    EnterMaingoalView(nowOnboard: .maingoal)
+    EnterDetailgoalView(nowOnboard: .detailgoal)
         .environment(NavigationManager())
 }

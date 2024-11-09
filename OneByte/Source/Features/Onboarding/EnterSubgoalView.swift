@@ -1,5 +1,5 @@
 //
-//  EnterMainGoal.swift
+//  EnterSubgoalView.swift
 //  OneByte
 //
 //  Created by 이상도 on 11/9/24.
@@ -7,11 +7,10 @@
 
 import SwiftUI
 
-struct EnterMaingoalView: View {
-    
+struct EnterSubgoalView: View {
     @Environment(NavigationManager.self) var navigationManager
     
-    var nowOnboard: Onboarding = .maingoal
+    var nowOnboard: Onboarding = .subgoal
     
     var body: some View {
         VStack {
@@ -25,17 +24,22 @@ struct EnterMaingoalView: View {
                             .bold()
                     }
                 }
-                OnboardingProgressBar(value: 2/5)
+                OnboardingProgressBar(value: 3/5)
                     .frame(height: 10)
                     .padding()
                     .padding(.trailing)
             }
             .padding(.horizontal)
             
-            Text(nowOnboard.onboardingTitle)
-                .font(.system(size: 26, weight: .bold))
-                .multilineTextAlignment(.center)
-            
+            VStack(spacing: 10) {
+                Text(nowOnboard.onboardingSubTitle)
+                    .font(.system(size: 17, weight: .bold))
+                    .foregroundStyle(Color(hex: "919191"))
+                
+                Text(nowOnboard.onboardingTitle)
+                    .font(.system(size: 26, weight: .bold))
+                    .multilineTextAlignment(.center)
+            }
             ZStack {
                 RoundedRectangle(cornerRadius: 20)
                     .fill(Color.blue)
@@ -50,7 +54,6 @@ struct EnterMaingoalView: View {
             }
             .padding()
             
-            
             Spacer()
             
             HStack {
@@ -63,8 +66,15 @@ struct EnterMaingoalView: View {
             Spacer()
             
             HStack {
+                PassButton {
+                    // 온보딩 종료
+                } label: {
+                    Text("건너 뛰기")
+                        .font(.system(size: 18))
+                }
+                
                 NextButton {
-                    navigationManager.push(to: .onboardSubgoal)
+                                    navigationManager.push(to: .onboardDetailgoal)
                 } label: {
                     Text("다음")
                         .font(.system(size: 18))
@@ -77,6 +87,6 @@ struct EnterMaingoalView: View {
 }
 
 #Preview {
-    EnterMaingoalView(nowOnboard: .maingoal)
+    EnterSubgoalView(nowOnboard: .subgoal)
         .environment(NavigationManager())
 }

@@ -17,6 +17,9 @@ enum PathType: Hashable {
     case onboardStart
     case onboardQuestion
     case onboardMaingoal
+    case onboardSubgoal
+    case onboardDetailgoal
+    case onboardFinish
 }
 
 extension PathType {
@@ -52,6 +55,18 @@ extension PathType {
             
         case .onboardMaingoal:
             EnterMaingoalView()
+                .navigationBarBackButtonHidden()
+            
+        case .onboardSubgoal:
+            EnterSubgoalView()
+                .navigationBarBackButtonHidden()
+            
+        case .onboardDetailgoal:
+            EnterDetailgoalView()
+                .navigationBarBackButtonHidden()
+            
+        case .onboardFinish:
+            OnboardingFinishView()
                 .navigationBarBackButtonHidden()
         }
     }
