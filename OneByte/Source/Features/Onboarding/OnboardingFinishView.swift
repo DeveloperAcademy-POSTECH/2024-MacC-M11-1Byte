@@ -37,7 +37,7 @@ struct OnboardingFinishView: View {
             HStack {
                 Image(systemName: "timelapse")
                     .resizable()
-                    .frame(width: 350, height: 350)
+                    .frame(width: 300, height: 300)
             }
             .padding()
             

@@ -17,7 +17,7 @@ struct QuestionView: View {
             // Back Button & 프로그레스 바
             HStack {
                 Button{
-                    navigationManager.pop()
+                    navigationManager.popToRoot()
                 } label: {
                     HStack {
                         Image(systemName: "chevron.left")
@@ -47,7 +47,7 @@ struct QuestionView: View {
             HStack {
                 Image(systemName: "timelapse")
                     .resizable()
-                    .frame(width: 350, height: 350)
+                    .frame(width: 300, height: 300)
             }
             .padding()
             
