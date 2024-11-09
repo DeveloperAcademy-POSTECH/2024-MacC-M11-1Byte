@@ -42,6 +42,8 @@ struct QuestionView: View {
                     .multilineTextAlignment(.center)
                     .lineSpacing(4)
             }
+            .padding()
+            
             Spacer()
             
             HStack {

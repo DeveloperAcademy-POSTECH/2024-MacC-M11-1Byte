@@ -13,6 +13,9 @@ struct EnterMaingoalView: View {
     
     var nowOnboard: Onboarding = .maingoal
     
+    @State private var mainGoal: String = "" // MainGoal
+    private let mainGoalLimit = 15 // 글자 수 제한
+    
     var body: some View {
         VStack {
             HStack {
@@ -37,25 +40,41 @@ struct EnterMaingoalView: View {
                 .multilineTextAlignment(.center)
             
             ZStack {
-                RoundedRectangle(cornerRadius: 20)
-                    .fill(Color.blue)
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(Color(hex: "D4F7D7"))
                     .frame(maxWidth: .infinity)
-                    .frame(height: 100)
-                HStack {
-                    Text("TIP")
-                    Text(nowOnboard.onboardingTipMessage)
-                        .font(.system(size: 14))
-                        .lineSpacing(4)
+                    .frame(height: 112)
+                    .padding()
+                
+                VStack(alignment: .leading) {
+                    (Text("TIP ")
+                        .fontWeight(.bold) +
+                     Text(nowOnboard.onboardingTipMessage))
+                    .font(.system(size: 14))
+                    .multilineTextAlignment(.leading)
+                    .lineSpacing(4)
                 }
+                .padding()
             }
             .padding()
             
             Spacer()
             
-            HStack {
-                Image(systemName: "timelapse")
-                    .resizable()
-                    .frame(width: 300, height: 300)
+            ZStack {
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color(hex: "EEEEEE"))
+                    .frame(width: 210, height: 210) // 가로 세로 크기 고정
+                
+                TextField("2025 최종 목표", text: $mainGoal)
+                    .font(.system(size: 20, weight: .semibold))
+                    .multilineTextAlignment(.center)
+                    .padding()
+                    .background(Color.clear)
+                    .onChange(of: mainGoal) { newValue in
+                        if newValue.count > mainGoalLimit {
+                            mainGoal = String(newValue.prefix(mainGoalLimit))
+                        }
+                    }
             }
             .padding()
             
@@ -68,6 +87,7 @@ struct EnterMaingoalView: View {
                     Text("다음")
                         .font(.system(size: 18))
                 }
+                .disabled(mainGoal.isEmpty) // mainGoal 비어있을시 비활성화
             }
             .padding()
         }

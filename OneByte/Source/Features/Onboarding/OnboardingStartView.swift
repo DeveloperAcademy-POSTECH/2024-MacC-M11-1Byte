@@ -43,7 +43,7 @@ struct OnboardingStartView: View {
                 } label: {
                     Text("목표 세우러 가기")
                 }
-                .padding(.horizontal)
+                .padding()
             }
             .navigationDestination(for: PathType.self) { pathType in
                 pathType.NavigatingView()
