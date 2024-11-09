@@ -14,11 +14,28 @@ struct QuestionView: View {
     
     var body: some View {
         VStack {
-            Spacer()
-            
+            // Back Button & 프로그레스 바
+            HStack {
+                Button{
+                    navigationManager.pop()
+                } label: {
+                    HStack {
+                        Image(systemName: "chevron.left")
+                            .tint(.black)
+                            .bold()
+                    }
+                }
+                OnboardingProgressBar(value: 1/5)
+                    .frame(height: 10)
+                    .padding()
+                    .padding(.trailing)
+            }
+            .padding()
+
             VStack(spacing: 10) {
                 Text(nowOnboard.onboardingTitle)
                     .font(.system(size: 26, weight: .bold))
+                    .multilineTextAlignment(.center)
                 
                 Text(nowOnboard.onboardingSubTitle)
                     .font(.system(size: 18))
@@ -36,12 +53,21 @@ struct QuestionView: View {
             
             Spacer()
             
-            Button {
-                //                       navigationManager.push(to: .onboardQuestion)
-            } label: {
-                Text("목표 세우러 가기")
+            // 하단 Button
+            HStack {
+                PassButton {
+                    //
+                } label: {
+                    Text("아니요, 잘 몰라요.")
+                }
+                
+                NextButton {
+                    //                       navigationManager.push(to: .onboardQuestion)
+                } label: {
+                    Text("네, 알고있어요.")
+                }
             }
-            .padding(.horizontal)
+            .padding()
         }
     }
 }
