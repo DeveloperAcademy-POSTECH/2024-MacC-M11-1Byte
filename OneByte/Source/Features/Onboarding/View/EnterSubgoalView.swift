@@ -10,8 +10,7 @@ import SwiftUI
 struct EnterSubgoalView: View {
     
     @Environment(NavigationManager.self) var navigationManager
-    @Environment(\.dismiss) private var dismiss // Onboarding dismiss
-    @AppStorage("isFirstOnboarding") private var isFirstOnboarding: Bool? // 온보딩 첫 동작시에만
+    @AppStorage("FirstOnboarding") private var isFirstOnboarding: Bool? // 온보딩 첫 동작시에만
     
     var nowOnboard: Onboarding = .subgoal
     
@@ -80,8 +79,7 @@ struct EnterSubgoalView: View {
             // 하단 Button
             HStack {
                 PassButton {
-                    isFirstOnboarding = false
-                    dismiss()
+                    isFirstOnboarding = false // 온보딩 close
                 } label: {
                     Text("건너 뛰기")
                 }

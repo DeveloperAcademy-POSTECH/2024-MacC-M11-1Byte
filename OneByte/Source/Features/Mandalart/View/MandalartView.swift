@@ -8,6 +8,9 @@ import SwiftUI
 import SwiftData
 
 struct MandalartView: View {
+    
+    @AppStorage("FirstOnboarding") var FirstOnboarding: Bool = true // App Onboarding 한번만 작동하게 하는 변수
+  
     @Query private var mainGoals: [MainGoal]
     @State var isPresented = false
     @State private var selectedSubGoal: SubGoal?
@@ -21,6 +24,9 @@ struct MandalartView: View {
                     .foregroundColor(.gray)
                     .padding()
             }
+        }
+        .fullScreenCover(isPresented: $FirstOnboarding) {
+            OnboardingStartView() // MandalartView Appear될 시 온보딩 뷰 Full Screen
         }
     }
 }

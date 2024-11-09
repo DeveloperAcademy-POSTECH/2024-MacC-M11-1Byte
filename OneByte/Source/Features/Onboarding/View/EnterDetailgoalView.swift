@@ -80,8 +80,7 @@ struct EnterDetailgoalView: View {
             // 하단 Button
             HStack {
                 PassButton {
-                    isFirstOnboarding = false
-                    dismiss()
+                    isFirstOnboarding = false // 온보딩 close
                 } label: {
                     Text("건너 뛰기")
                 }

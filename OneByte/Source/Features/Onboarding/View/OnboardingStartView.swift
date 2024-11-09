@@ -11,6 +11,10 @@ struct OnboardingStartView: View {
     
     @State private var navigationManager = NavigationManager()
     
+    @Environment(\.modelContext) private var modelContext
+    
+    @State var viewModel = OnboardingViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
+    
     var nowOnboard: Onboarding = .start
     
     var body: some View {
@@ -49,6 +53,9 @@ struct OnboardingStartView: View {
             }
             .navigationDestination(for: PathType.self) { pathType in
                 pathType.NavigatingView()
+            }
+            .onAppear {
+                viewModel.createGoals(modelContext: modelContext)
             }
         }
         .environment(navigationManager)

@@ -6,9 +6,21 @@
 //
 
 import SwiftUI
+import SwiftData
 
-class OnboardingViewModel {
-    var body: some View {
-        Text("뷰모델 파일 임시 생성")
+
+class OnboardingViewModel: ObservableObject {
+    
+    private let createService: CreateGoalUseCase
+    private let updateService: UpdateGoalUseCase
+    
+    init(createService: CreateGoalUseCase, updateService: UpdateGoalUseCase ) {
+        self.createService = createService
+        self.updateService = updateService
     }
+    
+    func createGoals(modelContext: ModelContext) {
+        createService.createGoals(modelContext: modelContext)
+    }
+
 }

@@ -10,8 +10,7 @@ import SwiftUI
 struct OnboardingFinishView: View {
     
     @Environment(NavigationManager.self) var navigationManager
-    @Environment(\.dismiss) private var dismiss // Onboarding dismiss
-    @AppStorage("isFirstOnboarding") private var isFirstOnboarding: Bool? // 온보딩 첫 동작시에만
+    @AppStorage("FirstOnboarding") private var FirstOnboarding: Bool? // 온보딩 첫 동작시에만
     
     var nowOnboard: Onboarding = .finish
     
@@ -50,8 +49,7 @@ struct OnboardingFinishView: View {
             HStack {
                 GoButton {
                     // 온보딩끝내고 메인화면으로
-                    isFirstOnboarding = false
-                    dismiss()
+                    FirstOnboarding = false
                 } label: {
                     Text("이어서 작성하기")
                 }
