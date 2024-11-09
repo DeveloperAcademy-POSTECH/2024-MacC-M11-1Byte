@@ -20,6 +20,7 @@ enum PathType: Hashable {
     case onboardSubgoal
     case onboardDetailgoal
     case onboardFinish
+    case onboardInfo
 }
 
 extension PathType {
@@ -67,6 +68,10 @@ extension PathType {
             
         case .onboardFinish:
             OnboardingFinishView()
+                .navigationBarBackButtonHidden()
+            
+        case .onboardInfo:
+            OnboardingInfoView()
                 .navigationBarBackButtonHidden()
         }
     }

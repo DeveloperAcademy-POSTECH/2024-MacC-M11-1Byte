@@ -61,7 +61,4 @@ enum Onboarding {
             return ""
         }
     }
-    
 }
-
-

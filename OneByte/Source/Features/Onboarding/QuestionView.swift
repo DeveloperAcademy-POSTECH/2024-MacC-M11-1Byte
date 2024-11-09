@@ -56,7 +56,7 @@ struct QuestionView: View {
             // 하단 Button
             HStack {
                 PassButton {
-                    //
+                    navigationManager.push(to: .onboardInfo)
                 } label: {
                     Text("아니요, 잘 몰라요.")
                 }

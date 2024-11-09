@@ -31,6 +31,8 @@
 		1FB10A302CDF55AA00D54EC5 /* EnterSubgoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A2F2CDF55AA00D54EC5 /* EnterSubgoalView.swift */; };
 		1FB10A322CDF56E200D54EC5 /* EnterDetailgoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A312CDF56E200D54EC5 /* EnterDetailgoalView.swift */; };
 		1FB10A342CDF593600D54EC5 /* OnboardingFinishView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A332CDF593600D54EC5 /* OnboardingFinishView.swift */; };
+		1FB10A362CDF5C7900D54EC5 /* OnboardingInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A352CDF5C7900D54EC5 /* OnboardingInfoView.swift */; };
+		1FB10A382CDF5FE800D54EC5 /* OnboardingExplain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A372CDF5FE800D54EC5 /* OnboardingExplain.swift */; };
 		1FD066DF2CD906740026D12D /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD066DE2CD906740026D12D /* UserRepository.swift */; };
 		613904E62CD1D419008E591D /* MemberModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E52CD1D419008E591D /* MemberModel.swift */; };
 		613904E82CD20457008E591D /* MandalartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E72CD20457008E591D /* MandalartView.swift */; };
@@ -71,6 +73,8 @@
 		1FB10A2F2CDF55AA00D54EC5 /* EnterSubgoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSubgoalView.swift; sourceTree = "<group>"; };
 		1FB10A312CDF56E200D54EC5 /* EnterDetailgoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterDetailgoalView.swift; sourceTree = "<group>"; };
 		1FB10A332CDF593600D54EC5 /* OnboardingFinishView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFinishView.swift; sourceTree = "<group>"; };
+		1FB10A352CDF5C7900D54EC5 /* OnboardingInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInfoView.swift; sourceTree = "<group>"; };
+		1FB10A372CDF5FE800D54EC5 /* OnboardingExplain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingExplain.swift; sourceTree = "<group>"; };
 		1FD066DE2CD906740026D12D /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		613904E52CD1D419008E591D /* MemberModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberModel.swift; sourceTree = "<group>"; };
 		613904E72CD20457008E591D /* MandalartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalartView.swift; sourceTree = "<group>"; };
@@ -105,6 +109,7 @@
 				1FB10A312CDF56E200D54EC5 /* EnterDetailgoalView.swift */,
 				1FB10A2F2CDF55AA00D54EC5 /* EnterSubgoalView.swift */,
 				1FB10A332CDF593600D54EC5 /* OnboardingFinishView.swift */,
+				1FB10A352CDF5C7900D54EC5 /* OnboardingInfoView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -267,6 +272,7 @@
 				1F7C9C272CD083CC00BAC358 /* GoalModels.swift */,
 				613904E52CD1D419008E591D /* MemberModel.swift */,
 				1F4D8BF12CDF4FC300A0B5CC /* Onboarding.swift */,
+				1FB10A372CDF5FE800D54EC5 /* OnboardingExplain.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -388,6 +394,7 @@
 			files = (
 				1FB10A252CDF511600D54EC5 /* NextButton.swift in Sources */,
 				1F4D8BF02CDF4F9E00A0B5CC /* OnboardingStartView.swift in Sources */,
+				1FB10A382CDF5FE800D54EC5 /* OnboardingExplain.swift in Sources */,
 				1F88AB412CD6101C0009730D /* Date+.swift in Sources */,
 				1FB10A322CDF56E200D54EC5 /* EnterDetailgoalView.swift in Sources */,
 				615A0A0B2CC0ADA800908531 /* TabBarManager.swift in Sources */,
@@ -403,6 +410,7 @@
 				1FB10A342CDF593600D54EC5 /* OnboardingFinishView.swift in Sources */,
 				1F79EDCE2CC0A25D0079088B /* OneByteApp.swift in Sources */,
 				1F35C47D2CD89E790013C731 /* RetrospectTotalView.swift in Sources */,
+				1FB10A362CDF5C7900D54EC5 /* OnboardingInfoView.swift in Sources */,
 				1F88AB3B2CD609010009730D /* RetrospectSelectView.swift in Sources */,
 				1FD066DF2CD906740026D12D /* UserRepository.swift in Sources */,
 				613904EA2CD21A0B008E591D /* MadalArtCRUDTestViewModel.swift in Sources */,
