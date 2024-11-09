@@ -5,38 +5,61 @@
 //  Created by 이상도 on 10/30/24.
 //
 
+// ClientCreateService.swift
 import SwiftUI
 import SwiftData
 
-// 클라이언트에서 생성하기 구체화
 class ClientCreateService: CreateGoalUseCase {
-    
-    func createMainGoal( title: String, isAchieved: Bool) -> MainGoal {
-        print("Creating MainGoal with title: \(title)")
-        let newMainGoal = MainGoal(title: title, isAchieved: false)
-        print(newMainGoal.id)
-        print(newMainGoal.subGoals)
-        print(newMainGoal.isAchieved)
-        print("Successfully created MainGoal: \(newMainGoal.title)")
-        return newMainGoal
-    }
-    
-    func createSubGoal(mainGoal: MainGoal, title: String, isAchieved: Bool) -> SubGoal? {
-        let newSubGoal = SubGoal(id: UUID(), title: title, isAchieved: isAchieved)
-        newSubGoal.mainGoal = mainGoal
-        print(newSubGoal.id)
-        print(mainGoal.id)
-        return newSubGoal
-    }
-    
-    func createDetailGoal(subGoal: SubGoal, title: String, isAchieved: Bool) -> DetailGoal? {
-        let newDetailGoal = DetailGoal(id: UUID(), title: title, isAchieved: isAchieved)
-        newDetailGoal.subGoal = subGoal
-        print("newDetailGoal.id: \(newDetailGoal.id)")
-        print("subGoal.id: \(subGoal.id)")
-        print("newDetailGoal.isAchieved: \(newDetailGoal.isAchieved)")
-        print("newDetailGoal.title: \(newDetailGoal.title)")
-        
-        return newDetailGoal
-    }
+    func createGoals(modelContext: ModelContext) {
+        var mainGoalCounter = 1  // MainGoal ID 카운터
+        var subGoalCounter = 1   // SubGoal ID 카운터
+        var detailGoalCounter = 1 // DetailGoal ID 카운터
+           // 현재 연도를 goalYear로 설정
+           let currentYear = Calendar.current.component(.year, from: Date())
+           
+           // MainGoal 생성
+           let newMainGoal = MainGoal(
+               id: mainGoalCounter,
+               title: "",
+               goalYear: currentYear,
+               subGoals: []
+           )
+           
+           mainGoalCounter += 1  // MainGoal ID 증가
+           
+           // SubGoal 8개 생성 및 DetailGoal 8개 초기화
+           for _ in 1...8 {
+               let newSubGoal = SubGoal(
+                   id: subGoalCounter,
+                   title: "",
+                   memo: "",
+                   mainGoalId: newMainGoal.id,
+                   detailGoals: []
+               )
+               subGoalCounter += 1 // SubGoal ID 증가
+               
+               // DetailGoal 8개 생성
+               for _ in 1...8 {
+                   let newDetailGoal = DetailGoal(
+                       id: detailGoalCounter,
+                       title: "",
+                       memo: "",
+                       isAchieved: false,
+                       subGoalId: newSubGoal.id
+                   )
+                   detailGoalCounter += 1 // DetailGoal ID 증가
+                   
+                   // SwiftData에 DetailGoal 추가
+                   modelContext.insert(newDetailGoal)
+                   newSubGoal.detailGoals.append(newDetailGoal)
+               }
+               
+               // SwiftData에 SubGoal 추가
+               modelContext.insert(newSubGoal)
+               newMainGoal.subGoals.append(newSubGoal)
+           }
+           
+           // SwiftData에 MainGoal 추가
+           modelContext.insert(newMainGoal)
+       }
 }

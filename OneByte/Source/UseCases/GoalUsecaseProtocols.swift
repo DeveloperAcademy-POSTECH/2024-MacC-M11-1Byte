@@ -6,17 +6,16 @@
 //
 
 import Foundation
+import SwiftData
 
 protocol CreateGoalUseCase {
-    func createMainGoal(title: String, isAchieved: Bool) -> MainGoal
-    func createSubGoal(mainGoal: MainGoal, title: String, isAchieved: Bool) -> SubGoal?
-    func createDetailGoal(subGoal: SubGoal, title: String, isAchieved: Bool) -> DetailGoal?
+    func createGoals(modelContext: ModelContext)
 }
 
 protocol UpdateGoalUseCase {
-    func updateMainGoal(id: UUID, newTitle: String, isAchieved: Bool) -> MainGoal?
-    func updateSubGoal(id: UUID, newTitle: String, isAchieved: Bool) -> SubGoal?
-    func updateDetailGoal(id: UUID, newTitle: String, isAchieved: Bool) -> DetailGoal?
+    func updateMainGoal(mainGoal: MainGoal, modelContext: ModelContext, id: Int, newTitle: String, newGoalYear: Int)
+    func updateSubGoal(subGoal: SubGoal, modelContext: ModelContext, newTitle: String, newMemo: String)
+    func updateDetailGoal(detailGoal: DetailGoal, modelContext: ModelContext, newTitle: String, newMemo: String, isAchieved: Bool)
 }
 
 protocol ReadGoalUseCase {
