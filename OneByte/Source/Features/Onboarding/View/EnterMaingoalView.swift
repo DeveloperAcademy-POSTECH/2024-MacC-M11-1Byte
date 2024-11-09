@@ -6,15 +6,22 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct EnterMaingoalView: View {
     
-    @Environment(NavigationManager.self) var navigationManager
+    @Environment(NavigationManager.self) var navigationManager 
+    
+    @Environment(\.modelContext) private var modelContext
+    @Query private var mainGoals: [MainGoal]
+    var mainGoal: MainGoal?
+    
+    @State var viewModel = OnboardingViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
+    
+    @State private var userMainGoal: String = "" // 사용자 입력 MainGoal
+    private let mainGoalLimit = 15 // 글자 수 제한 -> 나중에 디자인팀이라 의논해서 수정해야함
     
     var nowOnboard: Onboarding = .maingoal
-    
-    @State private var mainGoal: String = "" // MainGoal
-    private let mainGoalLimit = 15 // 글자 수 제한 -> 나중에 디자인팀이라 의논해서 수정해야함
     
     var body: some View {
         VStack {
@@ -67,14 +74,14 @@ struct EnterMaingoalView: View {
                     .fill(Color(hex: "EEEEEE"))
                     .frame(width: 210, height: 210) // 가로 세로 크기 고정
                 
-                TextField("2025 최종 목표", text: $mainGoal)
+                TextField("2025 최종 목표", text: $userMainGoal)
                     .font(.system(size: 20, weight: .semibold))
                     .multilineTextAlignment(.center)
                     .padding()
                     .background(Color.clear)
-                    .onChange(of: mainGoal) { newValue in
+                    .onChange(of: userMainGoal) { newValue in
                         if newValue.count > mainGoalLimit {
-                            mainGoal = String(newValue.prefix(mainGoalLimit))
+                            userMainGoal = String(newValue.prefix(mainGoalLimit))
                         }
                     }
             }
@@ -84,7 +91,12 @@ struct EnterMaingoalView: View {
             
             // 하단 Button
             HStack {
-                NextButton(isEnabled: !mainGoal.isEmpty) { // mainGoal이 비어있지 않을 때만 활성화
+                NextButton(isEnabled: !userMainGoal.isEmpty) { // 사용자 입력 MainGoal이 비어있지 않을 때만 활성화
+                    viewModel.updateMainGoal( // MainGoal 데이터 업데이트
+                           mainGoals: mainGoals,
+                           userMainGoal: userMainGoal,
+                           modelContext: modelContext
+                       )
                     navigationManager.push(to: .onboardSubgoal)
                 } label: {
                     Text("다음")

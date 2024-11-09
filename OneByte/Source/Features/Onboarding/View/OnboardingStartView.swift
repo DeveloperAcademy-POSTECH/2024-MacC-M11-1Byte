@@ -55,6 +55,7 @@ struct OnboardingStartView: View {
             }
             .onAppear {
                 viewModel.createGoals(modelContext: modelContext) // 온보딩 등장시 데이터 생성
+                viewModel.printAllData()
             }
         }
         .environment(navigationManager)
