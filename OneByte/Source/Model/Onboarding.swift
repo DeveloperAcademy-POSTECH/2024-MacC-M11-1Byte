@@ -9,7 +9,7 @@ import SwiftUI
 
 enum Onboarding {
     
-    case start, question, maingoal, subgoal, detailgoal
+    case start, question, maingoal, subgoal, detailgoal, finish
     
     var onboardingTitle: String {
         switch self {
@@ -23,6 +23,8 @@ enum Onboarding {
             return "세부 목표를 작성해보세요."
         case .detailgoal:
             return "할 일 하나를 작성해보아요."
+        case .finish:
+            return "수고하셨습니다."
         }
     }
     
@@ -38,6 +40,8 @@ enum Onboarding {
             return "최종 목표를 달성하기 위한"
         case .detailgoal:
             return "마지막으로,\n작성하신 세부 목표를 달성하기 위한"
+        case .finish:
+            return "이제 스스로 남은 만다라트 칸을 채워보세요."
         }
     }
     
@@ -53,6 +57,8 @@ enum Onboarding {
             return "세부 목표는 '건강','학업'과 같은 카테고리나 '새로운 도전을 주저하지 않기'와 같은 목표로도 작성할 수 있습니다."
         case .detailgoal:
             return "할 일을 작성할 때에는 현실적으로 달성 가능한지 또는\n구체적으로 행동할 수 있는 내용인지 고려해보아요."
+        case .finish:
+            return ""
         }
     }
     

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct EnterSubgoalView: View {
     @Environment(NavigationManager.self) var navigationManager
+    @Environment(\.dismiss) private var dismiss // Onboarding dismiss
+    @AppStorage("isFirstOnboarding") private var isFirstOnboarding: Bool? // 온보딩 첫 동작시에만
     
     var nowOnboard: Onboarding = .subgoal
     
@@ -67,14 +69,15 @@ struct EnterSubgoalView: View {
             
             HStack {
                 PassButton {
-                    // 온보딩 종료
+                    isFirstOnboarding = false
+                    dismiss()
                 } label: {
                     Text("건너 뛰기")
                         .font(.system(size: 18))
                 }
                 
                 NextButton {
-                                    navigationManager.push(to: .onboardDetailgoal)
+                    navigationManager.push(to: .onboardDetailgoal)
                 } label: {
                     Text("다음")
                         .font(.system(size: 18))

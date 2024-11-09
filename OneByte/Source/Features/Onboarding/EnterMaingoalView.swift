@@ -50,7 +50,6 @@ struct EnterMaingoalView: View {
             }
             .padding()
             
-            
             Spacer()
             
             HStack {

@@ -8,11 +8,56 @@
 import SwiftUI
 
 struct OnboardingFinishView: View {
+    @Environment(NavigationManager.self) var navigationManager
+    @Environment(\.dismiss) private var dismiss // Onboarding dismiss
+    @AppStorage("isFirstOnboarding") private var isFirstOnboarding: Bool? // 온보딩 첫 동작시에만
+    
+    var nowOnboard: Onboarding = .finish
+    
     var body: some View {
-        Text("Hello, World!")
+        VStack {
+            VStack(spacing: 10) {
+                Image(systemName: "timelapse")
+                    .resizable()
+                    .frame(width: 100, height: 100)
+                    .padding()
+                
+                Text(nowOnboard.onboardingTitle)
+                    .font(.system(size: 26, weight: .bold))
+                    .multilineTextAlignment(.center)
+                
+                Text(nowOnboard.onboardingSubTitle)
+                    .font(.system(size: 17, weight: .medium))
+                    .foregroundStyle(Color(hex: "919191"))
+            }
+            .padding()
+            
+            Spacer()
+            
+            HStack {
+                Image(systemName: "timelapse")
+                    .resizable()
+                    .frame(width: 350, height: 350)
+            }
+            .padding()
+            
+            Spacer()
+            
+            HStack {
+                NextButton {
+                    isFirstOnboarding = false
+                    dismiss()
+                } label: {
+                    Text("이어서 작성하기")
+                        .font(.system(size: 18))
+                }
+            }
+            .padding()
+        }
     }
 }
 
 #Preview {
     OnboardingFinishView()
+        .environment(NavigationManager())
 }
