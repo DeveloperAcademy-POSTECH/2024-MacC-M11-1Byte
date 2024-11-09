@@ -19,6 +19,7 @@ struct EnterDetailgoalView: View {
     @State private var userDetailGoal: String = "" // 사용자 SubGoal 입력 텍스트
     @State private var userDetailGoalNewMemo: String = ""
     @State var viewModel = OnboardingViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
+    @State private var targetSubGoal: SubGoal? // id가 1인 SubGoal 저장변수
     
     // 3x3 View Custom 변수들
     let items = Array(1...9)
@@ -110,10 +111,10 @@ struct EnterDetailgoalView: View {
                                 .padding(10)
                         }
                         
-                        // item이 5인 중앙은 mainGoals
+                        // item이 5인 중앙은 SubGoal
                         if item == 5 {
-                            if let subGoal = subGoals.first {
-                                Text(subGoal.title)
+                            if let title = targetSubGoal?.title {
+                                Text(title)
                                     .font(.Pretendard.Medium.size20)
                             } else {
                                 Text("")
@@ -144,6 +145,10 @@ struct EnterDetailgoalView: View {
                 }
             }
             .padding()
+        }
+        .onAppear {
+            // EnterSubgoalView에서 사용자가 입력한 Subgoal중 id 1번 값을 찾아 담음
+            targetSubGoal = subGoals.first(where: { $0.id == 1 })
         }
     }
 }

@@ -49,6 +49,21 @@ class OnboardingViewModel: ObservableObject {
         }
     }
     
+    func updateSubGoal(subGoal: SubGoal, modelContext: ModelContext, newTitle: String, newMemo: String) {
+        updateService.updateSubGoal(
+            subGoal: subGoal,
+            modelContext: modelContext,
+            newTitle: newTitle,
+            newMemo: newMemo
+        )
+        
+        do {
+            try modelContext.save()
+        } catch {
+            print("Error saving subGoal: \(error.localizedDescription)")
+        }
+    }
+    
     // SwiftData에 저장된 전체 데이터 출력
     func printAllData() {
         print("Main Goals:")

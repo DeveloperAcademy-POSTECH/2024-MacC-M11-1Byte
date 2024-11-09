@@ -5,8 +5,11 @@ struct EnterSubgoalView: View {
     
     @Environment(NavigationManager.self) var navigationManager
     @AppStorage("FirstOnboarding") private var isFirstOnboarding: Bool?
+    @Environment(\.modelContext) private var modelContext
     
     @Query private var mainGoals: [MainGoal]
+    
+    @State var viewModel = OnboardingViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     
     let items = Array(1...9)
     let gridSpacing: CGFloat = 5 // 셀 간 수직 간격
@@ -97,7 +100,7 @@ struct EnterSubgoalView: View {
                                 .padding(10)
                         }
                         
-                        // item이 5인 중앙은 mainGoals
+                        // item이 5인 중앙은 MainGoal
                         if item == 5 {
                             if let mainGoal = mainGoals.first {
                                 Text(mainGoal.title)
@@ -125,7 +128,22 @@ struct EnterSubgoalView: View {
                 }
                 
                 GoButton {
-                    navigationManager.push(to: .onboardDetailgoal)
+                    if let subGoal = mainGoals.first?.subGoals.first(where: { $0.id == 1 }) {
+                           viewModel.updateSubGoal(
+                               subGoal: subGoal,
+                               modelContext: modelContext,
+                               newTitle: userSubGoal,
+                               newMemo: subGoal.memo // 기존 메모를 유지하거나, 새 메모를 전달할 수 있음
+                           )
+                           do {
+                               try modelContext.save()
+                           } catch {
+                               print("Error saving subGoal: \(error.localizedDescription)")
+                           }
+                           navigationManager.push(to: .onboardDetailgoal)
+                       } else {
+                           print("Error: subGoal with ID 1 not found.")
+                       }
                 } label: {
                     Text("다음")
                 }
