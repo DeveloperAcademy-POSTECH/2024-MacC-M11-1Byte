@@ -71,7 +71,7 @@ extension PathType {
                 .navigationBarBackButtonHidden()
             
         case .onboardInfo:
-            OnboardingInfoView()
+            OnboardingExplainView()
                 .navigationBarBackButtonHidden()
         }
     }

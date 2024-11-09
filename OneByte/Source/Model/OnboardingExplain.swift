@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum OnboardingExplain {
+enum OnboardingExplain: CaseIterable {
     
     case first, second, third, fourth
     
@@ -34,6 +34,20 @@ enum OnboardingExplain {
             return "\"내가 이룰 목표는 무엇인지\",\"그 목표를 이루기 위한\n하위 단계는 무엇이 될지\"를 고민하여 쪼개는 과정에\n집중해보세요."
         case .fourth:
             return ""
+        }
+    }
+    
+    var explainImage: Image {
+        switch self {
+        case .first:
+            return Image(systemName: "command")
+        case .second:
+            return Image(systemName: "command.circle")
+        case .third:
+            return Image(systemName: "command.circle.fill")
+        case .fourth:
+            return Image(systemName: "command.square")
+            
         }
     }
 }
