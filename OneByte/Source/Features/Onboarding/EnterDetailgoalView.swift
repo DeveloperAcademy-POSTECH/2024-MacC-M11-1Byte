@@ -17,6 +17,7 @@ struct EnterDetailgoalView: View {
     
     var body: some View {
         VStack {
+            // Back Button & 프로그레스 바
             HStack {
                 Button {
                     navigationManager.pop()
@@ -66,6 +67,7 @@ struct EnterDetailgoalView: View {
             
             Spacer()
             
+            // 중앙 3x3 View
             HStack {
                 Image(systemName: "timelapse")
                     .resizable()
@@ -75,7 +77,7 @@ struct EnterDetailgoalView: View {
             
             Spacer()
             
-            // 하단 버튼
+            // 하단 Button
             HStack {
                 PassButton {
                     isFirstOnboarding = false
@@ -94,7 +96,6 @@ struct EnterDetailgoalView: View {
             }
             .padding()
         }
-        .navigationBarHidden(true)
     }
 }
 

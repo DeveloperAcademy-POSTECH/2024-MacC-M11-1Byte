@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct OnboardingFinishView: View {
+    
     @Environment(NavigationManager.self) var navigationManager
     @Environment(\.dismiss) private var dismiss // Onboarding dismiss
     @AppStorage("isFirstOnboarding") private var isFirstOnboarding: Bool? // 온보딩 첫 동작시에만
@@ -16,6 +17,7 @@ struct OnboardingFinishView: View {
     
     var body: some View {
         VStack {
+            // 상단 캐릭터 이미지 & 텍스트
             VStack(spacing: 10) {
                 Image(systemName: "timelapse")
                     .resizable()
@@ -34,6 +36,7 @@ struct OnboardingFinishView: View {
             
             Spacer()
             
+            // 9x9 만다라트 View
             HStack {
                 Image(systemName: "timelapse")
                     .resizable()
@@ -43,6 +46,7 @@ struct OnboardingFinishView: View {
             
             Spacer()
             
+            // 하단 Button
             HStack {
                 GoButton {
                     // 온보딩끝내고 메인화면으로

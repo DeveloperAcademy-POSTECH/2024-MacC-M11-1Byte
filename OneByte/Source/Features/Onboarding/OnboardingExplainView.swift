@@ -15,7 +15,7 @@ struct OnboardingExplainView: View {
     
     var body: some View {
         VStack {
-            // 만다라트 설명 4페이지뷰를, 한 뷰에서 탭뷰로 표시
+            // 만다라트 설명 4페이지뷰를, 한 뷰에서 탭뷰로 생성
             TabView(selection: $nowOnboardingExplain) {
                 ForEach(OnboardingExplain.allCases, id: \.self) { onboarding in
                     OnboardingExplainPageView(
@@ -27,7 +27,7 @@ struct OnboardingExplainView: View {
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             
-            // Indicator
+            // Indicator ( 현재 Page/전체 Page 나타내는 dots )
             VStack {
                 HStack(spacing: 8) {
                     ForEach(OnboardingExplain.allCases, id: \.self) { onboarding in
@@ -38,6 +38,7 @@ struct OnboardingExplainView: View {
                 }
             }
             
+            // 하단 Button
             GoButton {
                 navigationManager.push(to: .onboardMaingoal)
             } label: {

@@ -14,6 +14,7 @@ struct OnboardingExplainPageView: View {
     
     var body: some View {
         VStack {
+            // 상단 Lottie
             HStack {
                 nowOnboard.explainImage
                     .resizable()
@@ -22,6 +23,7 @@ struct OnboardingExplainPageView: View {
             }
             .padding()
             
+            // 하단 Text
             VStack(spacing: 20) {
                 Text(nowOnboard.explainTitle)
                     .font(.system(size: 26, weight: .bold))

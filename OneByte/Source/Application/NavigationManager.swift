@@ -8,12 +8,14 @@
 import SwiftUI
 
 enum PathType: Hashable {
+    // 회고 case
     case main
     case total
     case select
     case retrospect
     case complete
     
+    // 온보딩 case
     case onboardStart
     case onboardQuestion
     case onboardMaingoal
@@ -27,6 +29,7 @@ extension PathType {
     @ViewBuilder
     func NavigatingView() -> some View {
         switch self {
+        // 회고 case
         case .main:
             RetrospectMainView()
                 .navigationBarBackButtonHidden()
@@ -47,24 +50,29 @@ extension PathType {
             RetrospectCompleteView()
                 .navigationBarBackButtonHidden()
             
+        // 온보딩 case
         case .onboardStart:
             OnboardingStartView()
             
         case .onboardQuestion:
             QuestionView()
                 .navigationBarBackButtonHidden()
+                .navigationBarHidden(true)
             
         case .onboardMaingoal:
             EnterMaingoalView()
                 .navigationBarBackButtonHidden()
+                .navigationBarHidden(true)
             
         case .onboardSubgoal:
             EnterSubgoalView()
                 .navigationBarBackButtonHidden()
+                .navigationBarHidden(true)
             
         case .onboardDetailgoal:
             EnterDetailgoalView()
                 .navigationBarBackButtonHidden()
+                .navigationBarHidden(true)
             
         case .onboardFinish:
             OnboardingFinishView()

@@ -17,7 +17,7 @@ struct OnboardingStartView: View {
         NavigationStack(path: $navigationManager.path) {
             VStack {
                 Spacer()
-                
+                // 상단 텍스트
                 VStack(spacing: 10) {
                     Text(nowOnboard.onboardingTitle)
                         .font(.system(size: 26, weight: .bold))
@@ -29,6 +29,7 @@ struct OnboardingStartView: View {
                 }
                 Spacer()
                 
+                // 중앙 캐릭터 이미지
                 HStack {
                     Image(systemName: "timelapse")
                         .resizable()
@@ -38,6 +39,7 @@ struct OnboardingStartView: View {
                 
                 Spacer()
                 
+                // 하단 Button
                 GoButton {
                     navigationManager.push(to: .onboardQuestion)
                 } label: {

@@ -14,10 +14,11 @@ struct EnterMaingoalView: View {
     var nowOnboard: Onboarding = .maingoal
     
     @State private var mainGoal: String = "" // MainGoal
-    private let mainGoalLimit = 15 // 글자 수 제한
+    private let mainGoalLimit = 15 // 글자 수 제한 -> 나중에 디자인팀이라 의논해서 수정해야함
     
     var body: some View {
         VStack {
+            // Back Button & 프로그레스 바
             HStack {
                 Button {
                     navigationManager.pop()
@@ -60,6 +61,7 @@ struct EnterMaingoalView: View {
             
             Spacer()
             
+            // MainGoal 입력 창
             ZStack {
                 RoundedRectangle(cornerRadius: 12)
                     .fill(Color(hex: "EEEEEE"))
@@ -80,20 +82,17 @@ struct EnterMaingoalView: View {
             
             Spacer()
             
+            // 하단 Button
             HStack {
                 NextButton(isEnabled: !mainGoal.isEmpty) { // mainGoal이 비어있지 않을 때만 활성화
-                               navigationManager.push(to: .onboardSubgoal)
-                           } label: {
-                               Text("다음")
-                                   .font(.system(size: 18))
-                           }
-                
-            
-//                .disabled(mainGoal.isEmpty)  mainGoal 비어있을시 비활성화
+                    navigationManager.push(to: .onboardSubgoal)
+                } label: {
+                    Text("다음")
+                        .font(.system(size: 18))
+                }
             }
             .padding()
         }
-        .navigationBarHidden(true)
     }
 }
 
