@@ -13,6 +13,9 @@ enum PathType: Hashable {
     case select
     case retrospect
     case complete
+    
+    case onboardStart
+    case onboardQuestion
 }
 
 extension PathType {
@@ -37,6 +40,13 @@ extension PathType {
             
         case .complete:
             RetrospectCompleteView()
+                .navigationBarBackButtonHidden()
+            
+        case .onboardStart:
+            OnboardingStartView()
+            
+        case .onboardQuestion:
+            QuestionView()
                 .navigationBarBackButtonHidden()
         }
     }
