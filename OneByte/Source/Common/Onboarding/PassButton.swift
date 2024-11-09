@@ -23,7 +23,7 @@ struct PassButton<Content: View>: View {
             action()
         } label: {
             label
-                .font(.system(size: 18))
+                .font(.Pretendard.Regular.size18)
                 .foregroundStyle(Color(hex: "636363"))
                 .frame(maxWidth: .infinity)
                 .frame(height: 53)

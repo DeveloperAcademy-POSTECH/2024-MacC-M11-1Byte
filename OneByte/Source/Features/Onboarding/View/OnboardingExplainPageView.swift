@@ -26,11 +26,11 @@ struct OnboardingExplainPageView: View {
             // 하단 Text
             VStack(spacing: 20) {
                 Text(nowOnboard.explainTitle)
-                    .font(.system(size: 26, weight: .bold))
+                    .font(.Pretendard.Bold.size26)
                     .multilineTextAlignment(.center)
                 
                 Text(nowOnboard.explainSubTitle)
-                    .font(.system(size: 16))
+                    .font(.Pretendard.Regular.size16)
                     .lineSpacing(4)
                     .multilineTextAlignment(.center)
             }

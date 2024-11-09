@@ -37,7 +37,7 @@ struct EnterMaingoalView: View {
             .padding(.horizontal)
             
             Text(nowOnboard.onboardingTitle)
-                .font(.system(size: 26, weight: .bold))
+                .font(.Pretendard.Bold.size26)
                 .multilineTextAlignment(.center)
             
             // 팁 메세지 영역
@@ -49,9 +49,9 @@ struct EnterMaingoalView: View {
                 
                 VStack(alignment: .leading) {
                     (Text("TIP ")
-                        .fontWeight(.bold) +
+                        .font(.Pretendard.Bold.size14) +
                      Text(nowOnboard.onboardingTipMessage))
-                    .font(.system(size: 14))
+                    .font(.Pretendard.Regular.size14)
                     .multilineTextAlignment(.leading)
                     .lineSpacing(4)
                     .padding()
@@ -88,7 +88,6 @@ struct EnterMaingoalView: View {
                     navigationManager.push(to: .onboardSubgoal)
                 } label: {
                     Text("다음")
-                        .font(.system(size: 18))
                 }
             }
             .padding()

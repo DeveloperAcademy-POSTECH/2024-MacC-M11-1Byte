@@ -20,10 +20,10 @@ struct OnboardingStartView: View {
                 // 상단 텍스트
                 VStack(spacing: 10) {
                     Text(nowOnboard.onboardingTitle)
-                        .font(.system(size: 26, weight: .bold))
+                        .font(.Pretendard.Bold.size26)
                     
                     Text(nowOnboard.onboardingSubTitle)
-                        .font(.system(size: 18))
+                        .font(.Pretendard.Regular.size18)
                         .multilineTextAlignment(.center)
                         .lineSpacing(4)
                 }

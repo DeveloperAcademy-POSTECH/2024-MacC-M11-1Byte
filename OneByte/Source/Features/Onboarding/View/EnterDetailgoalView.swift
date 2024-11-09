@@ -37,12 +37,12 @@ struct EnterDetailgoalView: View {
             
             VStack(spacing: 10) {
                 Text(nowOnboard.onboardingSubTitle)
-                    .font(.system(size: 17, weight: .bold))
+                    .font(.Pretendard.Regular.size17)
                     .foregroundStyle(Color(hex: "919191"))
                     .multilineTextAlignment(.center)
                 
                 Text(nowOnboard.onboardingTitle)
-                    .font(.system(size: 26, weight: .bold))
+                    .font(.Pretendard.Bold.size26)
                     .multilineTextAlignment(.center)
             }
             
@@ -55,9 +55,9 @@ struct EnterDetailgoalView: View {
                 
                 VStack(alignment: .leading) {
                     (Text("TIP ")
-                        .fontWeight(.bold) +
+                        .font(.Pretendard.Bold.size14) +
                      Text(nowOnboard.onboardingTipMessage))
-                    .font(.system(size: 14))
+                    .font(.Pretendard.Regular.size14)
                     .multilineTextAlignment(.leading)
                     .lineSpacing(4)
                     .padding()
@@ -84,14 +84,12 @@ struct EnterDetailgoalView: View {
                     dismiss()
                 } label: {
                     Text("건너 뛰기")
-                        .font(.system(size: 18))
                 }
                 
                 GoButton {
                     navigationManager.push(to: .onboardFinish)
                 } label: {
                     Text("다음")
-                        .font(.system(size: 18))
                 }
             }
             .padding()

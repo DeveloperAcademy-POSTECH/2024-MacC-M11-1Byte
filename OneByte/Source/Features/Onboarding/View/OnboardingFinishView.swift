@@ -25,7 +25,7 @@ struct OnboardingFinishView: View {
                     .padding()
                 
                 Text(nowOnboard.onboardingTitle)
-                    .font(.system(size: 26, weight: .bold))
+                    .font(.Pretendard.Bold.size26)
                     .multilineTextAlignment(.center)
                 
                 Text(nowOnboard.onboardingSubTitle)
@@ -54,7 +54,6 @@ struct OnboardingFinishView: View {
                     dismiss()
                 } label: {
                     Text("이어서 작성하기")
-                        .font(.system(size: 18))
                 }
             }
             .padding()
