@@ -23,7 +23,7 @@
 		1F88AB412CD6101C0009730D /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F88AB402CD6101C0009730D /* Date+.swift */; };
 		1F88AB432CD613240009730D /* FeedbackSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F88AB422CD613240009730D /* FeedbackSheetView.swift */; };
 		1FA420942CC0DC19001CB92D /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA420932CC0DC19001CB92D /* Color+.swift */; };
-		1FB10A252CDF511600D54EC5 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A242CDF511600D54EC5 /* NextButton.swift */; };
+		1FB10A252CDF511600D54EC5 /* GoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A242CDF511600D54EC5 /* GoButton.swift */; };
 		1FB10A272CDF512800D54EC5 /* PassButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A262CDF512800D54EC5 /* PassButton.swift */; };
 		1FB10A292CDF515300D54EC5 /* QuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A282CDF515300D54EC5 /* QuestionView.swift */; };
 		1FB10A2C2CDF52E600D54EC5 /* OnboardingProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A2B2CDF52E600D54EC5 /* OnboardingProgressBar.swift */; };
@@ -34,6 +34,7 @@
 		1FB10A362CDF5C7900D54EC5 /* OnboardingExplainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A352CDF5C7900D54EC5 /* OnboardingExplainView.swift */; };
 		1FB10A382CDF5FE800D54EC5 /* OnboardingExplain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A372CDF5FE800D54EC5 /* OnboardingExplain.swift */; };
 		1FB10A3A2CDF60D100D54EC5 /* OnboardingExplainPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A392CDF60D100D54EC5 /* OnboardingExplainPageView.swift */; };
+		1FB10A3C2CDF78C400D54EC5 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A3B2CDF78C400D54EC5 /* NextButton.swift */; };
 		1FD066DF2CD906740026D12D /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD066DE2CD906740026D12D /* UserRepository.swift */; };
 		613904E62CD1D419008E591D /* MemberModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E52CD1D419008E591D /* MemberModel.swift */; };
 		613904E82CD20457008E591D /* MandalartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E72CD20457008E591D /* MandalartView.swift */; };
@@ -66,7 +67,7 @@
 		1F88AB402CD6101C0009730D /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		1F88AB422CD613240009730D /* FeedbackSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackSheetView.swift; sourceTree = "<group>"; };
 		1FA420932CC0DC19001CB92D /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
-		1FB10A242CDF511600D54EC5 /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
+		1FB10A242CDF511600D54EC5 /* GoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoButton.swift; sourceTree = "<group>"; };
 		1FB10A262CDF512800D54EC5 /* PassButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassButton.swift; sourceTree = "<group>"; };
 		1FB10A282CDF515300D54EC5 /* QuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionView.swift; sourceTree = "<group>"; };
 		1FB10A2B2CDF52E600D54EC5 /* OnboardingProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingProgressBar.swift; sourceTree = "<group>"; };
@@ -77,6 +78,7 @@
 		1FB10A352CDF5C7900D54EC5 /* OnboardingExplainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingExplainView.swift; sourceTree = "<group>"; };
 		1FB10A372CDF5FE800D54EC5 /* OnboardingExplain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingExplain.swift; sourceTree = "<group>"; };
 		1FB10A392CDF60D100D54EC5 /* OnboardingExplainPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingExplainPageView.swift; sourceTree = "<group>"; };
+		1FB10A3B2CDF78C400D54EC5 /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
 		1FD066DE2CD906740026D12D /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		613904E52CD1D419008E591D /* MemberModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberModel.swift; sourceTree = "<group>"; };
 		613904E72CD20457008E591D /* MandalartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalartView.swift; sourceTree = "<group>"; };
@@ -302,8 +304,9 @@
 		1FB10A232CDF50F000D54EC5 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				1FB10A242CDF511600D54EC5 /* NextButton.swift */,
+				1FB10A242CDF511600D54EC5 /* GoButton.swift */,
 				1FB10A262CDF512800D54EC5 /* PassButton.swift */,
+				1FB10A3B2CDF78C400D54EC5 /* NextButton.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -395,7 +398,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1FB10A252CDF511600D54EC5 /* NextButton.swift in Sources */,
+				1FB10A252CDF511600D54EC5 /* GoButton.swift in Sources */,
 				1F4D8BF02CDF4F9E00A0B5CC /* OnboardingStartView.swift in Sources */,
 				1FB10A382CDF5FE800D54EC5 /* OnboardingExplain.swift in Sources */,
 				1F88AB412CD6101C0009730D /* Date+.swift in Sources */,
@@ -411,6 +414,7 @@
 				1F88AB3F2CD609220009730D /* RetrospectCompleteView.swift in Sources */,
 				618FD0722CDF10700003450D /* ContentView.swift in Sources */,
 				1FB10A342CDF593600D54EC5 /* OnboardingFinishView.swift in Sources */,
+				1FB10A3C2CDF78C400D54EC5 /* NextButton.swift in Sources */,
 				1F79EDCE2CC0A25D0079088B /* OneByteApp.swift in Sources */,
 				1F35C47D2CD89E790013C731 /* RetrospectTotalView.swift in Sources */,
 				1FB10A362CDF5C7900D54EC5 /* OnboardingExplainView.swift in Sources */,

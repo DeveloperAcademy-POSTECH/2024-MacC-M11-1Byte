@@ -44,7 +44,7 @@ struct OnboardingFinishView: View {
             Spacer()
             
             HStack {
-                NextButton {
+                GoButton {
                     // 온보딩끝내고 메인화면으로
                     isFirstOnboarding = false
                     dismiss()

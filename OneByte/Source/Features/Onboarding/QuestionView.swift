@@ -63,7 +63,7 @@ struct QuestionView: View {
                     Text("아니요, 잘 몰라요.")
                 }
                 
-                NextButton {
+                GoButton {
                     navigationManager.push(to: .onboardMaingoal)
                 } label: {
                     Text("네, 알고있어요.")

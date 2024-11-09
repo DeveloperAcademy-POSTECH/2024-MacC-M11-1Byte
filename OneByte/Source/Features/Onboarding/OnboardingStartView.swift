@@ -38,7 +38,7 @@ struct OnboardingStartView: View {
                 
                 Spacer()
                 
-                NextButton {
+                GoButton {
                     navigationManager.push(to: .onboardQuestion)
                 } label: {
                     Text("목표 세우러 가기")

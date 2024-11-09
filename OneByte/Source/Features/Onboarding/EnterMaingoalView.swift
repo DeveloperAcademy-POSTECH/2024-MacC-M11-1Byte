@@ -39,12 +39,12 @@ struct EnterMaingoalView: View {
                 .font(.system(size: 26, weight: .bold))
                 .multilineTextAlignment(.center)
             
+            // 팁 메세지 영역
             ZStack {
                 RoundedRectangle(cornerRadius: 8)
                     .fill(Color(hex: "D4F7D7"))
                     .frame(maxWidth: .infinity)
                     .frame(height: 112)
-                    .padding()
                 
                 VStack(alignment: .leading) {
                     (Text("TIP ")
@@ -53,8 +53,8 @@ struct EnterMaingoalView: View {
                     .font(.system(size: 14))
                     .multilineTextAlignment(.leading)
                     .lineSpacing(4)
+                    .padding()
                 }
-                .padding()
             }
             .padding()
             
@@ -81,13 +81,15 @@ struct EnterMaingoalView: View {
             Spacer()
             
             HStack {
-                NextButton {
-                    navigationManager.push(to: .onboardSubgoal)
-                } label: {
-                    Text("다음")
-                        .font(.system(size: 18))
-                }
-                .disabled(mainGoal.isEmpty) // mainGoal 비어있을시 비활성화
+                NextButton(isEnabled: !mainGoal.isEmpty) { // mainGoal이 비어있지 않을 때만 활성화
+                               navigationManager.push(to: .onboardSubgoal)
+                           } label: {
+                               Text("다음")
+                                   .font(.system(size: 18))
+                           }
+                
+            
+//                .disabled(mainGoal.isEmpty)  mainGoal 비어있을시 비활성화
             }
             .padding()
         }

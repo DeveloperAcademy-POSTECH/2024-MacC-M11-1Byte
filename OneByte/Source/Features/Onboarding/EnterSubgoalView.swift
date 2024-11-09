@@ -42,16 +42,22 @@ struct EnterSubgoalView: View {
                     .font(.system(size: 26, weight: .bold))
                     .multilineTextAlignment(.center)
             }
+            
+            // 팁 메세지 영역
             ZStack {
-                RoundedRectangle(cornerRadius: 20)
-                    .fill(Color.blue)
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(Color(hex: "D4F7D7"))
                     .frame(maxWidth: .infinity)
-                    .frame(height: 100)
-                HStack {
-                    Text("TIP")
-                    Text(nowOnboard.onboardingTipMessage)
-                        .font(.system(size: 14))
-                        .lineSpacing(4)
+                    .frame(height: 112)
+                
+                VStack(alignment: .leading) {
+                    (Text("TIP ")
+                        .fontWeight(.bold) +
+                     Text(nowOnboard.onboardingTipMessage))
+                    .font(.system(size: 14))
+                    .multilineTextAlignment(.leading)
+                    .lineSpacing(4)
+                    .padding()
                 }
             }
             .padding()
@@ -76,7 +82,7 @@ struct EnterSubgoalView: View {
                         .font(.system(size: 18))
                 }
                 
-                NextButton {
+                GoButton {
                     navigationManager.push(to: .onboardDetailgoal)
                 } label: {
                     Text("다음")

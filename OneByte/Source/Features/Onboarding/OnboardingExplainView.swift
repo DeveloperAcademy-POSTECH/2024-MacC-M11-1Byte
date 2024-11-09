@@ -38,7 +38,7 @@ struct OnboardingExplainView: View {
                 }
             }
             
-            NextButton {
+            GoButton {
                 navigationManager.push(to: .onboardMaingoal)
             } label: {
                 Text("목표 작성하러 가기")

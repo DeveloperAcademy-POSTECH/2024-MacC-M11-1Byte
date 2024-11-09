@@ -45,16 +45,21 @@ struct EnterDetailgoalView: View {
                     .multilineTextAlignment(.center)
             }
             
+            // 팁 메세지 영역
             ZStack {
-                RoundedRectangle(cornerRadius: 20)
-                    .fill(Color.blue)
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(Color(hex: "D4F7D7"))
                     .frame(maxWidth: .infinity)
-                    .frame(height: 80)
-                HStack {
-                    Text("TIP")
-                    Text(nowOnboard.onboardingTipMessage)
-                        .font(.system(size: 14))
-                        .lineSpacing(4)
+                    .frame(height: 112)
+                
+                VStack(alignment: .leading) {
+                    (Text("TIP ")
+                        .fontWeight(.bold) +
+                     Text(nowOnboard.onboardingTipMessage))
+                    .font(.system(size: 14))
+                    .multilineTextAlignment(.leading)
+                    .lineSpacing(4)
+                    .padding()
                 }
             }
             .padding()
@@ -64,12 +69,13 @@ struct EnterDetailgoalView: View {
             HStack {
                 Image(systemName: "timelapse")
                     .resizable()
-                    .frame(width: 300, height: 300)
+                    .frame(width: 200, height: 200)
             }
             .padding()
             
             Spacer()
             
+            // 하단 버튼
             HStack {
                 PassButton {
                     isFirstOnboarding = false
@@ -79,7 +85,7 @@ struct EnterDetailgoalView: View {
                         .font(.system(size: 18))
                 }
                 
-                NextButton {
+                GoButton {
                     navigationManager.push(to: .onboardFinish)
                 } label: {
                     Text("다음")
