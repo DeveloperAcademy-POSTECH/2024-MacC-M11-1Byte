@@ -27,7 +27,7 @@ struct NextButton<Content: View>: View {
                 .frame(maxWidth: .infinity)
                 .frame(height: 53)
                 .background(Color(hex: "636363"))
-                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .clipShape(RoundedRectangle(cornerRadius: 16))
         }
     }
 }

@@ -27,12 +27,12 @@ struct PassButton<Content: View>: View {
                 .frame(maxWidth: .infinity)
                 .frame(height: 53)
                 .background(.white)
-                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .clipShape(RoundedRectangle(cornerRadius: 16))
     
         }
         .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(Color(hex: "636363"), lineWidth: 2)
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Color(hex: "636363"), lineWidth: 1)
         )
     }
 }

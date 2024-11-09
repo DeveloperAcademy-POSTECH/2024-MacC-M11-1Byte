@@ -1,22 +1,22 @@
 //
-//  QuestionView.swift
+//  EnterMainGoal.swift
 //  OneByte
 //
 //  Created by 이상도 on 11/9/24.
 //
+
 import SwiftUI
 
-struct QuestionView: View {
+struct EnterMaingoalView: View {
     
     @Environment(NavigationManager.self) var navigationManager
     
-    var nowOnboard: Onboarding = .question
+    var nowOnboard: Onboarding = .maingoal
     
     var body: some View {
         VStack {
-            // Back Button & 프로그레스 바
             HStack {
-                Button{
+                Button {
                     navigationManager.pop()
                 } label: {
                     HStack {
@@ -25,23 +25,32 @@ struct QuestionView: View {
                             .bold()
                     }
                 }
-                OnboardingProgressBar(value: 1/5)
+                OnboardingProgressBar(value: 2/5)
                     .frame(height: 10)
                     .padding()
                     .padding(.trailing)
             }
+            .padding(.horizontal)
+            
+            Text(nowOnboard.onboardingTitle)
+                .font(.system(size: 26, weight: .bold))
+                .multilineTextAlignment(.center)
+            
+            ZStack {
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(Color.blue)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 100)
+                HStack {
+                    Text("TIP")
+                    Text(nowOnboard.onboardingTipMessage)
+                        .font(.system(size: 14))
+                        .lineSpacing(4)
+                }
+            }
             .padding()
             
-            VStack(spacing: 10) {
-                Text(nowOnboard.onboardingTitle)
-                    .font(.system(size: 26, weight: .bold))
-                    .multilineTextAlignment(.center)
-                
-                Text(nowOnboard.onboardingSubTitle)
-                    .font(.system(size: 18))
-                    .multilineTextAlignment(.center)
-                    .lineSpacing(4)
-            }
+            
             Spacer()
             
             HStack {
@@ -53,27 +62,21 @@ struct QuestionView: View {
             
             Spacer()
             
-            // 하단 Button
             HStack {
-                PassButton {
-                    //
-                } label: {
-                    Text("아니요, 잘 몰라요.")
-                }
-                
                 NextButton {
-                    navigationManager.push(to: .onboardMaingoal)
+                    //                navigationManager.push(to: .onboardMainGoal)
                 } label: {
-                    Text("네, 알고있어요.")
+                    Text("다음")
+                        .font(.system(size: 18))
                 }
             }
             .padding()
         }
+        .navigationBarHidden(true)
     }
 }
 
-
 #Preview {
-    QuestionView()
+    EnterMaingoalView(nowOnboard: .maingoal)
         .environment(NavigationManager())
 }

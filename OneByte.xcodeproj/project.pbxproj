@@ -27,6 +27,7 @@
 		1FB10A272CDF512800D54EC5 /* PassButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A262CDF512800D54EC5 /* PassButton.swift */; };
 		1FB10A292CDF515300D54EC5 /* QuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A282CDF515300D54EC5 /* QuestionView.swift */; };
 		1FB10A2C2CDF52E600D54EC5 /* OnboardingProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A2B2CDF52E600D54EC5 /* OnboardingProgressBar.swift */; };
+		1FB10A2E2CDF54B400D54EC5 /* EnterMaingoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A2D2CDF54B400D54EC5 /* EnterMaingoalView.swift */; };
 		1FD066DF2CD906740026D12D /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD066DE2CD906740026D12D /* UserRepository.swift */; };
 		613904E62CD1D419008E591D /* MemberModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E52CD1D419008E591D /* MemberModel.swift */; };
 		613904E82CD20457008E591D /* MandalartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E72CD20457008E591D /* MandalartView.swift */; };
@@ -63,6 +64,7 @@
 		1FB10A262CDF512800D54EC5 /* PassButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassButton.swift; sourceTree = "<group>"; };
 		1FB10A282CDF515300D54EC5 /* QuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionView.swift; sourceTree = "<group>"; };
 		1FB10A2B2CDF52E600D54EC5 /* OnboardingProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingProgressBar.swift; sourceTree = "<group>"; };
+		1FB10A2D2CDF54B400D54EC5 /* EnterMaingoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterMaingoalView.swift; sourceTree = "<group>"; };
 		1FD066DE2CD906740026D12D /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		613904E52CD1D419008E591D /* MemberModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberModel.swift; sourceTree = "<group>"; };
 		613904E72CD20457008E591D /* MandalartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalartView.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 			children = (
 				1F4D8BEF2CDF4F9E00A0B5CC /* OnboardingStartView.swift */,
 				1FB10A282CDF515300D54EC5 /* QuestionView.swift */,
+				1FB10A2D2CDF54B400D54EC5 /* EnterMaingoalView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -395,6 +398,7 @@
 				615A0A0D2CC0AE8700908531 /* RetrospectMainView.swift in Sources */,
 				1FB10A2C2CDF52E600D54EC5 /* OnboardingProgressBar.swift in Sources */,
 				1F88AB432CD613240009730D /* FeedbackSheetView.swift in Sources */,
+				1FB10A2E2CDF54B400D54EC5 /* EnterMaingoalView.swift in Sources */,
 				615A0A112CC0AEB800908531 /* MyPageView.swift in Sources */,
 				618FD0742CDF11210003450D /* CreateService.swift in Sources */,
 				1FB10A272CDF512800D54EC5 /* PassButton.swift in Sources */,
