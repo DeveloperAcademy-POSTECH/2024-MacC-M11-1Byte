@@ -10,7 +10,7 @@ import SwiftData
 
 struct EnterMaingoalView: View {
     
-    @Environment(NavigationManager.self) var navigationManager 
+    @Environment(NavigationManager.self) var navigationManager
     
     @Environment(\.modelContext) private var modelContext
     @Query private var mainGoals: [MainGoal]
@@ -93,16 +93,19 @@ struct EnterMaingoalView: View {
             HStack {
                 NextButton(isEnabled: !userMainGoal.isEmpty) { // 사용자 입력 MainGoal이 비어있지 않을 때만 활성화
                     viewModel.updateMainGoal( // MainGoal 데이터 업데이트
-                           mainGoals: mainGoals,
-                           userMainGoal: userMainGoal,
-                           modelContext: modelContext
-                       )
+                        mainGoals: mainGoals,
+                        userMainGoal: userMainGoal,
+                        modelContext: modelContext
+                    )
                     navigationManager.push(to: .onboardSubgoal)
                 } label: {
                     Text("다음")
                 }
             }
             .padding()
+        }
+        .onTapGesture {
+            UIApplication.shared.endEditing() // 빈 화면 터치 시 키보드 숨기기
         }
     }
 }

@@ -145,6 +145,9 @@ struct EnterSubgoalView: View {
             }
             .padding()
         }
+        .onTapGesture {
+            UIApplication.shared.endEditing() // 빈 화면 터치 시 키보드 숨기기
+        }
     }
 }
 
