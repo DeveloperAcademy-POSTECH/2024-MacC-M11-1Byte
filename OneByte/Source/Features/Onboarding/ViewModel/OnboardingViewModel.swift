@@ -24,10 +24,12 @@ class OnboardingViewModel: ObservableObject {
         self.updateService = updateService
     }
     
+    // Goals 전체 데이터 생성
     func createGoals(modelContext: ModelContext) {
         createService.createGoals(modelContext: modelContext)
     }
     
+    // MainGoal 업데이트
     func updateMainGoal(mainGoals: [MainGoal], userMainGoal: String, modelContext: ModelContext) {
         guard let mainGoal = mainGoals.first else {
             print("Error: mainGoal이 nil입니다.")
@@ -43,6 +45,7 @@ class OnboardingViewModel: ObservableObject {
         )
     }
     
+    // SubGoal 업데이트
     func updateSubGoal(subGoal: SubGoal, modelContext: ModelContext, newTitle: String, newMemo: String) {
         updateService.updateSubGoal(
             subGoal: subGoal,
@@ -52,6 +55,7 @@ class OnboardingViewModel: ObservableObject {
         )
     }
     
+    // SubGoal 업데이트
     func updateDetailGoal(detailGoal: DetailGoal, modelContext: ModelContext, newTitle: String, newMemo: String, isAchieved: Bool) {
         updateService.updateDetailGoal(
             detailGoal: detailGoal,
@@ -61,5 +65,4 @@ class OnboardingViewModel: ObservableObject {
             isAchieved: isAchieved
         )
     }
-    
 }

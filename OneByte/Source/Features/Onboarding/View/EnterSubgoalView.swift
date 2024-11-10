@@ -5,11 +5,12 @@ struct EnterSubgoalView: View {
     
     @Environment(NavigationManager.self) var navigationManager
     @AppStorage("FirstOnboarding") private var isFirstOnboarding: Bool?
+    
     @Environment(\.modelContext) private var modelContext
-    
     @Query private var mainGoals: [MainGoal]
-    
     @State var viewModel = OnboardingViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
+    @State private var userSubGoal: String = "" // 사용자 SubGoal 입력 텍스트
+    @FocusState private var isFocused: Bool // TextField 포커스 상태 관리
     
     let items = Array(1...9)
     let gridSpacing: CGFloat = 5 // 셀 간 수직 간격
@@ -17,9 +18,6 @@ struct EnterSubgoalView: View {
     let columns: [GridItem] = Array(repeating: GridItem(.flexible(), spacing: 5), count: 3) // 수평 간격 설정
     
     var nowOnboard: Onboarding = .subgoal
-    
-    @State private var userSubGoal: String = "" // 사용자 SubGoal 입력 텍스트
-    @FocusState private var isFocused: Bool // TextField 포커스 상태 관리
     
     var body: some View {
         let gridWidth = UIScreen.main.bounds.width - (horizontalPadding * 2)

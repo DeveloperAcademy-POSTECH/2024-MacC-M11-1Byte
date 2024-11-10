@@ -14,7 +14,7 @@ struct EnterMaingoalView: View {
     
     @Environment(\.modelContext) private var modelContext
     @Query private var mainGoals: [MainGoal]
-    var mainGoal: MainGoal?
+    //    var mainGoal: MainGoal?
     
     @State var viewModel = OnboardingViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     

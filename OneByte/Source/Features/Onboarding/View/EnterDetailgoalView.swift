@@ -15,12 +15,13 @@ struct EnterDetailgoalView: View {
     
     @Environment(\.modelContext) private var modelContext
     @Query private var subGoals: [SubGoal]
-    var detailGoal: DetailGoal?
+    //    var detailGoal: DetailGoal?
+    @State var viewModel = OnboardingViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     @State private var userDetailGoal: String = "" // 사용자 SubGoal 입력 텍스트
     @State private var userDetailGoalNewMemo: String = ""
     @State private var userDetailGoalAchieved: Bool = false
-    @State var viewModel = OnboardingViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     @State private var targetSubGoal: SubGoal? // id가 1인 SubGoal 저장변수
+    @FocusState private var isFocused: Bool // TextField 포커스 상태 관리
     
     // 3x3 View Custom 변수들
     let items = Array(1...9)
@@ -29,8 +30,6 @@ struct EnterDetailgoalView: View {
     let columns: [GridItem] = Array(repeating: GridItem(.flexible(), spacing: 5), count: 3) // 수평 간격 설정
     
     var nowOnboard: Onboarding = .detailgoal
-    
-    @FocusState private var isFocused: Bool // TextField 포커스 상태 관리
     
     var body: some View {
         let gridWidth = UIScreen.main.bounds.width - (horizontalPadding * 2)
