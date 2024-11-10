@@ -10,16 +10,17 @@ import SwiftData
 
 struct EnterMaingoalView: View {
     
-    @Environment(NavigationManager.self) var navigationManager 
+    @Environment(NavigationManager.self) var navigationManager
     
     @Environment(\.modelContext) private var modelContext
     @Query private var mainGoals: [MainGoal]
-    var mainGoal: MainGoal?
+    //    var mainGoal: MainGoal?
     
     @State var viewModel = OnboardingViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     
     @State private var userMainGoal: String = "" // 사용자 입력 MainGoal
     private let mainGoalLimit = 15 // 글자 수 제한 -> 나중에 디자인팀이라 의논해서 수정해야함
+    @FocusState private var isFocused: Bool // TextField 포커스 상태 관리
     
     var nowOnboard: Onboarding = .maingoal
     
@@ -73,12 +74,16 @@ struct EnterMaingoalView: View {
                 RoundedRectangle(cornerRadius: 12)
                     .fill(Color(hex: "EEEEEE"))
                     .frame(width: 210, height: 210) // 가로 세로 크기 고정
+                    .onTapGesture {
+                        isFocused = true // ZStack 터치 시 TextField에 포커스 맞추기
+                    }
                 
                 TextField("2025 최종 목표", text: $userMainGoal)
                     .font(.system(size: 20, weight: .semibold))
                     .multilineTextAlignment(.center)
                     .padding()
                     .background(Color.clear)
+                    .focused($isFocused) // FocusState와 연결
                     .onChange(of: userMainGoal) { newValue in
                         if newValue.count > mainGoalLimit {
                             userMainGoal = String(newValue.prefix(mainGoalLimit))
@@ -93,16 +98,19 @@ struct EnterMaingoalView: View {
             HStack {
                 NextButton(isEnabled: !userMainGoal.isEmpty) { // 사용자 입력 MainGoal이 비어있지 않을 때만 활성화
                     viewModel.updateMainGoal( // MainGoal 데이터 업데이트
-                           mainGoals: mainGoals,
-                           userMainGoal: userMainGoal,
-                           modelContext: modelContext
-                       )
+                        mainGoals: mainGoals,
+                        userMainGoal: userMainGoal,
+                        modelContext: modelContext
+                    )
                     navigationManager.push(to: .onboardSubgoal)
                 } label: {
                     Text("다음")
                 }
             }
             .padding()
+        }
+        .onTapGesture {
+            UIApplication.shared.endEditing() // 빈 화면 터치 시 키보드 숨기기
         }
     }
 }

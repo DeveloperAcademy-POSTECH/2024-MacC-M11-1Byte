@@ -24,10 +24,12 @@ class OnboardingViewModel: ObservableObject {
         self.updateService = updateService
     }
     
+    // Goals 전체 데이터 생성
     func createGoals(modelContext: ModelContext) {
         createService.createGoals(modelContext: modelContext)
     }
     
+    // MainGoal 업데이트
     func updateMainGoal(mainGoals: [MainGoal], userMainGoal: String, modelContext: ModelContext) {
         guard let mainGoal = mainGoals.first else {
             print("Error: mainGoal이 nil입니다.")
@@ -41,14 +43,9 @@ class OnboardingViewModel: ObservableObject {
             newTitle: userMainGoal,
             newGoalYear: Calendar.current.component(.year, from: Date())
         )
-        
-        do {
-            try modelContext.save()
-        } catch {
-            print("Error saving mainGoal: \(error.localizedDescription)")
-        }
     }
     
+    // SubGoal 업데이트
     func updateSubGoal(subGoal: SubGoal, modelContext: ModelContext, newTitle: String, newMemo: String) {
         updateService.updateSubGoal(
             subGoal: subGoal,
@@ -56,31 +53,16 @@ class OnboardingViewModel: ObservableObject {
             newTitle: newTitle,
             newMemo: newMemo
         )
-        
-        do {
-            try modelContext.save()
-        } catch {
-            print("Error saving subGoal: \(error.localizedDescription)")
-        }
     }
     
-    // SwiftData에 저장된 전체 데이터 출력
-    func printAllData() {
-        print("Main Goals:")
-        for mainGoal in mainGoals {
-            print("MainGoal ID: \(mainGoal.id), Title: \(mainGoal.title), Year: \(mainGoal.goalYear)")
-            
-            let relatedSubGoals = subGoals.filter { $0.mainGoalId == mainGoal.id }
-            print("  Sub Goals for MainGoal \(mainGoal.id):")
-            for subGoal in relatedSubGoals {
-                print("    SubGoal ID: \(subGoal.id), Title: \(subGoal.title), Memo: \(subGoal.memo)")
-                
-                let relatedDetailGoals = detailGoals.filter { $0.subGoalId == subGoal.id }
-                print("      Detail Goals for SubGoal \(subGoal.id):")
-                for detailGoal in relatedDetailGoals {
-                    print("        DetailGoal ID: \(detailGoal.id), Title: \(detailGoal.title), Memo: \(detailGoal.memo), Achieved: \(detailGoal.isAchieved)")
-                }
-            }
-        }
+    // SubGoal 업데이트
+    func updateDetailGoal(detailGoal: DetailGoal, modelContext: ModelContext, newTitle: String, newMemo: String, isAchieved: Bool) {
+        updateService.updateDetailGoal(
+            detailGoal: detailGoal,
+            modelContext: modelContext,
+            newTitle: newTitle,
+            newMemo: newMemo,
+            isAchieved: isAchieved
+        )
     }
 }

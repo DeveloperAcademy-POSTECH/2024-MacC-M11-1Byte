@@ -15,11 +15,13 @@ struct EnterDetailgoalView: View {
     
     @Environment(\.modelContext) private var modelContext
     @Query private var subGoals: [SubGoal]
-    var detailGoal: DetailGoal?
+    //    var detailGoal: DetailGoal?
+    @State var viewModel = OnboardingViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     @State private var userDetailGoal: String = "" // 사용자 SubGoal 입력 텍스트
     @State private var userDetailGoalNewMemo: String = ""
-    @State var viewModel = OnboardingViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
+    @State private var userDetailGoalAchieved: Bool = false
     @State private var targetSubGoal: SubGoal? // id가 1인 SubGoal 저장변수
+    @FocusState private var isFocused: Bool // TextField 포커스 상태 관리
     
     // 3x3 View Custom 변수들
     let items = Array(1...9)
@@ -101,6 +103,11 @@ struct EnterDetailgoalView: View {
                                 item == 5 ? Color(hex: "D2E3D6") :
                                 Color(hex: "EEEEEE")
                         )
+                        .onTapGesture {
+                            if item == 1 {
+                                isFocused = true // 1번 아이템 터치 시 TextField에 포커스 맞추기
+                            }
+                        }
                         .frame(width: itemSize, height: itemSize) // 항상 1:1 비율 설정
                         
                         if item == 1 {
@@ -108,6 +115,7 @@ struct EnterDetailgoalView: View {
                             TextField("할 일", text: $userDetailGoal)
                                 .font(.Pretendard.Regular.size20)
                                 .multilineTextAlignment(.center)
+                                .focused($isFocused)
                                 .padding(10)
                         }
                         
@@ -139,7 +147,20 @@ struct EnterDetailgoalView: View {
                 }
                 
                 GoButton {
-                    navigationManager.push(to: .onboardFinish)
+                    if let targetSubGoal = targetSubGoal, // id = 1에 해당하는 SubGoal의
+                       let detailGoalToUpdate = targetSubGoal.detailGoals.first(where: { $0.id == 1 }) { // id = 1 DetailGoal 공간에 Update
+                        viewModel.updateDetailGoal(
+                            detailGoal: detailGoalToUpdate,
+                            modelContext: modelContext,
+                            newTitle: userDetailGoal,
+                            newMemo: userDetailGoalNewMemo,
+                            isAchieved: userDetailGoalAchieved
+                        )
+                        navigationManager.push(to: .onboardFinish)
+                    } else {
+                        print("Error: DetailGoal with ID 1 not found.")
+                    }
+                    
                 } label: {
                     Text("다음")
                 }
@@ -149,6 +170,9 @@ struct EnterDetailgoalView: View {
         .onAppear {
             // EnterSubgoalView에서 사용자가 입력한 Subgoal중 id 1번 값을 찾아 담음
             targetSubGoal = subGoals.first(where: { $0.id == 1 })
+        }
+        .onTapGesture {
+            UIApplication.shared.endEditing() // 빈 화면 터치 시 키보드 숨기기
         }
     }
 }

@@ -5,11 +5,12 @@ struct EnterSubgoalView: View {
     
     @Environment(NavigationManager.self) var navigationManager
     @AppStorage("FirstOnboarding") private var isFirstOnboarding: Bool?
+    
     @Environment(\.modelContext) private var modelContext
-    
     @Query private var mainGoals: [MainGoal]
-    
     @State var viewModel = OnboardingViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
+    @State private var userSubGoal: String = "" // 사용자 SubGoal 입력 텍스트
+    @FocusState private var isFocused: Bool // TextField 포커스 상태 관리
     
     let items = Array(1...9)
     let gridSpacing: CGFloat = 5 // 셀 간 수직 간격
@@ -17,8 +18,6 @@ struct EnterSubgoalView: View {
     let columns: [GridItem] = Array(repeating: GridItem(.flexible(), spacing: 5), count: 3) // 수평 간격 설정
     
     var nowOnboard: Onboarding = .subgoal
-    
-    @State private var userSubGoal: String = "" // 사용자 SubGoal 입력 텍스트
     
     var body: some View {
         let gridWidth = UIScreen.main.bounds.width - (horizontalPadding * 2)
@@ -90,6 +89,11 @@ struct EnterSubgoalView: View {
                                 item == 5 ? Color(hex: "C6CBC6") :
                                 Color(hex: "EEEEEE")
                         )
+                        .onTapGesture {
+                            if item == 1 {
+                                isFocused = true // 1번 아이템 터치 시 TextField에 포커스 맞추기
+                            }
+                        }
                         .frame(width: itemSize, height: itemSize) // 항상 1:1 비율 설정
                         
                         if item == 1 {
@@ -97,6 +101,7 @@ struct EnterSubgoalView: View {
                             TextField("세부 목표", text: $userSubGoal)
                                 .font(.Pretendard.Regular.size20)
                                 .multilineTextAlignment(.center)
+                                .focused($isFocused)
                                 .padding(10)
                         }
                         
@@ -129,26 +134,24 @@ struct EnterSubgoalView: View {
                 
                 GoButton {
                     if let subGoal = mainGoals.first?.subGoals.first(where: { $0.id == 1 }) {
-                           viewModel.updateSubGoal(
-                               subGoal: subGoal,
-                               modelContext: modelContext,
-                               newTitle: userSubGoal,
-                               newMemo: subGoal.memo // 기존 메모를 유지하거나, 새 메모를 전달할 수 있음
-                           )
-                           do {
-                               try modelContext.save()
-                           } catch {
-                               print("Error saving subGoal: \(error.localizedDescription)")
-                           }
-                           navigationManager.push(to: .onboardDetailgoal)
-                       } else {
-                           print("Error: subGoal with ID 1 not found.")
-                       }
+                        viewModel.updateSubGoal(
+                            subGoal: subGoal,
+                            modelContext: modelContext,
+                            newTitle: userSubGoal,
+                            newMemo: subGoal.memo // 기존 메모를 유지하거나, 새 메모를 전달할 수 있음
+                        )
+                        navigationManager.push(to: .onboardDetailgoal)
+                    } else {
+                        print("Error: subGoal with ID 1 not found.")
+                    }
                 } label: {
                     Text("다음")
                 }
             }
             .padding()
+        }
+        .onTapGesture {
+            UIApplication.shared.endEditing() // 빈 화면 터치 시 키보드 숨기기
         }
     }
 }
