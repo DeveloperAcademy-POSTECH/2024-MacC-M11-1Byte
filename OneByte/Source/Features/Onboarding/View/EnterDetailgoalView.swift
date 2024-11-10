@@ -148,20 +148,14 @@ struct EnterDetailgoalView: View {
                 }
                 
                 GoButton {
-                    if let targetSubGoal = targetSubGoal, // id = 1에 해당하는 SubGoal의
-                       let detailGoalToUpdate = targetSubGoal.detailGoals.first(where: { $0.id == 1 }) { // id = 1 DetailGoal 공간에 Update
-                        viewModel.updateDetailGoal(
-                            detailGoal: detailGoalToUpdate,
-                            modelContext: modelContext,
-                            newTitle: userDetailGoal,
-                            newMemo: userDetailGoalNewMemo,
-                            isAchieved: userDetailGoalAchieved
-                        )
-                        navigationManager.push(to: .onboardFinish)
-                    } else {
-                        print("Error: DetailGoal with ID 1 not found.")
-                    }
-                    
+                    viewModel.updateTargetDetailGoal(
+                        subGoalID: 1, // id = 1인 Subgoal이라는 것과
+                        detailGoalID: 1, // id = 1 DetailGoal 공간에 Update하기위해 id 값 전달
+                        newTitle: userDetailGoal,
+                        newMemo: userDetailGoalNewMemo,
+                        isAchieved: userDetailGoalAchieved
+                    )
+                    navigationManager.push(to: .onboardFinish)
                 } label: {
                     Text("다음")
                 }
