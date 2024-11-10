@@ -52,4 +52,14 @@ class OnboardingViewModel: ObservableObject {
         )
     }
     
+    func updateDetailGoal(detailGoal: DetailGoal, modelContext: ModelContext, newTitle: String, newMemo: String, isAchieved: Bool) {
+        updateService.updateDetailGoal(
+            detailGoal: detailGoal,
+            modelContext: modelContext,
+            newTitle: newTitle,
+            newMemo: newMemo,
+            isAchieved: isAchieved
+        )
+    }
+    
 }

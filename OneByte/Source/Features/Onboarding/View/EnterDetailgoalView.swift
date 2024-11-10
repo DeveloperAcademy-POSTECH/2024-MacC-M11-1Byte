@@ -18,6 +18,7 @@ struct EnterDetailgoalView: View {
     var detailGoal: DetailGoal?
     @State private var userDetailGoal: String = "" // 사용자 SubGoal 입력 텍스트
     @State private var userDetailGoalNewMemo: String = ""
+    @State private var userDetailGoalAchieved: Bool = false
     @State var viewModel = OnboardingViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     @State private var targetSubGoal: SubGoal? // id가 1인 SubGoal 저장변수
     
@@ -147,7 +148,20 @@ struct EnterDetailgoalView: View {
                 }
                 
                 GoButton {
-                    navigationManager.push(to: .onboardFinish)
+                    if let targetSubGoal = targetSubGoal, // id = 1에 해당하는 SubGoal의
+                       let detailGoalToUpdate = targetSubGoal.detailGoals.first(where: { $0.id == 1 }) { // id = 1 DetailGoal 공간에 Update
+                        viewModel.updateDetailGoal(
+                            detailGoal: detailGoalToUpdate,
+                            modelContext: modelContext,
+                            newTitle: userDetailGoal,
+                            newMemo: userDetailGoalNewMemo,
+                            isAchieved: userDetailGoalAchieved
+                        )
+                        navigationManager.push(to: .onboardFinish)
+                    } else {
+                        print("Error: DetailGoal with ID 1 not found.")
+                    }
+                    
                 } label: {
                     Text("다음")
                 }
