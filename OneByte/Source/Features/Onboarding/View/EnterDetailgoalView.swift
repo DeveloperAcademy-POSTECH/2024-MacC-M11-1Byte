@@ -29,6 +29,8 @@ struct EnterDetailgoalView: View {
     
     var nowOnboard: Onboarding = .detailgoal
     
+    @FocusState private var isFocused: Bool // TextField 포커스 상태 관리
+    
     var body: some View {
         let gridWidth = UIScreen.main.bounds.width - (horizontalPadding * 2)
         let itemSize = (gridWidth - (gridSpacing * 2)) / 3
@@ -101,6 +103,11 @@ struct EnterDetailgoalView: View {
                                 item == 5 ? Color(hex: "D2E3D6") :
                                 Color(hex: "EEEEEE")
                         )
+                        .onTapGesture {
+                            if item == 1 {
+                                isFocused = true // 1번 아이템 터치 시 TextField에 포커스 맞추기
+                            }
+                        }
                         .frame(width: itemSize, height: itemSize) // 항상 1:1 비율 설정
                         
                         if item == 1 {
@@ -108,6 +115,7 @@ struct EnterDetailgoalView: View {
                             TextField("할 일", text: $userDetailGoal)
                                 .font(.Pretendard.Regular.size20)
                                 .multilineTextAlignment(.center)
+                                .focused($isFocused)
                                 .padding(10)
                         }
                         

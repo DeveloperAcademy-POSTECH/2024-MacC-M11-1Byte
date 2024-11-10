@@ -19,6 +19,7 @@ struct EnterSubgoalView: View {
     var nowOnboard: Onboarding = .subgoal
     
     @State private var userSubGoal: String = "" // 사용자 SubGoal 입력 텍스트
+    @FocusState private var isFocused: Bool // TextField 포커스 상태 관리
     
     var body: some View {
         let gridWidth = UIScreen.main.bounds.width - (horizontalPadding * 2)
@@ -90,6 +91,11 @@ struct EnterSubgoalView: View {
                                 item == 5 ? Color(hex: "C6CBC6") :
                                 Color(hex: "EEEEEE")
                         )
+                        .onTapGesture {
+                            if item == 1 {
+                                isFocused = true // 1번 아이템 터치 시 TextField에 포커스 맞추기
+                            }
+                        }
                         .frame(width: itemSize, height: itemSize) // 항상 1:1 비율 설정
                         
                         if item == 1 {
@@ -97,6 +103,7 @@ struct EnterSubgoalView: View {
                             TextField("세부 목표", text: $userSubGoal)
                                 .font(.Pretendard.Regular.size20)
                                 .multilineTextAlignment(.center)
+                                .focused($isFocused)
                                 .padding(10)
                         }
                         

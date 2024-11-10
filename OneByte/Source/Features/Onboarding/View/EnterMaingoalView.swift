@@ -20,6 +20,7 @@ struct EnterMaingoalView: View {
     
     @State private var userMainGoal: String = "" // 사용자 입력 MainGoal
     private let mainGoalLimit = 15 // 글자 수 제한 -> 나중에 디자인팀이라 의논해서 수정해야함
+    @FocusState private var isFocused: Bool // TextField 포커스 상태 관리
     
     var nowOnboard: Onboarding = .maingoal
     
@@ -73,12 +74,16 @@ struct EnterMaingoalView: View {
                 RoundedRectangle(cornerRadius: 12)
                     .fill(Color(hex: "EEEEEE"))
                     .frame(width: 210, height: 210) // 가로 세로 크기 고정
+                    .onTapGesture {
+                        isFocused = true // ZStack 터치 시 TextField에 포커스 맞추기
+                    }
                 
                 TextField("2025 최종 목표", text: $userMainGoal)
                     .font(.system(size: 20, weight: .semibold))
                     .multilineTextAlignment(.center)
                     .padding()
                     .background(Color.clear)
+                    .focused($isFocused) // FocusState와 연결
                     .onChange(of: userMainGoal) { newValue in
                         if newValue.count > mainGoalLimit {
                             userMainGoal = String(newValue.prefix(mainGoalLimit))
