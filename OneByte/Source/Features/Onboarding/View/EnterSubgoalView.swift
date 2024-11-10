@@ -129,21 +129,16 @@ struct EnterSubgoalView: View {
                 
                 GoButton {
                     if let subGoal = mainGoals.first?.subGoals.first(where: { $0.id == 1 }) {
-                           viewModel.updateSubGoal(
-                               subGoal: subGoal,
-                               modelContext: modelContext,
-                               newTitle: userSubGoal,
-                               newMemo: subGoal.memo // 기존 메모를 유지하거나, 새 메모를 전달할 수 있음
-                           )
-                           do {
-                               try modelContext.save()
-                           } catch {
-                               print("Error saving subGoal: \(error.localizedDescription)")
-                           }
-                           navigationManager.push(to: .onboardDetailgoal)
-                       } else {
-                           print("Error: subGoal with ID 1 not found.")
-                       }
+                        viewModel.updateSubGoal(
+                            subGoal: subGoal,
+                            modelContext: modelContext,
+                            newTitle: userSubGoal,
+                            newMemo: subGoal.memo // 기존 메모를 유지하거나, 새 메모를 전달할 수 있음
+                        )
+                        navigationManager.push(to: .onboardDetailgoal)
+                    } else {
+                        print("Error: subGoal with ID 1 not found.")
+                    }
                 } label: {
                     Text("다음")
                 }
