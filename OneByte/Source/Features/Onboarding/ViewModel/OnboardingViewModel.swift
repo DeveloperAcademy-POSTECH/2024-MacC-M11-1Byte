@@ -49,40 +49,20 @@ class OnboardingViewModel: ObservableObject {
         }
     }
     
-//    func updateSubGoal(subGoal: SubGoal, modelContext: ModelContext, newTitle: String, newMemo: String) {
-//        updateService.updateSubGoal(
-//            subGoal: subGoal,
-//            modelContext: modelContext,
-//            newTitle: newTitle,
-//            newMemo: newMemo
-//        )
-//
-//        do {
-//            try modelContext.save()
-//        } catch {
-//            print("Error saving subGoal: \(error.localizedDescription)")
-//        }
-//    }
-    
-    func updateSubGoalTitle(subGoalID: Int, newTitle: String) {
-            guard let subGoal = mainGoals.first?.subGoals.first(where: { $0.id == subGoalID }) else {
-                print("Error: subGoal with ID \(subGoalID) not found.")
-                return
-            }
-            
-            updateService.updateSubGoal(
-                subGoal: subGoal,
-                modelContext: modelContext,
-                newTitle: newTitle,
-                newMemo: subGoal.memo
-            )
-            
-            do {
-                try modelContext.save()
-            } catch {
-                print("Error saving subGoal: \(error.localizedDescription)")
-            }
+    func updateSubGoal(subGoal: SubGoal, modelContext: ModelContext, newTitle: String, newMemo: String) {
+        updateService.updateSubGoal(
+            subGoal: subGoal,
+            modelContext: modelContext,
+            newTitle: newTitle,
+            newMemo: newMemo
+        )
+        
+        do {
+            try modelContext.save()
+        } catch {
+            print("Error saving subGoal: \(error.localizedDescription)")
         }
+    }
     
     // SwiftData에 저장된 전체 데이터 출력
     func printAllData() {
