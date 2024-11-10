@@ -63,24 +63,5 @@ class OnboardingViewModel: ObservableObject {
             print("Error saving subGoal: \(error.localizedDescription)")
         }
     }
-    
-    // SwiftData에 저장된 전체 데이터 출력
-    func printAllData() {
-        print("Main Goals:")
-        for mainGoal in mainGoals {
-            print("MainGoal ID: \(mainGoal.id), Title: \(mainGoal.title), Year: \(mainGoal.goalYear)")
-            
-            let relatedSubGoals = subGoals.filter { $0.mainGoalId == mainGoal.id }
-            print("  Sub Goals for MainGoal \(mainGoal.id):")
-            for subGoal in relatedSubGoals {
-                print("    SubGoal ID: \(subGoal.id), Title: \(subGoal.title), Memo: \(subGoal.memo)")
-                
-                let relatedDetailGoals = detailGoals.filter { $0.subGoalId == subGoal.id }
-                print("      Detail Goals for SubGoal \(subGoal.id):")
-                for detailGoal in relatedDetailGoals {
-                    print("        DetailGoal ID: \(detailGoal.id), Title: \(detailGoal.title), Memo: \(detailGoal.memo), Achieved: \(detailGoal.isAchieved)")
-                }
-            }
-        }
-    }
+
 }
