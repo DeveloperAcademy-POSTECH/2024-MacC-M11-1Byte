@@ -41,12 +41,6 @@ class OnboardingViewModel: ObservableObject {
             newTitle: userMainGoal,
             newGoalYear: Calendar.current.component(.year, from: Date())
         )
-        
-        do {
-            try modelContext.save()
-        } catch {
-            print("Error saving mainGoal: \(error.localizedDescription)")
-        }
     }
     
     func updateSubGoal(subGoal: SubGoal, modelContext: ModelContext, newTitle: String, newMemo: String) {
@@ -56,12 +50,6 @@ class OnboardingViewModel: ObservableObject {
             newTitle: newTitle,
             newMemo: newMemo
         )
-        
-        do {
-            try modelContext.save()
-        } catch {
-            print("Error saving subGoal: \(error.localizedDescription)")
-        }
     }
-
+    
 }
