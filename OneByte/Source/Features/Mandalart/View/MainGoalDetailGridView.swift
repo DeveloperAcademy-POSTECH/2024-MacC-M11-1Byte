@@ -44,13 +44,7 @@ struct MainGoalDetailGridView: View {
                                     .modifier(NextMandalartButtonModifier(color: Color.orange))
                             }
                             .sheet(isPresented: $isPresented) {
-                                if selectedSubGoal != nil {
                                     SubGoalsheetView(subGoal: $selectedSubGoal, isPresented: $isPresented)
-                                } else {
-                                    Text("SubGoal 데이터를 찾을 수 없습니다.")
-                                        .foregroundStyle(.gray)
-                                        .padding()
-                                }
                             }
                         }
                     }
