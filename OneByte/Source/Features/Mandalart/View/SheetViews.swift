@@ -15,7 +15,7 @@ struct MainGoalsheetView: View {
     @Binding var isPresented: Bool
     @State private var newTitle: String = ""
     @State private var newMemo: String = ""
-    private let viewModel = MandalartViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
+    private let viewModel = MandalartViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []), deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []))
     
     var body: some View {
         VStack(spacing: 20) {
@@ -58,6 +58,20 @@ struct MainGoalsheetView: View {
                         .background(Color.black)
                         .cornerRadius(8)
                 }
+                Button(action: {
+                    if let mainGoal = mainGoal {
+                        viewModel.deleteMainGoal(mainGoal: mainGoal, modelContext: modelContext, id: mainGoal.id, newTitle: "")
+//                        self.mainGoal = nil  // 메인 골을 nil로 설정하여 초기화
+                    }
+                    isPresented = false
+                }) {
+                    Text("삭제")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.red)
+                        .cornerRadius(8)
+                        .foregroundColor(.white)
+                }
             }
         }
         .padding()
@@ -76,7 +90,7 @@ struct SubGoalsheetView: View {
     @Binding var isPresented: Bool
     @State private var newTitle: String = ""
     @State private var newMemo: String = ""
-    private let viewModel = MandalartViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
+    private let viewModel = MandalartViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []), deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []))
     
     var body: some View {
         VStack(spacing: 20) {
@@ -152,7 +166,7 @@ struct SubGoalsheetView: View {
 
 struct DetailGoalsheetView: View {
     @Environment(\.modelContext) private var modelContext  // SwiftData 컨텍스트
-    private let viewModel = MandalartViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
+    private let viewModel = MandalartViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []), deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []))
     @Environment(\.managedObjectContext) private var context
     @Binding var detailGoal: DetailGoal?
     //    @Binding var subGoal: SubGoal? // 옵셔널로 변경

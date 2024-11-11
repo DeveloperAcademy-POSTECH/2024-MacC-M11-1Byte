@@ -18,6 +18,8 @@ protocol UpdateGoalUseCase {
     func updateDetailGoal(detailGoal: DetailGoal, modelContext: ModelContext, newTitle: String, newMemo: String, isAchieved: Bool)
 }
 
-//protocol DeleteGoalUseCase {
-//    func deleteMainGoal(mai)
-//}
+protocol DeleteGoalUseCase {
+    func deleteMainGoal(mainGoal: MainGoal, modelContext: ModelContext, id: Int, newTitle: String)
+    func deleteSubGoal(subGoal: SubGoal, modelContext: ModelContext, newTitle: String, newMemo: String)
+    func deleteDetailGoal(detailGoal: DetailGoal, modelContext: ModelContext, newTitle: String, newMemo: String, isAchieved: Bool)
+}
