@@ -15,7 +15,7 @@ struct EnterDetailgoalView: View {
     
     @Environment(\.modelContext) private var modelContext
     @Query private var subGoals: [SubGoal]
-    //    var detailGoal: DetailGoal?
+    
     @State var viewModel = OnboardingViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     @State private var userDetailGoal: String = "" // 사용자 SubGoal 입력 텍스트
     @State private var userDetailGoalNewMemo: String = ""

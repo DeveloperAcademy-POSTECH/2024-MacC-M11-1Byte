@@ -14,7 +14,6 @@ struct EnterMaingoalView: View {
     
     @Environment(\.modelContext) private var modelContext
     @Query private var mainGoals: [MainGoal]
-    //    var mainGoal: MainGoal?
     
     @State var viewModel = OnboardingViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     
@@ -78,7 +77,7 @@ struct EnterMaingoalView: View {
                     .onTapGesture {
                         isFocused = true // Cell 전체영역 터치 시 TextField에 포커스
                     }
-
+                
                 VStack {
                     TextField("2025 최종 목표", text: $userMainGoal, axis: .vertical)
                         .font(.Pretendard.SemiBold.size20)
@@ -94,7 +93,7 @@ struct EnterMaingoalView: View {
                 }
                 .frame(width: 180) // TextField 너비 조정으로 중앙 정렬 보완
                 
-                // 글자수 표시 영역
+                // 글자수 표시
                 VStack {
                     Spacer()
                     
@@ -109,8 +108,6 @@ struct EnterMaingoalView: View {
                 }
             }
             .frame(width: 210, height: 210)
-            .padding()
-
             
             Spacer()
             
