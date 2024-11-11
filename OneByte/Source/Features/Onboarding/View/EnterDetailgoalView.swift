@@ -22,6 +22,7 @@ struct EnterDetailgoalView: View {
     @State private var userDetailGoalAchieved: Bool = false
     @State private var targetSubGoal: SubGoal? // id가 1인 SubGoal 저장변수
     @FocusState private var isFocused: Bool // TextField 포커스 상태 관리
+    private let detailGoalLimit = 15 // 글자 수 제한
     
     // 3x3 View Custom 변수들
     let items = Array(1...9)
@@ -70,7 +71,7 @@ struct EnterDetailgoalView: View {
                 RoundedRectangle(cornerRadius: 8)
                     .fill(Color(hex: "D4F7D7"))
                     .frame(maxWidth: .infinity)
-                    .frame(height: 112)
+                    .frame(height: 112) // ✅ 나중에 디자인팀에서 보여주는 방식 바꿔주면, mini에서 텍스트 짤림문제 해결하기
                 
                 VStack(alignment: .leading) {
                     (Text("TIP ")
@@ -82,9 +83,18 @@ struct EnterDetailgoalView: View {
                     .padding()
                 }
             }
-            .padding()
+            .padding(.horizontal)
             
             Spacer()
+            
+            HStack(spacing: 0) {
+                Spacer()
+                Text("\(userDetailGoal.count)")
+                    .foregroundStyle(Color(hex: "6C6C6C"))
+                Text("/15")
+                    .foregroundStyle(Color(hex: "6C6C6C").opacity(0.5))
+            }
+            .padding(.trailing)
             
             // 중앙 3x3 View
             LazyVGrid(columns: columns, spacing: gridSpacing) {
@@ -117,6 +127,11 @@ struct EnterDetailgoalView: View {
                                 .multilineTextAlignment(.center)
                                 .focused($isFocused)
                                 .padding(10)
+                                .onChange(of: userDetailGoal) { newValue in
+                                    if newValue.count > detailGoalLimit {
+                                        userDetailGoal = String(newValue.prefix(detailGoalLimit))
+                                    }
+                                }
                         }
                         
                         // item이 5인 중앙은 SubGoal

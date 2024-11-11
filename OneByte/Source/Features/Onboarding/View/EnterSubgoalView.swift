@@ -11,6 +11,7 @@ struct EnterSubgoalView: View {
     @State var viewModel = OnboardingViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     @State private var userSubGoal: String = "" // 사용자 SubGoal 입력 텍스트
     @FocusState private var isFocused: Bool // TextField 포커스 상태 관리
+    private let subGoalLimit = 15 // 글자 수 제한
     
     let items = Array(1...9)
     let gridSpacing: CGFloat = 5 // 셀 간 수직 간격
@@ -72,6 +73,15 @@ struct EnterSubgoalView: View {
             
             Spacer()
             
+            HStack(spacing: 0) {
+                Spacer()
+                Text("\(userSubGoal.count)")
+                    .foregroundStyle(Color(hex: "6C6C6C"))
+                Text("/15")
+                    .foregroundStyle(Color(hex: "6C6C6C").opacity(0.5))
+            }
+            .padding(.trailing)
+            
             // 중앙 3x3 View
             LazyVGrid(columns: columns, spacing: gridSpacing) {
                 ForEach(items, id: \.self) { item in
@@ -103,6 +113,11 @@ struct EnterSubgoalView: View {
                                 .multilineTextAlignment(.center)
                                 .focused($isFocused)
                                 .padding(10)
+                                .onChange(of: userSubGoal) { newValue in
+                                    if newValue.count > subGoalLimit {
+                                        userSubGoal = String(newValue.prefix(subGoalLimit))
+                                    }
+                                }
                         }
                         
                         // item이 5인 중앙은 MainGoal
@@ -121,6 +136,7 @@ struct EnterSubgoalView: View {
             }
             .frame(width: gridWidth) // LazyVGrid의 너비를 설정하여 양쪽 여백을 구현
             .padding(.horizontal, gridSpacing) // 수직 간격을 위한 추가 패딩
+//            .padding(.bottom)
             
             Spacer()
             
