@@ -15,7 +15,6 @@ struct MainGoalsheetView: View {
     @Binding var isPresented: Bool
     @State private var newTitle: String = ""
     @State private var newMemo: String = ""
-    @State private var newGoalYear: String = ""
     private let viewModel = MandalartViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     
     var body: some View {
@@ -35,20 +34,6 @@ struct MainGoalsheetView: View {
                             .padding(.trailing, 8)
                     }
                 )
-            // 연도 입력
-            TextField("연도 입력", text: $newGoalYear)
-                .padding()
-                .background(Color(UIColor.systemGray6))
-                .cornerRadius(8)
-                .keyboardType(.numberPad)
-                .overlay(
-                    HStack {
-                        Spacer()
-                        Text("\(newGoalYear.count)/4")
-                            .padding(.trailing, 8)
-                    }
-                )
-            
             // 버튼 영역
             HStack {
                 Button(action: {
@@ -62,8 +47,8 @@ struct MainGoalsheetView: View {
                 }
                 
                 Button(action: {
-                    if let mainGoal = mainGoal, let goalYear = Int(newGoalYear) {
-                        viewModel.updateMainGoal(mainGoal: mainGoal, modelContext: modelContext, id: mainGoal.id, newTitle: newTitle, newGoalYear: goalYear)
+                    if let mainGoal = mainGoal {
+                        viewModel.updateMainGoal(mainGoal: mainGoal, modelContext: modelContext, id: mainGoal.id, newTitle: newTitle)
                     }
                     isPresented = false
                 }) {
@@ -79,7 +64,6 @@ struct MainGoalsheetView: View {
         .onAppear {
             if let mainGoal = mainGoal {
                 newTitle = mainGoal.title
-                newGoalYear = String(mainGoal.goalYear)
             }
         }
     }

@@ -40,8 +40,7 @@ class OnboardingViewModel: ObservableObject {
             mainGoal: mainGoal,
             modelContext: modelContext,
             id: mainGoal.id,
-            newTitle: userMainGoal,
-            newGoalYear: Calendar.current.component(.year, from: Date())
+            newTitle: userMainGoal
         )
     }
     

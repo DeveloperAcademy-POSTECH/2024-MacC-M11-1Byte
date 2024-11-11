@@ -13,13 +13,11 @@ protocol CreateGoalUseCase {
 }
 
 protocol UpdateGoalUseCase {
-    func updateMainGoal(mainGoal: MainGoal, modelContext: ModelContext, id: Int, newTitle: String, newGoalYear: Int)
+    func updateMainGoal(mainGoal: MainGoal, modelContext: ModelContext, id: Int, newTitle: String)
     func updateSubGoal(subGoal: SubGoal, modelContext: ModelContext, newTitle: String, newMemo: String)
     func updateDetailGoal(detailGoal: DetailGoal, modelContext: ModelContext, newTitle: String, newMemo: String, isAchieved: Bool)
 }
 
-protocol ReadGoalUseCase {
-    func readMainGoal(id: UUID) -> MainGoal
-    func readSubGoals(for mainGoalID: UUID) -> [SubGoal]
-    func readDetailGoals(for subGoalID: UUID) -> [DetailGoal]
-}
+//protocol DeleteGoalUseCase {
+//    func deleteMainGoal(mai)
+//}

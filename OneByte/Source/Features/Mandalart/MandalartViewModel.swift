@@ -22,8 +22,8 @@ class MandalartViewModel: ObservableObject {
         createService.createGoals(modelContext: modelContext)
     }
     
-    func updateMainGoal(mainGoal: MainGoal, modelContext: ModelContext, id: Int, newTitle: String, newGoalYear: Int) {
-        updateService.updateMainGoal(mainGoal: mainGoal, modelContext: modelContext, id: id, newTitle: newTitle, newGoalYear: newGoalYear)
+    func updateMainGoal(mainGoal: MainGoal, modelContext: ModelContext, id: Int, newTitle: String) {
+        updateService.updateMainGoal(mainGoal: mainGoal, modelContext: modelContext, id: id, newTitle: newTitle)
         
     }
     

@@ -52,6 +52,7 @@
 		610595D02CE21444005ED7B4 /* MainGoalDetailGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595CF2CE21444005ED7B4 /* MainGoalDetailGridView.swift */; };
 		610595D22CE214CE005ED7B4 /* SubGoalDetailGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595D12CE214CE005ED7B4 /* SubGoalDetailGridView.swift */; };
 		610595D42CE21505005ED7B4 /* SheetViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595D32CE21505005ED7B4 /* SheetViews.swift */; };
+		610595D62CE23653005ED7B4 /* DeleteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595D52CE23653005ED7B4 /* DeleteService.swift */; };
 		613904E82CD20457008E591D /* MandalartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E72CD20457008E591D /* MandalartView.swift */; };
 		613904EA2CD21A0B008E591D /* MandalartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E92CD21A0B008E591D /* MandalartViewModel.swift */; };
 		615A0A0B2CC0ADA800908531 /* TabBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A0A2CC0ADA800908531 /* TabBarManager.swift */; };
@@ -112,6 +113,7 @@
 		610595CF2CE21444005ED7B4 /* MainGoalDetailGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGoalDetailGridView.swift; sourceTree = "<group>"; };
 		610595D12CE214CE005ED7B4 /* SubGoalDetailGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubGoalDetailGridView.swift; sourceTree = "<group>"; };
 		610595D32CE21505005ED7B4 /* SheetViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetViews.swift; sourceTree = "<group>"; };
+		610595D52CE23653005ED7B4 /* DeleteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteService.swift; sourceTree = "<group>"; };
 		613904E72CD20457008E591D /* MandalartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalartView.swift; sourceTree = "<group>"; };
 		613904E92CD21A0B008E591D /* MandalartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalartViewModel.swift; sourceTree = "<group>"; };
 		615A0A0A2CC0ADA800908531 /* TabBarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarManager.swift; sourceTree = "<group>"; };
@@ -289,6 +291,7 @@
 			children = (
 				618FD0732CDF11210003450D /* CreateService.swift */,
 				618FD0752CDF11410003450D /* UpdateService.swift */,
+				610595D52CE23653005ED7B4 /* DeleteService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -476,6 +479,7 @@
 				1F4D8BF02CDF4F9E00A0B5CC /* OnboardingStartView.swift in Sources */,
 				1FB10A382CDF5FE800D54EC5 /* OnboardingExplain.swift in Sources */,
 				618FD07E2CE1D2B00003450D /* MainGoalCell.swift in Sources */,
+				610595D62CE23653005ED7B4 /* DeleteService.swift in Sources */,
 				1F88AB412CD6101C0009730D /* Date+.swift in Sources */,
 				1FB10A322CDF56E200D54EC5 /* EnterDetailgoalView.swift in Sources */,
 				615A0A0B2CC0ADA800908531 /* TabBarManager.swift in Sources */,

@@ -75,7 +75,7 @@ struct RetrospectMainView: View {
                     .padding()
                 }
             }
-            .navigationTitle("\(Date().YearString) 회고")
+            .navigationTitle("회고")
             .navigationDestination(for: PathType.self) { pathType in
                 pathType.NavigatingView()
             }
