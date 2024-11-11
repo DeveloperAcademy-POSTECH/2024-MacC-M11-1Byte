@@ -16,13 +16,14 @@ struct OnboardingFinishView: View {
     
     var body: some View {
         VStack {
+            Spacer()
             // 상단 캐릭터 이미지 & 텍스트
+            Image("Dara4")
+                .resizable()
+                .scaledToFit()
+                .frame(height: 200)
+            
             VStack(spacing: 10) {
-                Image("Dara4")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 113)
-                
                 Text(nowOnboard.onboardingTitle)
                     .font(.Pretendard.Bold.size26)
                     .multilineTextAlignment(.center)
@@ -30,17 +31,6 @@ struct OnboardingFinishView: View {
                 Text(nowOnboard.onboardingSubTitle)
                     .font(.system(size: 17, weight: .medium))
                     .foregroundStyle(Color(hex: "919191"))
-            }
-            .padding()
-            .padding(.top)
-            
-            Spacer()
-            
-            // 9x9 만다라트 View
-            HStack {
-                Image(systemName: "timelapse")
-                    .resizable()
-                    .frame(width: 300, height: 300)
             }
             .padding()
             
