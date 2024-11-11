@@ -37,6 +37,8 @@ struct MainGoalDetailGridView: View {
                         .cornerRadius(20)
                         .sheet(isPresented: $mainIsPresented) {
                             MainGoalsheetView(mainGoal: $mainGoal, isPresented: $mainIsPresented)
+                                .presentationDragIndicator(.visible)
+                                .presentationDetents([.height(244/852 * UIScreen.main.bounds.height)])
                         }
                     } else {
                         let subGoalIndex = index < 4 ? index : index - 1
@@ -51,6 +53,8 @@ struct MainGoalDetailGridView: View {
                             .cornerRadius(cornerRadius, corners: cornerStyle)
                             .sheet(isPresented: $isPresented) {
                                 SubGoalsheetView(subGoal: $selectedSubGoal, isPresented: $isPresented)
+                                    .presentationDragIndicator(.visible)
+                                    .presentationDetents([.height(447/852 * UIScreen.main.bounds.height)])
                             }
                         }
                     }
