@@ -102,6 +102,9 @@ struct EnterSubgoalView: View {
                         .onTapGesture {
                             if item == 1 {
                                 isFocused = true // 1번 아이템 터치 시 TextField에 포커스 맞추기
+                            } else {
+                                isFocused = false // 다른 셀 터치 시 포커스 해제
+                                UIApplication.shared.endEditing() // 키보드 내려가게 처리
                             }
                         }
                         .frame(width: itemSize, height: itemSize) // 항상 1:1 비율 설정
@@ -137,7 +140,6 @@ struct EnterSubgoalView: View {
             }
             .frame(width: gridWidth) // LazyVGrid의 너비를 설정하여 양쪽 여백을 구현
             .padding(.horizontal, gridSpacing) // 수직 간격을 위한 추가 패딩
-//            .padding(.bottom)
             
             Spacer()
             

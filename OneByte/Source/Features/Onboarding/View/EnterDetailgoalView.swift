@@ -116,6 +116,9 @@ struct EnterDetailgoalView: View {
                         .onTapGesture {
                             if item == 1 {
                                 isFocused = true // 1번 아이템 터치 시 TextField에 포커스 맞추기
+                            } else {
+                                isFocused = false // 다른 셀 터치 시 포커스 해제
+                                UIApplication.shared.endEditing() // 키보드 dismiss
                             }
                         }
                         .frame(width: itemSize, height: itemSize) // 항상 1:1 비율 설정
