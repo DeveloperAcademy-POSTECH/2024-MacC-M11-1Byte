@@ -11,6 +11,7 @@ struct EnterSubgoalView: View {
     @State var viewModel = OnboardingViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     @State private var userSubGoal: String = "" // 사용자 SubGoal 입력 텍스트
     @FocusState private var isFocused: Bool // TextField 포커스 상태 관리
+    private let subGoalLimit = 15 // 글자 수 제한
     
     let items = Array(1...9)
     let gridSpacing: CGFloat = 5 // 셀 간 수직 간격
@@ -72,6 +73,15 @@ struct EnterSubgoalView: View {
             
             Spacer()
             
+            HStack(spacing: 0) {
+                Spacer()
+                Text("\(userSubGoal.count)")
+                    .foregroundStyle(Color(hex: "6C6C6C"))
+                Text("/15")
+                    .foregroundStyle(Color(hex: "6C6C6C").opacity(0.5))
+            }
+            .padding(.trailing)
+            
             // 중앙 3x3 View
             LazyVGrid(columns: columns, spacing: gridSpacing) {
                 ForEach(items, id: \.self) { item in
@@ -92,24 +102,33 @@ struct EnterSubgoalView: View {
                         .onTapGesture {
                             if item == 1 {
                                 isFocused = true // 1번 아이템 터치 시 TextField에 포커스 맞추기
+                            } else {
+                                isFocused = false // 다른 셀 터치 시 포커스 해제
+                                UIApplication.shared.endEditing() // 키보드 내려가게 처리
                             }
                         }
                         .frame(width: itemSize, height: itemSize) // 항상 1:1 비율 설정
                         
                         if item == 1 {
                             // 1번 셀일 경우 TextField와 터치 가능
-                            TextField("세부 목표", text: $userSubGoal)
-                                .font(.Pretendard.Regular.size20)
+                            TextField("세부 목표", text: $userSubGoal, axis: .vertical)
+                                .font(.Pretendard.Regular.size18)
                                 .multilineTextAlignment(.center)
                                 .focused($isFocused)
                                 .padding(10)
+                                .onChange(of: userSubGoal) { newValue in
+                                    if newValue.count > subGoalLimit {
+                                        userSubGoal = String(newValue.prefix(subGoalLimit))
+                                    }
+                                }
                         }
                         
                         // item이 5인 중앙은 MainGoal
                         if item == 5 {
                             if let mainGoal = mainGoals.first {
                                 Text(mainGoal.title)
-                                    .font(.Pretendard.Medium.size20)
+                                    .font(.Pretendard.Medium.size18)
+                                    .multilineTextAlignment(.center)
                             } else {
                                 Text("")
                             }
@@ -150,6 +169,7 @@ struct EnterSubgoalView: View {
             }
             .padding()
         }
+        .contentShape(Rectangle())
         .onTapGesture {
             UIApplication.shared.endEditing() // 빈 화면 터치 시 키보드 숨기기
         }
