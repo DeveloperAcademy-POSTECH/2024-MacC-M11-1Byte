@@ -22,25 +22,28 @@ struct MainGoalCell: View {
             let sortedSubGoals = selectedMainGoal.subGoals.sorted(by: { $0.id < $1.id })
             
             NavigationLink(destination: MainGoalDetailGridView(mainGoal: $mainGoal, isPresented: $isPresented)) {
-                LazyVGrid(columns: innerColumns, spacing: 5) {
-                    ForEach(0..<9, id: \.self) { innerIndex in
-                        if innerIndex == 4 {
+                LazyVGrid(columns: innerColumns, spacing: 1) {
+                    ForEach(0..<9, id: \.self) { index in
+                        let cornerRadius: CGFloat = 20
+                        let cornerStyle = cornerStyle(for: index) // cornerStyle 함수 사용
+                        
+                        if index == 4 {
                             // 메인골 제목 표시
                             Text(selectedMainGoal.title)
-                                .modifier(MandalartButtonModifier(color: Color.blue))
+                                .cornerRadius(20)
+                                .modifier(MandalartButtonModifier(color: Color.my538F53))
                         } else {
-                            let subGoalIndex = innerIndex < 4 ? innerIndex : innerIndex - 1
+                            let subGoalIndex = index < 4 ? index : index - 1
                             
                             if subGoalIndex < sortedSubGoals.count {
                                 let subGoal = sortedSubGoals[subGoalIndex]
                                 Text(subGoal.title)
-                                    .modifier(MandalartButtonModifier(color: Color.orange))
+                                    .cornerRadius(cornerRadius, corners: cornerStyle)
+                                    .modifier(MandalartButtonModifier(color: Color.my95D895))
                             }
                         }
                     }
                 }
-                .background(Color.gray.opacity(0.2))
-                .cornerRadius(8)
             }
         }
     }

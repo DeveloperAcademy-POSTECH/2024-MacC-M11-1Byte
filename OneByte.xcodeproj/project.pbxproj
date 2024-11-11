@@ -53,6 +53,7 @@
 		610595D22CE214CE005ED7B4 /* SubGoalDetailGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595D12CE214CE005ED7B4 /* SubGoalDetailGridView.swift */; };
 		610595D42CE21505005ED7B4 /* SheetViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595D32CE21505005ED7B4 /* SheetViews.swift */; };
 		610595D62CE23653005ED7B4 /* DeleteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595D52CE23653005ED7B4 /* DeleteService.swift */; };
+		610595D92CE2584D005ED7B4 /* MadalartShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595D82CE2584D005ED7B4 /* MadalartShape.swift */; };
 		613904E82CD20457008E591D /* MandalartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E72CD20457008E591D /* MandalartView.swift */; };
 		613904EA2CD21A0B008E591D /* MandalartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E92CD21A0B008E591D /* MandalartViewModel.swift */; };
 		615A0A0B2CC0ADA800908531 /* TabBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A0A2CC0ADA800908531 /* TabBarManager.swift */; };
@@ -114,6 +115,7 @@
 		610595D12CE214CE005ED7B4 /* SubGoalDetailGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubGoalDetailGridView.swift; sourceTree = "<group>"; };
 		610595D32CE21505005ED7B4 /* SheetViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetViews.swift; sourceTree = "<group>"; };
 		610595D52CE23653005ED7B4 /* DeleteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteService.swift; sourceTree = "<group>"; };
+		610595D82CE2584D005ED7B4 /* MadalartShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadalartShape.swift; sourceTree = "<group>"; };
 		613904E72CD20457008E591D /* MandalartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalartView.swift; sourceTree = "<group>"; };
 		613904E92CD21A0B008E591D /* MandalartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalartViewModel.swift; sourceTree = "<group>"; };
 		615A0A0A2CC0ADA800908531 /* TabBarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarManager.swift; sourceTree = "<group>"; };
@@ -202,7 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				1FB10A232CDF50F000D54EC5 /* Onboarding */,
-				618FD06F2CDF0ED20003450D /* MandalartButtonModifier.swift */,
+				610595D72CE2582A005ED7B4 /* Mandalart */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -393,6 +395,15 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		610595D72CE2582A005ED7B4 /* Mandalart */ = {
+			isa = PBXGroup;
+			children = (
+				618FD06F2CDF0ED20003450D /* MandalartButtonModifier.swift */,
+				610595D82CE2584D005ED7B4 /* MadalartShape.swift */,
+			);
+			path = Mandalart;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -474,6 +485,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FA50DEE2CE0B25C00369F7F /* UIApplication+.swift in Sources */,
+				610595D92CE2584D005ED7B4 /* MadalartShape.swift in Sources */,
 				1FB10A252CDF511600D54EC5 /* GoButton.swift in Sources */,
 				1F42BE892CDF838500A59703 /* Font+.swift in Sources */,
 				1F4D8BF02CDF4F9E00A0B5CC /* OnboardingStartView.swift in Sources */,

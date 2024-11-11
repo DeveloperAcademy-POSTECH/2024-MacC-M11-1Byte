@@ -21,16 +21,20 @@ struct SubGoalDetailGridView: View {
             // 디테일골을 id 값에 따라 정렬
             let sortedDetailGoals = selectedSubGoal.detailGoals.sorted(by: { $0.id < $1.id })
             
-            LazyVGrid(columns: innerColumns, spacing: 10) {
+            LazyVGrid(columns: innerColumns, spacing: 3) {
                 ForEach(0..<9, id: \.self) { index in
+                    let cornerRadius: CGFloat = 20
+                    let cornerStyle = cornerStyle(for: index) // cornerStyle 함수 사용
+                    
                     if index == 4 {
                         // 네 번째 셀에 서브골 제목 표시
                         Button(action: {
                             subSheetIsPresented = true
                         }, label: {
                             Text(selectedSubGoal.title)
-                                .modifier(NextMandalartButtonModifier(color: Color.orange))
+                                .modifier(NextMandalartButtonModifier(color: Color.my95D895))
                         })
+                        .cornerRadius(20)
                         .sheet(isPresented: $subSheetIsPresented, content: {
                             SubGoalsheetView(subGoal: $subGoal, isPresented: $subSheetIsPresented)
                         })
@@ -44,8 +48,9 @@ struct SubGoalDetailGridView: View {
                                 isPresented = true
                             }, label: {
                                 Text(detailGoal.title)
-                                    .modifier(NextMandalartButtonModifier(color: Color.green))
+                                    .modifier(NextMandalartButtonModifier(color: Color.myBFEBBB))
                             })
+                            .cornerRadius(cornerRadius, corners: cornerStyle)
                             .sheet(isPresented: $isPresented) {
                                 if selectedDetailGoal != nil {
                                     DetailGoalsheetView(detailGoal: $selectedDetailGoal, isPresented: $isPresented)
@@ -55,7 +60,7 @@ struct SubGoalDetailGridView: View {
                     }
                 }
             }
-            .padding()
+            .padding(.horizontal, 20/393 * UIScreen.main.bounds.width)
             .navigationTitle(selectedSubGoal.title)
         }
     }

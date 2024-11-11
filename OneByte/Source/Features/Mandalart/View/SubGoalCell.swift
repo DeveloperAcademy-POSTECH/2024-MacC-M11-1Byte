@@ -17,27 +17,31 @@ struct SubGoalCell: View {
 
     var body: some View {
         if let selectedSubGoal = selectedSubGoal {
+            
             // 디테일골을 id에 따라 정렬
             let detailGoalsSorted = selectedSubGoal.detailGoals.sorted(by: { $0.id < $1.id })
             
             NavigationLink(destination: SubGoalDetailGridView(subGoal: $selectedSubGoal, isPresented: $isPresented)) {
-                LazyVGrid(columns: innerColumns, spacing: 5) {
-                    ForEach(0..<9, id: \.self) { innerIndex in
-                        if innerIndex == 4 {
+                LazyVGrid(columns: innerColumns, spacing: 1) {
+                    ForEach(0..<9, id: \.self) { index in
+                        let cornerRadius: CGFloat = 20
+                        let cornerStyle = cornerStyle(for: index) // cornerStyle 함수 사용
+                        
+                        if index == 4 {
                             Text(selectedSubGoal.title)
-                                .modifier(MandalartButtonModifier(color: Color.orange))
+                                .cornerRadius(20)
+                                .modifier(MandalartButtonModifier(color: Color.my95D895))
                         } else {
-                            let detailGoalIndex = innerIndex < 4 ? innerIndex : innerIndex - 1
+                            let detailGoalIndex = index < 4 ? index : index - 1
                             if detailGoalIndex < detailGoalsSorted.count {
                                 let detailGoal = detailGoalsSorted[detailGoalIndex]
                                 Text(detailGoal.title)
-                                    .modifier(MandalartButtonModifier(color: Color.green))
+                                    .cornerRadius(cornerRadius, corners: cornerStyle)
+                                    .modifier(MandalartButtonModifier(color: Color.myBFEBBB))
                             }
                         }
                     }
                 }
-                .background(Color.gray.opacity(0.2))
-                .cornerRadius(8)
             }
         } else {
             Text("SubGoal을 찾을 수가 없습니다.")
