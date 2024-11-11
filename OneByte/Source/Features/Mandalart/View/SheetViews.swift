@@ -16,7 +16,7 @@ struct MainGoalsheetView: View {
     @State private var newTitle: String = ""
     @State private var newMemo: String = ""
     @State private var newGoalYear: String = ""
-    private let viewModel = CUTestViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
+    private let viewModel = MandalartViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     
     var body: some View {
         VStack(spacing: 20) {
@@ -33,7 +33,6 @@ struct MainGoalsheetView: View {
                         Spacer()
                         Text("\(newTitle.count)/15")
                             .padding(.trailing, 8)
-                            .foregroundColor(.gray)
                     }
                 )
             // 연도 입력
@@ -47,7 +46,6 @@ struct MainGoalsheetView: View {
                         Spacer()
                         Text("\(newGoalYear.count)/4")
                             .padding(.trailing, 8)
-                            .foregroundColor(.gray)
                     }
                 )
             
@@ -73,7 +71,6 @@ struct MainGoalsheetView: View {
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color.black)
-                        .foregroundColor(.white)
                         .cornerRadius(8)
                 }
             }
@@ -95,7 +92,7 @@ struct SubGoalsheetView: View {
     @Binding var isPresented: Bool
     @State private var newTitle: String = ""
     @State private var newMemo: String = ""
-    private let viewModel = CUTestViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
+    private let viewModel = MandalartViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     
     var body: some View {
         VStack(spacing: 20) {
@@ -112,7 +109,6 @@ struct SubGoalsheetView: View {
                         Spacer()
                         Text("\(newTitle.count)/15")
                             .padding(.trailing, 8)
-                            .foregroundColor(.gray)
                     }
                 )
             
@@ -129,7 +125,6 @@ struct SubGoalsheetView: View {
                             Spacer()
                             Text("\(newMemo.count)/150")
                                 .padding(.trailing, 8)
-                                .foregroundColor(.gray)
                         }
                     }
                 )
@@ -156,7 +151,7 @@ struct SubGoalsheetView: View {
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color.black)
-                        .foregroundColor(.white)
+                        .foregroundStyle(.white)
                         .cornerRadius(8)
                 }
             }
@@ -173,7 +168,7 @@ struct SubGoalsheetView: View {
 
 struct DetailGoalsheetView: View {
     @Environment(\.modelContext) private var modelContext  // SwiftData 컨텍스트
-    private let viewModel = CUTestViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
+    private let viewModel = MandalartViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     @Environment(\.managedObjectContext) private var context
     @Binding var detailGoal: DetailGoal?
     //    @Binding var subGoal: SubGoal? // 옵셔널로 변경
@@ -197,7 +192,7 @@ struct DetailGoalsheetView: View {
                         Spacer()
                         Text("\(newTitle.count)/15")
                             .padding(.trailing, 8)
-                            .foregroundColor(.gray)
+                            .foregroundStyle(.gray)
                     }
                 )
             
@@ -214,7 +209,7 @@ struct DetailGoalsheetView: View {
                             Spacer()
                             Text("\(newMemo.count)/150")
                                 .padding(.trailing, 8)
-                                .foregroundColor(.gray)
+                                .foregroundStyle(.gray)
                         }
                     }
                 )
@@ -252,7 +247,7 @@ struct DetailGoalsheetView: View {
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color.black)
-                        .foregroundColor(.white)
+                        .foregroundStyle(.white)
                         .cornerRadius(8)
                 }
             }

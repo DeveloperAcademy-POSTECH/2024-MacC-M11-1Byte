@@ -53,7 +53,7 @@
 		610595D22CE214CE005ED7B4 /* SubGoalDetailGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595D12CE214CE005ED7B4 /* SubGoalDetailGridView.swift */; };
 		610595D42CE21505005ED7B4 /* SheetViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595D32CE21505005ED7B4 /* SheetViews.swift */; };
 		613904E82CD20457008E591D /* MandalartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E72CD20457008E591D /* MandalartView.swift */; };
-		613904EA2CD21A0B008E591D /* MadalArtCRUDTestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E92CD21A0B008E591D /* MadalArtCRUDTestViewModel.swift */; };
+		613904EA2CD21A0B008E591D /* MandalartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E92CD21A0B008E591D /* MandalartViewModel.swift */; };
 		615A0A0B2CC0ADA800908531 /* TabBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A0A2CC0ADA800908531 /* TabBarManager.swift */; };
 		615A0A0D2CC0AE8700908531 /* RetrospectMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A0C2CC0AE8700908531 /* RetrospectMainView.swift */; };
 		615A0A112CC0AEB800908531 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A102CC0AEB800908531 /* MyPageView.swift */; };
@@ -113,7 +113,7 @@
 		610595D12CE214CE005ED7B4 /* SubGoalDetailGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubGoalDetailGridView.swift; sourceTree = "<group>"; };
 		610595D32CE21505005ED7B4 /* SheetViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetViews.swift; sourceTree = "<group>"; };
 		613904E72CD20457008E591D /* MandalartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalartView.swift; sourceTree = "<group>"; };
-		613904E92CD21A0B008E591D /* MadalArtCRUDTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadalArtCRUDTestViewModel.swift; sourceTree = "<group>"; };
+		613904E92CD21A0B008E591D /* MandalartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalartViewModel.swift; sourceTree = "<group>"; };
 		615A0A0A2CC0ADA800908531 /* TabBarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarManager.swift; sourceTree = "<group>"; };
 		615A0A0C2CC0AE8700908531 /* RetrospectMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrospectMainView.swift; sourceTree = "<group>"; };
 		615A0A102CC0AEB800908531 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
@@ -233,7 +233,7 @@
 		1F7C9C132CD0731F00BAC358 /* Mandalart */ = {
 			isa = PBXGroup;
 			children = (
-				613904E92CD21A0B008E591D /* MadalArtCRUDTestViewModel.swift */,
+				613904E92CD21A0B008E591D /* MandalartViewModel.swift */,
 				1F7C9C142CD0735500BAC358 /* View */,
 			);
 			path = Mandalart;
@@ -495,7 +495,7 @@
 				610595D02CE21444005ED7B4 /* MainGoalDetailGridView.swift in Sources */,
 				1FB10A362CDF5C7900D54EC5 /* OnboardingExplainView.swift in Sources */,
 				1F88AB3B2CD609010009730D /* RetrospectSelectView.swift in Sources */,
-				613904EA2CD21A0B008E591D /* MadalArtCRUDTestViewModel.swift in Sources */,
+				613904EA2CD21A0B008E591D /* MandalartViewModel.swift in Sources */,
 				1F88AB392CD607F90009730D /* NavigationManager.swift in Sources */,
 				615A0A0D2CC0AE8700908531 /* RetrospectMainView.swift in Sources */,
 				1FB10A2C2CDF52E600D54EC5 /* OnboardingProgressBar.swift in Sources */,

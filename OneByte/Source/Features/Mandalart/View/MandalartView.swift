@@ -27,7 +27,7 @@ struct MandalartView: View {
                 }
             } else {
                 Text("MainGoal 데이터를 찾을 수 없습니다.")
-                    .foregroundColor(.gray)
+                    .foregroundStyle(.gray)
                     .padding()
             }
         }

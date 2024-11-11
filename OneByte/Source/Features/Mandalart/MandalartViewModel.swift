@@ -9,7 +9,7 @@
 import SwiftUI
 import SwiftData
 
-class CUTestViewModel: ObservableObject {
+class MandalartViewModel: ObservableObject {
     private let createService: CreateGoalUseCase
     private let updateService: UpdateGoalUseCase
     

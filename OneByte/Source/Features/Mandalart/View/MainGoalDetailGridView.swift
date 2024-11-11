@@ -19,36 +19,37 @@ struct MainGoalDetailGridView: View {
     
     var body: some View {
         if let selectedMainGoal = mainGoal {
-            // 나머지 셀에 정렬된 SubGoals 표시
             let sortedSubGoals = selectedMainGoal.subGoals.sorted(by: { $0.id < $1.id })
             
             LazyVGrid(columns: innerColumns, spacing: 10) {
                 ForEach(0..<9, id: \.self) { index in
                     if index == 4 {
-                        // 가운데 셀에 MainGoal 제목 표시
                         Button(action: {
                             mainIsPresented = true
-                        }, label: {
+                        }) {
                             Text(selectedMainGoal.title)
                                 .modifier(NextMandalartButtonModifier(color: Color.blue))
-                        })
-                        .sheet(isPresented: $mainIsPresented, content: {
+                        }
+                        .sheet(isPresented: $mainIsPresented) {
                             MainGoalsheetView(mainGoal: $mainGoal, isPresented: $mainIsPresented)
-                        })
+                        }
                     } else {
                         let subGoalIndex = index < 4 ? index : index - 1
-                        
                         if subGoalIndex < sortedSubGoals.count {
                             Button(action: {
-                                selectedSubGoal = sortedSubGoals[subGoalIndex] // 클릭된 SubGoal 저장
+                                selectedSubGoal = sortedSubGoals[subGoalIndex]
                                 isPresented = true
-                            }, label: {
+                            }) {
                                 Text(sortedSubGoals[subGoalIndex].title)
-                                    .modifier(NextMandalartButtonModifier(color: Color.orange)) // 서브골들
-                            })
+                                    .modifier(NextMandalartButtonModifier(color: Color.orange))
+                            }
                             .sheet(isPresented: $isPresented) {
                                 if selectedSubGoal != nil {
                                     SubGoalsheetView(subGoal: $selectedSubGoal, isPresented: $isPresented)
+                                } else {
+                                    Text("SubGoal 데이터를 찾을 수 없습니다.")
+                                        .foregroundStyle(.gray)
+                                        .padding()
                                 }
                             }
                         }
@@ -56,7 +57,10 @@ struct MainGoalDetailGridView: View {
                 }
             }
             .navigationTitle(selectedMainGoal.title)
+        } else {
+            Text("MainGoal 데이터를 찾을 수 없습니다.")
+                .foregroundStyle(.gray)
+                .padding()
         }
     }
 }
-

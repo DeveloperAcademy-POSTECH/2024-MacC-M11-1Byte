@@ -67,7 +67,7 @@ struct RetrospectMainView: View {
                                     .resizable()
                                     .scaledToFit()
                                 Text("월")
-                                    .foregroundColor(.black)
+                                    .foregroundStyle(.black)
                             }
                         }
                     }

@@ -22,7 +22,7 @@ struct FeedbackSheetView: View {
                 Rectangle()
                     .frame(width: 36, height: 5)
                     .cornerRadius(10)
-                    .foregroundColor(Color(hex: "7F7F7F"))
+                    .foregroundStyle(Color(hex: "7F7F7F"))
                 
                 Text("피드백 작성")
                     .bold()
@@ -47,7 +47,7 @@ struct FeedbackSheetView: View {
                         HStack {
                             Text("전체")
                             Image(systemName: "chevron.right")
-                                .foregroundColor(.blue)
+                                .foregroundStyle(.blue)
                         }
                         .padding(.trailing)
                     }
