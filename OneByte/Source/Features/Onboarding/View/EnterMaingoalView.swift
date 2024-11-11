@@ -80,8 +80,8 @@ struct EnterMaingoalView: View {
                     }
 
                 VStack {
-                    TextField("2025 최종 목표", text: $userMainGoal)
-                        .font(.system(size: 20, weight: .semibold))
+                    TextField("2025 최종 목표", text: $userMainGoal, axis: .vertical)
+                        .font(.Pretendard.SemiBold.size20)
                         .multilineTextAlignment(.center)
                         .padding()
                         .background(Color.clear)

@@ -122,8 +122,8 @@ struct EnterDetailgoalView: View {
                         
                         if item == 1 {
                             // 1번 셀일 경우 TextField와 터치 가능
-                            TextField("할 일", text: $userDetailGoal)
-                                .font(.Pretendard.Regular.size20)
+                            TextField("할 일", text: $userDetailGoal, axis: .vertical)
+                                .font(.Pretendard.Regular.size18)
                                 .multilineTextAlignment(.center)
                                 .focused($isFocused)
                                 .padding(10)
@@ -138,7 +138,8 @@ struct EnterDetailgoalView: View {
                         if item == 5 {
                             if let title = targetSubGoal?.title {
                                 Text(title)
-                                    .font(.Pretendard.Medium.size20)
+                                    .font(.Pretendard.Medium.size18)
+                                    .multilineTextAlignment(.center)
                             } else {
                                 Text("")
                             }
