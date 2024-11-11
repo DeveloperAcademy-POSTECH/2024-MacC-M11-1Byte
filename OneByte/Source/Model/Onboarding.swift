@@ -34,7 +34,7 @@ enum Onboarding {
         case .start:
             return "2025년 목표를 세우고 싶으신가요?\n1년 동안 이루고 싶은 목표 세우기를\n도와드릴게요!"
         case .question:
-            return "'만다라트' 기법을 사용해 1년의 목표를\n 세울 수 있도록 도와드릴게요."
+            return "'만다라트' 기법을 사용해 다라와 함께\n1년의 목표를 세워봐요."
         case .maingoal:
             return ""
         case .subgoal:

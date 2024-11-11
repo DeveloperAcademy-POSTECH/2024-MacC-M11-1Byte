@@ -41,11 +41,11 @@ enum OnboardingExplain: CaseIterable {
     var explainImage: Image {
         switch self {
         case .first:
-            return Image(systemName: "command")
+            return Image("Dara1")
         case .second:
-            return Image(systemName: "command.circle")
+            return Image("Dara2")
         case .third:
-            return Image(systemName: "command.circle.fill")
+            return Image("Dara4")
         case .fourth:
             return Image("Dara3")
         }
