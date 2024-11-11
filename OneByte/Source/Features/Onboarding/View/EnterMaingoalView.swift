@@ -84,7 +84,7 @@ struct EnterMaingoalView: View {
                     .padding()
                     .background(Color.clear)
                     .focused($isFocused) // FocusState와 연결
-                    .onChange(of: userMainGoal) { newValue in
+                    .onChange(of: userMainGoal) { oldValue, newValue in
                         if newValue.count > mainGoalLimit {
                             userMainGoal = String(newValue.prefix(mainGoalLimit))
                         }

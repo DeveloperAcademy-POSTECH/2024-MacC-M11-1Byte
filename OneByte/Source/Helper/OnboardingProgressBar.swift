@@ -18,13 +18,13 @@ struct OnboardingProgressBar: View {
                 Rectangle()
                     .frame(width: geometry.size.width, height: geometry.size.height)
                     .opacity(0.3)
-                    .foregroundColor(.gray)
+                    .foregroundStyle(.gray)
                     .frame(height: 5)
                 
                 Rectangle()
                     .frame(width: min(CGFloat(value) * geometry.size.width, geometry.size.width),
                            height: geometry.size.height)
-                    .foregroundColor(Color(hex: "538F53"))
+                    .foregroundStyle(Color(hex: "538F53"))
                     .animation(.linear, value: value)
                     .frame(height: 10)
             }
