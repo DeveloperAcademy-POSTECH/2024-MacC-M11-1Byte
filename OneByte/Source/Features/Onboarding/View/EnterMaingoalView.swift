@@ -78,7 +78,7 @@ struct EnterMaingoalView: View {
                         isFocused = true // Cell 전체영역 터치 시 TextField에 포커스
                     }
              
-                TextField("2025 최종 목표", text: $userMainGoal)
+                TextField("2025 최종 목표", text: $userMainGoal, axis: .vertical)
                     .font(.system(size: 20, weight: .semibold))
                     .multilineTextAlignment(.center)
                     .padding()
