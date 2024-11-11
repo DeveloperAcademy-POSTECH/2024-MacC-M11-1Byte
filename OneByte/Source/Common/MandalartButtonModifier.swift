@@ -13,7 +13,7 @@ struct MandalartButtonModifier: ViewModifier {
             .font(.system(size: 7))
             .frame(width: 30, height: 30)
             .background(color)
-            .foregroundColor(.white)
+            .foregroundStyle(.white)
             .cornerRadius(8)
     }
 }
@@ -24,7 +24,7 @@ struct NextMandalartButtonModifier: ViewModifier {
             .font(.system(size: 14))
             .frame(width: 115, height: 115)
             .background(color)
-            .foregroundColor(.white)
+            .foregroundStyle(.white)
             .cornerRadius(8)
     }
 }

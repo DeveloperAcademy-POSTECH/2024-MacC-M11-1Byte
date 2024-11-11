@@ -77,18 +77,16 @@ struct EnterMaingoalView: View {
                     .onTapGesture {
                         isFocused = true // Cell 전체영역 터치 시 TextField에 포커스
                     }
-                
-                VStack {
-                    TextField("2025 최종 목표", text: $userMainGoal, axis: .vertical)
-                        .font(.Pretendard.SemiBold.size20)
-                        .multilineTextAlignment(.center)
-                        .padding()
-                        .background(Color.clear)
-                        .focused($isFocused) // FocusState와 연결
-                        .onChange(of: userMainGoal) { newValue in
-                            if newValue.count > mainGoalLimit {
-                                userMainGoal = String(newValue.prefix(mainGoalLimit))
-                            }
+             
+                TextField("2025 최종 목표", text: $userMainGoal)
+                    .font(.system(size: 20, weight: .semibold))
+                    .multilineTextAlignment(.center)
+                    .padding()
+                    .background(Color.clear)
+                    .focused($isFocused) // FocusState와 연결
+                    .onChange(of: userMainGoal) { oldValue, newValue in
+                        if newValue.count > mainGoalLimit {
+                            userMainGoal = String(newValue.prefix(mainGoalLimit))
                         }
                 }
                 .frame(width: 180) // TextField 너비 조정으로 중앙 정렬 보완
