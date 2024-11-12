@@ -18,7 +18,7 @@ struct OnboardingFinishView: View {
         VStack {
             Spacer()
             // 상단 캐릭터 이미지 & 텍스트
-            Image("Dara4")
+            Image("Turtle_4")
                 .resizable()
                 .scaledToFit()
                 .frame(height: 200)

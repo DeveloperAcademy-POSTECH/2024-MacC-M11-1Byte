@@ -61,13 +61,13 @@ struct OuterGridView: View {
             
             // 다라 & comment
             HStack() {
-                Image("Dara5")
+                Image("Turtle_5")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(height: 65)
                 
                 ZStack{
-                    Image("comment")
+                    Image("Comment")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(height: 55)

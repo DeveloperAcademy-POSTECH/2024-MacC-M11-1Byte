@@ -49,7 +49,7 @@ struct QuestionView: View {
             
             // 중앙 캐릭터 이미지
             HStack {
-                Image("Dara2")
+                Image("Turtle_2")
                     .resizable()
                     .scaledToFit()
                     .frame(height: 224)

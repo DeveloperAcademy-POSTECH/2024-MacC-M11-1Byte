@@ -34,7 +34,7 @@ struct OnboardingStartView: View {
                 
                 // 중앙 캐릭터 이미지
                 HStack {
-                    Image("Dara1")
+                    Image("Turtle_1")
                         .resizable()
                         .scaledToFit()
                         .frame(height: 215)

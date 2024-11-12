@@ -1,15 +1,17 @@
 {
   "images" : [
     {
+      "filename" : "Turtle_3.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "HelloDara@2x.png",
+      "filename" : "Turtle_3@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "Turtle_3@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
