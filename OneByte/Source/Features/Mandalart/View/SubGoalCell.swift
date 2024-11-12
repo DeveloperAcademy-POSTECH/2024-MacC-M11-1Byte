@@ -28,15 +28,15 @@ struct SubGoalCell: View {
                         let cornerStyle = cornerStyle(for: index) // cornerStyle 함수 사용
                         
                         if index == 4 {
-                            Text(selectedSubGoal.title)
-                                .cornerRadius(20)
+                            Text(selectedSubGoal.title.prefix(8))
+//                                .cornerRadius(20)
                                 .modifier(MandalartButtonModifier(color: Color.my95D895))
                         } else {
                             let detailGoalIndex = index < 4 ? index : index - 1
                             if detailGoalIndex < detailGoalsSorted.count {
                                 let detailGoal = detailGoalsSorted[detailGoalIndex]
-                                Text(detailGoal.title)
-                                    .cornerRadius(cornerRadius, corners: cornerStyle)
+                                Text(detailGoal.title.prefix(8))
+//                                    .cornerRadius(cornerRadius, corners: cornerStyle)
                                     .modifier(MandalartButtonModifier(color: Color.myBFEBBB))
                             }
                         }

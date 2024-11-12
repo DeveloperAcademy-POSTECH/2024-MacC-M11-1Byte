@@ -29,16 +29,16 @@ struct MainGoalCell: View {
                         
                         if index == 4 {
                             // 메인골 제목 표시
-                            Text(selectedMainGoal.title)
-                                .cornerRadius(20)
+                            Text(selectedMainGoal.title.prefix(8))
+//                                .cornerRadius(20)
                                 .modifier(MandalartButtonModifier(color: Color.my538F53))
                         } else {
                             let subGoalIndex = index < 4 ? index : index - 1
                             
                             if subGoalIndex < sortedSubGoals.count {
                                 let subGoal = sortedSubGoals[subGoalIndex]
-                                Text(subGoal.title)
-                                    .cornerRadius(cornerRadius, corners: cornerStyle)
+                                Text(subGoal.title.prefix(8))
+//                                    .cornerRadius(cornerRadius, corners: cornerStyle)
                                     .modifier(MandalartButtonModifier(color: Color.my95D895))
                             }
                         }
