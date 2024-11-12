@@ -71,8 +71,8 @@ struct OuterGridView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(height: 55)
-                    Text("한 걸을씩 가다 보면 \n어느새 큰 변화를 느낄 거예요!")
-                        .font(.system(size: 14))
+                    Text("한 걸음씩 가다 보면\n어느새 큰 변화를 느낄 거예요!")
+                        .font(.Pretendard.Medium.size14)
                 }
             }
             
@@ -99,7 +99,7 @@ struct OuterGridView: View {
                         mainIsPresented = true
                     }) {
                         Image(systemName: "ellipsis")
-                            .foregroundColor(.white)
+                            .foregroundStyle(.white)
                             .rotationEffect(.degrees(90))
                     }
                     .sheet(isPresented: $mainIsPresented) {

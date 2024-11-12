@@ -79,6 +79,7 @@ struct EnterMaingoalView: View {
                     }
              
                 TextField("2025 최종 목표", text: $userMainGoal, axis: .vertical)
+                    .font(.Pretendard.SemiBold.size20)
                     .font(.system(size: 20, weight: .semibold))
                     .multilineTextAlignment(.center)
                     .padding()

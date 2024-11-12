@@ -23,7 +23,6 @@ struct SubGoalsheetView: View {
         VStack {
             Text("하위 목표")
                 .font(.Pretendard.SemiBold.size17)
-                .foregroundStyle(.black)
                 .padding(.top, 22/852 * UIScreen.main.bounds.height)
             
             // 하위 목표 제목 입력란
@@ -60,8 +59,8 @@ struct SubGoalsheetView: View {
                 Text("/15")
                     .font(.Pretendard.Medium.size12)
                     .foregroundStyle(Color.my6C6C6C.opacity(0.5))
-                    .padding(.trailing, 10)
             }
+            .padding(.trailing, 10)
             
             // 메모 입력란
             ZStack{
@@ -89,9 +88,9 @@ struct SubGoalsheetView: View {
                         Text("/150")
                             .font(.Pretendard.Medium.size12)
                             .foregroundStyle(Color.my6C6C6C.opacity(0.5))
-                            .padding(.trailing, 10)
+                            
                     }
-                    .padding(.bottom, 10)
+                    .padding([.trailing, .bottom], 10)
                 }
             }
             .frame(maxWidth: .infinity)

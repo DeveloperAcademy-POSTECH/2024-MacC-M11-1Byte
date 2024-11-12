@@ -23,7 +23,6 @@ struct MainGoalsheetView: View {
         VStack {
             Text("핵심 목표")
                 .font(.Pretendard.SemiBold.size17)
-                .foregroundStyle(.black)
             
             // 핵심 목표 제목 입력란
             ZStack {
@@ -62,8 +61,8 @@ struct MainGoalsheetView: View {
                 Text("/15")
                     .font(.Pretendard.Medium.size12)
                     .foregroundStyle(Color.my6C6C6C.opacity(0.5))
-                    .padding(.trailing, 5)
             }
+            .padding(.trailing, 5)
             
             Spacer()
             
