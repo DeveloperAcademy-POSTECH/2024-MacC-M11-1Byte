@@ -67,7 +67,7 @@ struct OuterGridView: View {
                     .frame(height: 65)
                 
                 ZStack{
-                    Image("comment")
+                    Image("Comment")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(height: 55)
