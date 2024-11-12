@@ -37,6 +37,8 @@ struct SubGoalDetailGridView: View {
                         .cornerRadius(20)
                         .sheet(isPresented: $subSheetIsPresented, content: {
                             SubGoalsheetView(subGoal: $subGoal, isPresented: $subSheetIsPresented)
+                                .presentationDragIndicator(.visible)
+                                .presentationDetents([.height(447/852 * UIScreen.main.bounds.height)])
                         })
                     } else {
                         // 나머지 셀에 디테일골 제목 표시
@@ -54,6 +56,8 @@ struct SubGoalDetailGridView: View {
                             .sheet(isPresented: $isPresented) {
                                 if selectedDetailGoal != nil {
                                     DetailGoalsheetView(detailGoal: $selectedDetailGoal, isPresented: $isPresented)
+                                        .presentationDragIndicator(.visible)
+                                        .presentationDetents([.height(447/852 * UIScreen.main.bounds.height)])
                                 }
                             }
                         }
