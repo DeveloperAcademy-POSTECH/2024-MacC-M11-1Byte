@@ -16,6 +16,9 @@ struct MainGoalDetailGridView: View {
     @State var mainIsPresented: Bool = false
     @State private var selectedSubGoal: SubGoal?
     
+    @Environment(\.modelContext) private var modelContext  // SwiftData 컨텍스트
+    private let viewModel = MandalartViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []), deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []))
+       
     let innerColumns = Array(repeating: GridItem(.flexible()), count: 3)
     
     var body: some View {
@@ -40,6 +43,13 @@ struct MainGoalDetailGridView: View {
                                 .presentationDragIndicator(.visible)
                                 .presentationDetents([.height(244/852 * UIScreen.main.bounds.height)])
                         }
+                        .contextMenu {
+                            Button(role: .destructive){
+                                viewModel.deleteMainGoal(mainGoal: selectedMainGoal, modelContext: modelContext, id: selectedMainGoal.id, newTitle: "")
+                            } label: {
+                                Label("Delete", systemImage: "trash")
+                            }
+                        }
                     } else {
                         let subGoalIndex = index < 4 ? index : index - 1
                         if subGoalIndex < sortedSubGoals.count {
@@ -55,6 +65,13 @@ struct MainGoalDetailGridView: View {
                                 SubGoalsheetView(subGoal: $selectedSubGoal, isPresented: $isPresented)
                                     .presentationDragIndicator(.visible)
                                     .presentationDetents([.height(447/852 * UIScreen.main.bounds.height)])
+                            }
+                            .contextMenu {
+                                Button(role: .destructive){
+                                    viewModel.deleteSubGoal(subGoal: sortedSubGoals[subGoalIndex], modelContext: modelContext, id: sortedSubGoals[subGoalIndex].id, newTitle: "", newMemo: "")
+                                } label: {
+                                    Label("Delete", systemImage: "trash")
+                                }
                             }
                         }
                     }

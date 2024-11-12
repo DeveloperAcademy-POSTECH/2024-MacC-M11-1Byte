@@ -16,6 +16,9 @@ struct SubGoalDetailGridView: View {
     private let innerColumns = Array(repeating: GridItem(.flexible()), count: 3)
     @State var subSheetIsPresented: Bool = false
     
+    @Environment(\.modelContext) private var modelContext  // SwiftData 컨텍스트
+    private let viewModel = MandalartViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []), deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []))
+    
     var body: some View {
         if let selectedSubGoal = subGoal {
             // 디테일골을 id 값에 따라 정렬
@@ -40,6 +43,13 @@ struct SubGoalDetailGridView: View {
                                 .presentationDragIndicator(.visible)
                                 .presentationDetents([.height(447/852 * UIScreen.main.bounds.height)])
                         })
+                        .contextMenu {
+                            Button(role: .destructive){
+                                viewModel.deleteSubGoal(subGoal: selectedSubGoal, modelContext: modelContext, id: selectedSubGoal.id, newTitle: "", newMemo: "")
+                            } label: {
+                                Label("Delete", systemImage: "trash")
+                            }
+                        }
                     } else {
                         // 나머지 셀에 디테일골 제목 표시
                         let detailGoalIndex = index < 4 ? index : index - 1
@@ -58,6 +68,13 @@ struct SubGoalDetailGridView: View {
                                     DetailGoalsheetView(detailGoal: $selectedDetailGoal, isPresented: $isPresented)
                                         .presentationDragIndicator(.visible)
                                         .presentationDetents([.height(447/852 * UIScreen.main.bounds.height)])
+                                }
+                            }
+                            .contextMenu {
+                                Button(role: .destructive){
+                                    viewModel.deleteDetailGoal(detailGoal: detailGoal, modelContext: modelContext, id: detailGoal.id, newTitle: "", newMemo: "", isAcheived: false)
+                                } label: {
+                                    Label("Delete", systemImage: "trash")
                                 }
                             }
                         }
