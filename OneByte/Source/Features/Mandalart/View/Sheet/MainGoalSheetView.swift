@@ -40,7 +40,7 @@ struct MainGoalsheetView: View {
                     Spacer()
                     Button(action: {
                         if let mainGoal = mainGoal {
-                            viewModel.deleteMainGoal(mainGoal: mainGoal, modelContext: modelContext, id: mainGoal.id, newTitle: "")
+                            newTitle = ""
                         }
                     }, label: {
                         Image(systemName: "xmark.circle.fill")

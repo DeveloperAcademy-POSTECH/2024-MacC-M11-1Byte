@@ -40,9 +40,7 @@ struct SubGoalsheetView: View {
                 HStack {
                     Spacer()
                     Button(action: {
-                        if let subGoal = subGoal {
-                            viewModel.deleteSubGoal(subGoal: subGoal, modelContext: modelContext, id: subGoal.id, newTitle: "", newMemo: subGoal.memo)
-                        }
+                        newTitle = ""
                     }, label: {
                         Image(systemName: "xmark.circle.fill")
                             .resizable()

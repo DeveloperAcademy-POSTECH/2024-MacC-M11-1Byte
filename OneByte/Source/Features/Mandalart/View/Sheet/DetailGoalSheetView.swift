@@ -42,9 +42,7 @@ struct DetailGoalsheetView: View {
                 HStack {
                     Spacer()
                     Button(action: {
-                        if let detailGoal = detailGoal {
-                            viewModel.deleteDetailGoal(detailGoal: detailGoal, modelContext: modelContext, id: detailGoal.id, newTitle: "", newMemo: detailGoal.memo, isAcheived: detailGoal.isAchieved)
-                        }
+                        newTitle = ""
                     }, label: {
                         Image(systemName: "xmark.circle.fill")
                             .resizable()
@@ -113,7 +111,7 @@ struct DetailGoalsheetView: View {
                 .frame(maxWidth: .infinity)
                 .background(.white)
                 .cornerRadius(8)
-               
+            
             Spacer()
             
             // 버튼 영역

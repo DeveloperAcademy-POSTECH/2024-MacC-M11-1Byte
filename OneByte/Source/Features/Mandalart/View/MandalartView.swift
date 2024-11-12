@@ -81,16 +81,14 @@ struct OuterGridView: View {
                 Color.my538F53
                     .cornerRadius(10)
                 
-                HStack {
+                HStack(spacing: 10) {
                     // 좌측 텍스트
                     Text("나의 목표")
                         .foregroundStyle(Color.myD5F3D1)
                         .font(.Pretendard.Medium.size16)
                     
-                    Spacer()
-                    
                     // 중간 텍스트
-                    Text("많은 것을 도전하는 한 해 보내기")
+                    Text(mainGoal?.title ?? "목표없음")
                         .foregroundStyle(.white)
                         .font(.Pretendard.Bold.size16)
                     
