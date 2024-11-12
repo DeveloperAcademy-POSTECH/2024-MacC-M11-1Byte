@@ -14,14 +14,11 @@ class ClientCreateService: CreateGoalUseCase {
         var mainGoalCounter = 1  // MainGoal ID 카운터
         var subGoalCounter = 1   // SubGoal ID 카운터
         var detailGoalCounter = 1 // DetailGoal ID 카운터
-           // 현재 연도를 goalYear로 설정
-           let currentYear = Calendar.current.component(.year, from: Date())
            
            // MainGoal 생성
            let newMainGoal = MainGoal(
                id: mainGoalCounter,
                title: "",
-               goalYear: currentYear,
                subGoals: []
            )
            

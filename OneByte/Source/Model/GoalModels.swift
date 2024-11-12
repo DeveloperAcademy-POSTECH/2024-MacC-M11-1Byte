@@ -11,13 +11,11 @@ import SwiftUI
 class MainGoal {
     var id: Int
     var title: String
-    var goalYear: Int
     var subGoals: [SubGoal]
     
-    init(id: Int, title: String, goalYear: Int, subGoals: [SubGoal]) {
+    init(id: Int, title: String, subGoals: [SubGoal]) {
         self.id = id
         self.title = title
-        self.goalYear = goalYear
         self.subGoals = subGoals
     }
 }

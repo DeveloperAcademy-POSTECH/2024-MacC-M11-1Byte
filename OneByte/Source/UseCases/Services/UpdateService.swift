@@ -20,9 +20,8 @@ class ClientUpdateService: UpdateGoalUseCase {
         self.detailGoals = detailGoals
     }
     
-    func updateMainGoal(mainGoal: MainGoal, modelContext: ModelContext, id: Int, newTitle: String, newGoalYear: Int) {
+    func updateMainGoal(mainGoal: MainGoal, modelContext: ModelContext, id: Int, newTitle: String) {
         mainGoal.title = newTitle
-        mainGoal.goalYear = newGoalYear
     }
     
     func updateSubGoal(subGoal: SubGoal, modelContext: ModelContext, newTitle: String, newMemo: String) {
