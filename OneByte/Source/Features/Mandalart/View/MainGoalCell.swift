@@ -24,13 +24,9 @@ struct MainGoalCell: View {
             NavigationLink(destination: MainGoalDetailGridView(mainGoal: $mainGoal, isPresented: $isPresented)) {
                 LazyVGrid(columns: innerColumns, spacing: 1) {
                     ForEach(0..<9, id: \.self) { index in
-                        let cornerRadius: CGFloat = 20
-                        let cornerStyle = cornerStyle(for: index) // cornerStyle 함수 사용
-                        
                         if index == 4 {
                             // 메인골 제목 표시
                             Text(selectedMainGoal.title.prefix(8))
-//                                .cornerRadius(20)
                                 .modifier(MandalartButtonModifier(color: Color.my538F53))
                         } else {
                             let subGoalIndex = index < 4 ? index : index - 1
@@ -38,7 +34,6 @@ struct MainGoalCell: View {
                             if subGoalIndex < sortedSubGoals.count {
                                 let subGoal = sortedSubGoals[subGoalIndex]
                                 Text(subGoal.title.prefix(8))
-//                                    .cornerRadius(cornerRadius, corners: cornerStyle)
                                     .modifier(MandalartButtonModifier(color: Color.my95D895))
                             }
                         }
