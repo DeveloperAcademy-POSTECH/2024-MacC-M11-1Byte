@@ -13,14 +13,14 @@ struct TabBarManager: View {
         TabView {
             MandalartView()
                 .tabItem {
-                    Image(systemName: "house.fill")
-                    Text("홈")
+                    Image(systemName: "star.fill")
+                    Text("나의 목표")
                 }
             
-            RetrospectMainView()
+            WorkView()
                 .tabItem {
                     Image(systemName: "chart.bar.xaxis.ascending.badge.clock")
-                    Text("회고")
+                    Text("할 일")
                 }
             
             MyPageView()

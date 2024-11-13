@@ -130,7 +130,7 @@ struct EnterDetailgoalView: View {
                                 .multilineTextAlignment(.center)
                                 .focused($isFocused)
                                 .padding(10)
-                                .onChange(of: userDetailGoal) { newValue in
+                                .onChange(of: userDetailGoal) { oldValue, newValue in
                                     if newValue.count > detailGoalLimit {
                                         userDetailGoal = String(newValue.prefix(detailGoalLimit))
                                     }

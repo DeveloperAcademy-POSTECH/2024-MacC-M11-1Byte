@@ -116,7 +116,7 @@ struct EnterSubgoalView: View {
                                 .multilineTextAlignment(.center)
                                 .focused($isFocused)
                                 .padding(10)
-                                .onChange(of: userSubGoal) { newValue in
+                                .onChange(of: userSubGoal) { oldValue, newValue in
                                     if newValue.count > subGoalLimit {
                                         userSubGoal = String(newValue.prefix(subGoalLimit))
                                     }
