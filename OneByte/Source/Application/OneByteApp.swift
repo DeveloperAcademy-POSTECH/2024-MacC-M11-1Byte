@@ -10,6 +10,12 @@ import SwiftData
 
 @main
 struct OneByteApp: App {
+    @StateObject private var viewModel = MandalartViewModel(
+           createService: ClientCreateService(),
+           updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []),
+           deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: [])
+    )
+    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             MainGoal.self,
@@ -30,6 +36,7 @@ struct OneByteApp: App {
         WindowGroup {
             TabBarManager()
                 .modelContainer(sharedModelContainer)
+                .environmentObject(viewModel)  // EnvironmentObject로 주입
         }
     }
 }

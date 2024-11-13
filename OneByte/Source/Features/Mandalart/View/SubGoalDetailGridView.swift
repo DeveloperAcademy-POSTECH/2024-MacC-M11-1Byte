@@ -10,14 +10,14 @@ import SwiftData
 
 // MARK: 두번째 화면 - 클릭된 셀의 SubGoal 및 관련된 DetailGoals만 3x3 그리드로 표시하는 뷰
 struct SubGoalDetailGridView: View {
+    @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject private var viewModel: MandalartViewModel
+    
     @Binding var subGoal: SubGoal?
     @Binding var isPresented: Bool
     @State private var selectedDetailGoal: DetailGoal?
     private let innerColumns = Array(repeating: GridItem(.flexible()), count: 3)
     @State var subSheetIsPresented: Bool = false
-    
-    @Environment(\.modelContext) private var modelContext  // SwiftData 컨텍스트
-    private let viewModel = MandalartViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []), deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []))
     
     var body: some View {
         if let selectedSubGoal = subGoal {

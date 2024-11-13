@@ -351,8 +351,8 @@
 			isa = PBXGroup;
 			children = (
 				1F79EDCD2CC0A25D0079088B /* OneByteApp.swift */,
-				615A0A0A2CC0ADA800908531 /* TabBarManager.swift */,
 				1F88AB382CD607F90009730D /* NavigationManager.swift */,
+				615A0A0A2CC0ADA800908531 /* TabBarManager.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";

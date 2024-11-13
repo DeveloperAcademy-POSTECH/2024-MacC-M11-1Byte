@@ -8,11 +8,10 @@
 import SwiftUI
 
 struct DetailGoalsheetView: View {
-    @Environment(\.modelContext) private var modelContext  // SwiftData 컨텍스트
-    private let viewModel = MandalartViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []), deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []))
-    @Environment(\.managedObjectContext) private var context
+    @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject private var viewModel: MandalartViewModel
+    
     @Binding var detailGoal: DetailGoal?
-    //    @Binding var subGoal: SubGoal? // 옵셔널로 변경
     @Binding var isPresented: Bool
     @State private var newTitle: String = ""
     @State private var newMemo: String = ""

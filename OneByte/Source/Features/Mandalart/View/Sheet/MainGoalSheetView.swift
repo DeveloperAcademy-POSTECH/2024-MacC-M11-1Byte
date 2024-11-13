@@ -9,14 +9,14 @@ import SwiftUI
 import SwiftData
 
 struct MainGoalsheetView: View {
-    @Environment(\.modelContext) private var modelContext  // SwiftData 컨텍스트
-    @Environment(\.managedObjectContext) private var context
-    @Binding var mainGoal: MainGoal? // 옵셔널로 변경
+    @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject private var viewModel: MandalartViewModel
+    
+    @Binding var mainGoal: MainGoal?
     @Binding var isPresented: Bool
     @State private var newTitle: String = ""
     @State private var newMemo: String = ""
     
-    private let viewModel = MandalartViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []), deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []))
     private let titleLimit = 15 // 제목 글자수 제한
     
     var body: some View {

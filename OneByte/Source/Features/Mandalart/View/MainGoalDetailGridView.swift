@@ -11,13 +11,13 @@ import SwiftData
 // MARK: 두번째 화면 - 메인 목표(MainGoal)와 관련된 SubGoals를 3x3 그리드로 표시하는 뷰
 
 struct MainGoalDetailGridView: View {
+    @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject private var viewModel: MandalartViewModel
+    
     @Binding var mainGoal: MainGoal?
     @Binding var isPresented: Bool
     @State var mainIsPresented: Bool = false
     @State private var selectedSubGoal: SubGoal?
-    
-    @Environment(\.modelContext) private var modelContext  // SwiftData 컨텍스트
-    private let viewModel = MandalartViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []), deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []))
        
     let innerColumns = Array(repeating: GridItem(.flexible()), count: 3)
     
