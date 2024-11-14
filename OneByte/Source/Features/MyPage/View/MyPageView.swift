@@ -14,10 +14,6 @@ struct MyPageView: View {
     
     @StateObject var viewModel = MyPageViewModel()
     
-    @State private var isEditNicknameSheet = false // 닉네임 변경 Sheet
-    @State private var daysSinceInstall: Int = 0
-    
-    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -37,13 +33,14 @@ struct MyPageView: View {
                 }
             }
         }
-        .sheet(isPresented: $isEditNicknameSheet) {
-            EditNicknameSheetView(isPresented: $isEditNicknameSheet, viewModel: viewModel)
+        .onAppear {
+            viewModel.readProfile(profile) // 닉네임 정보
+            viewModel.calculateDaysSinceInstall() // 앱 설치한지 몇일 됐는지 계산
+        }
+        .sheet(isPresented: $viewModel.isEditNicknameSheet) {
+            EditNicknameSheetView(viewModel: viewModel)
                 .presentationDragIndicator(.visible)
                 .presentationDetents([.height(244/852 * UIScreen.main.bounds.height)])
-        }.onAppear {
-            viewModel.updateProfile(profile)
-            viewModel.calculateDaysSinceInstall()
         }
     }
     
@@ -91,7 +88,7 @@ struct MyPageView: View {
                         Spacer()
                     }
                     .onTapGesture {
-                        isEditNicknameSheet = true
+                        viewModel.isEditNicknameSheet = true
                     }
                     
                     HStack {

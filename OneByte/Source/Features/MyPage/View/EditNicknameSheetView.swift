@@ -10,7 +10,6 @@ import SwiftUI
 struct EditNicknameSheetView: View {
     
     @Environment(\.modelContext) private var modelContext
-    @Binding var isPresented: Bool
     
     @ObservedObject var viewModel: MyPageViewModel
     
@@ -62,7 +61,7 @@ struct EditNicknameSheetView: View {
             // 버튼 영역
             HStack {
                 Button {
-                    isPresented = false
+                    viewModel.isEditNicknameSheet = false
                 } label: {
                     Text("취소")
                         .font(.Pretendard.Medium.size16)
@@ -74,7 +73,7 @@ struct EditNicknameSheetView: View {
                 }
                 
                 Button {
-                    isPresented = false
+                    viewModel.isEditNicknameSheet = false
                     viewModel.updateNewNickname(modelContext: modelContext)
                     print("Button Tapped : 닉네임 변경 저장")
                 } label: {
@@ -95,5 +94,5 @@ struct EditNicknameSheetView: View {
 }
 
 #Preview {
-    EditNicknameSheetView(isPresented: .constant(true), viewModel: MyPageViewModel())
+    EditNicknameSheetView(viewModel: MyPageViewModel())
 }

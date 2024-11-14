@@ -11,6 +11,7 @@ import SwiftData
 class MyPageViewModel: ObservableObject {
     
     // 프로필 관련 (닉네임 및 디데이)
+    @Published var isEditNicknameSheet: Bool = false
     @Published var profile: [Profile] = []
     @Published var newNickname: String = ""
     let nicknameLimit = 10
@@ -38,7 +39,8 @@ class MyPageViewModel: ObservableObject {
         }
     }
     
-    func updateProfile(_ profile: [Profile]) {
+    // 닉네임 정보 불러오기
+    func readProfile(_ profile: [Profile]) {
         self.profile = profile
         if let nickName = profile.first?.nickName {
             newNickname = nickName
