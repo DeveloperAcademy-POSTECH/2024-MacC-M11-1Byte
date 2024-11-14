@@ -6,14 +6,6 @@
 //
 
 import Foundation
-//
-//  DateManager.swift
-//  OneByte
-//
-//  Created by 트루디 on 11/14/24.
-//
-
-import Foundation
 
 // 날짜 관련 유틸리티 함수들을 담은 클래스
 class DateManager {
@@ -34,7 +26,6 @@ class DateManager {
         return "\(month)월 \(week)주차"
     }
     
-    // 요일별 D- 값을 고정한 enum 정의
     // 요일별 D- 값을 고정한 enum 정의
     enum DeadlineDay: Int {
         case sunday = 1
