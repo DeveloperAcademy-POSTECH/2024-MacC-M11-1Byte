@@ -43,11 +43,11 @@ struct SubGoalDetailGridView: View {
                             .sheet(isPresented: $subSheetIsPresented, content: {
                                 SubGoalsheetView(subGoal: $subGoal, isPresented: $subSheetIsPresented)
                                     .presentationDragIndicator(.visible)
-                                    .presentationDetents([.height(447/852 * UIScreen.main.bounds.height)])
+                                    .presentationDetents([.height(244/852 * UIScreen.main.bounds.height)])
                             })
                             .contextMenu {
                                 Button(role: .destructive){
-                                    viewModel.deleteSubGoal(subGoal: selectedSubGoal, modelContext: modelContext, id: selectedSubGoal.id, newTitle: "", newMemo: "")
+                                    viewModel.deleteSubGoal(subGoal: selectedSubGoal, modelContext: modelContext, id: selectedSubGoal.id, newTitle: "")
                                 } label: {
                                     Label("Delete", systemImage: "trash")
                                 }

@@ -21,15 +21,16 @@ struct MainGoalsheetView: View {
     
     var body: some View {
         VStack {
-            Text("핵심 목표")
+            Text("나의 목표")
                 .font(.Pretendard.SemiBold.size17)
             
             // 핵심 목표 제목 입력란
             ZStack {
-                TextField("핵심 목표를 입력해주세요", text: $newTitle)
+                TextField("나의 목표를 입력해주세요", text: $newTitle)
                     .padding()
                     .background(.white)
-                    .cornerRadius(8)
+                    .font(.Pretendard.Medium.size16)
+                    .cornerRadius(12)
                     .onChange(of: newTitle) { oldValue, newValue in
                         if newValue.count > titleLimit {
                             newTitle = String(newValue.prefix(titleLimit))
@@ -37,15 +38,17 @@ struct MainGoalsheetView: View {
                     }
                 HStack {
                     Spacer()
-                    Button(action: {
-                        newTitle = ""
-                    }, label: {
-                        Image(systemName: "xmark.circle.fill")
-                            .resizable()
-                            .frame(width: 23, height: 23)
-                            .foregroundStyle(Color.myB9B9B9)
-                    })
-                    .padding(.trailing)
+                    if newTitle != "" {
+                        Button(action: {
+                            newTitle = ""
+                        }, label: {
+                            Image(systemName: "xmark.circle.fill")
+                                .resizable()
+                                .frame(width: 23, height: 23)
+                                .foregroundStyle(Color.myB9B9B9)
+                        })
+                        .padding(.trailing)
+                    }
                 }
             }
             .padding(.top, 20/852 * UIScreen.main.bounds.height)
@@ -56,11 +59,11 @@ struct MainGoalsheetView: View {
                 Text("\(newTitle.count)")
                     .font(.Pretendard.Medium.size12)
                     .foregroundStyle(Color.my6C6C6C)
-                Text("/15")
+                Text("/\(titleLimit)")
                     .font(.Pretendard.Medium.size12)
                     .foregroundStyle(Color.my6C6C6C.opacity(0.5))
             }
-            .padding(.trailing, 5)
+            .padding(.trailing, 10)
             
             Spacer()
             
@@ -71,6 +74,7 @@ struct MainGoalsheetView: View {
                 }) {
                     Text("취소")
                         .frame(maxWidth: .infinity)
+                        .font(.Pretendard.Medium.size16)
                         .padding()
                         .background(Color.my787880.opacity(0.2))
                         .foregroundStyle(Color.my3C3C43.opacity(0.6))
@@ -85,6 +89,7 @@ struct MainGoalsheetView: View {
                 }) {
                     Text("저장")
                         .frame(maxWidth: .infinity)
+                        .font(.Pretendard.Medium.size16)
                         .padding()
                         .background(Color.my538F53)
                         .foregroundStyle(.white)

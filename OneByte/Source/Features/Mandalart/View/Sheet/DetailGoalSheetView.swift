@@ -40,15 +40,17 @@ struct DetailGoalsheetView: View {
                     }
                 HStack {
                     Spacer()
-                    Button(action: {
-                        newTitle = ""
-                    }, label: {
-                        Image(systemName: "xmark.circle.fill")
-                            .resizable()
-                            .frame(width: 23, height: 23)
-                            .foregroundStyle(Color.myB9B9B9)
-                    })
-                    .padding(.trailing)
+                    if newTitle != "" {
+                        Button(action: {
+                            newTitle = ""
+                        }, label: {
+                            Image(systemName: "xmark.circle.fill")
+                                .resizable()
+                                .frame(width: 23, height: 23)
+                                .foregroundStyle(Color.myB9B9B9)
+                        })
+                        .padding(.trailing)
+                    }
                 }
             }
             

@@ -45,12 +45,11 @@ class OnboardingViewModel: ObservableObject {
     }
     
     // SubGoal 업데이트
-    func updateSubGoal(subGoal: SubGoal, modelContext: ModelContext, newTitle: String, newMemo: String) {
+    func updateSubGoal(subGoal: SubGoal, modelContext: ModelContext, newTitle: String) {
         updateService.updateSubGoal(
             subGoal: subGoal,
             modelContext: modelContext,
-            newTitle: newTitle,
-            newMemo: newMemo
+            newTitle: newTitle
         )
     }
     

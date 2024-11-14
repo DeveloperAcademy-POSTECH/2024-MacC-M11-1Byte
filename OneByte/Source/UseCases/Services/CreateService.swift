@@ -29,7 +29,6 @@ class ClientCreateService: CreateGoalUseCase {
                let newSubGoal = SubGoal(
                    id: subGoalCounter,
                    title: "",
-                   memo: "",
                    mainGoalId: newMainGoal.id,
                    detailGoals: []
                )

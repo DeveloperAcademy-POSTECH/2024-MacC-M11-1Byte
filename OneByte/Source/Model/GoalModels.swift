@@ -24,14 +24,12 @@ class MainGoal {
 class SubGoal {
     var id: Int
     var title: String
-    var memo: String
     var mainGoalId: Int  // MainGoal의 ID로 연결
     var detailGoals: [DetailGoal]
     
-    init(id: Int, title: String, memo: String, mainGoalId: Int, detailGoals: [DetailGoal]) {
+    init(id: Int, title: String, mainGoalId: Int, detailGoals: [DetailGoal]) {
         self.id = id
         self.title = title
-        self.memo = memo
         self.mainGoalId = mainGoalId
         self.detailGoals = detailGoals
     }

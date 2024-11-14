@@ -24,9 +24,8 @@ class DeleteService: DeleteGoalUseCase {
         mainGoal.title = ""
     }
     
-    func deleteSubGoal(subGoal: SubGoal, modelContext: ModelContext, newTitle: String, newMemo: String) {
+    func deleteSubGoal(subGoal: SubGoal, modelContext: ModelContext, newTitle: String) {
         subGoal.title = ""
-        subGoal.memo = ""
     }
     
     func deleteDetailGoal(detailGoal: DetailGoal, modelContext: ModelContext, newTitle: String, newMemo: String, isAchieved: Bool) {
