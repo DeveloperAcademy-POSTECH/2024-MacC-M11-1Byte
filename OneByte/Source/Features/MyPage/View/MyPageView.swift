@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct MyPageView: View {
+    
+    @Query private var profile: [Profile]
     
     @State private var isEditNicknameSheet = false // 닉네임 변경 Sheet
     
@@ -70,8 +73,9 @@ struct MyPageView: View {
                 
                 VStack(spacing: 5) {
                     HStack {
-                        Text("닉네임 님")
+                        Text("\(profile.first?.nickName.isEmpty == false ? "\(profile.first!.nickName)님" : "닉네임 설정")")
                             .font(.Pretendard.Bold.size18)
+                            .lineLimit(1)
                         
                         Image(systemName: "chevron.right")
                             .font(.Pretendard.Medium.size16)
