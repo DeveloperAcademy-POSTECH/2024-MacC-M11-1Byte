@@ -17,7 +17,7 @@ struct MainGoalsheetView: View {
     @State private var newMemo: String = ""
     
     private let viewModel = MandalartViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []), deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []))
-    private let titleLimit = 15 // 제목 글자수 제한
+    private let titleLimit = 20 // 제목 글자수 제한
     
     var body: some View {
         VStack {
@@ -38,9 +38,7 @@ struct MainGoalsheetView: View {
                 HStack {
                     Spacer()
                     Button(action: {
-                        if let mainGoal = mainGoal {
-                            newTitle = ""
-                        }
+                        newTitle = ""
                     }, label: {
                         Image(systemName: "xmark.circle.fill")
                             .resizable()

@@ -22,7 +22,7 @@ struct MainGoalCell: View {
             let sortedSubGoals = selectedMainGoal.subGoals.sorted(by: { $0.id < $1.id })
             
             NavigationLink(destination: MainGoalDetailGridView(mainGoal: $mainGoal, isPresented: $isPresented)) {
-                LazyVGrid(columns: innerColumns, spacing: 1) {
+                LazyVGrid(columns: innerColumns, spacing: 5) {
                     ForEach(0..<4, id: \.self) { index in
                         if index == 3 {
                             // 메인골 제목 표시

@@ -19,13 +19,13 @@ struct MainGoalDetailGridView: View {
     @Environment(\.modelContext) private var modelContext  // SwiftData 컨텍스트
     private let viewModel = MandalartViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []), deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []))
        
-    let innerColumns = Array(repeating: GridItem(.flexible()), count: 2)
+    let innerColumns = Array(repeating: GridItem(.fixed(123/852 * UIScreen.main.bounds.height)), count: 2)
     
     var body: some View {
         if let selectedMainGoal = mainGoal {
             let sortedSubGoals = selectedMainGoal.subGoals.sorted(by: { $0.id < $1.id })
             
-            LazyVGrid(columns: innerColumns, spacing: 3) {
+            LazyVGrid(columns: innerColumns, spacing: 5) {
                 ForEach(0..<4, id: \.self) { index in
                     let cornerRadius: CGFloat = 20
                     let cornerStyle = cornerStyle(for: index) // cornerStyle 함수 사용
@@ -60,7 +60,7 @@ struct MainGoalDetailGridView: View {
                                 Text(sortedSubGoals[subGoalIndex].title)
                                     .modifier(NextMandalartButtonModifier(color: Color.my98DD98))
                             }
-                            .cornerRadius(cornerRadius, corners: cornerStyle)
+                            .cornerRadius(cornerRadius, corners: cornerStyle, defaultRadius: 18)
                             .sheet(isPresented: $isPresented) {
                                 SubGoalsheetView(subGoal: $selectedSubGoal, isPresented: $isPresented)
                                     .presentationDragIndicator(.visible)

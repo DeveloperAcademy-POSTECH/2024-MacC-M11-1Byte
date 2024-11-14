@@ -13,7 +13,7 @@ struct SubGoalDetailGridView: View {
     @Binding var subGoal: SubGoal?
     @Binding var isPresented: Bool
     @State private var selectedDetailGoal: DetailGoal?
-    private let innerColumns = Array(repeating: GridItem(.flexible()), count: 2)
+    private let innerColumns = Array(repeating: GridItem(.fixed(123/852 * UIScreen.main.bounds.height)), count: 2)
     @State var subSheetIsPresented: Bool = false
     
     @Environment(\.modelContext) private var modelContext  // SwiftData 컨텍스트
@@ -24,9 +24,9 @@ struct SubGoalDetailGridView: View {
             // 디테일골을 id 값에 따라 정렬
             let sortedDetailGoals = selectedSubGoal.detailGoals.sorted(by: { $0.id < $1.id })
             
-            LazyVGrid(columns: innerColumns, spacing: 3) {
+            LazyVGrid(columns: innerColumns, spacing: 5) {
                 ForEach(0..<4, id: \.self) { index in
-                    let cornerRadius: CGFloat = 20
+                    let cornerRadius: CGFloat = 48
                     let cornerStyle = cornerStyle(for: index) // cornerStyle 함수 사용
                     
                     if index == 3 {
@@ -35,9 +35,10 @@ struct SubGoalDetailGridView: View {
                             subSheetIsPresented = true
                         }, label: {
                             Text(selectedSubGoal.title)
+                                .font(.Pretendard.SemiBold.size18)
                                 .modifier(NextMandalartButtonModifier(color: Color.my95D895))
                         })
-                        .cornerRadius(20)
+                        .cornerRadius(18)
                         .sheet(isPresented: $subSheetIsPresented, content: {
                             SubGoalsheetView(subGoal: $subGoal, isPresented: $subSheetIsPresented)
                                 .presentationDragIndicator(.visible)
@@ -60,9 +61,10 @@ struct SubGoalDetailGridView: View {
                                 isPresented = true
                             }, label: {
                                 Text(detailGoal.title)
+                                    .font(.Pretendard.Medium.size18)
                                     .modifier(NextMandalartButtonModifier(color: Color.myBFEBBB))
                             })
-                            .cornerRadius(cornerRadius, corners: cornerStyle)
+                            .cornerRadius(cornerRadius, corners: cornerStyle, defaultRadius: 18)
                             .sheet(isPresented: $isPresented) {
                                 if selectedDetailGoal != nil {
                                     DetailGoalsheetView(detailGoal: $selectedDetailGoal, isPresented: $isPresented)
