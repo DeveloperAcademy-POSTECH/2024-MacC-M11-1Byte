@@ -10,7 +10,6 @@ import SwiftUI
 struct SettingView: View {
     
     @Environment(\.dismiss) private var dismiss
-    @State private var isAppearAchieved: Bool = false // 달성 표시하기
     
     @StateObject var viewModel = SettingViewModel()
     
@@ -25,7 +24,7 @@ struct SettingView: View {
                         Divider()
                             .foregroundStyle(Color.clear)
                         
-                        AchievedRow(isAppearAchieved: $isAppearAchieved)
+                        AchievedRow(isAppearAchieved: $viewModel.isAppearAchieved)
                         
                         Divider()
                             .foregroundStyle(Color(hex: "F0E8DF"))
@@ -34,15 +33,13 @@ struct SettingView: View {
                             NotificationRow()
                                 .foregroundStyle(.black)
                         }
-                        
                         Divider()
                             .foregroundStyle(Color(hex: "F0E8DF"))
                         
-                        NavigationLink(destination: Text("폰트 선택 화면")) {
+                        NavigationLink(destination: Text("폰트 선택")) {
                             FontRow()
                                 .foregroundStyle(.black)
                         }
-                        
                         Divider()
                             .foregroundStyle(Color.clear)
                     }
@@ -52,26 +49,24 @@ struct SettingView: View {
                         Divider()
                             .foregroundStyle(Color.clear)
                         
-                        NavigationLink(destination: Text("개인정보 처리 방침 화면")) {
+                        NavigationLink(destination: Text("개인정보 처리 방침")) {
                             PrivacyPolicyRow()
                                 .foregroundStyle(.black)
                         }
-                        
                         Divider()
                             .foregroundStyle(Color(hex: "F0E8DF"))
                         
-                        NavigationLink(destination: Text("이용 약관 화면")) {
+                        NavigationLink(destination: Text("이용 약관")) {
                             TermsRow()
                                 .foregroundStyle(.black)
                         }
-                        
                         Divider()
                             .foregroundStyle(Color.clear)
                     }
                     .background(.white)
                     
                     HStack {
-                        Text("Version \(viewModel.appVersion)")
+                        Text("Version \(viewModel.appVersion)") // 앱 버전정보
                             .font(.Pretendard.Medium.size16)
                             .foregroundStyle(Color.myB4A99D)
                     }

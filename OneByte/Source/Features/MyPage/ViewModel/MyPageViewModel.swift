@@ -13,13 +13,12 @@ class MyPageViewModel: ObservableObject {
     // 프로필 관련 (닉네임 및 디데이)
     @Published var profile: [Profile] = []
     @Published var newNickname: String = ""
+    let nicknameLimit = 10
     @Published var daysSinceInstall: Int = 0
     
     init() {
         calculateDaysSinceInstall()
     }
-    
-    let nicknameLimit = 10
     
     // 앱 설치한지 디데이 계산
     func calculateDaysSinceInstall() {

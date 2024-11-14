@@ -14,8 +14,6 @@ struct EditNicknameSheetView: View {
     
     @ObservedObject var viewModel: MyPageViewModel
     
-    private let nicknameLimit = 10
-    
     var body: some View {
         VStack {
             Text("닉네임 변경하기")
@@ -27,21 +25,21 @@ struct EditNicknameSheetView: View {
                     .background(.white)
                     .cornerRadius(8)
                     .onChange(of: viewModel.newNickname) { oldValue, newValue in
-                        if newValue.count > nicknameLimit {
-                            viewModel.newNickname = String(newValue.prefix(nicknameLimit))
+                        if newValue.count > viewModel.nicknameLimit {
+                            viewModel.newNickname = String(newValue.prefix(viewModel.nicknameLimit))
                         }
                     }
                 
                 HStack {
                     Spacer()
-                    Button(action: {
+                    Button {
                         viewModel.clearNewNickname() // 수정되고 있는 닉네임 지우기
-                    }, label: {
+                    } label: {
                         Image(systemName: "xmark.circle.fill")
                             .resizable()
                             .frame(width: 23, height: 23)
                             .foregroundStyle(Color.myB9B9B9)
-                    })
+                    }
                     .padding(.trailing)
                 }
             }
@@ -63,9 +61,9 @@ struct EditNicknameSheetView: View {
             
             // 버튼 영역
             HStack {
-                Button(action: {
+                Button {
                     isPresented = false
-                }) {
+                } label: {
                     Text("취소")
                         .font(.Pretendard.Medium.size16)
                         .frame(maxWidth: .infinity)
@@ -75,11 +73,11 @@ struct EditNicknameSheetView: View {
                         .cornerRadius(12)
                 }
                 
-                Button(action: {
+                Button {
                     isPresented = false
                     viewModel.updateNewNickname(modelContext: modelContext)
                     print("Button Tapped : 닉네임 변경 저장")
-                }) {
+                } label: {
                     Text("저장")
                         .font(.Pretendard.Medium.size16)
                         .frame(maxWidth: .infinity)
