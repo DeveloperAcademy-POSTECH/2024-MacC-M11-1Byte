@@ -10,10 +10,34 @@ import SwiftData
 
 class MyPageViewModel: ObservableObject {
     
+    // 프로필 관련 (닉네임 및 디데이)
     @Published var profile: [Profile] = []
     @Published var newNickname: String = ""
+    @Published var daysSinceInstall: Int = 0
+    
+    init() {
+        calculateDaysSinceInstall()
+    }
     
     let nicknameLimit = 10
+    
+    // 앱 설치한지 디데이 계산
+    func calculateDaysSinceInstall() {
+        let userDefaults = UserDefaults.standard
+        let installDateKey = "installDate"
+        
+        // 앱 설치일을 처음 실행할 때 저장
+        if userDefaults.object(forKey: installDateKey) == nil {
+            userDefaults.set(Date(), forKey: installDateKey)
+        }
+        
+        // 저장된 설치일과 현재 날짜의 차이 계산
+        if let installDate = userDefaults.object(forKey: installDateKey) as? Date {
+            let calendar = Calendar.current
+            let components = calendar.dateComponents([.day], from: installDate, to: Date())
+            daysSinceInstall = components.day ?? 0
+        }
+    }
     
     func updateProfile(_ profile: [Profile]) {
         self.profile = profile

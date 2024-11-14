@@ -15,7 +15,7 @@ struct MyPageView: View {
     @StateObject var viewModel = MyPageViewModel()
     
     @State private var isEditNicknameSheet = false // 닉네임 변경 Sheet
-    
+    @State private var daysSinceInstall: Int = 0
     
     
     var body: some View {
@@ -43,6 +43,7 @@ struct MyPageView: View {
                 .presentationDetents([.height(244/852 * UIScreen.main.bounds.height)])
         }.onAppear {
             viewModel.updateProfile(profile)
+            viewModel.calculateDaysSinceInstall()
         }
     }
     
@@ -94,7 +95,7 @@ struct MyPageView: View {
                     }
                     
                     HStack {
-                        Text("하고만다와 함께한지 50일 째")
+                        Text("하고만다와 함께한지 \(viewModel.daysSinceInstall)일 째")
                             .font(.Pretendard.SemiBold.size14)
                             .foregroundStyle(Color(hex: "566956"))
                         Spacer()
