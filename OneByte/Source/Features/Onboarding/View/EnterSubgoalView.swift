@@ -156,8 +156,7 @@ struct EnterSubgoalView: View {
                         viewModel.updateSubGoal(
                             subGoal: subGoal,
                             modelContext: modelContext,
-                            newTitle: userSubGoal,
-                            newMemo: subGoal.memo // 기존 메모를 유지하거나, 새 메모를 전달할 수 있음
+                            newTitle: userSubGoal
                         )
                         navigationManager.push(to: .onboardDetailgoal)
                     } else {

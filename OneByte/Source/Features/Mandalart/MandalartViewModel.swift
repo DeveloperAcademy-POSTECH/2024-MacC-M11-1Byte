@@ -29,8 +29,8 @@ class MandalartViewModel: ObservableObject {
         
     }
     
-    func updateSubGoal(subGoal: SubGoal, modelContext: ModelContext, newTitle: String, newMemo: String) {
-        updateService.updateSubGoal(subGoal:subGoal, modelContext: modelContext, newTitle: newTitle, newMemo: newMemo)
+    func updateSubGoal(subGoal: SubGoal, modelContext: ModelContext, newTitle: String) {
+        updateService.updateSubGoal(subGoal:subGoal, modelContext: modelContext, newTitle: newTitle)
     }
     
     func updateDetailGoal(detailGoal: DetailGoal, modelContext: ModelContext, newTitle: String, newMemo: String, isAchieved: Bool) {
@@ -41,8 +41,8 @@ class MandalartViewModel: ObservableObject {
         deleteService.deleteMainGoal(mainGoal: mainGoal, modelContext: modelContext, id: id, newTitle: newTitle)
     }
     
-    func deleteSubGoal(subGoal: SubGoal, modelContext: ModelContext, id: Int, newTitle: String, newMemo: String) {
-        deleteService.deleteSubGoal(subGoal: subGoal, modelContext: modelContext, newTitle: newTitle, newMemo: newMemo)
+    func deleteSubGoal(subGoal: SubGoal, modelContext: ModelContext, id: Int, newTitle: String) {
+        deleteService.deleteSubGoal(subGoal: subGoal, modelContext: modelContext, newTitle: newTitle)
     }
     
     func deleteDetailGoal(detailGoal: DetailGoal, modelContext: ModelContext, id: Int, newTitle: String, newMemo: String, isAcheived: Bool) {

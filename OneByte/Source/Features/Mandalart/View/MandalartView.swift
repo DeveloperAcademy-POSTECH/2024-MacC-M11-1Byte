@@ -45,17 +45,122 @@ struct OuterGridView: View {
     @Binding var mainGoal: MainGoal? // mainGoal을 @Binding으로 사용
     
     @State var mainIsPresented: Bool = false
-    private let outerColumns = Array(repeating: GridItem(.flexible()), count: 3)
-
+    private let outerColumns = [GridItem(.adaptive(minimum: 160/852 * UIScreen.main.bounds.height), spacing: 32)]
+    private let dateManager = DateManager()
+    private let currentDate = Date()
+    
     var body: some View {
-        VStack(alignment: .leading) {
-            // 앱 로고
-            Image("appLogo")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(height: 22)
-                .foregroundStyle(Color.my9E9E9E)
-                .padding(.top, 20)
+        VStack(alignment: .leading, spacing: 0) {
+            // 날짜 및 공유, 설정 버튼
+            HStack(alignment: .bottom ,spacing: 8) {
+                // 한국 날짜 형식으로 오늘 날짜 표시
+                Text(dateManager.koreanFormattedDate(for: currentDate))
+                    .font(.Pretendard.Bold.size22)
+                    .foregroundStyle(Color.my566956)
+                
+                // 현재 달의 몇 주차인지 표시
+                Text(dateManager.koreanMonthAndWeek(for: currentDate))
+                    .font(.Pretendard.Medium.size14)
+                    .foregroundStyle(Color.my538F53)
+                
+                Spacer()
+                Button(action: {
+                    print("share")
+                }){
+                    Image(systemName: "square.and.arrow.up")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: 25)
+                        .foregroundStyle(Color.my566956)
+                }
+                .padding(.trailing, 6)
+                
+                Button(action: {
+                    print("gear")
+                }){
+                    Image(systemName: "gear")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 25)
+                        .foregroundStyle(Color.my566956)
+                }
+            }
+            .padding(.vertical)
+            
+            // 구분선
+            Rectangle()
+                .padding(.horizontal, -40) // 패딩 값 무시하기 위함
+                .frame(maxWidth: .infinity, maxHeight: 1)
+                .foregroundStyle(Color.myDBD1C5)
+            
+            Spacer()
+            
+            // 목표 & 마감일까지 남은 시간
+            HStack {
+                // 목표 시트 버튼
+                Button(action: {
+                    mainIsPresented = true
+                }){
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("나의 목표")
+                            .foregroundStyle(Color.myD5F3D1)
+                            .font(.Pretendard.Medium.size14)
+                        
+                        Text(mainGoal?.title ?? "목표없음")
+                            .foregroundStyle(.white)
+                            .font(.Pretendard.Bold.size16)
+                            .kerning(-0.32) // 자간
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading) // 전체 너비에서 왼쪽 정렬
+                    .padding(.horizontal,10)
+                    .padding(.vertical)
+                    .background(Color.my538F53)
+                    .cornerRadius(12)
+                }
+                .sheet(isPresented: $mainIsPresented) {
+                    MainGoalsheetView(mainGoal: $mainGoal, isPresented: $mainIsPresented)
+                        .presentationDragIndicator(.visible)
+                        .presentationDetents([.height(244/852 * UIScreen.main.bounds.height)])
+                }
+                
+                // 마감일 표시
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("이번주 마감까지")
+                        .font(.Pretendard.Medium.size12)
+                    Text(dateManager.getTodayDText())
+                        .font(.Pretendard.Bold.size20)
+                }
+                .padding(.horizontal,10)
+                .padding(.vertical)
+                .frame(width: 97/393 * UIScreen.main.bounds.width, alignment: .leading) // 전체 너비에서 왼쪽 정렬
+                .background(Color.myEAEDE1)
+                .cornerRadius(12)
+            }
+            .frame(height: 76/852 * UIScreen.main.bounds.height)
+            .padding(.bottom, 25/852 * UIScreen.main.bounds.height)
+            
+            ZStack {
+                // 만다라트 그리드
+                if let selectedMainGoal = mainGoal {
+                    let sortedSubGoals = selectedMainGoal.subGoals.sorted(by: { $0.id < $1.id }) // 정렬된 SubGoals 배열
+                    
+                    LazyVGrid(columns: outerColumns, spacing: 32) {
+                        ForEach(0..<4, id: \.self) { index in
+                            SubGoalCell(isPresented: $isPresented, selectedSubGoal: Binding(
+                                get: { sortedSubGoals[index] },
+                                set: { _ in }
+                            ))
+                        }
+                    }
+                } else {
+                    Text("찾을 수 없습니다.")
+                }
+                
+                // 메인골 자리
+                RoundedRectangle(cornerSize: CGSize(width: 30, height: 30))
+                    .fill(Color.my538F53)
+                    .frame(width: 69, height: 69)
+            }
             
             Spacer()
             
@@ -64,10 +169,10 @@ struct OuterGridView: View {
                 Image("Turtle_5")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(height: 65)
+                    .frame(width: 73/393 * UIScreen.main.bounds.width)
                 
                 ZStack{
-                    Image("Comment")
+                    Image("comment")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(height: 55)
@@ -75,70 +180,10 @@ struct OuterGridView: View {
                         .font(.Pretendard.Medium.size14)
                 }
             }
-            
-            ZStack {
-                // 배경색과 모서리 둥글게 처리
-                Color.my538F53
-                    .cornerRadius(10)
-                
-                HStack(spacing: 10) {
-                    // 좌측 텍스트
-                    Text("나의 목표")
-                        .foregroundStyle(Color.myD5F3D1)
-                        .font(.Pretendard.Medium.size16)
-                    
-                    // 중간 텍스트
-                    Text(mainGoal?.title ?? "목표없음")
-                        .foregroundStyle(.white)
-                        .font(.Pretendard.Bold.size16)
-                    
-                    Spacer()
-                    
-                    // 점 세 개 버튼
-                    Button(action: {
-                        mainIsPresented = true
-                    }) {
-                        Image(systemName: "ellipsis")
-                            .foregroundStyle(.white)
-                            .rotationEffect(.degrees(90))
-                    }
-                    .sheet(isPresented: $mainIsPresented) {
-                        MainGoalsheetView(mainGoal: $mainGoal, isPresented: $mainIsPresented)
-                            .presentationDragIndicator(.visible)
-                            .presentationDetents([.height(244/852 * UIScreen.main.bounds.height)])
-                    }
-                }
-                .padding()
-            }
-            .frame(height: 43/852 * UIScreen.main.bounds.height)
-            .padding(.vertical)
-            
-            // 만다라트 그리드
-            if let selectedMainGoal = mainGoal {
-                let sortedSubGoals = selectedMainGoal.subGoals.sorted(by: { $0.id < $1.id }) // 정렬된 SubGoals 배열
-                
-                LazyVGrid(columns: outerColumns, spacing: 3) {
-                    ForEach(0..<9, id: \.self) { index in
-                        if index == 4 {
-                            MainGoalCell(subGoal: $subGoal, mainGoal: $mainGoal, isPresented: $isPresented)
-                        } else {
-                            let subGoalIndex = index < 4 ? index : index - 1
-                            if subGoalIndex < sortedSubGoals.count {
-                                SubGoalCell(isPresented: $isPresented, selectedSubGoal: Binding(
-                                    get: { sortedSubGoals[subGoalIndex] },
-                                    set: { _ in }
-                                ))
-                            } else {
-                                EmptyView()
-                            }
-                        }
-                    }
-                }
-            } else {
-                Text("찾을 수 없습니다.")
-            }
-            Spacer()
+            .padding(.bottom, 47/852 * UIScreen.main.bounds.height)
         }
         .padding(.horizontal, 20/393 * UIScreen.main.bounds.width)
     }
 }
+
+// MainGoalCell(subGoal: $subGoal, mainGoal: $mainGoal, isPresented: $isPresented)
