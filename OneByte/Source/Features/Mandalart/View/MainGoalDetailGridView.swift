@@ -19,18 +19,18 @@ struct MainGoalDetailGridView: View {
     @Environment(\.modelContext) private var modelContext  // SwiftData 컨텍스트
     private let viewModel = MandalartViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []), deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []))
        
-    let innerColumns = Array(repeating: GridItem(.flexible()), count: 3)
+    let innerColumns = Array(repeating: GridItem(.flexible()), count: 2)
     
     var body: some View {
         if let selectedMainGoal = mainGoal {
             let sortedSubGoals = selectedMainGoal.subGoals.sorted(by: { $0.id < $1.id })
             
             LazyVGrid(columns: innerColumns, spacing: 3) {
-                ForEach(0..<9, id: \.self) { index in
+                ForEach(0..<4, id: \.self) { index in
                     let cornerRadius: CGFloat = 20
                     let cornerStyle = cornerStyle(for: index) // cornerStyle 함수 사용
                     
-                    if index == 4 {
+                    if index == 3 {
                         Button(action: {
                             mainIsPresented = true
                         }) {
@@ -51,7 +51,7 @@ struct MainGoalDetailGridView: View {
                             }
                         }
                     } else {
-                        let subGoalIndex = index < 4 ? index : index - 1
+                        let subGoalIndex = index < 3 ? index : index - 1
                         if subGoalIndex < sortedSubGoals.count {
                             Button(action: {
                                 selectedSubGoal = sortedSubGoals[subGoalIndex]

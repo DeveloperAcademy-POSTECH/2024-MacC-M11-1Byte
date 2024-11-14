@@ -24,8 +24,8 @@ class ClientCreateService: CreateGoalUseCase {
            
            mainGoalCounter += 1  // MainGoal ID 증가
            
-           // SubGoal 8개 생성 및 DetailGoal 8개 초기화
-           for _ in 1...8 {
+           // SubGoal 4개 생성 및 DetailGoal 4개 초기화
+           for _ in 1...4 {
                let newSubGoal = SubGoal(
                    id: subGoalCounter,
                    title: "",
@@ -35,8 +35,8 @@ class ClientCreateService: CreateGoalUseCase {
                )
                subGoalCounter += 1 // SubGoal ID 증가
                
-               // DetailGoal 8개 생성
-               for _ in 1...8 {
+               // DetailGoal 4개 생성
+               for _ in 1...3 {
                    let newDetailGoal = DetailGoal(
                        id: detailGoalCounter,
                        title: "",

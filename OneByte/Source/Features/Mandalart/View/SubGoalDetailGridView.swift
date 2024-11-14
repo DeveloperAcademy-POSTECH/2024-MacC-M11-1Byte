@@ -13,7 +13,7 @@ struct SubGoalDetailGridView: View {
     @Binding var subGoal: SubGoal?
     @Binding var isPresented: Bool
     @State private var selectedDetailGoal: DetailGoal?
-    private let innerColumns = Array(repeating: GridItem(.flexible()), count: 3)
+    private let innerColumns = Array(repeating: GridItem(.flexible()), count: 2)
     @State var subSheetIsPresented: Bool = false
     
     @Environment(\.modelContext) private var modelContext  // SwiftData 컨텍스트
@@ -25,11 +25,11 @@ struct SubGoalDetailGridView: View {
             let sortedDetailGoals = selectedSubGoal.detailGoals.sorted(by: { $0.id < $1.id })
             
             LazyVGrid(columns: innerColumns, spacing: 3) {
-                ForEach(0..<9, id: \.self) { index in
+                ForEach(0..<4, id: \.self) { index in
                     let cornerRadius: CGFloat = 20
                     let cornerStyle = cornerStyle(for: index) // cornerStyle 함수 사용
                     
-                    if index == 4 {
+                    if index == 3 {
                         // 네 번째 셀에 서브골 제목 표시
                         Button(action: {
                             subSheetIsPresented = true
@@ -52,7 +52,7 @@ struct SubGoalDetailGridView: View {
                         }
                     } else {
                         // 나머지 셀에 디테일골 제목 표시
-                        let detailGoalIndex = index < 4 ? index : index - 1
+                        let detailGoalIndex = index < 3 ? index : index - 1
                         if detailGoalIndex < sortedDetailGoals.count {
                             let detailGoal = sortedDetailGoals[detailGoalIndex]
                             Button(action: {

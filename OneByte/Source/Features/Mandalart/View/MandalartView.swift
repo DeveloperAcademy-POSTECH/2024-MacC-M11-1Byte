@@ -45,7 +45,7 @@ struct OuterGridView: View {
     @Binding var mainGoal: MainGoal? // mainGoal을 @Binding으로 사용
     
     @State var mainIsPresented: Bool = false
-    private let outerColumns = Array(repeating: GridItem(.flexible()), count: 3)
+    private let outerColumns = Array(repeating: GridItem(.flexible()), count: 2)
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -118,11 +118,11 @@ struct OuterGridView: View {
                 let sortedSubGoals = selectedMainGoal.subGoals.sorted(by: { $0.id < $1.id }) // 정렬된 SubGoals 배열
                 
                 LazyVGrid(columns: outerColumns, spacing: 3) {
-                    ForEach(0..<9, id: \.self) { index in
-                        if index == 4 {
+                    ForEach(0..<4, id: \.self) { index in
+                        if index == 3 {
                             MainGoalCell(subGoal: $subGoal, mainGoal: $mainGoal, isPresented: $isPresented)
                         } else {
-                            let subGoalIndex = index < 4 ? index : index - 1
+                            let subGoalIndex = index < 3 ? index : index - 1
                             if subGoalIndex < sortedSubGoals.count {
                                 SubGoalCell(isPresented: $isPresented, selectedSubGoal: Binding(
                                     get: { sortedSubGoals[subGoalIndex] },

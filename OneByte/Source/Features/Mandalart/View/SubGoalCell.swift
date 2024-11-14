@@ -13,7 +13,7 @@ struct SubGoalCell: View {
     @Binding var isPresented: Bool
     @Binding var selectedSubGoal: SubGoal?
     
-    private let innerColumns = Array(repeating: GridItem(.flexible()), count: 3)
+    private let innerColumns = Array(repeating: GridItem(.flexible()), count: 2)
     
     var body: some View {
         if let selectedSubGoal = selectedSubGoal {
@@ -22,12 +22,12 @@ struct SubGoalCell: View {
             
             NavigationLink(destination: SubGoalDetailGridView(subGoal: $selectedSubGoal, isPresented: $isPresented)) {
                 LazyVGrid(columns: innerColumns, spacing: 1) {
-                    ForEach(0..<9, id: \.self) { index in
-                        if index == 4 {
+                    ForEach(0..<4, id: \.self) { index in
+                        if index == 3 {
                             Text(selectedSubGoal.title.prefix(8))
                                 .modifier(MandalartButtonModifier(color: Color.my95D895))
                         } else {
-                            let detailGoalIndex = index < 4 ? index : index - 1
+                            let detailGoalIndex = index < 3 ? index : index - 1
                             if detailGoalIndex < detailGoalsSorted.count {
                                 let detailGoal = detailGoalsSorted[detailGoalIndex]
                                 Text(detailGoal.title.prefix(8))
