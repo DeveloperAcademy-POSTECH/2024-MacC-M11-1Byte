@@ -9,6 +9,8 @@ import SwiftUI
 
 struct MyPageView: View {
     
+    @State private var isEditNicknameSheet = false // 닉네임 변경 Sheet
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -27,6 +29,11 @@ struct MyPageView: View {
                     }
                 }
             }
+        }
+        .sheet(isPresented: $isEditNicknameSheet) {
+            EditNicknameSheetView(isPresented: $isEditNicknameSheet)
+                .presentationDragIndicator(.visible)
+                .presentationDetents([.height(244/852 * UIScreen.main.bounds.height)])
         }
     }
     
@@ -66,14 +73,14 @@ struct MyPageView: View {
                         Text("닉네임 님")
                             .font(.Pretendard.Bold.size18)
                         
-                        NavigationLink {
-                            // 프로필 페이지로 이동
-                        } label: {
-                            Image(systemName: "chevron.right")
-                                .font(.Pretendard.Medium.size16)
-                                .foregroundStyle(.black)
-                        }
+                        Image(systemName: "chevron.right")
+                            .font(.Pretendard.Medium.size16)
+                            .foregroundStyle(.black)
+                        
                         Spacer()
+                    }
+                    .onTapGesture {
+                        isEditNicknameSheet = true
                     }
                     
                     HStack {
