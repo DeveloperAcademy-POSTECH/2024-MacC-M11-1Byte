@@ -12,6 +12,8 @@ struct SettingView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var isAppearAchieved: Bool = false // 달성 표시하기
     
+    @StateObject var viewModel = SettingViewModel()
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -67,6 +69,13 @@ struct SettingView: View {
                             .foregroundStyle(Color.clear)
                     }
                     .background(.white)
+                    
+                    HStack {
+                        Text("Version \(viewModel.appVersion)")
+                            .font(.Pretendard.Medium.size16)
+                            .foregroundStyle(Color.myB4A99D)
+                    }
+                    .padding(.top, 30)
                     
                     Spacer()
                 }
