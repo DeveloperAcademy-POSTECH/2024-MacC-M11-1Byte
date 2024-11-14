@@ -12,7 +12,7 @@ struct MyPageView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.myFAF6F1
+                Color.myFFFAF4
                     .ignoresSafeArea()
                 
                 ScrollView {
@@ -40,7 +40,7 @@ struct MyPageView: View {
             Spacer()
             
             NavigationLink {
-                // 추가 설정 페이지 이동
+                SettingView()
             } label: {
                 Image(systemName: "gear")
                     .resizable()
