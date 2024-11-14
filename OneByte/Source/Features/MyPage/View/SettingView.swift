@@ -11,7 +11,7 @@ struct SettingView: View {
     
     @Environment(\.dismiss) private var dismiss
     
-    @StateObject var viewModel = SettingViewModel()
+    @State var viewModel = SettingViewModel()
     
     var body: some View {
         NavigationStack {

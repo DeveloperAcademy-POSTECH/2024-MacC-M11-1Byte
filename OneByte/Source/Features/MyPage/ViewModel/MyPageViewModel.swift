@@ -8,14 +8,15 @@
 import SwiftUI
 import SwiftData
 
-class MyPageViewModel: ObservableObject {
+@Observable
+class MyPageViewModel {
     
     // 프로필 관련 (닉네임 및 디데이)
-    @Published var isEditNicknameSheet: Bool = false
-    @Published var profile: [Profile] = []
-    @Published var newNickname: String = ""
+    var isEditNicknameSheet: Bool = false
+    var profile: [Profile] = []
+    var newNickname: String = ""
     let nicknameLimit = 10
-    @Published var daysSinceInstall: Int = 0
+    var daysSinceInstall: Int = 0
     
     init() {
         calculateDaysSinceInstall()

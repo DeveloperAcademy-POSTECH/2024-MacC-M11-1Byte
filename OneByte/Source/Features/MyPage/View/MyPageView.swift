@@ -12,7 +12,7 @@ struct MyPageView: View {
     
     @Query private var profile: [Profile]
     
-    @StateObject var viewModel = MyPageViewModel()
+    @State var viewModel = MyPageViewModel()
     
     var body: some View {
         NavigationStack {

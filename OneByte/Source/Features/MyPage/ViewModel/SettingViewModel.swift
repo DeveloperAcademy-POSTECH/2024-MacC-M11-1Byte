@@ -7,9 +7,10 @@
 
 import SwiftUI
 
-class SettingViewModel: ObservableObject {
+@Observable
+class SettingViewModel{
     
-    @Published var isAppearAchieved: Bool {
+    var isAppearAchieved: Bool {
         didSet {
             // 달성 표시하기 Bool값을 변경될 때마다 UserDefaults에 저장
             UserDefaults.standard.set(isAppearAchieved, forKey: "isAppearAchieved")

@@ -19,7 +19,6 @@
 		1F42BE892CDF838500A59703 /* Font+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F42BE882CDF838500A59703 /* Font+.swift */; };
 		1F4D8BF02CDF4F9E00A0B5CC /* OnboardingStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4D8BEF2CDF4F9E00A0B5CC /* OnboardingStartView.swift */; };
 		1F4D8BF22CDF4FC300A0B5CC /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4D8BF12CDF4FC300A0B5CC /* Onboarding.swift */; };
-		1F599E242CE5DE3D00788D07 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F599E232CE5DE3D00788D07 /* EditProfileView.swift */; };
 		1F599E262CE5DEBE00788D07 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F599E252CE5DEBE00788D07 /* SettingView.swift */; };
 		1F599E282CE5F29500788D07 /* EditNicknameSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F599E272CE5F29500788D07 /* EditNicknameSheetView.swift */; };
 		1F599E2A2CE5F77000788D07 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F599E292CE5F77000788D07 /* Profile.swift */; };
@@ -88,7 +87,6 @@
 		1F42BE882CDF838500A59703 /* Font+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+.swift"; sourceTree = "<group>"; };
 		1F4D8BEF2CDF4F9E00A0B5CC /* OnboardingStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStartView.swift; sourceTree = "<group>"; };
 		1F4D8BF12CDF4FC300A0B5CC /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
-		1F599E232CE5DE3D00788D07 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		1F599E252CE5DEBE00788D07 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		1F599E272CE5F29500788D07 /* EditNicknameSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNicknameSheetView.swift; sourceTree = "<group>"; };
 		1F599E292CE5F77000788D07 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
@@ -268,7 +266,6 @@
 			isa = PBXGroup;
 			children = (
 				615A0A102CC0AEB800908531 /* MyPageView.swift */,
-				1F599E232CE5DE3D00788D07 /* EditProfileView.swift */,
 				1F599E272CE5F29500788D07 /* EditNicknameSheetView.swift */,
 				1F599E252CE5DEBE00788D07 /* SettingView.swift */,
 				1F599E2E2CE6634B00788D07 /* SettingRows */,
@@ -559,7 +556,6 @@
 				1FB10A342CDF593600D54EC5 /* OnboardingFinishView.swift in Sources */,
 				1F599E262CE5DEBE00788D07 /* SettingView.swift in Sources */,
 				1FB10A3C2CDF78C400D54EC5 /* NextButton.swift in Sources */,
-				1F599E242CE5DE3D00788D07 /* EditProfileView.swift in Sources */,
 				1F599E322CE6642900788D07 /* NotificationRow.swift in Sources */,
 				1F79EDCE2CC0A25D0079088B /* OneByteApp.swift in Sources */,
 				610595D02CE21444005ED7B4 /* MainGoalDetailGridView.swift in Sources */,

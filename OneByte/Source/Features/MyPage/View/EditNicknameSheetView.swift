@@ -11,7 +11,7 @@ struct EditNicknameSheetView: View {
     
     @Environment(\.modelContext) private var modelContext
     
-    @ObservedObject var viewModel: MyPageViewModel
+    @Bindable var viewModel: MyPageViewModel
     
     var body: some View {
         VStack {
