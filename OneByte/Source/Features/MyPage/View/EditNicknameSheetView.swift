@@ -9,9 +9,11 @@ import SwiftUI
 
 struct EditNicknameSheetView: View {
     
+    @Environment(\.modelContext) private var modelContext
     @Binding var isPresented: Bool
     
-    @State var newNickname = ""
+    @ObservedObject var viewModel: MyPageViewModel
+    
     private let nicknameLimit = 10
     
     var body: some View {
@@ -20,19 +22,20 @@ struct EditNicknameSheetView: View {
                 .font(.Pretendard.SemiBold.size17)
             
             ZStack {
-                TextField("닉네임을 입력해주세요.", text: $newNickname)
+                TextField("닉네임을 입력해주세요.", text: $viewModel.newNickname)
                     .padding()
                     .background(.white)
                     .cornerRadius(8)
-                    .onChange(of: newNickname) { oldValue, newValue in
+                    .onChange(of: viewModel.newNickname) { oldValue, newValue in
                         if newValue.count > nicknameLimit {
-                            newNickname = String(newValue.prefix(nicknameLimit))
+                            viewModel.newNickname = String(newValue.prefix(nicknameLimit))
                         }
                     }
+                
                 HStack {
                     Spacer()
                     Button(action: {
-                        newNickname = "" // 나중에 뷰모델로 빼기
+                        viewModel.clearNewNickname() // 수정되고 있는 닉네임 지우기
                     }, label: {
                         Image(systemName: "xmark.circle.fill")
                             .resizable()
@@ -47,7 +50,7 @@ struct EditNicknameSheetView: View {
             // 글자수 부분
             HStack(spacing: 0) {
                 Spacer()
-                Text("\(newNickname.count)")
+                Text("\(viewModel.newNickname.count)")
                     .font(.Pretendard.Medium.size12)
                     .foregroundStyle(Color.my6C6C6C)
                 Text("/10")
@@ -74,6 +77,8 @@ struct EditNicknameSheetView: View {
                 
                 Button(action: {
                     isPresented = false
+                    viewModel.updateNewNickname(modelContext: modelContext)
+                    print("Button Tapped : 닉네임 변경 저장")
                 }) {
                     Text("저장")
                         .font(.Pretendard.Medium.size16)
@@ -92,5 +97,5 @@ struct EditNicknameSheetView: View {
 }
 
 #Preview {
-    EditNicknameSheetView(isPresented: .constant(true))
+    EditNicknameSheetView(isPresented: .constant(true), viewModel: MyPageViewModel())
 }

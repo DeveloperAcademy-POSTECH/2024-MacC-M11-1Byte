@@ -12,7 +12,11 @@ struct MyPageView: View {
     
     @Query private var profile: [Profile]
     
+    @StateObject var viewModel = MyPageViewModel()
+    
     @State private var isEditNicknameSheet = false // 닉네임 변경 Sheet
+    
+    
     
     var body: some View {
         NavigationStack {
@@ -34,9 +38,11 @@ struct MyPageView: View {
             }
         }
         .sheet(isPresented: $isEditNicknameSheet) {
-            EditNicknameSheetView(isPresented: $isEditNicknameSheet)
+            EditNicknameSheetView(isPresented: $isEditNicknameSheet, viewModel: viewModel)
                 .presentationDragIndicator(.visible)
                 .presentationDetents([.height(244/852 * UIScreen.main.bounds.height)])
+        }.onAppear {
+            viewModel.updateProfile(profile)
         }
     }
     
@@ -73,7 +79,7 @@ struct MyPageView: View {
                 
                 VStack(spacing: 5) {
                     HStack {
-                        Text("\(profile.first?.nickName.isEmpty == false ? "\(profile.first!.nickName)님" : "닉네임 설정")")
+                        Text(viewModel.nicknameDisplay)
                             .font(.Pretendard.Bold.size18)
                             .lineLimit(1)
                         
