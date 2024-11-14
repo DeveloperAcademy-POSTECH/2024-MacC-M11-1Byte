@@ -46,7 +46,7 @@ struct OuterGridView: View {
     
     @State var mainIsPresented: Bool = false
     private let outerColumns = Array(repeating: GridItem(.flexible()), count: 2)
-
+    
     var body: some View {
         VStack(alignment: .leading) {
             // 앱 로고
@@ -119,19 +119,10 @@ struct OuterGridView: View {
                 
                 LazyVGrid(columns: outerColumns, spacing: 3) {
                     ForEach(0..<4, id: \.self) { index in
-                        if index == 3 {
-                            MainGoalCell(subGoal: $subGoal, mainGoal: $mainGoal, isPresented: $isPresented)
-                        } else {
-                            let subGoalIndex = index < 3 ? index : index - 1
-                            if subGoalIndex < sortedSubGoals.count {
-                                SubGoalCell(isPresented: $isPresented, selectedSubGoal: Binding(
-                                    get: { sortedSubGoals[subGoalIndex] },
-                                    set: { _ in }
-                                ))
-                            } else {
-                                EmptyView()
-                            }
-                        }
+                        SubGoalCell(isPresented: $isPresented, selectedSubGoal: Binding(
+                            get: { sortedSubGoals[index] },
+                            set: { _ in }
+                        ))
                     }
                 }
             } else {
@@ -142,3 +133,5 @@ struct OuterGridView: View {
         .padding(.horizontal, 20/393 * UIScreen.main.bounds.width)
     }
 }
+
+// MainGoalCell(subGoal: $subGoal, mainGoal: $mainGoal, isPresented: $isPresented)
