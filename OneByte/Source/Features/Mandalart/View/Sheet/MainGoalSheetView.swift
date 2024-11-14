@@ -17,7 +17,7 @@ struct MainGoalsheetView: View {
     @State private var newMemo: String = ""
     
     private let viewModel = MandalartViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []), deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []))
-    private let titleLimit = 20 // 제목 글자수 제한
+    private let titleLimit = 15 // 제목 글자수 제한
     
     var body: some View {
         VStack {
@@ -74,7 +74,7 @@ struct MainGoalsheetView: View {
                         .padding()
                         .background(Color.my787880.opacity(0.2))
                         .foregroundStyle(Color.my3C3C43.opacity(0.6))
-                        .cornerRadius(8)
+                        .cornerRadius(12)
                 }
                 
                 Button(action: {
@@ -88,7 +88,7 @@ struct MainGoalsheetView: View {
                         .padding()
                         .background(Color.my538F53)
                         .foregroundStyle(.white)
-                        .cornerRadius(8)
+                        .cornerRadius(12)
                 }
             }
         }

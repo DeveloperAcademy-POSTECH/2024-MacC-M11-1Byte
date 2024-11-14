@@ -18,7 +18,7 @@ struct DetailGoalsheetView: View {
     @State private var newMemo: String = ""
     @State private var isAchieved: Bool = false
     
-    private let titleLimit = 15 // 제목 글자수 제한
+    private let titleLimit = 20 // 제목 글자수 제한
     private let memoLimit = 150 // 메모 글자수 제한
     
     var body: some View {
@@ -58,7 +58,7 @@ struct DetailGoalsheetView: View {
                 Text("\(newTitle.count)")
                     .font(.Pretendard.Medium.size12)
                     .foregroundStyle(Color.my6C6C6C)
-                Text("/15")
+                Text("/\(titleLimit)")
                     .font(.Pretendard.Medium.size12)
                     .foregroundStyle(Color.my6C6C6C.opacity(0.5))
             }
@@ -87,7 +87,7 @@ struct DetailGoalsheetView: View {
                         Text("\(newMemo.count)")
                             .font(.Pretendard.Medium.size12)
                             .foregroundStyle(Color.my6C6C6C)
-                        Text("/150")
+                        Text("/\(memoLimit)")
                             .font(.Pretendard.Medium.size12)
                             .foregroundStyle(Color.my6C6C6C.opacity(0.5))    
                     }
@@ -122,7 +122,7 @@ struct DetailGoalsheetView: View {
                         .padding()
                         .background(Color.my787880.opacity(0.2))
                         .foregroundStyle(Color.my3C3C43.opacity(0.6))
-                        .cornerRadius(8)
+                        .cornerRadius(12)
                 }
                 
                 Button(action: {
@@ -136,7 +136,7 @@ struct DetailGoalsheetView: View {
                         .padding()
                         .background(Color.my538F53)
                         .foregroundStyle(.white)
-                        .cornerRadius(8)
+                        .cornerRadius(12)
                 }
             }.padding(.bottom, 33/852 * UIScreen.main.bounds.height)
         }
