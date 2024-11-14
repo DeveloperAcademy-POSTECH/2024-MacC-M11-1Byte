@@ -41,7 +41,7 @@ class MyPageViewModel: ObservableObject {
         if let existingProfile = profile.first {
             existingProfile.nickName = newNickname
         } else {
-            // 만약 닉네임이 없을경우, 새로 생성 
+            // 만약 닉네임이 없을경우, 새로 생성
             let newProfile = Profile(nickName: newNickname)
             modelContext.insert(newProfile)
             profile.append(newProfile)

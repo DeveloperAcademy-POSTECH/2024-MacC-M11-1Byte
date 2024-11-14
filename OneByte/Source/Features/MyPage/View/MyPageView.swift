@@ -61,7 +61,7 @@ struct MyPageView: View {
                 Image(systemName: "gear")
                     .resizable()
                     .frame(width: 24, height: 23)
-                    .foregroundStyle(Color.my9E9E9E)
+                    .foregroundStyle(Color.my9E9E9E) // 나중에 컬러 수정
             }
         }
         .padding(.horizontal)
@@ -96,7 +96,7 @@ struct MyPageView: View {
                     HStack {
                         Text("하고만다와 함께한지 50일 째")
                             .font(.Pretendard.SemiBold.size14)
-                            .foregroundStyle(Color.my566956)
+                            .foregroundStyle(Color(hex: "566956"))
                         Spacer()
                     }
                 }
@@ -104,7 +104,7 @@ struct MyPageView: View {
             .padding()
             
             RoundedRectangle(cornerRadius: 12)
-                .fill(Color.myEAEDE1)
+                .fill(Color(hex:"EAEDE1")) // 나중에 컬러 수정
                 .frame(maxWidth: .infinity)
                 .frame(height: 72)
                 .overlay(alignment: .center) {
