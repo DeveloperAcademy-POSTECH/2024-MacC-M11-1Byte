@@ -33,4 +33,21 @@ class DeleteService: DeleteGoalUseCase {
         detailGoal.memo = ""
         detailGoal.isAchieved = false
     }
+    
+    func resetAllData(modelContext: ModelContext, mainGoal: MainGoal) {
+        mainGoal.title = ""  // MainGoal의 타이틀 초기화
+        
+        // 모든 SubGoal 초기화
+        for subGoal in mainGoal.subGoals {
+            subGoal.title = ""
+            
+            // 각 SubGoal에 연결된 DetailGoal 초기화
+            for detailGoal in subGoal.detailGoals {
+                detailGoal.title = ""
+                detailGoal.memo = ""
+                detailGoal.isAchieved = false
+            }
+        }
+    }
+    
 }

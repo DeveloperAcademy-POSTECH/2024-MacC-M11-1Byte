@@ -22,4 +22,5 @@ protocol DeleteGoalUseCase {
     func deleteMainGoal(mainGoal: MainGoal, modelContext: ModelContext, id: Int, newTitle: String)
     func deleteSubGoal(subGoal: SubGoal, modelContext: ModelContext, newTitle: String)
     func deleteDetailGoal(detailGoal: DetailGoal, modelContext: ModelContext, newTitle: String, newMemo: String, isAchieved: Bool)
+    func resetAllData(modelContext: ModelContext, mainGoal: MainGoal)
 }
