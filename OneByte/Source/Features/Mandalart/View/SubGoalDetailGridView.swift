@@ -8,8 +8,9 @@
 import SwiftUI
 import SwiftData
 
-// MARK: 두번째 화면 - 클릭된 셀의 SubGoal 및 관련된 DetailGoals만 3x3 그리드로 표시하는 뷰
+// MARK: 두번째 화면 - 클릭된 셀의 SubGoal 및 관련된 DetailGoals만 2x2 그리드로 표시하는 뷰
 struct SubGoalDetailGridView: View {
+    @Environment(\.dismiss) private var dismiss
     @Binding var subGoal: SubGoal?
     @Binding var isPresented: Bool
     @State private var selectedDetailGoal: DetailGoal?
@@ -87,6 +88,10 @@ struct SubGoalDetailGridView: View {
                 .padding(.horizontal, 20/393 * UIScreen.main.bounds.width)
                 .navigationTitle(selectedSubGoal.title)
             }
+        }
+        .navigationBarBackButtonHidden()
+        .backButtonToolbar {
+            dismiss()
         }
     }
 }

@@ -77,17 +77,8 @@ struct SettingView: View {
                 .navigationTitle("설정")
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarBackButtonHidden()
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button {
-                            dismiss()
-                        } label: {
-                            HStack {
-                                Image(systemName: "chevron.left")
-                                    .tint(Color(hex: "B4A99D"))
-                            }
-                        }
-                    }
+                .backButtonToolbar {
+                    dismiss()
                 }
             }
         }
