@@ -14,7 +14,8 @@ struct OneByteApp: App {
         let schema = Schema([
             MainGoal.self,
             SubGoal.self,
-            DetailGoal.self
+            DetailGoal.self,
+            Profile.self
         ])
         
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
