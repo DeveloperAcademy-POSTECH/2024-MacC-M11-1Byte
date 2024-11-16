@@ -11,7 +11,7 @@ struct EditNicknameSheetView: View {
     
     @Environment(\.modelContext) private var modelContext
     
-    @Bindable var viewModel: MyPageViewModel
+    @Bindable var viewModel: SettingViewModel
     
     var body: some View {
         VStack {
@@ -20,6 +20,7 @@ struct EditNicknameSheetView: View {
             
             ZStack {
                 TextField("닉네임을 입력해주세요.", text: $viewModel.newNickname)
+                    .submitLabel(.done)
                     .padding()
                     .background(.white)
                     .cornerRadius(12)
@@ -41,7 +42,6 @@ struct EditNicknameSheetView: View {
                     }
                     .opacity(viewModel.newNickname.isEmpty ? 0 : 1)
                     .padding(.trailing)
-                    
                 }
             }
             .padding(.top, 20/852 * UIScreen.main.bounds.height)
@@ -97,5 +97,5 @@ struct EditNicknameSheetView: View {
 }
 
 #Preview {
-    EditNicknameSheetView(viewModel: MyPageViewModel())
+    EditNicknameSheetView(viewModel: SettingViewModel())
 }

@@ -10,108 +10,41 @@ import SwiftData
 
 struct MyPageView: View {
     
-    @Query private var profile: [Profile]
-    
     @State var viewModel = MyPageViewModel()
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                Color.myFFFAF4
-                    .ignoresSafeArea()
-                
-                ScrollView {
-                    VStack {
-                        headerView() // 최상단 헤더
-                        
-                        profileInfoView() // 유저 프로필 정보
-                        
-                        thisYearCloverInfoView() // 올해의 클로버
-                        
-                        Spacer()
-                    }
-                }
-            }
-        }
-        .onAppear {
-            viewModel.readProfile(profile) // 닉네임 정보
-            viewModel.calculateDaysSinceInstall() // 앱 설치한지 몇일 됐는지 계산
-        }
-        .sheet(isPresented: $viewModel.isEditNicknameSheet) {
-            EditNicknameSheetView(viewModel: viewModel)
-                .presentationDragIndicator(.visible)
-                .presentationDetents([.height(244/852 * UIScreen.main.bounds.height)])
-        }
-    }
-    
-    @ViewBuilder
-    private func headerView() -> some View {
-        HStack {
-            Text("마이페이지")
-                .font(.Pretendard.Bold.size22)
-                .foregroundStyle(Color.my9E9E9E)
-            
-            Spacer()
-            
-            NavigationLink {
-                SettingView()
-            } label: {
-                Image(systemName: "gear")
-                    .resizable()
-                    .frame(width: 24, height: 23)
-                    .foregroundStyle(Color.my9E9E9E) // 나중에 컬러 수정
-            }
-        }
-        .padding()
-    }
-    
-    @ViewBuilder
-    private func profileInfoView() -> some View {
-        VStack {
-            HStack(spacing: 20) {
-                Image("Turtle_3")
-                    .resizable()
-                    .background(.yellow)
-                    .clipShape(Circle())
-                    .frame(width: 82, height: 82)
-                
-                VStack(spacing: 5) {
-                    HStack {
-                        Text(viewModel.nicknameDisplay)
-                            .font(.Pretendard.Bold.size18)
-                            .lineLimit(1)
-                        
-                        Image(systemName: "chevron.right")
-                            .font(.Pretendard.Medium.size16)
-                            .foregroundStyle(.black)
-                        
-                        Spacer()
-                    }
-                    .onTapGesture {
-                        viewModel.isEditNicknameSheet = true
-                    }
+        ScrollView {
+            VStack{
+                // 최상단 헤더
+                HStack {
+                    Text("통계")
+                        .font(.Pretendard.Bold.size22)
+                        .foregroundStyle(Color.myB4A99D)
                     
-                    HStack {
-                        Text("하고만다와 함께한지 \(viewModel.daysSinceInstall)일 째")
-                            .font(.Pretendard.SemiBold.size14)
-                            .foregroundStyle(Color(hex: "566956"))
-                        Spacer()
-                    }
+                    Spacer()
                 }
+                .padding()
+                
+                // 이번달 클로버 정보
+                thisMonthCloverInfoView()
+                
+                // 올해의 클로버 정보
+                thisYearCloverInfoView()
+                
+                Spacer()
             }
-            .padding()
-            
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color(hex:"EAEDE1")) // 나중에 컬러 수정
-                .frame(maxWidth: .infinity)
-                .frame(height: 72)
-                .overlay(alignment: .center) {
-                    Text("황글 클로버 5개와 일반 클로버 16개, 총 21개의 클로버를 모아 여정이 한층 빛나고 있어요!")
-                        .font(.Pretendard.Medium.size16)
-                        .padding(5)
-                }
-                .padding(.horizontal)
         }
+        .background(Color.myFFFAF4)
+    }
+    
+    @ViewBuilder
+    private func thisMonthCloverInfoView() -> some View {
+        RoundedRectangle(cornerRadius: 20)
+            .fill(Color(hex: "A2D5A5")) // 배경색 (녹색)
+            .frame(maxWidth: .infinity)
+            .frame(height: 146)
+            .padding()
+            // ⚠️⚠️ 추가 구현
     }
     
     @ViewBuilder
@@ -167,6 +100,8 @@ struct MyPageView: View {
                     }
                 }
                 .padding(.leading)
+                
+                // ⚠️⚠️ 추가 구현
             }
             .frame(maxWidth: .infinity)
             .frame(height: 82)
@@ -179,7 +114,6 @@ struct MyPageView: View {
             .padding(.top, 5)
         }
         .padding()
-        .padding(.top, 10)
     }
 }
 
