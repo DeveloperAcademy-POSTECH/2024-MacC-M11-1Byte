@@ -7,13 +7,14 @@
 
 import SwiftUI
 
-struct DetailGoalsheetView: View {
+struct DetailGoalView: View {
+    @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext  // SwiftData 컨텍스트
     private let viewModel = MandalartViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []), deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []))
     @Environment(\.managedObjectContext) private var context
     @Binding var detailGoal: DetailGoal?
     //    @Binding var subGoal: SubGoal? // 옵셔널로 변경
-    @Binding var isPresented: Bool
+//    @Binding var isPresented: Bool
     @State private var newTitle: String = ""
     @State private var newMemo: String = ""
     @State private var isAchieved: Bool = false
@@ -117,7 +118,7 @@ struct DetailGoalsheetView: View {
             // 버튼 영역
             HStack {
                 Button(action: {
-                    isPresented = false
+//                    isPresented = false
                 }) {
                     Text("취소")
                         .frame(maxWidth: .infinity)
@@ -131,7 +132,7 @@ struct DetailGoalsheetView: View {
                     if let detailGoal = detailGoal {
                         viewModel.updateDetailGoal(detailGoal: detailGoal, modelContext: modelContext, newTitle: newTitle, newMemo: newMemo, isAchieved: isAchieved)
                     }
-                    isPresented = false
+//                    isPresented = false
                 }) {
                     Text("저장")
                         .frame(maxWidth: .infinity)
@@ -142,6 +143,8 @@ struct DetailGoalsheetView: View {
                 }
             }.padding(.bottom, 33/852 * UIScreen.main.bounds.height)
         }
+        .navigationBarBackButtonHidden()
+        .backButtonToolbar { dismiss() }
         .padding(.horizontal)
         .background(Color.myF1F1F1)
         .onAppear {
