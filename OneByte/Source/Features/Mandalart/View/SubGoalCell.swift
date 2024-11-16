@@ -49,9 +49,5 @@ struct SubGoalCell: View {
                 Text("SubGoal을 찾을 수가 없습니다.")
             }
         }
-        .navigationBarBackButtonHidden()
-        .backButtonToolbar {
-            dismiss()
-        }
     }
 }

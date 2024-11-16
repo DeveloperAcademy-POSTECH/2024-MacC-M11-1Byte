@@ -202,5 +202,3 @@ struct OuterGridView: View {
         .padding(.horizontal, 20/393 * UIScreen.main.bounds.width)
     }
 }
-
-// MainGoalCell(subGoal: $subGoal, mainGoal: $mainGoal, isPresented: $isPresented)

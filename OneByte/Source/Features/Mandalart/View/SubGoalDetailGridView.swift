@@ -24,7 +24,7 @@ struct SubGoalDetailGridView: View {
     )
     
     var body: some View {
-        NavigationStack {
+//        NavigationStack {
             VStack {
                 //  Goal Grid
                 if let selectedSubGoal = subGoal {
@@ -33,24 +33,19 @@ struct SubGoalDetailGridView: View {
                         .padding(.horizontal, 20 / 393 * UIScreen.main.bounds.width)
                         .navigationTitle(selectedSubGoal.title)
                 }
-                
+                // 네비게이션 링크
+                NavigationLink(
+                    destination: DetailGoalView(detailGoal: $selectedDetailGoal),
+                    isActive: $isNavigationActive
+                ) { EmptyView() }
                 // 메모들
             }
             .navigationBarBackButtonHidden()
             .backButtonToolbar { dismiss() }
             
-            // 네비게이션 링크
-            NavigationLink(
-                destination: DetailGoalView(detailGoal: $selectedDetailGoal),
-                isActive: $isNavigationActive
-            ) { EmptyView() }
+            
         }
-        .onChange(of: selectedDetailGoal) { old, new in
-            if new != nil {
-                isNavigationActive = true // `selectedDetailGoal`이 설정되면 네비게이션 활성화
-            }
-        }
-    }
+//    }
 }
 
 extension SubGoalDetailGridView {
@@ -105,6 +100,7 @@ extension SubGoalDetailGridView {
             
             Button(action: {
                 selectedDetailGoal = detailGoal // 클릭된 DetailGoal 설정
+                isNavigationActive = true
             }) {
                 Text(detailGoal.title)
                     .font(.Pretendard.Medium.size18)
