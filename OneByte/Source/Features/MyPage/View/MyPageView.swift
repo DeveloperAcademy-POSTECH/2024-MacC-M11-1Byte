@@ -62,7 +62,7 @@ struct MyPageView: View {
                     .foregroundStyle(Color.my9E9E9E) // 나중에 컬러 수정
             }
         }
-        .padding(.horizontal)
+        .padding()
     }
     
     @ViewBuilder
