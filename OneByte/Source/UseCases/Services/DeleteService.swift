@@ -43,7 +43,7 @@ class DeleteService: DeleteGoalUseCase {
         detailGoal.alertSat = false
         detailGoal.alertSun = false
         detailGoal.isRemind = false
-        detailGoal.remindTime = Date()
+        detailGoal.remindTime = nil
         detailGoal.achieveMon = false
         detailGoal.achieveTue = false
         detailGoal.achieveWed = false

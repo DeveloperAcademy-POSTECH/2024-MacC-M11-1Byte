@@ -187,7 +187,7 @@ struct EnterDetailgoalView: View {
                             alertSat: false,
                             alertSun: false,
                             isRemind: false,
-                            remindTime: Date(),
+                            remindTime: nil,
                             achieveMon: false,
                             achieveTue: false,
                             achieveWed: false,

@@ -83,7 +83,12 @@ struct SubGoalsheetView: View {
                 
                 Button(action: {
                     if let subGoal = subGoal {
-                        viewModel.updateSubGoal(subGoal: subGoal, modelContext: modelContext, newTitle: newTitle, leafState: leafState)
+                        viewModel.updateSubGoal(
+                            subGoal: subGoal,
+                            modelContext: modelContext,
+                            newTitle: newTitle,
+                            leafState: leafState
+                        )
                     }
                     isPresented = false
                 }) {

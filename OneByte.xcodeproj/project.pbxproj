@@ -362,9 +362,9 @@
 			children = (
 				1F7C9C272CD083CC00BAC358 /* GoalModels.swift */,
 				1F18DD852CEA3869000F0E3E /* Clover.swift */,
+				1F599E292CE5F77000788D07 /* Profile.swift */,
 				1F4D8BF12CDF4FC300A0B5CC /* Onboarding.swift */,
 				1FB10A372CDF5FE800D54EC5 /* OnboardingExplain.swift */,
-				1F599E292CE5F77000788D07 /* Profile.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

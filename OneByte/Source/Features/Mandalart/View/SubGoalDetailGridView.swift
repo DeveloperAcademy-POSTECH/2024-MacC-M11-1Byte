@@ -75,7 +75,9 @@ struct SubGoalDetailGridView: View {
                                 }
                                 .contextMenu {
                                     Button(role: .destructive){
-                                        viewModel.deleteDetailGoal(detailGoal: detailGoal, modelContext: modelContext, newTitle: "", newMemo: "", achieveCount: 0, achieveGoal: 0, alertMon: false, alertTue: false, alertWed: false, alertThu: false, alertFri: false, alertSat: false, alertSun: false, isRemind: false, remindTime: nil, achieveMon: false, achieveTue: false, achieveWed: false, achieveThu: false, achieveFri: false, achieveSat: false, achieveSun: false)
+                                        viewModel.deleteDetailGoal(
+                                            detailGoal: detailGoal, modelContext: modelContext, newTitle: "", newMemo: "", achieveCount: 0, achieveGoal: 0, alertMon: false, alertTue: false, alertWed: false, alertThu: false, alertFri: false, alertSat: false, alertSun: false, isRemind: false, remindTime: nil, achieveMon: false, achieveTue: false, achieveWed: false, achieveThu: false, achieveFri: false, achieveSat: false, achieveSun: false
+                                        )
 //                                        viewModel.deleteDetailGoal(detailGoal: detailGoal, modelContext: modelContext, id: detailGoal.id, newTitle: "", newMemo: "", isAcheived: false)
                                     } label: {
                                         Label("Delete", systemImage: "trash")

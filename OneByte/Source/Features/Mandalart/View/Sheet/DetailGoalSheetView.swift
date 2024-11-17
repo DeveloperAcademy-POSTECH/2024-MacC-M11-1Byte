@@ -21,22 +21,22 @@ struct DetailGoalsheetView: View {
     @State private var isAchieved: Bool = false // 지우면 됨
     @State private var achieveCount = 0
     @State private var achieveGoal = 0
-    @State private var alertMon = false
-    @State private var alertTue = false
-    @State private var alertWed = false
-    @State private var alertThu = false
-    @State private var alertFri = false
-    @State private var alertSat = false
-    @State private var alertSun = false
-    @State private var isRemind = false
-    @State private var remindTime = Date()
-    @State private var achieveMon = false
-    @State private var achieveTue = false
-    @State private var achieveWed = false
-    @State private var achieveThu = false
-    @State private var achieveFri = false
-    @State private var achieveSat = false
-    @State private var achieveSun = false
+    @State private var alertMon: Bool = false
+    @State private var alertTue: Bool = false
+    @State private var alertWed: Bool = false
+    @State private var alertThu: Bool = false
+    @State private var alertFri: Bool = false
+    @State private var alertSat: Bool = false
+    @State private var alertSun: Bool = false
+    @State private var isRemind: Bool = false
+    @State private var remindTime: Date? = nil
+    @State private var achieveMon: Bool = false
+    @State private var achieveTue: Bool = false
+    @State private var achieveWed: Bool = false
+    @State private var achieveThu: Bool = false
+    @State private var achieveFri: Bool = false
+    @State private var achieveSat: Bool = false
+    @State private var achieveSun: Bool = false
     
     private let titleLimit = 20 // 제목 글자수 제한
     private let memoLimit = 150 // 메모 글자수 제한
@@ -149,7 +149,30 @@ struct DetailGoalsheetView: View {
                 
                 Button(action: {
                     if let detailGoal = detailGoal {
-                        viewModel.updateDetailGoal(detailGoal: detailGoal, modelContext: modelContext, newTitle: newTitle, newMemo: newMemo, achieveCount: achieveCount, achieveGoal: achieveGoal, alertMon: alertMon, alertTue: alertTue, alertWed: alertWed, alertThu: alertThu, alertFri: alertFri, alertSat: alertSat, alertSun: alertSun, isRemind: isRemind, remindTime: remindTime, achieveMon: achieveMon, achieveTue: achieveTue, achieveWed: achieveWed, achieveThu: achieveThu, achieveFri: achieveFri, achieveSat: achieveSat, achieveSun: achieveSun)
+                        viewModel.updateDetailGoal(
+                            detailGoal: detailGoal,
+                            modelContext: modelContext,
+                            newTitle: newTitle,
+                            newMemo: newMemo,
+                            achieveCount: achieveCount,
+                            achieveGoal: achieveGoal,
+                            alertMon: alertMon,
+                            alertTue: alertTue,
+                            alertWed: alertWed,
+                            alertThu: alertThu,
+                            alertFri: alertFri,
+                            alertSat: alertSat,
+                            alertSun: alertSun,
+                            isRemind: isRemind,
+                            remindTime: remindTime,
+                            achieveMon: achieveMon,
+                            achieveTue: achieveTue,
+                            achieveWed: achieveWed,
+                            achieveThu: achieveThu,
+                            achieveFri: achieveFri,
+                            achieveSat: achieveSat,
+                            achieveSun: achieveSun
+                        )
 //                        viewModel.updateDetailGoal(detailGoal: detailGoal, modelContext: modelContext, newTitle: newTitle, newMemo: newMemo, isAchieved: isAchieved)
                     }
                     isPresented = false
