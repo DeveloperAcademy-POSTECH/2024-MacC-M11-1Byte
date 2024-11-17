@@ -106,4 +106,3 @@ struct SubGoalsheetView: View {
         }
     }
 }
-

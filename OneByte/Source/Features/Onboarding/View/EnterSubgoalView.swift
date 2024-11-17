@@ -76,9 +76,9 @@ struct EnterSubgoalView: View {
             HStack(spacing: 0) {
                 Spacer()
                 Text("\(userSubGoal.count)")
-                    .foregroundStyle(Color(hex: "6C6C6C"))
+                    .foregroundStyle(Color.my6C6C6C)
                 Text("/15")
-                    .foregroundStyle(Color(hex: "6C6C6C").opacity(0.5))
+                    .foregroundStyle(Color.my6C6C6C.opacity(0.5))
             }
             .padding(.trailing)
             
@@ -112,13 +112,18 @@ struct EnterSubgoalView: View {
                         if item == 1 {
                             // 1번 셀일 경우 TextField와 터치 가능
                             TextField("세부 목표", text: $userSubGoal, axis: .vertical)
-                                .font(.Pretendard.Regular.size18)
+                                .font(.Pretendard.Medium.size20)
                                 .multilineTextAlignment(.center)
                                 .focused($isFocused)
+                                .submitLabel(.done)
                                 .padding(10)
                                 .onChange(of: userSubGoal) { oldValue, newValue in
                                     if newValue.count > subGoalLimit {
                                         userSubGoal = String(newValue.prefix(subGoalLimit))
+                                    }
+                                    if let lastChar = newValue.last, lastChar == "\n" {
+                                        userSubGoal = String(newValue.dropLast())
+                                        isFocused = false
                                     }
                                 }
                         }
@@ -127,7 +132,7 @@ struct EnterSubgoalView: View {
                         if item == 5 {
                             if let mainGoal = mainGoals.first {
                                 Text(mainGoal.title)
-                                    .font(.Pretendard.Medium.size18)
+                                    .font(.Pretendard.Bold.size20)
                                     .multilineTextAlignment(.center)
                             } else {
                                 Text("")

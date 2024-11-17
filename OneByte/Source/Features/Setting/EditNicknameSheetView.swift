@@ -11,7 +11,7 @@ struct EditNicknameSheetView: View {
     
     @Environment(\.modelContext) private var modelContext
     
-    @Bindable var viewModel: MyPageViewModel
+    @Bindable var viewModel: SettingViewModel
     
     var body: some View {
         VStack {
@@ -20,9 +20,10 @@ struct EditNicknameSheetView: View {
             
             ZStack {
                 TextField("닉네임을 입력해주세요.", text: $viewModel.newNickname)
+                    .submitLabel(.done)
                     .padding()
                     .background(.white)
-                    .cornerRadius(8)
+                    .cornerRadius(12)
                     .onChange(of: viewModel.newNickname) { oldValue, newValue in
                         if newValue.count > viewModel.nicknameLimit {
                             viewModel.newNickname = String(newValue.prefix(viewModel.nicknameLimit))
@@ -39,6 +40,7 @@ struct EditNicknameSheetView: View {
                             .frame(width: 23, height: 23)
                             .foregroundStyle(Color.myB9B9B9)
                     }
+                    .opacity(viewModel.newNickname.isEmpty ? 0 : 1)
                     .padding(.trailing)
                 }
             }
@@ -54,7 +56,8 @@ struct EditNicknameSheetView: View {
                     .font(.Pretendard.Medium.size12)
                     .foregroundStyle(Color.my6C6C6C.opacity(0.5))
             }
-            .padding(.trailing, 5)
+            .padding(.trailing, 10)
+            .padding(.top, 5)
             
             Spacer()
             
@@ -94,5 +97,5 @@ struct EditNicknameSheetView: View {
 }
 
 #Preview {
-    EditNicknameSheetView(viewModel: MyPageViewModel())
+    EditNicknameSheetView(viewModel: SettingViewModel())
 }

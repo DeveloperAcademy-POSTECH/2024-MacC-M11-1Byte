@@ -10,6 +10,8 @@ import SwiftUI
 import SwiftData
 
 class MandalartViewModel: ObservableObject {
+    @Published var mainGoal: MainGoal?
+    
     private let createService: CreateGoalUseCase
     private let updateService: UpdateGoalUseCase
     private let deleteService: DeleteService
@@ -47,5 +49,9 @@ class MandalartViewModel: ObservableObject {
     
     func deleteDetailGoal(detailGoal: DetailGoal, modelContext: ModelContext, id: Int, newTitle: String, newMemo: String, isAcheived: Bool) {
         deleteService.deleteDetailGoal(detailGoal: detailGoal, modelContext: modelContext, newTitle: newTitle, newMemo: newMemo, isAchieved: isAcheived)
+    }
+    
+    func resetAllData(modelContext: ModelContext, mainGoal: MainGoal) {
+        deleteService.resetAllData(modelContext: modelContext, mainGoal: mainGoal)
     }
 }

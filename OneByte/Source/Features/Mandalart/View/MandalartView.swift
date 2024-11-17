@@ -40,14 +40,21 @@ struct MandalartView: View {
 
 // MARK: 첫화면 -  전체 81개짜리
 struct OuterGridView: View {
+    @Environment(\.modelContext) private var modelContext  // SwiftData 컨텍스트
+    @Environment(\.managedObjectContext) private var context
+    
     @Binding var isPresented: Bool
     @Binding var subGoal: SubGoal?
     @Binding var mainGoal: MainGoal? // mainGoal을 @Binding으로 사용
+    
+    @State var isDeleted: Bool = false
     
     @State var mainIsPresented: Bool = false
     private let outerColumns = [GridItem(.adaptive(minimum: 160/852 * UIScreen.main.bounds.height), spacing: 32)]
     private let dateManager = DateManager()
     private let currentDate = Date()
+    
+    private let viewModel = MandalartViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []), deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []))
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -179,11 +186,19 @@ struct OuterGridView: View {
                     Text("한 걸음씩 가다 보면\n어느새 큰 변화를 느낄 거예요!")
                         .font(.Pretendard.Medium.size14)
                 }
+                if let selectedMainGoal = mainGoal {
+                Button(action: {
+                    isDeleted = true
+                    viewModel.resetAllData(modelContext: modelContext, mainGoal: selectedMainGoal)
+                }, label: {
+                    Text("모두 삭제")
+                })
+                } else {
+                    Text("찾을 수 없습니다.")
+                }
             }
             .padding(.bottom, 47/852 * UIScreen.main.bounds.height)
         }
         .padding(.horizontal, 20/393 * UIScreen.main.bounds.width)
     }
 }
-
-// MainGoalCell(subGoal: $subGoal, mainGoal: $mainGoal, isPresented: $isPresented)
