@@ -90,9 +90,9 @@ struct EnterDetailgoalView: View {
             HStack(spacing: 0) {
                 Spacer()
                 Text("\(userDetailGoal.count)")
-                    .foregroundStyle(Color(hex: "6C6C6C"))
+                    .foregroundStyle(Color.my6C6C6C)
                 Text("/15")
-                    .foregroundStyle(Color(hex: "6C6C6C").opacity(0.5))
+                    .foregroundStyle(Color.my6C6C6C.opacity(0.5))
             }
             .padding(.trailing)
             
@@ -129,10 +129,15 @@ struct EnterDetailgoalView: View {
                                 .font(.Pretendard.Regular.size18)
                                 .multilineTextAlignment(.center)
                                 .focused($isFocused)
+                                .submitLabel(.done)
                                 .padding(10)
                                 .onChange(of: userDetailGoal) { oldValue, newValue in
                                     if newValue.count > detailGoalLimit {
                                         userDetailGoal = String(newValue.prefix(detailGoalLimit))
+                                    }
+                                    if let lastChar = newValue.last, lastChar == "\n" {
+                                        userDetailGoal = String(newValue.dropLast())
+                                        isFocused = false
                                     }
                                 }
                         }
@@ -141,7 +146,7 @@ struct EnterDetailgoalView: View {
                         if item == 5 {
                             if let title = targetSubGoal?.title {
                                 Text(title)
-                                    .font(.Pretendard.Medium.size18)
+                                    .font(.Pretendard.Medium.size20)
                                     .multilineTextAlignment(.center)
                             } else {
                                 Text("")
@@ -179,18 +184,17 @@ struct EnterDetailgoalView: View {
                     } else {
                         print("Error: DetailGoal with ID 1 not found.")
                     }
-                    
                 } label: {
                     Text("다음")
                 }
             }
             .padding()
         }
+        .contentShape(Rectangle())
         .onAppear {
             // EnterSubgoalView에서 사용자가 입력한 Subgoal중 id 1번 값을 찾아 담음
             targetSubGoal = subGoals.first(where: { $0.id == 1 })
         }
-        .contentShape(Rectangle())
         .onTapGesture {
             UIApplication.shared.endEditing() // 빈 화면 터치 시 키보드 숨기기
         }

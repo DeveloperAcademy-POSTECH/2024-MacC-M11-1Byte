@@ -73,6 +73,7 @@ extension Font {
         enum Medium {
             static let size8: Font = .custom("Pretendard-Medium", size: 8)
             static let size10: Font = .custom("Pretendard-Medium", size: 10)
+            static let size11: Font = .custom("Pretendard-Medium", size: 11)
             static let size12: Font = .custom("Pretendard-Medium", size: 12)
             static let size14: Font = .custom("Pretendard-Medium", size: 14)
             static let size15: Font = .custom("Pretendard-Medium", size: 15)

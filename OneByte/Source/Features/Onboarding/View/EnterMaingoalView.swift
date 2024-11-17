@@ -69,28 +69,29 @@ struct EnterMaingoalView: View {
             Spacer()
             
             // MainGoal 입력 창
-            ZStack(alignment: .center) {
-                // 배경 RoundedRectangle
+            ZStack {
                 RoundedRectangle(cornerRadius: 12)
                     .fill(Color(hex: "EEEEEE"))
-                    .frame(width: 210, height: 210)
                     .onTapGesture {
                         isFocused = true // Cell 전체영역 터치 시 TextField에 포커스
                     }
-             
+                
                 TextField("2025 최종 목표", text: $userMainGoal, axis: .vertical)
                     .font(.Pretendard.SemiBold.size20)
-                    .font(.system(size: 20, weight: .semibold))
                     .multilineTextAlignment(.center)
                     .padding()
                     .background(Color.clear)
                     .focused($isFocused) // FocusState와 연결
+                    .submitLabel(.done)
                     .onChange(of: userMainGoal) { oldValue, newValue in
                         if newValue.count > mainGoalLimit {
                             userMainGoal = String(newValue.prefix(mainGoalLimit))
                         }
-                }
-                .frame(width: 180) // TextField 너비 조정으로 중앙 정렬 보완
+                        if let lastChar = newValue.last, lastChar == "\n" {
+                            userMainGoal = String(newValue.dropLast())
+                            isFocused = false // 키보드 내리기
+                        }
+                    }
                 
                 // 글자수 표시
                 VStack {
@@ -99,9 +100,9 @@ struct EnterMaingoalView: View {
                     HStack(spacing: 0) {
                         Spacer()
                         Text("\(userMainGoal.count)")
-                            .foregroundStyle(Color(hex: "6C6C6C"))
+                            .foregroundStyle(Color.my6C6C6C)
                         Text("/15")
-                            .foregroundStyle(Color(hex: "6C6C6C").opacity(0.5))
+                            .foregroundStyle(Color.my6C6C6C.opacity(0.5))
                     }
                     .padding()
                 }
