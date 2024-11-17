@@ -20,6 +20,7 @@ struct EnterMaingoalView: View {
     @State private var userMainGoal: String = "" // 사용자 입력 MainGoal
     private let mainGoalLimit = 15 // 글자 수 제한
     @FocusState private var isFocused: Bool // TextField 포커스 상태 관리
+    @State private var cloverState: Int = 0
     
     var nowOnboard: Onboarding = .maingoal
     
@@ -116,8 +117,9 @@ struct EnterMaingoalView: View {
                 NextButton(isEnabled: !userMainGoal.isEmpty) { // 사용자 입력 MainGoal이 비어있지 않을 때만 활성화
                     viewModel.updateMainGoal( // MainGoal 데이터 업데이트
                         mainGoals: mainGoals,
+                        modelContext: modelContext,
                         userMainGoal: userMainGoal,
-                        modelContext: modelContext
+                        cloverState: cloverState
                     )
                     navigationManager.push(to: .onboardSubgoal)
                 } label: {

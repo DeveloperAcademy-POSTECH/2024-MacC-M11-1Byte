@@ -13,14 +13,15 @@ protocol CreateGoalUseCase {
 }
 
 protocol UpdateGoalUseCase {
-    func updateMainGoal(mainGoal: MainGoal, modelContext: ModelContext, id: Int, newTitle: String)
-    func updateSubGoal(subGoal: SubGoal, modelContext: ModelContext, newTitle: String)
-    func updateDetailGoal(detailGoal: DetailGoal, modelContext: ModelContext, newTitle: String, newMemo: String, isAchieved: Bool)
+    func updateMainGoal(mainGoal: MainGoal, modelContext: ModelContext, id: Int, newTitle: String, cloverState: Int)
+    func updateSubGoal(subGoal: SubGoal, modelContext: ModelContext, newTitle: String, leafState: Int)
+    func updateDetailGoal(detailGoal: DetailGoal, modelContext: ModelContext, title: String, memo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool)
 }
 
 protocol DeleteGoalUseCase {
-    func deleteMainGoal(mainGoal: MainGoal, modelContext: ModelContext, id: Int, newTitle: String)
-    func deleteSubGoal(subGoal: SubGoal, modelContext: ModelContext, newTitle: String)
-    func deleteDetailGoal(detailGoal: DetailGoal, modelContext: ModelContext, newTitle: String, newMemo: String, isAchieved: Bool)
+    func deleteMainGoal(mainGoal: MainGoal, modelContext: ModelContext, id: Int, newTitle: String, cloverState: Int)
+    func deleteSubGoal(subGoal: SubGoal, modelContext: ModelContext, newTitle: String, leafState: Int)
+    func deleteDetailGoal(detailGoal: DetailGoal, modelContext: ModelContext, title: String, memo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool)
+    //    func deleteDetailGoal(detailGoal: DetailGoal, modelContext: ModelContext, newTitle: String, newMemo: String, isAchieved: Bool)
     func resetAllData(modelContext: ModelContext, mainGoal: MainGoal)
 }

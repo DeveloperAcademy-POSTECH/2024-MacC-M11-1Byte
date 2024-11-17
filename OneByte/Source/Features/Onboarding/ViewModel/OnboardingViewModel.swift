@@ -30,7 +30,7 @@ class OnboardingViewModel: ObservableObject {
     }
     
     // MainGoal 업데이트
-    func updateMainGoal(mainGoals: [MainGoal], userMainGoal: String, modelContext: ModelContext) {
+    func updateMainGoal(mainGoals: [MainGoal], modelContext: ModelContext, userMainGoal: String, cloverState: Int ) {
         guard let mainGoal = mainGoals.first else {
             print("Error: mainGoal이 nil입니다.")
             return
@@ -40,27 +40,29 @@ class OnboardingViewModel: ObservableObject {
             mainGoal: mainGoal,
             modelContext: modelContext,
             id: mainGoal.id,
-            newTitle: userMainGoal
+            newTitle: userMainGoal,
+            cloverState: cloverState
         )
     }
     
     // SubGoal 업데이트
-    func updateSubGoal(subGoal: SubGoal, modelContext: ModelContext, newTitle: String) {
+    func updateSubGoal(subGoal: SubGoal, modelContext: ModelContext, newTitle: String, leafState: Int) {
         updateService.updateSubGoal(
             subGoal: subGoal,
             modelContext: modelContext,
-            newTitle: newTitle
+            newTitle: newTitle,
+            leafState: leafState
         )
     }
     
     // SubGoal 업데이트
-    func updateDetailGoal(detailGoal: DetailGoal, modelContext: ModelContext, newTitle: String, newMemo: String, isAchieved: Bool) {
-        updateService.updateDetailGoal(
-            detailGoal: detailGoal,
-            modelContext: modelContext,
-            newTitle: newTitle,
-            newMemo: newMemo,
-            isAchieved: isAchieved
-        )
+    func updateDetailGoal(detailGoal: DetailGoal, modelContext: ModelContext, newTitle: String, newMemo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool) {
+        updateService.updateDetailGoal(detailGoal: detailGoal, modelContext: modelContext, title: newTitle, memo: newMemo, achieveCount: achieveCount, achieveGoal: achieveGoal, alertMon: alertMon, alertTue: alertTue, alertWed: alertWed, alertThu: alertThu, alertFri: alertFri, alertSat: alertSat, alertSun: alertSun, isRemind: isRemind, remindTime: remindTime, achieveMon: achieveMon, achieveTue: achieveTue, achieveWed: achieveWed, achieveThu: achieveThu, achieveFri: achieveFri, achieveSat: achieveFri, achieveSun: achieveSun)
+//        updateService.updateDetailGoal(
+//            detailGoal: detailGoal,
+//            modelContext: modelContext,
+//            newTitle: newTitle,
+//            newMemo: newMemo,
+//        )
     }
 }

@@ -15,6 +15,7 @@ struct OneByteApp: App {
             MainGoal.self,
             SubGoal.self,
             DetailGoal.self,
+            Clover.self,
             Profile.self
         ])
         

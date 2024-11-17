@@ -12,6 +12,8 @@ struct EnterSubgoalView: View {
     @State private var userSubGoal: String = "" // 사용자 SubGoal 입력 텍스트
     @FocusState private var isFocused: Bool // TextField 포커스 상태 관리
     private let subGoalLimit = 15 // 글자 수 제한
+    @State private var leafState: Int = 0
+    
     
     let items = Array(1...9)
     let gridSpacing: CGFloat = 5 // 셀 간 수직 간격
@@ -161,7 +163,8 @@ struct EnterSubgoalView: View {
                         viewModel.updateSubGoal(
                             subGoal: subGoal,
                             modelContext: modelContext,
-                            newTitle: userSubGoal
+                            newTitle: userSubGoal,
+                            leafState: leafState
                         )
                         navigationManager.push(to: .onboardDetailgoal)
                     } else {

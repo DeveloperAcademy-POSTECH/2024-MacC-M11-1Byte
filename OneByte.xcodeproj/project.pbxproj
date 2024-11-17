@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F18DD862CEA3869000F0E3E /* Clover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F18DD852CEA3869000F0E3E /* Clover.swift */; };
 		1F42BE7E2CDF826D00A59703 /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1F42BE752CDF826C00A59703 /* Pretendard-ExtraBold.otf */; };
 		1F42BE7F2CDF826D00A59703 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1F42BE762CDF826C00A59703 /* Pretendard-Bold.otf */; };
 		1F42BE802CDF826D00A59703 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1F42BE772CDF826C00A59703 /* Pretendard-Medium.otf */; };
@@ -59,7 +60,7 @@
 		610595D62CE23653005ED7B4 /* DeleteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595D52CE23653005ED7B4 /* DeleteService.swift */; };
 		610595D92CE2584D005ED7B4 /* MadalartShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595D82CE2584D005ED7B4 /* MadalartShape.swift */; };
 		610595DB2CE2EA54005ED7B4 /* SubGoalSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595DA2CE2EA54005ED7B4 /* SubGoalSheetView.swift */; };
-		610595DD2CE2EA6C005ED7B4 /* DetailGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595DC2CE2EA6C005ED7B4 /* DetailGoalView.swift */; };
+		610595DD2CE2EA6C005ED7B4 /* DetailGoalSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595DC2CE2EA6C005ED7B4 /* DetailGoalSheetView.swift */; };
 		613904E82CD20457008E591D /* MandalartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E72CD20457008E591D /* MandalartView.swift */; };
 		613904EA2CD21A0B008E591D /* MandalartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E92CD21A0B008E591D /* MandalartViewModel.swift */; };
 		615A0A0B2CC0ADA800908531 /* TabBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A0A2CC0ADA800908531 /* TabBarManager.swift */; };
@@ -75,6 +76,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1F18DD852CEA3869000F0E3E /* Clover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clover.swift; sourceTree = "<group>"; };
 		1F42BE752CDF826C00A59703 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
 		1F42BE762CDF826C00A59703 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		1F42BE772CDF826C00A59703 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
@@ -129,7 +131,7 @@
 		610595D52CE23653005ED7B4 /* DeleteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteService.swift; sourceTree = "<group>"; };
 		610595D82CE2584D005ED7B4 /* MadalartShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadalartShape.swift; sourceTree = "<group>"; };
 		610595DA2CE2EA54005ED7B4 /* SubGoalSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubGoalSheetView.swift; sourceTree = "<group>"; };
-		610595DC2CE2EA6C005ED7B4 /* DetailGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoalView.swift; sourceTree = "<group>"; };
+		610595DC2CE2EA6C005ED7B4 /* DetailGoalSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoalSheetView.swift; sourceTree = "<group>"; };
 		613904E72CD20457008E591D /* MandalartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalartView.swift; sourceTree = "<group>"; };
 		613904E92CD21A0B008E591D /* MandalartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalartViewModel.swift; sourceTree = "<group>"; };
 		615A0A0A2CC0ADA800908531 /* TabBarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarManager.swift; sourceTree = "<group>"; };
@@ -359,6 +361,7 @@
 			isa = PBXGroup;
 			children = (
 				1F7C9C272CD083CC00BAC358 /* GoalModels.swift */,
+				1F18DD852CEA3869000F0E3E /* Clover.swift */,
 				1F4D8BF12CDF4FC300A0B5CC /* Onboarding.swift */,
 				1FB10A372CDF5FE800D54EC5 /* OnboardingExplain.swift */,
 				1F599E292CE5F77000788D07 /* Profile.swift */,
@@ -447,7 +450,7 @@
 			children = (
 				610595D32CE21505005ED7B4 /* MainGoalSheetView.swift */,
 				610595DA2CE2EA54005ED7B4 /* SubGoalSheetView.swift */,
-				610595DC2CE2EA6C005ED7B4 /* DetailGoalView.swift */,
+				610595DC2CE2EA6C005ED7B4 /* DetailGoalSheetView.swift */,
 			);
 			path = Sheet;
 			sourceTree = "<group>";
@@ -542,6 +545,7 @@
 				1F42BE892CDF838500A59703 /* Font+.swift in Sources */,
 				1F4D8BF02CDF4F9E00A0B5CC /* OnboardingStartView.swift in Sources */,
 				1FB10A382CDF5FE800D54EC5 /* OnboardingExplain.swift in Sources */,
+				1F18DD862CEA3869000F0E3E /* Clover.swift in Sources */,
 				610595D62CE23653005ED7B4 /* DeleteService.swift in Sources */,
 				1F88AB412CD6101C0009730D /* Date+.swift in Sources */,
 				1FB10A322CDF56E200D54EC5 /* EnterDetailgoalView.swift in Sources */,
@@ -568,7 +572,7 @@
 				615A0A0D2CC0AE8700908531 /* WorkView.swift in Sources */,
 				1FB10A2C2CDF52E600D54EC5 /* OnboardingProgressBar.swift in Sources */,
 				1F599E282CE5F29500788D07 /* EditNicknameSheetView.swift in Sources */,
-				610595DD2CE2EA6C005ED7B4 /* DetailGoalView.swift in Sources */,
+				610595DD2CE2EA6C005ED7B4 /* DetailGoalSheetView.swift in Sources */,
 				1FB10A3A2CDF60D100D54EC5 /* OnboardingExplainPageView.swift in Sources */,
 				61FA4DF32CE77EDD00256B57 /* BackButtonToolbarModifier.swift in Sources */,
 				1FB10A2E2CDF54B400D54EC5 /* EnterMaingoalView.swift in Sources */,

@@ -19,18 +19,38 @@ class ClientUpdateService: UpdateGoalUseCase {
         self.subGoals = subGoals
         self.detailGoals = detailGoals
     }
-    
-    func updateMainGoal(mainGoal: MainGoal, modelContext: ModelContext, id: Int, newTitle: String) {
+    func updateMainGoal(mainGoal: MainGoal, modelContext: ModelContext, id: Int, newTitle: String, cloverState: Int) {
         mainGoal.title = newTitle
+        mainGoal.cloverState = cloverState
     }
-    
-    func updateSubGoal(subGoal: SubGoal, modelContext: ModelContext, newTitle: String) {
+
+    func updateSubGoal(subGoal: SubGoal, modelContext: ModelContext, newTitle: String, leafState: Int) {
         subGoal.title = newTitle
+        subGoal.leafState = leafState
     }
     
-    func updateDetailGoal(detailGoal: DetailGoal, modelContext: ModelContext,newTitle: String, newMemo: String, isAchieved: Bool) {
-        detailGoal.title = newTitle
-        detailGoal.memo = newMemo
-        detailGoal.isAchieved = isAchieved
+    func updateDetailGoal(detailGoal: DetailGoal, modelContext: ModelContext, title: String, memo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool) {
+        
+        detailGoal.title = title
+        detailGoal.memo = memo
+        detailGoal.achieveCount = achieveCount
+        detailGoal.achieveGoal = achieveGoal
+        detailGoal.alertMon = alertMon
+        detailGoal.alertTue = alertTue
+        detailGoal.alertWed  = alertWed
+        detailGoal.alertThu = alertThu
+        detailGoal.alertFri = alertFri
+        detailGoal.alertSat = alertSat
+        detailGoal.alertSun = alertSun
+        detailGoal.isRemind = isRemind
+        detailGoal.remindTime = remindTime
+        detailGoal.achieveMon = achieveMon
+        detailGoal.achieveTue = achieveTue
+        detailGoal.achieveWed = achieveWed
+        detailGoal.achieveThu = achieveThu
+        detailGoal.achieveFri = achieveFri
+        detailGoal.achieveSat = achieveSat
+        detailGoal.achieveSun = achieveSun
+        
     }
 }

@@ -19,7 +19,6 @@ struct EnterDetailgoalView: View {
     @State var viewModel = OnboardingViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     @State private var userDetailGoal: String = "" // 사용자 SubGoal 입력 텍스트
     @State private var userDetailGoalNewMemo: String = ""
-    @State private var userDetailGoalAchieved: Bool = false
     @State private var targetSubGoal: SubGoal? // id가 1인 SubGoal 저장변수
     @FocusState private var isFocused: Bool // TextField 포커스 상태 관리
     private let detailGoalLimit = 15 // 글자 수 제한
@@ -178,7 +177,24 @@ struct EnterDetailgoalView: View {
                             modelContext: modelContext,
                             newTitle: userDetailGoal,
                             newMemo: userDetailGoalNewMemo,
-                            isAchieved: userDetailGoalAchieved
+                            achieveCount: 0,
+                            achieveGoal: 0,
+                            alertMon: false,
+                            alertTue: false,
+                            alertWed: false,
+                            alertThu: false,
+                            alertFri: false,
+                            alertSat: false,
+                            alertSun: false,
+                            isRemind: false,
+                            remindTime: Date(),
+                            achieveMon: false,
+                            achieveTue: false,
+                            achieveWed: false,
+                            achieveThu: false,
+                            achieveFri: false,
+                            achieveSat: false,
+                            achieveSun: false
                         )
                         navigationManager.push(to: .onboardFinish)
                     } else {
