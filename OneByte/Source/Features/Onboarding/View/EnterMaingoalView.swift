@@ -51,7 +51,7 @@ struct EnterMaingoalView: View {
             // 팁 메세지 영역
             ZStack {
                 RoundedRectangle(cornerRadius: 8)
-                    .fill(Color(hex: "D4F7D7"))
+                    .fill(Color.myD4F7D7)
                     .frame(maxWidth: .infinity)
                     .frame(height: 112)
                 
@@ -72,7 +72,7 @@ struct EnterMaingoalView: View {
             // MainGoal 입력 창
             ZStack {
                 RoundedRectangle(cornerRadius: 12)
-                    .fill(Color(hex: "EEEEEE"))
+                    .fill(Color.myEEEEEE)
                     .onTapGesture {
                         isFocused = true // Cell 전체영역 터치 시 TextField에 포커스
                     }

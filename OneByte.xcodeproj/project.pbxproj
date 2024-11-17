@@ -262,8 +262,8 @@
 		1F7C9C102CD072D700BAC358 /* Statistics */ = {
 			isa = PBXGroup;
 			children = (
-				1F599E2B2CE642F700788D07 /* ViewModel */,
 				1F7C9C112CD072E700BAC358 /* View */,
+				1F599E2B2CE642F700788D07 /* ViewModel */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";

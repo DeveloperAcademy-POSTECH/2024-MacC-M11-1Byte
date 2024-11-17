@@ -40,7 +40,7 @@ struct MyPageView: View {
     @ViewBuilder
     private func thisMonthCloverInfoView() -> some View {
         RoundedRectangle(cornerRadius: 20)
-            .fill(Color(hex: "A2D5A5")) // 배경색 (녹색)
+            .fill(Color.my6FB56F) // 배경색 (녹색)
             .frame(maxWidth: .infinity)
             .frame(height: 146)
             .padding()

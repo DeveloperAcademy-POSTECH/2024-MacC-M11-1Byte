@@ -47,7 +47,7 @@ struct EnterSubgoalView: View {
             VStack(spacing: 10) {
                 Text(nowOnboard.onboardingSubTitle)
                     .font(.Pretendard.Bold.size17)
-                    .foregroundStyle(Color(hex: "919191"))
+                    .foregroundStyle(Color.my919191)
                 
                 Text(nowOnboard.onboardingTitle)
                     .font(.Pretendard.Bold.size26)
@@ -57,7 +57,7 @@ struct EnterSubgoalView: View {
             // 팁 메시지 영역
             ZStack {
                 RoundedRectangle(cornerRadius: 8)
-                    .fill(Color(hex: "D4F7D7"))
+                    .fill(Color.myD4F7D7)
                     .frame(maxWidth: .infinity)
                     .frame(height: 112)
                 
@@ -97,9 +97,9 @@ struct EnterSubgoalView: View {
                             bottomRight: radiusValues.bottomRight
                         )
                         .fill(
-                            item == 1 ? Color(hex: "AAF0B1") :
-                                item == 5 ? Color(hex: "C6CBC6") :
-                                Color(hex: "EEEEEE")
+                            item == 1 ? Color.myAAF0B1:
+                                item == 5 ? Color.myC6CBC6 :
+                                Color.myEEEEEE
                         )
                         .onTapGesture {
                             if item == 1 {

@@ -27,7 +27,7 @@ struct GoButton<Content: View>: View {
                 .foregroundStyle(.white)
                 .frame(maxWidth: .infinity)
                 .frame(height: 53)
-                .background(Color(hex: "538F53"))
+                .background(Color.my538F53)
                 .clipShape(RoundedRectangle(cornerRadius: 16))
         }
     }
