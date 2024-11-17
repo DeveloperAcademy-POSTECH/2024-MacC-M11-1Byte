@@ -17,7 +17,7 @@ struct SubGoalDetailGridView: View {
     @State var subSheetIsPresented: Bool = false
     
     @Environment(\.modelContext) private var modelContext  // SwiftData 컨텍스트
-    private let viewModel = MandalartViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []), deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []))
+    private let viewModel = MandalartViewModel(createService: CreateService(), updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []), deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []))
     
     var body: some View {
         VStack(alignment: .center) {

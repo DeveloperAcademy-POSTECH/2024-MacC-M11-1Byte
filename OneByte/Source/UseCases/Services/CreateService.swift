@@ -9,7 +9,7 @@
 import SwiftUI
 import SwiftData
 
-class ClientCreateService: CreateGoalUseCase {
+class CreateService: CreateGoalUseCase {
     func createGoals(modelContext: ModelContext) {
         var mainGoalCounter = 1  // MainGoal ID 카운터
         var subGoalCounter = 1   // SubGoal ID 카운터

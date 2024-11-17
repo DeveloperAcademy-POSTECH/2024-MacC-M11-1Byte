@@ -54,7 +54,7 @@ struct OuterGridView: View {
     private let dateManager = DateManager()
     private let currentDate = Date()
     
-    private let viewModel = MandalartViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []), deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []))
+    private let viewModel = MandalartViewModel(createService: CreateService(), updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []), deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []))
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {

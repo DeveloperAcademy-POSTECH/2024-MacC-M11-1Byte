@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 
-class ClientUpdateService: UpdateGoalUseCase {
+class UpdateService: UpdateGoalUseCase {
     // 업데이트할 데이터
     var mainGoals: [MainGoal]
     var subGoals: [SubGoal]

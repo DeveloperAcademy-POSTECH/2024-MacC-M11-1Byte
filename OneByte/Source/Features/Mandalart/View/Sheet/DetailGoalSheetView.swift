@@ -11,7 +11,7 @@ import SwiftUI
 
 struct DetailGoalsheetView: View {
     @Environment(\.modelContext) private var modelContext  // SwiftData 컨텍스트
-    private let viewModel = MandalartViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []), deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []))
+    private let viewModel = MandalartViewModel(createService: CreateService(), updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []), deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []))
     @Environment(\.managedObjectContext) private var context
     @Binding var detailGoal: DetailGoal?
     //    @Binding var subGoal: SubGoal? // 옵셔널로 변경

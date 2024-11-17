@@ -15,7 +15,7 @@ struct EnterMaingoalView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var mainGoals: [MainGoal]
     
-    @State var viewModel = OnboardingViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
+    @State var viewModel = OnboardingViewModel(createService: CreateService(), updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     
     @State private var userMainGoal: String = "" // 사용자 입력 MainGoal
     private let mainGoalLimit = 15 // 글자 수 제한

@@ -17,7 +17,7 @@ struct MainGoalsheetView: View {
     @State private var newMemo: String = ""
     @State private var cloverState: Int = 0
     
-    private let viewModel = MandalartViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []), deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []))
+    private let viewModel = MandalartViewModel(createService: CreateService(), updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []), deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []))
     private let titleLimit = 15 // 제목 글자수 제한
     
     var body: some View {
