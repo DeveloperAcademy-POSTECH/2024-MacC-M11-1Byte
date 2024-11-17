@@ -8,9 +8,9 @@
 import SwiftUI
 import SwiftData
 
-struct MyPageView: View {
+struct StatisticView: View {
     
-    @State var viewModel = MyPageViewModel()
+    @State var viewModel = StatisticViewModel()
     
     var body: some View {
         ScrollView {
@@ -118,5 +118,5 @@ struct MyPageView: View {
 }
 
 #Preview {
-    MyPageView()
+    StatisticView()
 }
