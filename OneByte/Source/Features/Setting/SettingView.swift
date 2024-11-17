@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SettingView: View {
     
+    @Query private var profile: [Profile]
     @Environment(\.dismiss) private var dismiss
     
     @State var viewModel = SettingViewModel()
@@ -21,8 +23,22 @@ struct SettingView: View {
                 
                 ScrollView {
                     VStack {
+                        HStack {
+                            Text("설정")
+                                .font(.Pretendard.Bold.size22)
+                                .foregroundStyle(Color(hex: "B4A99D"))
+                            
+                            Spacer()
+                        }
+                        
+                        profileInfoView()
+                    }
+                    .padding()
+                    .background(.white)
+                    
+                    VStack {
                         Divider()
-                            .foregroundStyle(Color.clear)
+                            .foregroundStyle(.clear)
                         
                         AchievedRow(isAppearAchieved: $viewModel.isAppearAchieved)
                         
@@ -41,13 +57,13 @@ struct SettingView: View {
                                 .foregroundStyle(.black)
                         }
                         Divider()
-                            .foregroundStyle(Color.clear)
+                            .foregroundStyle(.clear)
                     }
                     .background(.white)
                     
                     VStack {
                         Divider()
-                            .foregroundStyle(Color.clear)
+                            .foregroundStyle(.clear)
                         
                         NavigationLink(destination: Text("개인정보 처리 방침")) {
                             PrivacyPolicyRow()
@@ -61,7 +77,7 @@ struct SettingView: View {
                                 .foregroundStyle(.black)
                         }
                         Divider()
-                            .foregroundStyle(Color.clear)
+                            .foregroundStyle(.clear)
                     }
                     .background(.white)
                     
@@ -74,14 +90,52 @@ struct SettingView: View {
                     
                     Spacer()
                 }
-                .navigationTitle("설정")
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationBarBackButtonHidden()
-                .backButtonToolbar {
-                    dismiss()
+            }
+        }
+        .onAppear {
+            viewModel.readProfile(profile) // 닉네임 정보
+            viewModel.calculateDaysSinceInstall() // 앱 설치한지 몇일 됐는지 계산
+        }
+        .sheet(isPresented: $viewModel.isEditNicknameSheet) {
+            EditNicknameSheetView(viewModel: viewModel)
+                .presentationDragIndicator(.visible)
+                .presentationDetents([.height(244/852 * UIScreen.main.bounds.height)])
+        }
+    }
+    
+    @ViewBuilder
+    private func profileInfoView() -> some View {
+        HStack(spacing: 20) {
+            Image("DefaultProfile")
+                .resizable()
+                .clipShape(Circle())
+                .frame(width: 82, height: 82)
+            
+            VStack(spacing: 5) {
+                HStack {
+                    Text(viewModel.nicknameDisplay)
+                        .font(.Pretendard.Bold.size18)
+                        .lineLimit(1)
+                    
+                    Image(systemName: "chevron.right")
+                        .font(.Pretendard.Medium.size16)
+                        .foregroundStyle(.black)
+                    
+                    Spacer()
+                }
+                .onTapGesture {
+                    viewModel.isEditNicknameSheet = true
+                }
+                
+                HStack {
+                    Text("하고만다와 함께한지 \(viewModel.daysSinceInstall)일 째")
+                        .font(.Pretendard.SemiBold.size14)
+                        .foregroundStyle(Color(hex: "566956"))
+                    Spacer()
                 }
             }
         }
+        .padding(.vertical, 5)
     }
 }
 
