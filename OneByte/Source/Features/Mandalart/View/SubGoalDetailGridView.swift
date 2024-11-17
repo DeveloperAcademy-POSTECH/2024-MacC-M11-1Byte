@@ -24,7 +24,6 @@ struct SubGoalDetailGridView: View {
     )
     
     var body: some View {
-//        NavigationStack {
             VStack {
                 //  Goal Grid
                 if let selectedSubGoal = subGoal {
@@ -42,10 +41,7 @@ struct SubGoalDetailGridView: View {
             }
             .navigationBarBackButtonHidden()
             .backButtonToolbar { dismiss() }
-            
-            
         }
-//    }
 }
 
 extension SubGoalDetailGridView {
