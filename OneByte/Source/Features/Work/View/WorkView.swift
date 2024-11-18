@@ -69,7 +69,7 @@ struct WorkView: View {
             
             Divider()
                 .foregroundStyle(Color.myF0E8DF)
-    
+            
             if let mainGoal = mainGoals.first,
                let selectedSubGoal = mainGoal.subGoals.first(where: { $0.id == subGoalId(for: selectedPicker) }) {
                 TodoView(tests: selectedPicker, subGoal: selectedSubGoal)
@@ -140,16 +140,22 @@ struct TodoView : View {
                             detailGoalTitle: detailGoal.title,
                             achieveCount: detailGoal.achieveCount,
                             achieveGoal: detailGoal.achieveGoal,
-                            achievedDays: [
-                                detailGoal.achieveMon,
-                                detailGoal.achieveTue,
-                                detailGoal.achieveWed,
-                                detailGoal.achieveThu,
-                                detailGoal.achieveFri,
-                                detailGoal.achieveSat,
-                                detailGoal.achieveSun
-                            ],
-                            remindTime: detailGoal.remindTime
+                            alertMon: detailGoal.alertMon,
+                            alertTue: detailGoal.alertTue,
+                            alertWed: detailGoal.alertWed,
+                            alertThu: detailGoal.alertThu,
+                            alertFri: detailGoal.alertFri,
+                            alertSat: detailGoal.alertSat,
+                            alertSun: detailGoal.alertSun,
+                            isRemind: detailGoal.isRemind,
+                            remindTime: detailGoal.remindTime,
+                            achieveMon: detailGoal.achieveMon,
+                            achieveTue: detailGoal.achieveTue,
+                            achieveWed: detailGoal.achieveWed,
+                            achieveThu: detailGoal.achieveThu,
+                            achieveFri: detailGoal.achieveFri,
+                            achieveSat: detailGoal.achieveSat,
+                            achieveSun: detailGoal.achieveSat
                         )
                     }
                 }
@@ -166,8 +172,22 @@ struct WeekAchieveCell: View {
     let detailGoalTitle: String // DetailGoal 제목
     let achieveCount: Int // 현재 달성 횟수
     let achieveGoal: Int // 목표 달성 횟수
-    let achievedDays: [Bool] // 요일 달성 여부
+    let alertMon: Bool
+    let alertTue: Bool
+    let alertWed: Bool
+    let alertThu: Bool
+    let alertFri: Bool
+    let alertSat: Bool
+    let alertSun: Bool
+    let isRemind: Bool
     let remindTime: Date?
+    var achieveMon: Bool
+    var achieveTue: Bool
+    var achieveWed: Bool
+    var achieveThu: Bool
+    var achieveFri: Bool
+    var achieveSat: Bool
+    var achieveSun: Bool
     
     let days: [String] = ["월","화","수","목","금","토","일"] // 요일 데이터 - 고정
     
@@ -209,9 +229,9 @@ struct WeekAchieveCell: View {
                     VStack(spacing: 4) {
                         Text(days[index])
                             .font(.Pretendard.Medium.size11)
-                            .foregroundStyle(currentDay == days[index] ? .white : (achievedDays[index] ? Color.myFFFEFC : Color.my7D7D7D))
                             .frame(width: 18, height: 18)
-                            .background(currentDay == days[index] ? Color.my385E38 : (achievedDays[index] ? Color.my358E38 : .clear)) // 현재 요일 체크
+                            .foregroundStyle(currentDay == days[index] ? .white : Color.my7D7D7D)
+                            .background(currentDay == days[index] ? Color.my385E38 : .clear)
                             .clipShape(Circle())
                         
                         Button {
