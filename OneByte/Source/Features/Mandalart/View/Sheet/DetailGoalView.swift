@@ -9,7 +9,7 @@ import SwiftUI
 
 import SwiftUI
 
-struct DetailGoalsheetView: View {
+struct DetailGoalView: View {
     @Environment(\.modelContext) private var modelContext  // SwiftData 컨텍스트
     private let viewModel = MandalartViewModel(
         createService: CreateService(),
@@ -18,7 +18,6 @@ struct DetailGoalsheetView: View {
     )
     @Environment(\.managedObjectContext) private var context
     @Binding var detailGoal: DetailGoal?
-    @Binding var isPresented: Bool
     @State private var newTitle: String = ""
     @State private var newMemo: String = ""
     @State private var achieveCount = 0
@@ -129,7 +128,7 @@ struct DetailGoalsheetView: View {
             // 버튼 영역
             HStack {
                 Button(action: {
-                    isPresented = false
+//                    isPresented = false
                 }) {
                     Text("취소")
                         .frame(maxWidth: .infinity)
@@ -165,9 +164,7 @@ struct DetailGoalsheetView: View {
                             achieveSat: achieveSat,
                             achieveSun: achieveSun
                         )
-//                        viewModel.updateDetailGoal(detailGoal: detailGoal, modelContext: modelContext, newTitle: newTitle, newMemo: newMemo, isAchieved: isAchieved)
                     }
-                    isPresented = false
                 }) {
                     Text("저장")
                         .frame(maxWidth: .infinity)
@@ -183,9 +180,26 @@ struct DetailGoalsheetView: View {
         .onAppear {
             if let detailGoal = detailGoal {
                 newTitle = detailGoal.title
-                newMemo = detailGoal.memo.isEmpty ? "" : detailGoal.memo
-//                isAchieved = detailGoal.isAchieved
-            }
+                newMemo = detailGoal.memo
+                achieveCount = detailGoal.achieveCount
+                achieveGoal = detailGoal.achieveGoal
+                alertMon = detailGoal.alertMon
+                alertTue = detailGoal.alertTue
+                alertWed = detailGoal.alertWed
+                alertThu = detailGoal.alertThu
+                alertFri = detailGoal.alertFri
+                alertSat = detailGoal.alertSat
+                alertSun = detailGoal.alertSun
+                isRemind = detailGoal.isRemind
+                remindTime = detailGoal.remindTime
+                achieveMon = detailGoal.achieveMon
+                achieveTue = detailGoal.achieveTue
+                achieveWed = detailGoal.achieveWed
+                achieveThu = detailGoal.achieveThu
+                achieveFri = detailGoal.achieveFri
+                achieveSat = detailGoal.achieveSat
+                achieveSun = detailGoal.achieveSun
+            } else { print("실패")}
         }
     }
     
