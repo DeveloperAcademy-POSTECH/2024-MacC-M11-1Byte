@@ -73,6 +73,7 @@ struct WorkView: View {
             
             Spacer()
         }
+        .ignoresSafeArea(edges: .bottom)
     }
     
     @ViewBuilder
@@ -153,6 +154,8 @@ struct testView : View {
                 }
             }
         }
+        .frame(maxWidth: .infinity)
+        .background(Color.myFFFAF4)
     }
 }
 
