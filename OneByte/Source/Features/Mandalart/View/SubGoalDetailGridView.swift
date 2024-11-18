@@ -10,19 +10,23 @@ import SwiftData
 
 // MARK: 두번째 화면 - 클릭된 셀의 SubGoal 및 관련된 DetailGoals만 3x3 그리드로 표시하는 뷰
 struct SubGoalDetailGridView: View {
-    @Binding var subGoal: SubGoal?
-    @Binding var isPresented: Bool
-    @State private var selectedDetailGoal: DetailGoal?
-    private let innerColumns = Array(repeating: GridItem(.fixed(123/852 * UIScreen.main.bounds.height)), count: 2)
-    @State var subSheetIsPresented: Bool = false
+    @Environment(\.modelContext) private var modelContext
     
-    @Environment(\.modelContext) private var modelContext  // SwiftData 컨텍스트
-    private let viewModel = MandalartViewModel(createService: CreateService(), updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []), deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []))
+    @Binding var subGoal: SubGoal?
+    @State private var selectedDetailGoal: DetailGoal?
+    @State var subSheetIsPresented: Bool = false
+    @State private var detailSheetIsPresented = false
+    
+    private let innerColumns = Array(repeating: GridItem(.fixed(123/852 * UIScreen.main.bounds.height)), count: 2)
+    private let viewModel = MandalartViewModel(
+        createService: CreateService(),
+        updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []),
+        deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: [])
+    )
     
     var body: some View {
         VStack(alignment: .center) {
             if let selectedSubGoal = subGoal {
-                // 디테일골을 id 값에 따라 정렬
                 let sortedDetailGoals = selectedSubGoal.detailGoals.sorted(by: { $0.id < $1.id })
                 
                 LazyVGrid(columns: innerColumns, spacing: 5) {
@@ -57,28 +61,20 @@ struct SubGoalDetailGridView: View {
                             let detailGoalIndex = index < 3 ? index : index - 1
                             if detailGoalIndex < sortedDetailGoals.count {
                                 let detailGoal = sortedDetailGoals[detailGoalIndex]
-                                Button(action: {
-                                    selectedDetailGoal = sortedDetailGoals[detailGoalIndex] // 클릭된 SubGoal 저장
-                                    isPresented = true
-                                }, label: {
+                                NavigationLink(destination: DetailGoalView(detailGoal: $selectedDetailGoal)) {
                                     Text(detailGoal.title)
                                         .font(.Pretendard.Medium.size18)
                                         .modifier(NextMandalartButtonModifier(color: Color.myBFEBBB))
-                                })
-                                .cornerRadius(cornerRadius, corners: cornerStyle, defaultRadius: 18)
-                                .sheet(isPresented: $isPresented) {
-                                    if selectedDetailGoal != nil {
-                                        DetailGoalsheetView(detailGoal: $selectedDetailGoal, isPresented: $isPresented)
-                                            .presentationDragIndicator(.visible)
-                                            .presentationDetents([.height(447/852 * UIScreen.main.bounds.height)])
-                                    }
                                 }
+                                .onAppear{
+                                    selectedDetailGoal = detailGoal
+                                }
+                                .cornerRadius(cornerRadius, corners: cornerStyle, defaultRadius: 18)
                                 .contextMenu {
-                                    Button(role: .destructive){
+                                    Button(role: .destructive) {
                                         viewModel.deleteDetailGoal(
                                             detailGoal: detailGoal, modelContext: modelContext, newTitle: "", newMemo: "", achieveCount: 0, achieveGoal: 0, alertMon: false, alertTue: false, alertWed: false, alertThu: false, alertFri: false, alertSat: false, alertSun: false, isRemind: false, remindTime: nil, achieveMon: false, achieveTue: false, achieveWed: false, achieveThu: false, achieveFri: false, achieveSat: false, achieveSun: false
                                         )
-//                                        viewModel.deleteDetailGoal(detailGoal: detailGoal, modelContext: modelContext, id: detailGoal.id, newTitle: "", newMemo: "", isAcheived: false)
                                     } label: {
                                         Label("Delete", systemImage: "trash")
                                     }

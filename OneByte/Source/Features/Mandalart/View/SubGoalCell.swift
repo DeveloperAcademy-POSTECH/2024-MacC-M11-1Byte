@@ -11,9 +11,7 @@ import SwiftData
 
 // MARK: 첫화면 - 9개 서브골-디테일골들
 struct SubGoalCell: View {
-    @Binding var isPresented: Bool
     @Binding var selectedSubGoal: SubGoal?
-    
     private let innerColumns = Array(repeating: GridItem(.fixed(78/852 * UIScreen.main.bounds.height)), count: 2)
     
     var body: some View {
@@ -22,7 +20,7 @@ struct SubGoalCell: View {
                 // 디테일골을 id에 따라 정렬
                 let detailGoalsSorted = selectedSubGoal.detailGoals.sorted(by: { $0.id < $1.id })
                 
-                NavigationLink(destination: SubGoalDetailGridView(subGoal: $selectedSubGoal, isPresented: $isPresented)) {
+                NavigationLink(destination: SubGoalDetailGridView(subGoal: $selectedSubGoal)) {
                     LazyVGrid(columns: innerColumns, spacing: 4) {
                         ForEach(0..<4, id: \.self) { index in
                             let cornerRadius: CGFloat = 30
