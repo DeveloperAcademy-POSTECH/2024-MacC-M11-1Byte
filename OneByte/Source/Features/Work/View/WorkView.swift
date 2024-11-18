@@ -6,14 +6,15 @@
 //
 
 import SwiftUI
+import SwiftData
 
 enum tapInfo : String, CaseIterable {
     
     case first, second, third, fourth
-//    case first = "건강" // ⚠️⚠️ Subgoal 1 데이터
-//    case second = "학업" // ⚠️⚠️ Subgoal 2 데이터
-//    case third = "저축" // ⚠️⚠️ Subgoal 3 데이터
-//    case fourth = "여행" // ⚠️⚠️ Subgoal 4 데이터
+    //    case first = "건강" // ⚠️⚠️ Subgoal 1 데이터
+    //    case second = "학업" // ⚠️⚠️ Subgoal 2 데이터
+    //    case third = "저축" // ⚠️⚠️ Subgoal 3 데이터
+    //    case fourth = "여행" // ⚠️⚠️ Subgoal 4 데이터
     
     var colorClovar: String {
         switch self {
@@ -47,9 +48,10 @@ struct WorkView: View {
     
     @State private var selectedPicker: tapInfo = .first
     @Namespace private var animation
+    @Query var mainGoals: [MainGoal]
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             HStack {
                 Text("할 일")
                     .font(.Pretendard.Bold.size22)
@@ -68,16 +70,23 @@ struct WorkView: View {
             }
             .padding()
             
-            animate()
-            testView(tests: selectedPicker)
+            SubgoalTabView()
             
+            Divider()
+                .foregroundStyle(Color.myF0E8DF)
+            
+            if let mainGoal = mainGoals.first {
+                TodoView(tests: selectedPicker, mainGoal: mainGoal)
+            } else {
+                Text("현재 Subgoal 데이터가 없습니다.")
+            }
             Spacer()
         }
         .ignoresSafeArea(edges: .bottom)
     }
     
     @ViewBuilder
-    private func animate() -> some View {
+    private func SubgoalTabView() -> some View {
         HStack {
             ForEach(tapInfo.allCases, id: \.self) { item in
                 VStack(spacing: 0) {
@@ -87,18 +96,6 @@ struct WorkView: View {
                         .frame(maxWidth: .infinity/4)
                         .frame(height: 51)
                         .padding()
-                    
-//                    Text(item.rawValue) // ⚠️⚠️ 해당 Subgoal 없으면 ""처리하기
-//                        .font(selectedPicker == item ? .Pretendard.Bold.size14 : .Pretendard.Regular.size14)
-//                        .frame(maxWidth: .infinity/4, maxHeight: 35)
-//                        .foregroundColor(selectedPicker == item ? .black : Color.my8E8E8E)
-                    
-//                    if selectedPicker == item {
-//                        Capsule()
-//                            .foregroundColor(.black)
-//                            .frame(height: 3)
-//                            .matchedGeometryEffect(id: "info", in: animation)
-//                    }
                 }
                 .onTapGesture {
                     withAnimation(.easeInOut) {
@@ -110,52 +107,83 @@ struct WorkView: View {
     }
 }
 
-struct testView : View {
+struct TodoView : View {
     
     var tests : tapInfo
+    var mainGoal: MainGoal
     
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            switch tests {
-            case .first:
-                ForEach(0..<5) { _ in
-                    Text("블랙컬러")
-                        .padding()
+        VStack {
+            ScrollView(.vertical, showsIndicators: false) {
+                HStack {
+                    Image(tests.colorClovar)
+                        .resizable()
+                        .frame(width: 29, height: 29)
+                    Text("서브목표 제목\(subGoalTitle(for: tests))")
+                        .font(.Pretendard.Bold.size22)
+                        .foregroundStyle(Color.my2B2B2B)
+                    Spacer()
                 }
-            case .second:
-                Text("사이즈 참고해주세요")
-                    .font(.system(size: 15, weight: .bold, design: .monospaced))
-                    .frame(width: 300, height: 20, alignment: .center)
+                .padding()
                 
-            case .third:
-                ScrollView(.horizontal, showsIndicators: false) {
-                    ForEach(0..<10) { _ in
-                        LazyHStack {
-                            ForEach(0..<2) { _ in
-                                VStack(spacing: 5) {
-                                    Image("shoes")
-                                        .resizable()
-                                        .frame(width: 160, height: 200, alignment: .center)
-                                    Text("실착용 솔직 한달 후기 입니다")
-                                        .font(.system(size: 15, weight: .bold, design: .monospaced))
-                                        .frame(width: 160, height: 20, alignment: .leading)
-                                        .foregroundColor(.black)
+                switch tests {
+                case .first:
+                    ForEach(0..<5) { _ in
+                        Text("블랙컬러")
+                            .padding()
+                    }
+                case .second:
+                    Text("사이즈 참고해주세요")
+                        .font(.system(size: 15, weight: .bold, design: .monospaced))
+                        .frame(width: 300, height: 20, alignment: .center)
+                    
+                case .third:
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        ForEach(0..<10) { _ in
+                            LazyHStack {
+                                ForEach(0..<2) { _ in
+                                    VStack(spacing: 5) {
+                                        Image("shoes")
+                                            .resizable()
+                                            .frame(width: 160, height: 200, alignment: .center)
+                                        Text("실착용 솔직 한달 후기 입니다")
+                                            .font(.system(size: 15, weight: .bold, design: .monospaced))
+                                            .frame(width: 160, height: 20, alignment: .leading)
+                                            .foregroundColor(.black)
+                                        
+                                    }
+                                    .padding(15)
                                     
                                 }
-                                .padding(15)
-                                
                             }
                         }
                     }
-                }
-            case .fourth:
-                VStack {
-                    Text("별도의 커뮤니티를 운영하지 않습니다.")
+                case .fourth:
+                    VStack {
+                        Text("별도의 커뮤니티를 운영하지 않습니다.")
+                    }
                 }
             }
         }
         .frame(maxWidth: .infinity)
         .background(Color.myFFFAF4)
+    }
+    
+    private func subGoalTitle(for tab: tapInfo) -> String {
+        let subGoalId: Int
+        switch tab {
+        case .first:
+            subGoalId = 1
+        case .second:
+            subGoalId = 2
+        case .third:
+            subGoalId = 3
+        case .fourth:
+            subGoalId = 4
+        }
+        
+        // MainGoal에서 id가 subGoalId인 SubGoal 찾기
+        return mainGoal.subGoals.first(where: { $0.id == subGoalId })?.title ?? "제목 없음"
     }
 }
 
@@ -165,7 +193,7 @@ struct WeekAchieveCell: View {
     let achieveGoal: Int // 목표 달성 횟수
     let days: [String] = ["월","화","수","목","금","토","일"] // 요일 데이터 - 고정
     let achievedDays: [Bool] // 요일 달성 여부
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
             HStack {
@@ -220,7 +248,7 @@ struct ContentView: View {
         ("매일 아침 유산균 먹기", 0, 6, [false, false, false, false, false, false, false]),
         ("벤치프레스 기록 갱신", 0, 2, [false, false, false, false, false, false, false])
     ]
-
+    
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
@@ -236,7 +264,7 @@ struct ContentView: View {
             .padding()
         }
         .background(Color(hex: "F9F5F0")
-        .ignoresSafeArea())
+            .ignoresSafeArea())
     }
 }
 
