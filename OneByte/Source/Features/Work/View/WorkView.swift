@@ -166,9 +166,18 @@ struct WeekAchieveCell: View {
     let detailGoalTitle: String // DetailGoal 제목
     let achieveCount: Int // 현재 달성 횟수
     let achieveGoal: Int // 목표 달성 횟수
-    let days: [String] = ["월","화","수","목","금","토","일"] // 요일 데이터 - 고정
     let achievedDays: [Bool] // 요일 달성 여부
     let remindTime: Date?
+    
+    let days: [String] = ["월","화","수","목","금","토","일"] // 요일 데이터 - 고정
+    
+    // 실제 현재 요일 (월, 화, 수, ...)
+    private var currentDay: String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "E" // 요일만 가져오기
+        return formatter.string(from: Date())
+    }
     
     var body: some View {
         VStack(spacing: 15) {
@@ -200,18 +209,19 @@ struct WeekAchieveCell: View {
                     VStack(spacing: 4) {
                         Text(days[index])
                             .font(.Pretendard.Medium.size11)
-                            .foregroundStyle(achievedDays[index] ? .white : Color.my7D7D7D)
+                            .foregroundStyle(currentDay == days[index] ? .white : (achievedDays[index] ? Color.myFFFEFC : Color.my7D7D7D))
                             .frame(width: 18, height: 18)
-                            .background(achievedDays[index] ? Color(hex: "385E38") : .clear) // ⚠️ 나중에 수정
+                            .background(currentDay == days[index] ? Color.my385E38 : (achievedDays[index] ? Color.my358E38 : .clear)) // 현재 요일 체크
                             .clipShape(Circle())
                         
                         Button {
-                            // 클로버 버튼 탭
+                            print("클로버 버튼 탭")
                         } label: {
                             Rectangle()
                         }
                         .frame(maxWidth: .infinity/7, minHeight: 41) // ⚠️⚠️ 나중에 높이 수정
-                        .foregroundColor(achievedDays[index] ? Color.green : Color.gray.opacity(0.2))
+                        .foregroundColor(currentDay == days[index] ? .white : Color.myDBDBDC)
+                        .overlay(currentDay == days[index] ? RoundedRectangle(cornerRadius: 8).stroke(Color.my385E38, lineWidth: 3) : nil)
                         .cornerRadius(8)
                     }
                     .frame(maxWidth: .infinity)
@@ -224,7 +234,7 @@ struct WeekAchieveCell: View {
         .cornerRadius(12)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
-                .stroke(Color(hex: "F0E8DF"), lineWidth: 1)
+                .stroke(Color.myF0E8DF, lineWidth: 1)
         )
     }
 }
