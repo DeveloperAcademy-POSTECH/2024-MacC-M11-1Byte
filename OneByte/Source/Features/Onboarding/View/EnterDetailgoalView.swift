@@ -16,10 +16,9 @@ struct EnterDetailgoalView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var subGoals: [SubGoal]
     
-    @State var viewModel = OnboardingViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
+    @State var viewModel = OnboardingViewModel(createService: CreateService(), updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     @State private var userDetailGoal: String = "" // 사용자 SubGoal 입력 텍스트
     @State private var userDetailGoalNewMemo: String = ""
-    @State private var userDetailGoalAchieved: Bool = false
     @State private var targetSubGoal: SubGoal? // id가 1인 SubGoal 저장변수
     @FocusState private var isFocused: Bool // TextField 포커스 상태 관리
     private let detailGoalLimit = 15 // 글자 수 제한
@@ -58,7 +57,7 @@ struct EnterDetailgoalView: View {
             VStack(spacing: 10) {
                 Text(nowOnboard.onboardingSubTitle)
                     .font(.Pretendard.Bold.size17)
-                    .foregroundStyle(Color(hex: "919191"))
+                    .foregroundStyle(Color.my919191)
                     .multilineTextAlignment(.center)
                 
                 Text(nowOnboard.onboardingTitle)
@@ -69,7 +68,7 @@ struct EnterDetailgoalView: View {
             // 팁 메세지 영역
             ZStack {
                 RoundedRectangle(cornerRadius: 8)
-                    .fill(Color(hex: "D4F7D7"))
+                    .fill(Color.myD4F7D7)
                     .frame(maxWidth: .infinity)
                     .frame(height: 112) // ✅ 나중에 디자인팀에서 보여주는 방식 바꿔주면, mini에서 텍스트 짤림문제 해결하기
                 
@@ -109,9 +108,9 @@ struct EnterDetailgoalView: View {
                             bottomRight: radiusValues.bottomRight
                         )
                         .fill(
-                            item == 1 ? Color(hex: "F7F7A0") :
-                                item == 5 ? Color(hex: "D2E3D6") :
-                                Color(hex: "EEEEEE")
+                            item == 1 ? Color.myF7F7A0 :
+                                item == 5 ? Color.myD2E3D6 :
+                                Color.myEEEEEE
                         )
                         .onTapGesture {
                             if item == 1 {
@@ -178,7 +177,24 @@ struct EnterDetailgoalView: View {
                             modelContext: modelContext,
                             newTitle: userDetailGoal,
                             newMemo: userDetailGoalNewMemo,
-                            isAchieved: userDetailGoalAchieved
+                            achieveCount: 0,
+                            achieveGoal: 0,
+                            alertMon: false,
+                            alertTue: false,
+                            alertWed: false,
+                            alertThu: false,
+                            alertFri: false,
+                            alertSat: false,
+                            alertSun: false,
+                            isRemind: false,
+                            remindTime: nil,
+                            achieveMon: false,
+                            achieveTue: false,
+                            achieveWed: false,
+                            achieveThu: false,
+                            achieveFri: false,
+                            achieveSat: false,
+                            achieveSun: false
                         )
                         navigationManager.push(to: .onboardFinish)
                     } else {

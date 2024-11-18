@@ -19,7 +19,7 @@ struct BackButtonToolbarModifier: ViewModifier {
                     }) {
                         HStack {
                             Image(systemName: "chevron.left")
-                                .tint(Color(hex: "B4A99D"))
+                                .tint(Color.myB4A99D)
                         }
                     }
                 }

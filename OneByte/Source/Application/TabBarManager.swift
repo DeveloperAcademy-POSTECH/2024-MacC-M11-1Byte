@@ -23,7 +23,7 @@ struct TabBarManager: View {
                     Text("할 일")
                 }
             
-            MyPageView()
+            StatisticView()
                 .tabItem {
                     Image(systemName: "person.fill")
                     Text("마이페이지")

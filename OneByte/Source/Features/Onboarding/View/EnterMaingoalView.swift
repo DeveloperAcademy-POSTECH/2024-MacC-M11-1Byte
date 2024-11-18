@@ -15,11 +15,12 @@ struct EnterMaingoalView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var mainGoals: [MainGoal]
     
-    @State var viewModel = OnboardingViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
+    @State var viewModel = OnboardingViewModel(createService: CreateService(), updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     
     @State private var userMainGoal: String = "" // 사용자 입력 MainGoal
     private let mainGoalLimit = 15 // 글자 수 제한
     @FocusState private var isFocused: Bool // TextField 포커스 상태 관리
+    @State private var cloverState: Int = 0
     
     var nowOnboard: Onboarding = .maingoal
     
@@ -50,7 +51,7 @@ struct EnterMaingoalView: View {
             // 팁 메세지 영역
             ZStack {
                 RoundedRectangle(cornerRadius: 8)
-                    .fill(Color(hex: "D4F7D7"))
+                    .fill(Color.myD4F7D7)
                     .frame(maxWidth: .infinity)
                     .frame(height: 112)
                 
@@ -71,7 +72,7 @@ struct EnterMaingoalView: View {
             // MainGoal 입력 창
             ZStack {
                 RoundedRectangle(cornerRadius: 12)
-                    .fill(Color(hex: "EEEEEE"))
+                    .fill(Color.myEEEEEE)
                     .onTapGesture {
                         isFocused = true // Cell 전체영역 터치 시 TextField에 포커스
                     }
@@ -116,8 +117,9 @@ struct EnterMaingoalView: View {
                 NextButton(isEnabled: !userMainGoal.isEmpty) { // 사용자 입력 MainGoal이 비어있지 않을 때만 활성화
                     viewModel.updateMainGoal( // MainGoal 데이터 업데이트
                         mainGoals: mainGoals,
+                        modelContext: modelContext,
                         userMainGoal: userMainGoal,
-                        modelContext: modelContext
+                        cloverState: cloverState
                     )
                     navigationManager.push(to: .onboardSubgoal)
                 } label: {

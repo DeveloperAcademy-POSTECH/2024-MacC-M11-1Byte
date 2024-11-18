@@ -8,10 +8,12 @@ struct EnterSubgoalView: View {
     
     @Environment(\.modelContext) private var modelContext
     @Query private var mainGoals: [MainGoal]
-    @State var viewModel = OnboardingViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
+    @State var viewModel = OnboardingViewModel(createService: CreateService(), updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     @State private var userSubGoal: String = "" // 사용자 SubGoal 입력 텍스트
     @FocusState private var isFocused: Bool // TextField 포커스 상태 관리
     private let subGoalLimit = 15 // 글자 수 제한
+    @State private var leafState: Int = 0
+    
     
     let items = Array(1...9)
     let gridSpacing: CGFloat = 5 // 셀 간 수직 간격
@@ -45,7 +47,7 @@ struct EnterSubgoalView: View {
             VStack(spacing: 10) {
                 Text(nowOnboard.onboardingSubTitle)
                     .font(.Pretendard.Bold.size17)
-                    .foregroundStyle(Color(hex: "919191"))
+                    .foregroundStyle(Color.my919191)
                 
                 Text(nowOnboard.onboardingTitle)
                     .font(.Pretendard.Bold.size26)
@@ -55,7 +57,7 @@ struct EnterSubgoalView: View {
             // 팁 메시지 영역
             ZStack {
                 RoundedRectangle(cornerRadius: 8)
-                    .fill(Color(hex: "D4F7D7"))
+                    .fill(Color.myD4F7D7)
                     .frame(maxWidth: .infinity)
                     .frame(height: 112)
                 
@@ -95,9 +97,9 @@ struct EnterSubgoalView: View {
                             bottomRight: radiusValues.bottomRight
                         )
                         .fill(
-                            item == 1 ? Color(hex: "AAF0B1") :
-                                item == 5 ? Color(hex: "C6CBC6") :
-                                Color(hex: "EEEEEE")
+                            item == 1 ? Color.myAAF0B1:
+                                item == 5 ? Color.myC6CBC6 :
+                                Color.myEEEEEE
                         )
                         .onTapGesture {
                             if item == 1 {
@@ -161,7 +163,8 @@ struct EnterSubgoalView: View {
                         viewModel.updateSubGoal(
                             subGoal: subGoal,
                             modelContext: modelContext,
-                            newTitle: userSubGoal
+                            newTitle: userSubGoal,
+                            leafState: leafState
                         )
                         navigationManager.push(to: .onboardDetailgoal)
                     } else {

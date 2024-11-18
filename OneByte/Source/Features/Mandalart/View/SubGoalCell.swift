@@ -5,12 +5,12 @@
 //  Created by 트루디 on 11/11/24.
 //
 
+
 import SwiftUI
 import SwiftData
 
 // MARK: 첫화면 - 9개 서브골-디테일골들
 struct SubGoalCell: View {
-    @Environment(\.dismiss) private var dismiss
     @Binding var isPresented: Bool
     @Binding var selectedSubGoal: SubGoal?
     
@@ -22,7 +22,7 @@ struct SubGoalCell: View {
                 // 디테일골을 id에 따라 정렬
                 let detailGoalsSorted = selectedSubGoal.detailGoals.sorted(by: { $0.id < $1.id })
                 
-                NavigationLink(destination: SubGoalDetailGridView(subGoal: $selectedSubGoal)) {
+                NavigationLink(destination: SubGoalDetailGridView(subGoal: $selectedSubGoal, isPresented: $isPresented)) {
                     LazyVGrid(columns: innerColumns, spacing: 4) {
                         ForEach(0..<4, id: \.self) { index in
                             let cornerRadius: CGFloat = 30

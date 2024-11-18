@@ -14,7 +14,7 @@ struct WorkView: View {
             HStack {
                 Text("할 일")
                     .font(.Pretendard.Bold.size22)
-                    .foregroundStyle(Color(hex: "B4A99D"))
+                    .foregroundStyle(Color.myB4A99D)
                 
                 Spacer()
                 
@@ -24,7 +24,7 @@ struct WorkView: View {
                     Image(systemName: "info.circle")
                         .resizable()
                         .frame(width: 24, height: 24)
-                        .foregroundStyle(Color(hex: "B4A99D"))
+                        .foregroundStyle(Color.myB4A99D)
                 }
             }
             .padding()

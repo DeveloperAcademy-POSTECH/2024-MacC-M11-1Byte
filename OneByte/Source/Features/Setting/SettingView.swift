@@ -18,7 +18,7 @@ struct SettingView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color(hex: "F0E8DF")
+                Color.myF0E8DF
                     .ignoresSafeArea(edges: .bottom)
                 
                 ScrollView {
@@ -26,7 +26,7 @@ struct SettingView: View {
                         HStack {
                             Text("설정")
                                 .font(.Pretendard.Bold.size22)
-                                .foregroundStyle(Color(hex: "B4A99D"))
+                                .foregroundStyle(Color.myB4A99D)
                             
                             Spacer()
                         }
@@ -43,14 +43,14 @@ struct SettingView: View {
                         AchievedRow(isAppearAchieved: $viewModel.isAppearAchieved)
                         
                         Divider()
-                            .foregroundStyle(Color(hex: "F0E8DF"))
+                            .foregroundStyle(Color.myF0E8DF)
                         
                         NavigationLink(destination: Text("알림 설정 화면")) {
                             NotificationRow()
                                 .foregroundStyle(.black)
                         }
                         Divider()
-                            .foregroundStyle(Color(hex: "F0E8DF"))
+                            .foregroundStyle(Color.myF0E8DF)
                         
                         NavigationLink(destination: Text("폰트 선택")) {
                             FontRow()
@@ -70,7 +70,7 @@ struct SettingView: View {
                                 .foregroundStyle(.black)
                         }
                         Divider()
-                            .foregroundStyle(Color(hex: "F0E8DF"))
+                            .foregroundStyle(Color.myF0E8DF)
                         
                         NavigationLink(destination: Text("이용 약관")) {
                             TermsRow()
@@ -130,7 +130,7 @@ struct SettingView: View {
                 HStack {
                     Text("하고만다와 함께한지 \(viewModel.daysSinceInstall)일 째")
                         .font(.Pretendard.SemiBold.size14)
-                        .foregroundStyle(Color(hex: "566956"))
+                        .foregroundStyle(Color.my566956)
                     Spacer()
                 }
             }
