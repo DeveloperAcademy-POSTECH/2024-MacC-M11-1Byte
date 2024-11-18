@@ -11,6 +11,9 @@ import SwiftData
 struct StatisticView: View {
     
     @State var viewModel = StatisticViewModel()
+    @Query(
+        filter: #Predicate<Clover> { $0.cloverYear == Calendar.current.component(.year, from: Date()) }
+    ) var clovers: [Clover]
     
     var body: some View {
         ScrollView {
