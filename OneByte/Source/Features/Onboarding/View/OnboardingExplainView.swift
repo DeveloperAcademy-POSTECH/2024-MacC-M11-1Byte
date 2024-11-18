@@ -33,7 +33,7 @@ struct OnboardingExplainView: View {
                     ForEach(OnboardingExplain.allCases, id: \.self) { onboarding in
                         Circle()
                             .frame(width: 8, height: 8)
-                            .foregroundStyle(nowOnboardingExplain == onboarding ? Color(hex: "636363") : Color(hex: "919191"))
+                            .foregroundStyle(nowOnboardingExplain == onboarding ? Color.my636363 : Color.my919191)
                     }
                 }
             }

@@ -24,7 +24,7 @@ struct PassButton<Content: View>: View {
         } label: {
             label
                 .font(.Pretendard.Regular.size18)
-                .foregroundStyle(Color(hex: "636363"))
+                .foregroundStyle(Color.my636363)
                 .frame(maxWidth: .infinity)
                 .frame(height: 53)
                 .background(.white)
@@ -33,7 +33,7 @@ struct PassButton<Content: View>: View {
         }
         .overlay(
             RoundedRectangle(cornerRadius: 16)
-                .stroke(Color(hex: "ACACAC"), lineWidth: 1)
+                .stroke(Color.myACACAC, lineWidth: 1)
         )
     }
 }

@@ -26,29 +26,73 @@ class MandalartViewModel: ObservableObject {
         createService.createGoals(modelContext: modelContext)
     }
     
-    func updateMainGoal(mainGoal: MainGoal, modelContext: ModelContext, id: Int, newTitle: String) {
-        updateService.updateMainGoal(mainGoal: mainGoal, modelContext: modelContext, id: id, newTitle: newTitle)
-        
+    func updateMainGoal(mainGoal: MainGoal, modelContext: ModelContext, id: Int, newTitle: String, cloverState: Int) {
+        updateService.updateMainGoal(mainGoal: mainGoal, modelContext: modelContext, id: id, newTitle: newTitle, cloverState: cloverState)
     }
     
-    func updateSubGoal(subGoal: SubGoal, modelContext: ModelContext, newTitle: String) {
-        updateService.updateSubGoal(subGoal:subGoal, modelContext: modelContext, newTitle: newTitle)
+    func updateSubGoal(subGoal: SubGoal, modelContext: ModelContext, newTitle: String, leafState: Int) {
+        updateService.updateSubGoal(subGoal:subGoal, modelContext: modelContext, newTitle: newTitle, leafState: leafState)
     }
     
-    func updateDetailGoal(detailGoal: DetailGoal, modelContext: ModelContext, newTitle: String, newMemo: String, isAchieved: Bool) {
-        updateService.updateDetailGoal(detailGoal: detailGoal, modelContext: modelContext, newTitle: newTitle, newMemo: newMemo, isAchieved: isAchieved)
+    func updateDetailGoal(detailGoal: DetailGoal, modelContext: ModelContext, newTitle: String, newMemo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool) {
+        updateService.updateDetailGoal(
+            detailGoal: detailGoal,
+            modelContext: modelContext,
+            title: newTitle,
+            memo: newMemo,
+            achieveCount: achieveCount,
+            achieveGoal: achieveGoal,
+            alertMon: alertMon,
+            alertTue: alertTue,
+            alertWed: alertWed,
+            alertThu: alertThu,
+            alertFri: alertFri,
+            alertSat: alertSat,
+            alertSun: alertSun,
+            isRemind: isRemind,
+            remindTime: remindTime,
+            achieveMon: achieveMon,
+            achieveTue: achieveTue,
+            achieveWed: achieveWed,
+            achieveThu: achieveThu,
+            achieveFri: achieveFri,
+            achieveSat: achieveSat,
+            achieveSun: achieveSun
+        )
     }
     
-    func deleteMainGoal(mainGoal: MainGoal, modelContext: ModelContext, id: Int, newTitle: String) {
-        deleteService.deleteMainGoal(mainGoal: mainGoal, modelContext: modelContext, id: id, newTitle: newTitle)
+    func deleteMainGoal(mainGoal: MainGoal, modelContext: ModelContext, id: Int, newTitle: String, cloverState: Int) {
+        deleteService.deleteMainGoal(mainGoal: mainGoal, modelContext: modelContext, id: id, newTitle: newTitle, cloverState: cloverState)
     }
     
-    func deleteSubGoal(subGoal: SubGoal, modelContext: ModelContext, id: Int, newTitle: String) {
-        deleteService.deleteSubGoal(subGoal: subGoal, modelContext: modelContext, newTitle: newTitle)
+    func deleteSubGoal(subGoal: SubGoal, modelContext: ModelContext, id: Int, newTitle: String, leafState: Int) {
+        deleteService.deleteSubGoal(subGoal: subGoal, modelContext: modelContext, newTitle: newTitle, leafState: leafState)
     }
     
-    func deleteDetailGoal(detailGoal: DetailGoal, modelContext: ModelContext, id: Int, newTitle: String, newMemo: String, isAcheived: Bool) {
-        deleteService.deleteDetailGoal(detailGoal: detailGoal, modelContext: modelContext, newTitle: newTitle, newMemo: newMemo, isAchieved: isAcheived)
+    func deleteDetailGoal(detailGoal: DetailGoal, modelContext: ModelContext, newTitle: String, newMemo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool) {
+        deleteService.deleteDetailGoal(
+            detailGoal: detailGoal,
+            modelContext: modelContext,
+            title: newTitle, memo: newMemo,
+            achieveCount: achieveCount,
+            achieveGoal: achieveGoal,
+            alertMon: alertMon,
+            alertTue: alertTue,
+            alertWed: alertWed,
+            alertThu: alertThu,
+            alertFri: alertFri,
+            alertSat: alertSat,
+            alertSun: alertSun,
+            isRemind: isRemind,
+            remindTime: remindTime,
+            achieveMon: achieveMon,
+            achieveTue: achieveTue,
+            achieveWed: achieveWed
+            , achieveThu: achieveThu,
+            achieveFri: achieveFri,
+            achieveSat: achieveSat,
+            achieveSun: achieveSun
+        )
     }
     
     func resetAllData(modelContext: ModelContext, mainGoal: MainGoal) {

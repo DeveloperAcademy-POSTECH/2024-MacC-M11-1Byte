@@ -12,7 +12,7 @@ struct OnboardingStartView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var navigationManager = NavigationManager()
     
-    @State var viewModel = OnboardingViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
+    @State var viewModel = OnboardingViewModel(createService: CreateService(), updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     
     var nowOnboard: Onboarding = .start
     

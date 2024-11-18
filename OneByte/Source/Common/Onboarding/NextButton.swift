@@ -31,7 +31,7 @@ struct NextButton<Content: View>: View {
                 .foregroundStyle(.white)
                 .frame(maxWidth: .infinity)
                 .frame(height: 53)
-                .background(isEnabled ? Color(hex: "538F53") : Color(hex: "C9C9C9"))
+                .background(isEnabled ? Color.my538F53 : Color.my9C9C9C)
                 .clipShape(RoundedRectangle(cornerRadius: 16))
         }
         .disabled(!isEnabled) // 버튼이 비활성화된 경우 터치가 불가능하게 설정

@@ -30,7 +30,7 @@ struct OnboardingFinishView: View {
                 
                 Text(nowOnboard.onboardingSubTitle)
                     .font(.system(size: 17, weight: .medium))
-                    .foregroundStyle(Color(hex: "919191"))
+                    .foregroundStyle(Color.my919191)
             }
             .padding()
             

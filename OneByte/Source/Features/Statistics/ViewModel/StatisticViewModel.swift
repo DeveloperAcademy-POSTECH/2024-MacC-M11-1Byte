@@ -9,6 +9,6 @@ import SwiftUI
 import SwiftData
 
 @Observable
-class MyPageViewModel {
+class StatisticViewModel {
    
 }

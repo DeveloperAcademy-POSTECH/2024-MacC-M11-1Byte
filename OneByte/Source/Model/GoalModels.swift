@@ -11,11 +11,13 @@ import SwiftUI
 class MainGoal {
     var id: Int
     var title: String
+    var cloverState: Int
     var subGoals: [SubGoal]
     
-    init(id: Int, title: String, subGoals: [SubGoal]) {
+    init(id: Int, title: String, cloverState: Int, subGoals: [SubGoal]) {
         self.id = id
         self.title = title
+        self.cloverState = cloverState
         self.subGoals = subGoals
     }
 }
@@ -24,13 +26,13 @@ class MainGoal {
 class SubGoal {
     var id: Int
     var title: String
-    var mainGoalId: Int  // MainGoal의 ID로 연결
+    var leafState: Int
     var detailGoals: [DetailGoal]
     
-    init(id: Int, title: String, mainGoalId: Int, detailGoals: [DetailGoal]) {
+    init(id: Int, title: String, leafState: Int, detailGoals: [DetailGoal]) {
         self.id = id
         self.title = title
-        self.mainGoalId = mainGoalId
+        self.leafState = leafState
         self.detailGoals = detailGoals
     }
 }
@@ -40,14 +42,50 @@ class DetailGoal {
     var id: Int
     var title: String
     var memo: String
-    var isAchieved: Bool
-    var subGoalId: Int  // SubGoal의 ID로 연결
+    var achieveCount: Int
+    var achieveGoal: Int
+    var alertMon: Bool
+    var alertTue: Bool
+    var alertWed: Bool
+    var alertThu: Bool
+    var alertFri: Bool
+    var alertSat: Bool
+    var alertSun: Bool
+    var isRemind: Bool
+    var remindTime: Date?
+    var achieveMon: Bool
+    var achieveTue: Bool
+    var achieveWed: Bool
+    var achieveThu: Bool
+    var achieveFri: Bool
+    var achieveSat: Bool
+    var achieveSun: Bool
 
-    init(id: Int, title: String, memo: String, isAchieved: Bool, subGoalId: Int) {
+    init(id: Int, title: String, memo: String, achieveCount: Int, achieveGoal: Int,
+         alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool,
+         alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool,
+         remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool,
+         achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool) {
         self.id = id
         self.title = title
         self.memo = memo
-        self.isAchieved = isAchieved
-        self.subGoalId = subGoalId
+        self.achieveCount = achieveCount
+        self.achieveGoal = achieveGoal
+        self.alertMon = alertMon
+        self.alertTue = alertTue
+        self.alertWed = alertWed
+        self.alertThu = alertThu
+        self.alertFri = alertFri
+        self.alertSat = alertSat
+        self.alertSun = alertSun
+        self.isRemind = isRemind
+        self.remindTime = remindTime
+        self.achieveMon = achieveMon
+        self.achieveTue = achieveTue
+        self.achieveWed = achieveWed
+        self.achieveThu = achieveThu
+        self.achieveFri = achieveFri
+        self.achieveSat = achieveSat
+        self.achieveSun = achieveSun
     }
 }
