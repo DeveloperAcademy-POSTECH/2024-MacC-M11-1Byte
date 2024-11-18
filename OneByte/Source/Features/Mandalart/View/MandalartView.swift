@@ -11,17 +11,12 @@ struct MandalartView: View {
     @AppStorage("FirstOnboarding") var FirstOnboarding: Bool = true
     @Query private var mainGoals: [MainGoal]
     @State var isPresented = false
-    @State private var subGoal: SubGoal?
     @State private var mainGoal: MainGoal?
     
     var body: some View {
         NavigationStack {
             if let firstMainGoal = mainGoals.first {
-                OuterGridView(
-                    isPresented: $isPresented,
-                    subGoal: $subGoal,
-                    mainGoal: $mainGoal
-                )
+                OuterGridView(mainGoal: $mainGoal)
                 .onAppear {
                     mainGoal = firstMainGoal
                 }
@@ -43,18 +38,17 @@ struct OuterGridView: View {
     @Environment(\.modelContext) private var modelContext  // SwiftData 컨텍스트
     @Environment(\.managedObjectContext) private var context
     
-    @Binding var isPresented: Bool
-    @Binding var subGoal: SubGoal?
-    @Binding var mainGoal: MainGoal? // mainGoal을 @Binding으로 사용
-    
-    @State var isDeleted: Bool = false
-    
+    @Binding var mainGoal: MainGoal?
     @State var mainIsPresented: Bool = false
-    private let outerColumns = [GridItem(.adaptive(minimum: 160/852 * UIScreen.main.bounds.height), spacing: 32)]
+    
     private let dateManager = DateManager()
     private let currentDate = Date()
-    
-    private let viewModel = MandalartViewModel(createService: CreateService(), updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []), deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []))
+    private let outerColumns = [GridItem(.adaptive(minimum: 160/852 * UIScreen.main.bounds.height), spacing: 32)]
+    private let viewModel = MandalartViewModel(
+        createService: CreateService(),
+        updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []),
+        deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: [])
+    )
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -113,7 +107,7 @@ struct OuterGridView: View {
                             .foregroundStyle(Color.myD5F3D1)
                             .font(.Pretendard.Medium.size14)
                         
-                        Text(mainGoal?.title ?? "목표없음")
+                        Text(mainGoal?.title ?? "")
                             .foregroundStyle(.white)
                             .font(.Pretendard.Bold.size16)
                             .kerning(-0.32) // 자간
@@ -149,14 +143,10 @@ struct OuterGridView: View {
             ZStack {
                 // 만다라트 그리드
                 if let selectedMainGoal = mainGoal {
-                    let sortedSubGoals = selectedMainGoal.subGoals.sorted(by: { $0.id < $1.id }) // 정렬된 SubGoals 배열
-                    
                     LazyVGrid(columns: outerColumns, spacing: 32) {
-                        ForEach(0..<4, id: \.self) { index in
-                            SubGoalCell(isPresented: $isPresented, selectedSubGoal: Binding(
-                                get: { sortedSubGoals[index] },
-                                set: { _ in }
-                            ))
+                        let sortedSubGoals = selectedMainGoal.subGoals.sorted(by: { $0.id < $1.id }) // 정렬된 SubGoals 배열
+                        ForEach(sortedSubGoals, id: \.id) { subGoal in
+                            SubGoalCell(selectedSubGoal: .constant(subGoal))
                         }
                     }
                 } else {
@@ -186,16 +176,14 @@ struct OuterGridView: View {
                     Text("한 걸음씩 가다 보면\n어느새 큰 변화를 느낄 거예요!")
                         .font(.Pretendard.Medium.size14)
                 }
-                if let selectedMainGoal = mainGoal {
+                
                 Button(action: {
-                    isDeleted = true
-                    viewModel.resetAllData(modelContext: modelContext, mainGoal: selectedMainGoal)
+                    if let selectedMainGoal = mainGoal {
+                        viewModel.resetAllData(modelContext: modelContext, mainGoal: selectedMainGoal)
+                    }
                 }, label: {
                     Text("모두 삭제")
                 })
-                } else {
-                    Text("찾을 수 없습니다.")
-                }
             }
             .padding(.bottom, 47/852 * UIScreen.main.bounds.height)
         }

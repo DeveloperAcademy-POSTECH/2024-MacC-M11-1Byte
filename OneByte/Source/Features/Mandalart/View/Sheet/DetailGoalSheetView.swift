@@ -11,14 +11,16 @@ import SwiftUI
 
 struct DetailGoalsheetView: View {
     @Environment(\.modelContext) private var modelContext  // SwiftData 컨텍스트
-    private let viewModel = MandalartViewModel(createService: CreateService(), updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []), deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []))
+    private let viewModel = MandalartViewModel(
+        createService: CreateService(),
+        updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []),
+        deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: [])
+    )
     @Environment(\.managedObjectContext) private var context
     @Binding var detailGoal: DetailGoal?
-    //    @Binding var subGoal: SubGoal? // 옵셔널로 변경
     @Binding var isPresented: Bool
     @State private var newTitle: String = ""
     @State private var newMemo: String = ""
-    @State private var isAchieved: Bool = false // 지우면 됨
     @State private var achieveCount = 0
     @State private var achieveGoal = 0
     @State private var alertMon: Bool = false
@@ -121,16 +123,6 @@ struct DetailGoalsheetView: View {
             .frame(height: 133/852 * UIScreen.main.bounds.height)
             .background(.white)
             .cornerRadius(8)
-            
-            Spacer()
-            
-            // 성취 완료 토글 스위치
-            Toggle(isAchieved ? "성취 완료" : "미완료", isOn: $isAchieved)
-                .padding(.horizontal)
-                .padding(.vertical, 10)
-                .frame(maxWidth: .infinity)
-                .background(.white)
-                .cornerRadius(8)
             
             Spacer()
             
