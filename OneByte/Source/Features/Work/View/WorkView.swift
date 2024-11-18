@@ -69,14 +69,13 @@ struct WorkView: View {
             
             Divider()
                 .foregroundStyle(Color.myF0E8DF)
-            
-            TodoView(tests: selectedPicker)
-            
-            //            if let mainGoal = mainGoals.first {
-            //                TodoView(tests: selectedPicker, mainGoal: mainGoal)
-            //            } else {
-            //                Text("현재 Subgoal 데이터가 없습니다.")
-            //            }
+    
+            if let mainGoal = mainGoals.first,
+               let selectedSubGoal = mainGoal.subGoals.first(where: { $0.id == subGoalId(for: selectedPicker) }) {
+                TodoView(tests: selectedPicker, subGoal: selectedSubGoal)
+            } else {
+                Text("현재 Subgoal 데이터가 없습니다.")
+            }
             Spacer()
         }
         .ignoresSafeArea(edges: .bottom)
@@ -102,18 +101,22 @@ struct WorkView: View {
             }
         }
     }
+    
+    // 탭 선택에 따른 SubGoal ID 반환
+    private func subGoalId(for tab: tapInfo) -> Int {
+        switch tab {
+        case .first: return 1
+        case .second: return 2
+        case .third: return 3
+        case .fourth: return 4
+        }
+    }
 }
 
 struct TodoView : View {
     
     var tests : tapInfo
-    //    var mainGoal: MainGoal
-    
-    let goals = [
-        ("헬스장에서 2시간 운동", 0, 7, [true, false, false, false, false, false, false], Date()),
-        ("매일 아침 유산균 먹기", 0, 6, [false, false, false, false, false, false, false], nil),
-        ("벤치프레스 기록 갱신", 0, 2, [false, false, false, false, false, false, false], Date())
-    ]
+    var subGoal: SubGoal
     
     var body: some View {
         VStack {
@@ -122,8 +125,8 @@ struct TodoView : View {
                     Image(tests.colorClovar)
                         .resizable()
                         .frame(width: 29, height: 29)
-                    Text("서브목표 제목")
-                    //                    Text("서브목표 제목\(subGoalTitle(for: tests))")
+                    
+                    Text(subGoal.title == "" ? "서브목표가 비어있어요." : subGoal.title)
                         .font(.Pretendard.Bold.size22)
                         .foregroundStyle(Color.my2B2B2B)
                     Spacer()
@@ -131,50 +134,31 @@ struct TodoView : View {
                 .padding([.top, .horizontal])
                 
                 VStack(spacing: 16) {
-                    ForEach(goals, id: \.0) { goal in
+                    // 빈 제목이 아닌 DetailGoal만 표시
+                    ForEach(subGoal.detailGoals.filter { !$0.title.isEmpty }, id: \.id) { detailGoal in
                         WeekAchieveCell(
-                            detailGoalTitle: goal.0,
-                            achieveCount: goal.1,
-                            achieveGoal: goal.2,
-                            achievedDays: goal.3,
-                            remindTime: goal.4
+                            detailGoalTitle: detailGoal.title,
+                            achieveCount: detailGoal.achieveCount,
+                            achieveGoal: detailGoal.achieveGoal,
+                            achievedDays: [
+                                detailGoal.achieveMon,
+                                detailGoal.achieveTue,
+                                detailGoal.achieveWed,
+                                detailGoal.achieveThu,
+                                detailGoal.achieveFri,
+                                detailGoal.achieveSat,
+                                detailGoal.achieveSun
+                            ],
+                            remindTime: detailGoal.remindTime
                         )
                     }
                 }
                 .padding(.horizontal)
-                switch tests {
-                case .first:
-                    Text("블랙컬러")
-                case .second:
-                    Text("블랙컬러")
-                case .third:
-                    Text("블랙컬러")
-                case .fourth:
-                    Text("블랙컬러")
-                }
             }
         }
         .frame(maxWidth: .infinity)
         .background(Color.myFFFAF4)
     }
-    
-    //    private func subGoalTitle(for tab: tapInfo) -> String {
-    //        let subGoalId: Int
-    //        switch tab {
-    //        case .first:
-    //            subGoalId = 1
-    //        case .second:
-    //            subGoalId = 2
-    //        case .third:
-    //            subGoalId = 3
-    //        case .fourth:
-    //            subGoalId = 4
-    //        }
-    //
-    //        // MainGoal에서 id가 subGoalId인 SubGoal 찾기
-    //        //        return mainGoal.subGoals.first(where: { $0.id == subGoalId })?.title ?? "제목 없음"
-    //        //    }
-    //    }
 }
 
 struct WeekAchieveCell: View {
