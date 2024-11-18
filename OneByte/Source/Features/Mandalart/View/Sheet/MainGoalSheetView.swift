@@ -13,12 +13,17 @@ struct MainGoalsheetView: View {
     @Environment(\.managedObjectContext) private var context
     @Binding var mainGoal: MainGoal? // 옵셔널로 변경
     @Binding var isPresented: Bool
+    private let titleLimit = 15 // 제목 글자수 제한
+    
     @State private var newTitle: String = ""
     @State private var newMemo: String = ""
     @State private var cloverState: Int = 0
     
-    private let viewModel = MandalartViewModel(createService: CreateService(), updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []), deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []))
-    private let titleLimit = 15 // 제목 글자수 제한
+    private let viewModel = MandalartViewModel(
+        createService: CreateService(),
+        updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []),
+        deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: [])
+    )
     
     var body: some View {
         VStack {
