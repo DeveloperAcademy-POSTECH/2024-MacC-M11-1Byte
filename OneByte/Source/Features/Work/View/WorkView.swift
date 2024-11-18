@@ -11,10 +11,6 @@ import SwiftData
 enum tapInfo : String, CaseIterable {
     
     case first, second, third, fourth
-    //    case first = "건강" // ⚠️⚠️ Subgoal 1 데이터
-    //    case second = "학업" // ⚠️⚠️ Subgoal 2 데이터
-    //    case third = "저축" // ⚠️⚠️ Subgoal 3 데이터
-    //    case fourth = "여행" // ⚠️⚠️ Subgoal 4 데이터
     
     var colorClovar: String {
         switch self {
@@ -42,7 +38,6 @@ enum tapInfo : String, CaseIterable {
         }
     }
 }
-
 
 struct WorkView: View {
     
@@ -75,11 +70,13 @@ struct WorkView: View {
             Divider()
                 .foregroundStyle(Color.myF0E8DF)
             
-            if let mainGoal = mainGoals.first {
-                TodoView(tests: selectedPicker, mainGoal: mainGoal)
-            } else {
-                Text("현재 Subgoal 데이터가 없습니다.")
-            }
+            TodoView(tests: selectedPicker)
+            
+            //            if let mainGoal = mainGoals.first {
+            //                TodoView(tests: selectedPicker, mainGoal: mainGoal)
+            //            } else {
+            //                Text("현재 Subgoal 데이터가 없습니다.")
+            //            }
             Spacer()
         }
         .ignoresSafeArea(edges: .bottom)
@@ -110,7 +107,13 @@ struct WorkView: View {
 struct TodoView : View {
     
     var tests : tapInfo
-    var mainGoal: MainGoal
+    //    var mainGoal: MainGoal
+    
+    let goals = [
+        ("헬스장에서 2시간 운동", 0, 7, [true, false, false, false, false, false, false], Date()),
+        ("매일 아침 유산균 먹기", 0, 6, [false, false, false, false, false, false, false], nil),
+        ("벤치프레스 기록 갱신", 0, 2, [false, false, false, false, false, false, false], Date())
+    ]
     
     var body: some View {
         VStack {
@@ -119,49 +122,35 @@ struct TodoView : View {
                     Image(tests.colorClovar)
                         .resizable()
                         .frame(width: 29, height: 29)
-                    Text("서브목표 제목\(subGoalTitle(for: tests))")
+                    Text("서브목표 제목")
+                    //                    Text("서브목표 제목\(subGoalTitle(for: tests))")
                         .font(.Pretendard.Bold.size22)
                         .foregroundStyle(Color.my2B2B2B)
                     Spacer()
                 }
-                .padding()
+                .padding([.top, .horizontal])
                 
+                VStack(spacing: 16) {
+                    ForEach(goals, id: \.0) { goal in
+                        WeekAchieveCell(
+                            detailGoalTitle: goal.0,
+                            achieveCount: goal.1,
+                            achieveGoal: goal.2,
+                            achievedDays: goal.3,
+                            remindTime: goal.4
+                        )
+                    }
+                }
+                .padding(.horizontal)
                 switch tests {
                 case .first:
-                    ForEach(0..<5) { _ in
-                        Text("블랙컬러")
-                            .padding()
-                    }
+                    Text("블랙컬러")
                 case .second:
-                    Text("사이즈 참고해주세요")
-                        .font(.system(size: 15, weight: .bold, design: .monospaced))
-                        .frame(width: 300, height: 20, alignment: .center)
-                    
+                    Text("블랙컬러")
                 case .third:
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        ForEach(0..<10) { _ in
-                            LazyHStack {
-                                ForEach(0..<2) { _ in
-                                    VStack(spacing: 5) {
-                                        Image("shoes")
-                                            .resizable()
-                                            .frame(width: 160, height: 200, alignment: .center)
-                                        Text("실착용 솔직 한달 후기 입니다")
-                                            .font(.system(size: 15, weight: .bold, design: .monospaced))
-                                            .frame(width: 160, height: 20, alignment: .leading)
-                                            .foregroundColor(.black)
-                                        
-                                    }
-                                    .padding(15)
-                                    
-                                }
-                            }
-                        }
-                    }
+                    Text("블랙컬러")
                 case .fourth:
-                    VStack {
-                        Text("별도의 커뮤니티를 운영하지 않습니다.")
-                    }
+                    Text("블랙컬러")
                 }
             }
         }
@@ -169,53 +158,67 @@ struct TodoView : View {
         .background(Color.myFFFAF4)
     }
     
-    private func subGoalTitle(for tab: tapInfo) -> String {
-        let subGoalId: Int
-        switch tab {
-        case .first:
-            subGoalId = 1
-        case .second:
-            subGoalId = 2
-        case .third:
-            subGoalId = 3
-        case .fourth:
-            subGoalId = 4
-        }
-        
-        // MainGoal에서 id가 subGoalId인 SubGoal 찾기
-        return mainGoal.subGoals.first(where: { $0.id == subGoalId })?.title ?? "제목 없음"
-    }
+    //    private func subGoalTitle(for tab: tapInfo) -> String {
+    //        let subGoalId: Int
+    //        switch tab {
+    //        case .first:
+    //            subGoalId = 1
+    //        case .second:
+    //            subGoalId = 2
+    //        case .third:
+    //            subGoalId = 3
+    //        case .fourth:
+    //            subGoalId = 4
+    //        }
+    //
+    //        // MainGoal에서 id가 subGoalId인 SubGoal 찾기
+    //        //        return mainGoal.subGoals.first(where: { $0.id == subGoalId })?.title ?? "제목 없음"
+    //        //    }
+    //    }
 }
 
 struct WeekAchieveCell: View {
+    
     let detailGoalTitle: String // DetailGoal 제목
     let achieveCount: Int // 현재 달성 횟수
     let achieveGoal: Int // 목표 달성 횟수
     let days: [String] = ["월","화","수","목","금","토","일"] // 요일 데이터 - 고정
     let achievedDays: [Bool] // 요일 달성 여부
+    let remindTime: Date?
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 15) {
-            HStack {
-                Text(detailGoalTitle)
-                    .font(.Pretendard.Bold.size16)
-                    .foregroundStyle(Color(hex: "2B2B2B"))
-                
-                Spacer()
-                
-                Text("달성한 횟수 \(achieveCount)/\(achieveGoal)")
-                    .font(.Pretendard.Medium.size12)
-                    .foregroundStyle(Color(hex: "7D7D7D"))
+        VStack(spacing: 15) {
+            VStack(spacing: 5) {
+                HStack {
+                    Text(detailGoalTitle)
+                        .font(.Pretendard.Bold.size16)
+                        .foregroundStyle(Color.my2B2B2B)
+                    
+                    Spacer()
+                    
+                    Text("달성한 횟수 \(achieveCount)/\(achieveGoal)")
+                        .font(.Pretendard.Medium.size12)
+                        .foregroundStyle(Color.my727272)
+                }
+                HStack {
+                    if let remindTime = remindTime {
+                        Text(remindTime.alertTimeString)
+                            .font(.Pretendard.Medium.size12)
+                            .foregroundStyle(Color.my727272)
+                    } else {
+                        Text("")
+                    }
+                    Spacer()
+                }
             }
-            
             HStack {
                 ForEach(0..<days.count, id: \.self) { index in
                     VStack(spacing: 4) {
                         Text(days[index])
                             .font(.Pretendard.Medium.size11)
-                            .foregroundStyle(achievedDays[index] ? .white : Color(hex: "7D7D7D"))
+                            .foregroundStyle(achievedDays[index] ? .white : Color.my7D7D7D)
                             .frame(width: 18, height: 18)
-                            .background(achievedDays[index] ? Color(hex: "385E38") : .clear)
+                            .background(achievedDays[index] ? Color(hex: "385E38") : .clear) // ⚠️ 나중에 수정
                             .clipShape(Circle())
                         
                         Button {
@@ -241,33 +244,6 @@ struct WeekAchieveCell: View {
         )
     }
 }
-
-struct ContentView: View {
-    let goals = [
-        ("헬스장에서 2시간 운동", 0, 7, [true, false, false, false, false, false, false]),
-        ("매일 아침 유산균 먹기", 0, 6, [false, false, false, false, false, false, false]),
-        ("벤치프레스 기록 갱신", 0, 2, [false, false, false, false, false, false, false])
-    ]
-    
-    var body: some View {
-        ScrollView {
-            VStack(spacing: 16) {
-                ForEach(goals, id: \.0) { goal in
-                    WeekAchieveCell(
-                        detailGoalTitle: goal.0,
-                        achieveCount: goal.1,
-                        achieveGoal: goal.2,
-                        achievedDays: goal.3
-                    )
-                }
-            }
-            .padding()
-        }
-        .background(Color(hex: "F9F5F0")
-            .ignoresSafeArea())
-    }
-}
-
 
 #Preview {
     WorkView()
