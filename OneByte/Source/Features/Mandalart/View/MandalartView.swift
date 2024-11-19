@@ -43,7 +43,7 @@ struct OuterGridView: View {
     
     private let dateManager = DateManager()
     private let currentDate = Date()
-    private let outerColumns = [GridItem(.adaptive(minimum: 160/852 * UIScreen.main.bounds.height), spacing: 32)]
+    private let outerColumns = [GridItem(.adaptive(minimum: 160/393 * UIScreen.main.bounds.width), spacing: 20)]
     private let viewModel = MandalartViewModel(
         createService: CreateService(),
         updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []),
@@ -123,19 +123,6 @@ struct OuterGridView: View {
                         .presentationDragIndicator(.visible)
                         .presentationDetents([.height(244/852 * UIScreen.main.bounds.height)])
                 }
-                
-                // 마감일 표시
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("이번주 마감까지")
-                        .font(.Pretendard.Medium.size12)
-                    Text(dateManager.getTodayDText())
-                        .font(.Pretendard.Bold.size20)
-                }
-                .padding(.horizontal,10)
-                .padding(.vertical)
-                .frame(width: 97/393 * UIScreen.main.bounds.width, alignment: .leading) // 전체 너비에서 왼쪽 정렬
-                .background(Color.myEAEDE1)
-                .cornerRadius(12)
             }
             .frame(height: 76/852 * UIScreen.main.bounds.height)
             .padding(.bottom, 25/852 * UIScreen.main.bounds.height)
@@ -143,7 +130,7 @@ struct OuterGridView: View {
             ZStack {
                 // 만다라트 그리드
                 if let selectedMainGoal = mainGoal {
-                    LazyVGrid(columns: outerColumns, spacing: 32) {
+                    LazyVGrid(columns: outerColumns, spacing: 32/393 * UIScreen.main.bounds.width) {
                         let sortedSubGoals = selectedMainGoal.subGoals.sorted(by: { $0.id < $1.id }) // 정렬된 SubGoals 배열
                         ForEach(sortedSubGoals, id: \.id) { subGoal in
                             SubGoalCell(selectedSubGoal: .constant(subGoal))

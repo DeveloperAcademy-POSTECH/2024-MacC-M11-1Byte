@@ -11,7 +11,7 @@ import SwiftData
 // MARK: 두번째 화면 - 클릭된 셀의 SubGoal 및 관련된 DetailGoals만 3x3 그리드로 표시하는 뷰
 struct SubGoalDetailGridView: View {
     @Environment(\.modelContext) private var modelContext
-    
+    @State var navigation: Bool = false
     @Binding var subGoal: SubGoal?
     @State private var selectedDetailGoal: DetailGoal?
     @State var subSheetIsPresented: Bool = false
@@ -61,13 +61,14 @@ struct SubGoalDetailGridView: View {
                             let detailGoalIndex = index < 3 ? index : index - 1
                             if detailGoalIndex < sortedDetailGoals.count {
                                 let detailGoal = sortedDetailGoals[detailGoalIndex]
-                                NavigationLink(destination: DetailGoalView(detailGoal: $selectedDetailGoal)) {
+                                
+                                Button(action: {
+                                    selectedDetailGoal = detailGoal
+                                    navigation = true
+                                }) {
                                     Text(detailGoal.title)
                                         .font(.Pretendard.Medium.size18)
                                         .modifier(NextMandalartButtonModifier(color: Color.myBFEBBB))
-                                }
-                                .onAppear{
-                                    selectedDetailGoal = detailGoal
                                 }
                                 .cornerRadius(cornerRadius, corners: cornerStyle, defaultRadius: 18)
                                 .contextMenu {
@@ -85,7 +86,16 @@ struct SubGoalDetailGridView: View {
                 }
                 .padding(.horizontal, 20/393 * UIScreen.main.bounds.width)
                 .navigationTitle(selectedSubGoal.title)
+                // NavigationLink는 여기서 한 번만 사용
+                NavigationLink(
+                    destination: DetailGoalView(detailGoal: .constant(selectedDetailGoal ?? sortedDetailGoals.first!)),
+                    isActive: $navigation,
+                    label: { EmptyView() }
+                )
             }
+            Spacer()
+            // 메모 모아보기
+            
         }
     }
 }
