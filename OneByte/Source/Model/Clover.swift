@@ -14,13 +14,15 @@ class Clover {
     var cloverYear: Int
     var cloverMonth: Int
     var cloverWeekOfMonth: Int
+    var cloverWeekOfYear: Int
     var cloverState: Int
     
-    init(id: Int, cloverYear: Int, cloverMonth: Int, cloverWeekOfMonth: Int, cloverState: Int) {
+    init(id: Int, cloverYear: Int, cloverMonth: Int, cloverWeekOfMonth: Int, cloverWeekOfYear: Int, cloverState: Int) {
         self.id = id
         self.cloverYear = cloverYear
         self.cloverMonth = cloverMonth
         self.cloverWeekOfMonth = cloverWeekOfMonth
+        self.cloverWeekOfYear = cloverWeekOfYear
         self.cloverState = cloverState
     }
 }

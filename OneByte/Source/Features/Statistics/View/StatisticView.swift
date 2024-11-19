@@ -11,9 +11,6 @@ import SwiftData
 struct StatisticView: View {
     
     @State var viewModel = StatisticViewModel()
-    @Query(
-        filter: #Predicate<Clover> { $0.cloverYear == Calendar.current.component(.year, from: Date()) }
-    ) var clovers: [Clover]
     
     var body: some View {
         ScrollView {
@@ -42,26 +39,67 @@ struct StatisticView: View {
     
     @ViewBuilder
     private func thisMonthCloverInfoView() -> some View {
-        RoundedRectangle(cornerRadius: 20)
-            .fill(Color.my6FB56F) // 배경색 (녹색)
+        
+        let cloverGetThisMonth = viewModel.getCurrentMonthClovers()
+        let cloverStates = viewModel.classifyCloverState(clovers: cloverGetThisMonth)
+        
+        RoundedRectangle(cornerRadius: 12)
+            .fill(Color.my6FB56F)
             .frame(maxWidth: .infinity)
             .frame(height: 146)
             .padding()
-            // ⚠️⚠️ 추가 구현
+            .overlay(
+                VStack(alignment: .leading) {
+                    HStack {
+                        Spacer()
+                        Rectangle()
+                            .foregroundColor(.clear)
+                            .frame(width: 83, height: 24)
+                            .background(.white.opacity(0.8))
+                            .cornerRadius(22.5)
+                            .overlay(
+                                HStack(spacing: 10) {
+                                    Text("\(cloverStates[2])개")
+                                    Text("\(cloverStates[1])개")
+                                }
+                            )
+                            .padding(.trailing, 30)
+                            .padding(.top, 10)
+                    }
+                    
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("김만복님!\n이번 달 클로버를 \(cloverGetThisMonth.count)번 획득했어요")
+                            .font(
+                                Font.custom("Pretendard", size: 20)
+                                    .weight(.bold)
+                            )
+                            .foregroundColor(.white)
+                        
+                        Text("모든 성장은 작은 시도에서 시작된답니다.\n다음 목표부터 하나씩 도전해볼까요?")
+                            .font(.Pretendard.SemiBold.size14)
+                            .foregroundColor(Color.my4A4A4A)
+                            .frame(width: 227, alignment: .leading)
+                    }
+                    .padding(.leading, 20)
+                }
+            )
     }
     
     @ViewBuilder
     private func thisYearCloverInfoView() -> some View {
+        
+        let cloverStates = viewModel.getCurrentYearCloverStates()
+        
         VStack(spacing: 5){
             HStack {
                 Text("올해의 클로버")
-                    .font(.Pretendard.Bold.size18)
+                    .font(.Pretendard.SemiBold.size18)
                     .padding(.leading, 5)
                 Spacer()
             }
             HStack {
                 Text("올해의 내가 수집한 클로버를 모아볼 수 있어요.")
-                    .font(.Pretendard.Medium.size14)
+                    .font(.caption)
                     .foregroundStyle(Color.myA8A8A8)
                     .padding(.leading, 5)
                 Spacer()
@@ -76,9 +114,11 @@ struct StatisticView: View {
                     }
                     HStack {
                         Image(systemName: "star.fill")
-                        
-                        Text("5")
-                            .font(.Pretendard.SemiBold.size20)
+                        Text("\(cloverStates[2])")
+                            .font(
+                                Font.custom("SF Pro", size: 20)
+                                    .weight(.semibold)
+                            )
                         Spacer()
                     }
                 }
@@ -97,8 +137,11 @@ struct StatisticView: View {
                     HStack {
                         Image(systemName: "star.fill")
                         
-                        Text("16")
-                            .font(.Pretendard.SemiBold.size20)
+                        Text("\(cloverStates[1])")
+                            .font(
+                                Font.custom("SF Pro", size: 20)
+                                    .weight(.semibold)
+                            )
                         Spacer()
                     }
                 }
@@ -121,5 +164,22 @@ struct StatisticView: View {
 }
 
 #Preview {
-    StatisticView()
+    let sampleViewModel = StatisticViewModel()
+    
+    sampleViewModel.clovers = [
+        Clover(id: 1, cloverYear: 2024, cloverMonth: 1, cloverWeekOfMonth: 1, cloverWeekOfYear: 1, cloverState: 1),
+        Clover(id: 2, cloverYear: 2024, cloverMonth: 1, cloverWeekOfMonth: 2, cloverWeekOfYear: 2, cloverState: 2),
+        Clover(id: 3, cloverYear: 2024, cloverMonth: 1, cloverWeekOfMonth: 3, cloverWeekOfYear: 3, cloverState: 0),
+        Clover(id: 4, cloverYear: 2024, cloverMonth: 1, cloverWeekOfMonth: 4, cloverWeekOfYear: 4, cloverState: 1),
+        Clover(id: 5, cloverYear: 2024, cloverMonth: 1, cloverWeekOfMonth: 5, cloverWeekOfYear: 5, cloverState: 1),
+        Clover(id: 6, cloverYear: 2024, cloverMonth: 2, cloverWeekOfMonth: 1, cloverWeekOfYear: 6, cloverState: 2),
+        Clover(id: 7, cloverYear: 2024, cloverMonth: 2, cloverWeekOfMonth: 2, cloverWeekOfYear: 7, cloverState: 1),
+        Clover(id: 8, cloverYear: 2024, cloverMonth: 2, cloverWeekOfMonth: 3, cloverWeekOfYear: 8, cloverState: 0),
+        Clover(id: 9, cloverYear: 2024, cloverMonth: 2, cloverWeekOfMonth: 4, cloverWeekOfYear: 9, cloverState: 1),
+        Clover(id: 10, cloverYear: 2024, cloverMonth: 11, cloverWeekOfMonth: 1, cloverWeekOfYear: 44, cloverState: 1),
+        Clover(id: 11, cloverYear: 2024, cloverMonth: 11, cloverWeekOfMonth: 2, cloverWeekOfYear: 45, cloverState: 2),
+        Clover(id: 12, cloverYear: 2024, cloverMonth: 11, cloverWeekOfMonth: 3, cloverWeekOfYear: 46, cloverState: 1),
+    ]
+    return StatisticView(viewModel: sampleViewModel)
+    
 }

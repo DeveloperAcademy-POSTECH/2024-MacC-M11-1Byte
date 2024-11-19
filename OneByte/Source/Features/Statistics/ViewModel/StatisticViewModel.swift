@@ -11,22 +11,38 @@ import SwiftData
 @Observable
 class StatisticViewModel {
 
-    
+    //    @Query(
+    //        filter: #Predicate<Clover> { $0.cloverYear == Calendar.current.component(.year, from: Date()) }
+    //    ) private var clovers: [Clover]
     var clovers: [Clover] = []
     
+    private let currentMonth = Calendar.current.component(.month, from: Date())
+
+    func getCurrentMonthClovers() -> [Clover] {
+        return filterCloversByMonth(month: currentMonth)
+    }
+    
+    func getCurrentMonthCloverStates() -> [Int] {
+        classifyCloverState(clovers: getCurrentMonthClovers())
+    }
+    
+    func getCurrentYearCloverStates() -> [Int] {
+        classifyCloverState(clovers: clovers)
+    }
+    
+    
     /*
-     올해 받은 클로버 중 이번 달에 받은 클로버만 필터링하는 함수
-     리턴: 이번 달에 받은 클로버 리스트
+     올해 받은 클로버 중 주어진 달에 받은 클로버만 필터링하는 함수
+     리턴: 주어진 달에 받은 클로버 리스트
      */
-    func filterThisMonthClovers() -> [Clover] {
-        let currentMonth = Calendar.current.component(.month, from: Date())
+    func filterCloversByMonth(month: Int) -> [Clover] {
         return clovers.filter { clover in
-            clover.cloverMonth == currentMonth
+            clover.cloverMonth == month
         }
     }
     
     /*
-     가져온 클로버가 황금인지 아닌지 구별하는 함수
+     가져온 클로버의 상태를 구별하는 함수
      리턴: 리스트; 인덱스 0번은 투명 클로버 개수, 1번은 일반, 2번은 황금
      */
     func classifyCloverState(clovers: [Clover]) -> [Int] {
