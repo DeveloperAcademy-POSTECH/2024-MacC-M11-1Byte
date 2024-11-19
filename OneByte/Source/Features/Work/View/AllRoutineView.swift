@@ -8,41 +8,6 @@
 import SwiftUI
 import SwiftData
 
-enum tapInfo : String, CaseIterable {
-    
-    case all, first, second, third, fourth
-    
-    var colorClovar: String {
-        switch self {
-        case .all:
-            return "ColorCloverAll"
-        case .first:
-            return "ColorClover1"
-        case .second:
-            return "ColorClover2"
-        case .third:
-            return "ColorClover3"
-        case .fourth:
-            return "ColorClover4"
-        }
-    }
-    
-    var grayClovar: String {
-        switch self {
-        case.all:
-            return "GrayCloverAll"
-        case .first:
-            return "GrayClover1"
-        case .second:
-            return "GrayClover2"
-        case .third:
-            return "GrayClover3"
-        case .fourth:
-            return "GrayClover4"
-        }
-    }
-}
-
 struct AllRoutineView: View {
     
     @State private var selectedPicker: tapInfo = .all
@@ -69,7 +34,7 @@ struct AllRoutineView: View {
                                                 .frame(width: 29, height: 29)
                                                 .clipShape(Circle())
                                             
-                                            Text(subGoal.title.isEmpty ? "서브목표 없음" : subGoal.title)
+                                            Text(subGoal.title.isEmpty ? "서브목표가 비어있어요." : subGoal.title)
                                                 .font(.Pretendard.Bold.size22)
                                                 .foregroundStyle(Color.my2B2B2B)
                                             Spacer()
@@ -137,7 +102,7 @@ struct AllRoutineView: View {
         HStack(spacing: 0) {
             ForEach(tapInfo.allCases, id: \.self) { item in
                 HStack {
-                    Image(selectedPicker == item ? item.colorClovar : item.grayClovar)
+                    Image(selectedPicker == item ? item.colorClover : item.grayClover)
                         .resizable()
                         .scaledToFit()
                         .frame(maxWidth: .infinity / 5)
@@ -166,11 +131,11 @@ struct AllRoutineView: View {
     
     private func colorClovar(for subGoalId: Int) -> String {
         switch subGoalId {
-        case 1: return tapInfo.first.colorClovar
-        case 2: return tapInfo.second.colorClovar
-        case 3: return tapInfo.third.colorClovar
-        case 4: return tapInfo.fourth.colorClovar
-        default: return tapInfo.all.colorClovar
+        case 1: return tapInfo.first.colorClover
+        case 2: return tapInfo.second.colorClover
+        case 3: return tapInfo.third.colorClover
+        case 4: return tapInfo.fourth.colorClover
+        default: return tapInfo.all.colorClover
         }
     }
 }
@@ -184,7 +149,7 @@ struct TodoView : View {
         VStack(spacing: 0) {
             ScrollView(.vertical, showsIndicators: false) {
                 HStack {
-                    Image(tapType.colorClovar)
+                    Image(tapType.colorClover)
                         .resizable()
                         .frame(width: 29, height: 29)
                         .clipShape(Circle())

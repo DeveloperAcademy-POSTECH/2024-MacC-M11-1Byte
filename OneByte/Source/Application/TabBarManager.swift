@@ -17,7 +17,7 @@ struct TabBarManager: View {
                     Text("나의 목표")
                 }
             
-            WorkView(routineType: .today)
+            WorkView()
                 .tabItem {
                     Image(systemName: "chart.bar.xaxis.ascending.badge.clock")
                     Text("할 일")
