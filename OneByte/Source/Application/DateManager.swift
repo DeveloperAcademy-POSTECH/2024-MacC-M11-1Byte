@@ -8,7 +8,7 @@
 import Foundation
 
 // 날짜 관련 유틸리티 함수들을 담은 클래스
-class DateManager {
+class DateManager: ObservableObject {
     
     // 오늘 날짜를 "MM월 dd일" 형식으로 반환하는 함수
     func koreanFormattedDate(for date: Date) -> String {
@@ -20,12 +20,16 @@ class DateManager {
     
     // 현재 날짜가 몇 월의 몇 주차인지 반환하는 함수
     func koreanMonthAndWeek(for date: Date) -> String {
-        let calendar = Calendar(identifier: .gregorian)
+        let calendar = Calendar(identifier: .iso8601)
         let month = calendar.component(.month, from: date)
         let week = calendar.component(.weekOfMonth, from: date)
-        return "\(month)월 \(week)주차"
+        if week == 0 {
+            return "\(month-1)월 5주차"
+        } else {
+            return "\(month)월 \(week)주차"
+        }
     }
-    
+
     // 요일별 D- 값을 고정한 enum 정의
     enum DeadlineDay: Int {
         case sunday = 1
@@ -71,3 +75,24 @@ class DateManager {
         }
     }
 }
+//    private func calculateWeek(year: String, month: String, day: String) {
+//            // 입력값이 비어있거나 올바른 형식이 아닐 경우 처리
+//            guard let yearInt = Int(year), let monthInt = Int(month), let dayInt = Int(day), !year.isEmpty, !month.isEmpty, !day.isEmpty else {
+//                resultText = "올바른 날짜를 입력하세요."
+//                return
+//            }
+//
+//            // ISO 8601 기준 캘린더 생성
+//            let calendar = Calendar(identifier: .iso8601)
+//            var dateComponents = DateComponents()
+//            dateComponents.year = yearInt
+//            dateComponents.month = monthInt
+//            dateComponents.day = dayInt
+//
+//            // 유효한 날짜인지 확인 후 주차 계산
+//            if let date = calendar.date(from: dateComponents) {
+//                resultText = dateManager.koreanMonthAndWeek(for: date)
+//            } else {
+//                resultText = "유효하지 않은 날짜입니다."
+//            }
+//        }
