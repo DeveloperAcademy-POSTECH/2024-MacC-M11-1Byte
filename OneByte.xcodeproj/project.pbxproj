@@ -55,7 +55,7 @@
 		1FD405232CEC74E800403A19 /* AllRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD405222CEC74E800403A19 /* AllRoutineView.swift */; };
 		1FD405252CEC79DD00403A19 /* TodayRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD405242CEC79DD00403A19 /* TodayRoutineView.swift */; };
 		1FD4052A2CECBFCB00403A19 /* RoutineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD405292CECBFCB00403A19 /* RoutineModel.swift */; };
-		1FD4052C2CECBFF900403A19 /* WorkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD4052B2CECBFF900403A19 /* WorkViewModel.swift */; };
+		1FD4052C2CECBFF900403A19 /* RoutineMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD4052B2CECBFF900403A19 /* RoutineMainViewModel.swift */; };
 		1FD405302CECC42500403A19 /* AllRoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD4052F2CECC42500403A19 /* AllRoutineViewModel.swift */; };
 		1FD405362CECE6F800403A19 /* TodayRouitneTypeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD405352CECE6F800403A19 /* TodayRouitneTypeHeaderView.swift */; };
 		1FD405382CECE7B400403A19 /* TodayRoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD405372CECE7B400403A19 /* TodayRoutineViewModel.swift */; };
@@ -71,7 +71,7 @@
 		613904E82CD20457008E591D /* MandalartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E72CD20457008E591D /* MandalartView.swift */; };
 		613904EA2CD21A0B008E591D /* MandalartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E92CD21A0B008E591D /* MandalartViewModel.swift */; };
 		615A0A0B2CC0ADA800908531 /* TabBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A0A2CC0ADA800908531 /* TabBarManager.swift */; };
-		615A0A0D2CC0AE8700908531 /* WorkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A0C2CC0AE8700908531 /* WorkView.swift */; };
+		615A0A0D2CC0AE8700908531 /* RoutineMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A0C2CC0AE8700908531 /* RoutineMainView.swift */; };
 		615A0A112CC0AEB800908531 /* StatisticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A102CC0AEB800908531 /* StatisticView.swift */; };
 		617816202CE5DF6A00834AAD /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6178161F2CE5DF6A00834AAD /* DateManager.swift */; };
 		618FD0702CDF0ED20003450D /* MandalartButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618FD06F2CDF0ED20003450D /* MandalartButtonModifier.swift */; };
@@ -133,7 +133,7 @@
 		1FD405222CEC74E800403A19 /* AllRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRoutineView.swift; sourceTree = "<group>"; };
 		1FD405242CEC79DD00403A19 /* TodayRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutineView.swift; sourceTree = "<group>"; };
 		1FD405292CECBFCB00403A19 /* RoutineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineModel.swift; sourceTree = "<group>"; };
-		1FD4052B2CECBFF900403A19 /* WorkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkViewModel.swift; sourceTree = "<group>"; };
+		1FD4052B2CECBFF900403A19 /* RoutineMainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineMainViewModel.swift; sourceTree = "<group>"; };
 		1FD4052F2CECC42500403A19 /* AllRoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRoutineViewModel.swift; sourceTree = "<group>"; };
 		1FD405352CECE6F800403A19 /* TodayRouitneTypeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRouitneTypeHeaderView.swift; sourceTree = "<group>"; };
 		1FD405372CECE7B400403A19 /* TodayRoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutineViewModel.swift; sourceTree = "<group>"; };
@@ -149,7 +149,7 @@
 		613904E72CD20457008E591D /* MandalartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalartView.swift; sourceTree = "<group>"; };
 		613904E92CD21A0B008E591D /* MandalartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalartViewModel.swift; sourceTree = "<group>"; };
 		615A0A0A2CC0ADA800908531 /* TabBarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarManager.swift; sourceTree = "<group>"; };
-		615A0A0C2CC0AE8700908531 /* WorkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkView.swift; sourceTree = "<group>"; };
+		615A0A0C2CC0AE8700908531 /* RoutineMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineMainView.swift; sourceTree = "<group>"; };
 		615A0A102CC0AEB800908531 /* StatisticView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticView.swift; sourceTree = "<group>"; };
 		6178161F2CE5DF6A00834AAD /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		618FD06F2CDF0ED20003450D /* MandalartButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalartButtonModifier.swift; sourceTree = "<group>"; };
@@ -323,9 +323,9 @@
 		1F7C9C172CD0737800BAC358 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				615A0A0C2CC0AE8700908531 /* WorkView.swift */,
-				1FD405222CEC74E800403A19 /* AllRoutineView.swift */,
+				615A0A0C2CC0AE8700908531 /* RoutineMainView.swift */,
 				1FD405242CEC79DD00403A19 /* TodayRoutineView.swift */,
+				1FD405222CEC74E800403A19 /* AllRoutineView.swift */,
 				1FD405352CECE6F800403A19 /* TodayRouitneTypeHeaderView.swift */,
 			);
 			path = View;
@@ -466,9 +466,9 @@
 		1FD4052E2CECC02900403A19 /* VM */ = {
 			isa = PBXGroup;
 			children = (
-				1FD4052B2CECBFF900403A19 /* WorkViewModel.swift */,
-				1FD4052F2CECC42500403A19 /* AllRoutineViewModel.swift */,
+				1FD4052B2CECBFF900403A19 /* RoutineMainViewModel.swift */,
 				1FD405372CECE7B400403A19 /* TodayRoutineViewModel.swift */,
+				1FD4052F2CECC42500403A19 /* AllRoutineViewModel.swift */,
 			);
 			path = VM;
 			sourceTree = "<group>";
@@ -609,7 +609,7 @@
 				1FB10A362CDF5C7900D54EC5 /* OnboardingExplainView.swift in Sources */,
 				613904EA2CD21A0B008E591D /* MandalartViewModel.swift in Sources */,
 				1F88AB392CD607F90009730D /* NavigationManager.swift in Sources */,
-				615A0A0D2CC0AE8700908531 /* WorkView.swift in Sources */,
+				615A0A0D2CC0AE8700908531 /* RoutineMainView.swift in Sources */,
 				1FD4052A2CECBFCB00403A19 /* RoutineModel.swift in Sources */,
 				1FB10A2C2CDF52E600D54EC5 /* OnboardingProgressBar.swift in Sources */,
 				1F599E282CE5F29500788D07 /* EditNicknameSheetView.swift in Sources */,
@@ -629,7 +629,7 @@
 				1F4D8BF22CDF4FC300A0B5CC /* Onboarding.swift in Sources */,
 				1F599E302CE6640600788D07 /* AchievedRow.swift in Sources */,
 				1F599E342CE6643B00788D07 /* FontRow.swift in Sources */,
-				1FD4052C2CECBFF900403A19 /* WorkViewModel.swift in Sources */,
+				1FD4052C2CECBFF900403A19 /* RoutineMainViewModel.swift in Sources */,
 				1FD405382CECE7B400403A19 /* TodayRoutineViewModel.swift in Sources */,
 				610595D22CE214CE005ED7B4 /* SubGoalDetailGridView.swift in Sources */,
 				610595D42CE21505005ED7B4 /* MainGoalSheetView.swift in Sources */,

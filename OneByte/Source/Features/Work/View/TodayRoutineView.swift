@@ -15,7 +15,7 @@ struct TodayRoutineView: View {
     
     var body: some View {
         ScrollView {
-            VStack(spacing: 16) {
+            VStack(spacing: 15) {
                 // 데이터 업데이트
                 let todayGoals = viewModel.filterTodayGoals(from: mainGoals)
                 
@@ -27,11 +27,11 @@ struct TodayRoutineView: View {
                         TodayRoutineCell(detailGoal: detailGoal)
                     }
                 }
-                    
                 
                 // 오후 루틴 섹션
                 if !viewModel.afternoonGoals(from: todayGoals).isEmpty {
                     TodayRoutineTypeHeaderView(routineimage: "moon.fill", routineTimeType: "오후 루틴")
+                        .padding(.top)
                     
                     ForEach(viewModel.afternoonGoals(from: todayGoals), id: \.id) { detailGoal in
                         TodayRoutineCell(detailGoal: detailGoal)
@@ -41,13 +41,14 @@ struct TodayRoutineView: View {
                 // 자유 루틴 섹션
                 if !viewModel.freeGoals(from: todayGoals).isEmpty {
                     TodayRoutineTypeHeaderView(routineimage: "star.fill", routineTimeType: "자유 루틴")
+                        .padding(.top)
                     
                     ForEach(viewModel.freeGoals(from: todayGoals), id: \.id) { detailGoal in
                         TodayRoutineCell(detailGoal: detailGoal)
                     }
                 }
             }
-            .padding(.horizontal)
+            .padding()
         }
         .background(Color.myFFFAF4)
     }
@@ -66,7 +67,10 @@ struct TodayRoutineCell: View {
                     .foregroundStyle(Color.my727272)
                     .padding(.bottom)
             } else {
-                Text("")
+                Text("          ") // 빈 문자열 대신 공백을 명시적으로 설정
+                    .font(.Pretendard.Medium.size14)
+                    .opacity(0)
+                    .padding(.bottom)
             }
             
             VStack(alignment: .leading, spacing: 4) {
@@ -74,7 +78,7 @@ struct TodayRoutineCell: View {
                     .font(.Pretendard.SemiBold.size16)
                     .foregroundStyle(Color.my2B2B2B)
                 
-                Text(detailGoal.memo)
+                Text(detailGoal.memo) // ⚠️⚠️⚠️ 나중에 detailGoal에 해당하는 Subgoal title띄워지게
                     .font(.Pretendard.SemiBold.size12)
                     .foregroundStyle(Color.my428142)
             }
@@ -94,7 +98,7 @@ struct TodayRoutineCell: View {
             .cornerRadius(8)
         }
         .frame(height: 69)
-        .padding()
+        .padding(.horizontal)
         .background(Color.white)
         .cornerRadius(12)
         .overlay(

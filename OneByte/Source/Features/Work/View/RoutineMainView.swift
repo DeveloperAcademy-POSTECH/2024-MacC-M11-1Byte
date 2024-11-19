@@ -9,37 +9,39 @@ import SwiftUI
 import SwiftData
 
 // MARK: 루틴 메인 뷰
-struct WorkView: View {
+struct RoutineMainView: View {
     
-    @State var viewModel = WorkViewModel(routineType: .today)
+    @State var viewModel = RoutineMainViewModel(routineType: .today)
     @Namespace private var animation
     
     var body: some View {
-        ZStack {
-            Color.my6FB56F
-                .ignoresSafeArea(edges: .top)
-            
-            VStack(spacing: 0) {
-                headerView() // 헤더 뷰
-                
-                motivationMessageView() // 만북이 메세지 뷰
+        NavigationStack {
+            ZStack {
+                Color.my6FB56F
+                    .ignoresSafeArea(edges: .top)
                 
                 VStack(spacing: 0) {
-                    animate() // Tabbar Picker
-                    Divider()
-                        .foregroundStyle(Color.myF0E8DF)
+                    headerView() // 헤더 뷰
                     
-                    ScrollView(.vertical, showsIndicators: false) { // Picker에 따른 2개 뷰
-                        switch viewModel.selectedPicker {
-                        case .today:
-                            TodayRoutineView()
-                        case .all:
-                            AllRoutineView()
+                    motivationMessageView() // 만북이 메세지 뷰
+                    
+                    VStack(spacing: 0) {
+                        animate() // Tabbar Picker
+                        Divider()
+                            .foregroundStyle(Color.myF0E8DF)
+                        
+                        ScrollView(.vertical, showsIndicators: false) { // Picker에 따른 2개 뷰
+                            switch viewModel.selectedPicker {
+                            case .today:
+                                TodayRoutineView() // 오늘의 루틴 탭
+                            case .all:
+                                AllRoutineView() // 전체 루틴 탭
+                            }
                         }
                     }
+                    .background(Color.myFFFAF4)
+                    .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
                 }
-                .background(Color.myFFFAF4)
-                .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
             }
         }
     }
@@ -113,5 +115,5 @@ struct WorkView: View {
 }
 
 #Preview {
-    WorkView()
+    RoutineMainView()
 }

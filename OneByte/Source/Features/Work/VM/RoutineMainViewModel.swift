@@ -8,7 +8,7 @@
 import SwiftUI
 
 @Observable
-class WorkViewModel {
+class RoutineMainViewModel {
     
     var mainDateManager = DateManager()
     var selectedPicker: routineTapInfo = .today

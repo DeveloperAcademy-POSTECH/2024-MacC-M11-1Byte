@@ -70,9 +70,26 @@ struct AllRoutineView: View {
                 }
             } else { // 모든 루틴(.all)보는게 아닐경우, 각 탭마다 Subgoal ID를 찾아서 View
                 if let mainGoal = mainGoals.first,
-                   let selectedSubGoal = viewModel.selectedSubGoal(for: mainGoal) {
-                    TodoView(tapType: viewModel.selectedPicker, subGoal: selectedSubGoal)
-                }
+                     let selectedSubGoal = viewModel.selectedSubGoal(for: mainGoal) {
+                      // SubGoal, DetailGoal 둘다 비어있는 탭이면
+                      if viewModel.isSubGoalEmpty(selectedSubGoal) {
+                          VStack(spacing: 5) {
+                              Image("Turtle_Empty")
+                                  .resizable()
+                                  .scaledToFit()
+                                  .frame(width: 101, height: 149)
+                                  .padding(.top, 45)
+                              Text("아직 루틴이 없어요!")
+                                  .font(.Pretendard.SemiBold.size18)
+                                  .padding(.top)
+                              Text("만다라트에서 루틴을 추가해보세요.")
+                                  .font(.Pretendard.Regular.size16)
+                                  .foregroundStyle(Color.my878787)
+                          }
+                      } else {
+                          TodoView(tapType: viewModel.selectedPicker, subGoal: selectedSubGoal)
+                      }
+                  }
             }
         }
         .background(Color.myFFFAF4)
@@ -179,6 +196,7 @@ struct WeekAchieveCell: View {
     var achieveSun: Bool
     
     let days: [String] = ["월","화","수","목","금","토","일"] // 요일 데이터 - 고정
+    
     
     var body: some View {
         VStack(spacing: 15) {

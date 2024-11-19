@@ -15,11 +15,11 @@ struct TodayRoutineTypeHeaderView: View {
     
     var body: some View {
         HStack {
-            Image(systemName: "star.fill")
+            Image(systemName: routineimage)
                 .frame(width: 22, height: 22)
                 .foregroundStyle(Color.my566956)
             
-            Text("오전 루틴")
+            Text(routineTimeType)
                 .font(.Pretendard.Bold.size18)
                 .foregroundStyle(Color.my566956)
             Spacer()
