@@ -7,21 +7,23 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct DetailGoalView: View {
-    @Environment(\.modelContext) private var modelContext  // SwiftData 컨텍스트
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) private var modelContext
+    @Environment(\.managedObjectContext) private var context
     private let viewModel = MandalartViewModel(
         createService: CreateService(),
         updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []),
         deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: [])
     )
-    @Environment(\.managedObjectContext) private var context
+    @State private var isEditing: Bool = false
     @Binding var detailGoal: DetailGoal?
     @State private var newTitle: String = ""
     @State private var newMemo: String = ""
     @State private var achieveCount = 0
     @State private var achieveGoal = 0
+    
+    // 알람 요일
     @State private var alertMon: Bool = false
     @State private var alertTue: Bool = false
     @State private var alertWed: Bool = false
@@ -43,103 +45,39 @@ struct DetailGoalView: View {
     private let memoLimit = 150 // 메모 글자수 제한
     
     var body: some View {
-        VStack {
-            Text("할 일")
-                .font(.Pretendard.SemiBold.size17)
-                .padding(.top, 22/852 * UIScreen.main.bounds.height)
-            
-            // 할 일 제목 입력란
-            ZStack {
-                TextField("할 일을 입력해주세요", text: $newTitle)
-                    .padding()
-                    .background(.white)
-                    .cornerRadius(8)
-                    .onChange(of: newTitle) { oldValue, newValue in
-                        if newValue.count > titleLimit {
-                            newTitle = String(newValue.prefix(titleLimit))
-                        }
-                    }
-                HStack {
-                    Spacer()
-                    if newTitle != "" {
-                        Button(action: {
-                            newTitle = ""
-                        }, label: {
-                            Image(systemName: "xmark.circle.fill")
-                                .resizable()
-                                .frame(width: 23, height: 23)
-                                .foregroundStyle(Color.myB9B9B9)
-                        })
-                        .padding(.trailing)
-                    }
-                }
-            }
-            
-            // 글자수 부분
-            HStack(spacing: 0) {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 28/852 * UIScreen.main.bounds.height) {
                 Spacer()
-                Text("\(newTitle.count)")
-                    .font(.Pretendard.Medium.size12)
-                    .foregroundStyle(Color.my6C6C6C)
-                Text("/\(titleLimit)")
-                    .font(.Pretendard.Medium.size12)
-                    .foregroundStyle(Color.my6C6C6C.opacity(0.5))
+                
+                if isEditing {
+                    // 타이틀 입력란
+                    detailGaolTitle()
+                    
+                    // 메모 입력란
+                    DetailGoalMemo()
+                    
+                    // 요일 선택
+                    selectDays()
+                    
+                    // 리마인드 알림
+                    remind()
+                    
+                } else {
+                    // 저장되었을 때 보여주는 화면
+                    saved()
+                }
+                
+                Spacer()
             }
-            .padding(.trailing, 10)
             
-            // 메모 입력란
-            ZStack{
-                VStack {
-                    TextField("메모를 입력해주세요", text: $newMemo, axis: .vertical)
-                        .scrollContentBackground(.hidden)
-                        .padding()
-                        .background(.clear)
-                        .onChange(of: newMemo) { oldValue, newValue in
-                            if newValue.count > memoLimit {
-                                newMemo = String(newValue.prefix(memoLimit))
-                            }
-                        }
-                    Spacer()
-                }
-                
-                // 글자수 부분
-                VStack(spacing: 0){
-                    Spacer()
-                    HStack(spacing: 0){
-                        Spacer()
-                        Text("\(newMemo.count)")
-                            .font(.Pretendard.Medium.size12)
-                            .foregroundStyle(Color.my6C6C6C)
-                        Text("/\(memoLimit)")
-                            .font(.Pretendard.Medium.size12)
-                            .foregroundStyle(Color.my6C6C6C.opacity(0.5))
-                    }
-                    .padding([.trailing, .bottom], 10)
-                }
-                
-            }
-            .frame(maxWidth: .infinity)
-            .frame(height: 133/852 * UIScreen.main.bounds.height)
-            .background(.white)
-            .cornerRadius(8)
-            
-            Spacer()
-            
-            // 버튼 영역
-            HStack {
+        }
+        .navigationBarBackButtonHidden()
+        .backButtonToolbar { dismiss() }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing, content: {
                 Button(action: {
-//                    isPresented = false
-                }) {
-                    Text("취소")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.my787880.opacity(0.2))
-                        .foregroundStyle(Color.my3C3C43.opacity(0.6))
-                        .cornerRadius(12)
-                }
-                
-                Button(action: {
-                    if let detailGoal = detailGoal {
+                    isEditing.toggle()
+                    if !isEditing, let detailGoal = detailGoal{
                         viewModel.updateDetailGoal(
                             detailGoal: detailGoal,
                             modelContext: modelContext,
@@ -165,18 +103,13 @@ struct DetailGoalView: View {
                             achieveSun: achieveSun
                         )
                     }
-                }) {
-                    Text("저장")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.my538F53)
-                        .foregroundStyle(.white)
-                        .cornerRadius(12)
-                }
-            }.padding(.bottom, 33/852 * UIScreen.main.bounds.height)
+                }, label: {
+                    Text(isEditing ? "저장" : "편집")
+                        .foregroundStyle(Color.my538F53)
+                })
+            })
         }
-        .padding(.horizontal)
-        .background(Color.myF1F1F1)
+        .padding(.horizontal, 20)
         .onAppear {
             if let detailGoal = detailGoal {
                 newTitle = detailGoal.title
@@ -200,8 +133,318 @@ struct DetailGoalView: View {
                 achieveSat = detailGoal.achieveSat
                 achieveSun = detailGoal.achieveSun
             } else { print("실패")}
+            
+        }
+        .background(Color.myFFFAF4)
+    }
+    
+    // 선택된 요일을 필터링하여 배열로 반환하는 함수
+    func getSelectedDays() -> [String] {
+        var selected: [String] = []
+        if alertSun { selected.append("일") }
+        if alertMon { selected.append("월") }
+        if alertTue { selected.append("화") }
+        if alertWed { selected.append("수") }
+        if alertThu { selected.append("목") }
+        if alertFri { selected.append("금") }
+        if alertSat { selected.append("토") }
+        return selected
+    }
+}
+
+extension DetailGoalView {
+    @ViewBuilder
+    func detailGaolTitle() -> some View {
+        Text("루틴 이름")
+            .font(.Pretendard.SemiBold.size16)
+            .padding(.leading, 4)
+            .foregroundStyle(Color.my675542)
+        
+        // 할 일 제목 입력란
+        ZStack {
+            TextField("루틴을 입력해주세요.", text: $newTitle)
+                .padding()
+                .background(.white)
+                .cornerRadius(12)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.myF0E8DF, lineWidth: 1)
+                )
+                .onChange(of: newTitle) { oldValue, newValue in
+                    if newValue.count > titleLimit {
+                        newTitle = String(newValue.prefix(titleLimit))
+                    }
+                }
+            
+            HStack {
+                Spacer()
+                if newTitle != "" {
+                    Button(action: {
+                        newTitle = ""
+                    }, label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .resizable()
+                            .frame(width: 23, height: 23)
+                            .foregroundStyle(Color.myB9B9B9)
+                    })
+                    .padding(.trailing)
+                }
+            }
+        }
+        .padding(.top, -20)
+        
+        if isEditing {
+            // 글자수 부분
+            HStack(spacing: 0) {
+                Spacer()
+                Text("\(newTitle.count)")
+                    .font(.Pretendard.Medium.size12)
+                    .foregroundStyle(Color.my6C6C6C)
+                Text("/\(titleLimit)")
+                    .font(.Pretendard.Medium.size12)
+                    .foregroundStyle(Color.my6C6C6C.opacity(0.5))
+            }
+            .padding(.trailing, 10)
+            .padding(.top, -20)
         }
     }
     
+    @ViewBuilder
+    func DetailGoalMemo() -> some  View {
+        Text("메모")
+            .font(.Pretendard.SemiBold.size16)
+            .padding(.leading, 4)
+            .padding(.top, -10)
+            .foregroundStyle(Color.my675542)
+        
+        ZStack {
+            VStack(alignment: .leading) {
+                TextField("루틴에 대한 메모를 자유롭게 작성해보세요.", text: $newMemo, axis: .vertical)
+                    .scrollContentBackground(.hidden)
+                    .padding()
+                    .background(.clear)
+                    .cornerRadius(12)
+                    .onChange(of: newMemo) { oldValue, newValue in
+                        if newValue.count > memoLimit {
+                            newMemo = String(newValue.prefix(memoLimit))
+                        }
+                    }
+                Spacer()
+            }
+            // 글자수 부분
+            VStack(spacing: 0){
+                Spacer()
+                HStack(spacing: 0){
+                    Spacer()
+                    Text("\(newMemo.count)")
+                        .font(.Pretendard.Medium.size12)
+                        .foregroundStyle(Color.my6C6C6C)
+                    Text("/\(memoLimit)")
+                        .font(.Pretendard.Medium.size12)
+                        .foregroundStyle(Color.my6C6C6C.opacity(0.5))
+                }
+                .padding([.trailing, .bottom], 10)
+            }
+            
+            
+        }
+        .frame(maxWidth: .infinity)
+        .frame(height: 133/852 * UIScreen.main.bounds.height)
+        .background(.white)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.myF0E8DF, lineWidth: 1)
+        )
+        .padding(.top, -20)
+    }
+    
+    @ViewBuilder
+    func selectDays() -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("요일 선택")
+                .font(.Pretendard.Medium.size14)
+                .foregroundStyle(Color.my675542)
+            
+            Text("루틴을 실행할 요일을 선택해주세요.")
+                .font(.Pretendard.Medium.size14)
+                .foregroundStyle(Color.myB4A99D)
+        }
+        .padding(.leading, 4)
+        //실제 요일 선택
+        VStack(alignment: .leading, spacing: 16){
+            Text("반복 요일")
+                .font(.Pretendard.SemiBold.size16)
+            HStack(spacing: 12) {
+                DayButton(title: "일", isSelected: $alertSun)
+                DayButton(title: "월", isSelected: $alertMon)
+                DayButton(title: "화", isSelected: $alertTue)
+                DayButton(title: "수", isSelected: $alertWed)
+                DayButton(title: "목", isSelected: $alertThu)
+                DayButton(title: "금", isSelected: $alertFri)
+                DayButton(title: "토", isSelected: $alertSat)
+            }
+        }
+        .padding()
+        .frame(maxWidth: .infinity)
+        .frame(height: 105/852 * UIScreen.main.bounds.height)
+        .background(.white)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.myF0E8DF, lineWidth: 1)
+        )
+        .padding(.top, -18)
+    }
+    
+    @ViewBuilder
+    func remind() -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("리마인드 알림")
+                .font(.Pretendard.Medium.size14)
+            
+            Text("루틴을 시작할 때 받을 알림을 설정해주세요.")
+                .foregroundStyle(Color.myB4A99D)
+        }
+        .padding(.leading, 4)
+       Section {
+           VStack(spacing: 0){
+               // 알림 설정 토글
+               HStack() {
+                   Text("알림 설정")
+                       .font(.Pretendard.SemiBold.size16)
+                       .foregroundStyle(.black)
+                   Spacer()
+                   
+                   Toggle("", isOn: $isRemind)
+                       .toggleStyle(SwitchToggleStyle(tint: Color.my538F53)) // 초록색 토글
+               }
+               
+               if isRemind {
+                   Divider()
+                       .foregroundStyle(Color.myF0E8DF)
+                       .frame(height: 1)
+                       .padding(.vertical, 8)
+                       
+                   // 알림 시간 설정
+                   HStack {
+                       Text("알림 시간")
+                           .font(.Pretendard.SemiBold.size16)
+                           .foregroundStyle(.black)
+                       Spacer()
+                       
+                       // 알림 시간을 선택할 수 있는 DatePicker
+                       DatePicker(
+                        "",
+                        selection: Binding(
+                            get: { remindTime ?? Date() },
+                            set: { remindTime = $0 }
+                        ),
+                        displayedComponents: .hourAndMinute
+                       )
+                       .labelsHidden() // 라벨 숨기기
+                   }
+               }
+           }
+           .padding(.horizontal)
+           .padding(.vertical, 10)
+        }
+       .background(.white)
+       .overlay(
+           RoundedRectangle(cornerRadius: 12)
+               .stroke(Color.myF0E8DF, lineWidth: 1)
+       )
+       .padding(.top, -18)
+    }
+    
+    @ViewBuilder
+    func saved() -> some View {
+        VStack(alignment: .leading, spacing: 16) {
+            HStack(spacing: 30) {
+                Text("루틴 이름")
+                    .foregroundStyle(Color.my675542)
+                    .font(.Pretendard.SemiBold.size16)
+                    .frame(width: 60)
+                Text(newTitle)
+                    .font(.Pretendard.Medium.size16)
+                Spacer()
+            }
+            Divider()
+                .padding(.horizontal, -16)
+            HStack(spacing: 30) {
+                Text("메모")
+                    .foregroundStyle(Color.my675542)
+                    .font(.Pretendard.SemiBold.size16)
+                    .frame(width: 60, alignment: .leading)
+                Text(newMemo)
+                    .font(.Pretendard.Medium.size16)
+                Spacer()
+            }
+            Divider()
+                .padding(.horizontal, -16)
+            HStack(spacing: 30) {
+                Text("반복 요일")
+                    .foregroundStyle(Color.my675542)
+                    .font(.Pretendard.SemiBold.size16)
+                    .frame(width: 60)
+                // 선택된 요일만 표시
+                let selectedDays = getSelectedDays()
+                Text(selectedDays.joined(separator: ", "))
+                    .font(.Pretendard.Medium.size16)
+                Spacer()
+            }
+            Divider()
+                .padding(.horizontal, -16)
+            HStack(spacing: 30) {
+                Text("알람 시간")
+                    .foregroundStyle(Color.my675542)
+                    .font(.Pretendard.SemiBold.size16)
+                    .frame(width: 60)
+                if isRemind {
+                    var formattedRemindTime: String {
+                        guard let remindTime = remindTime else {
+                            return "시간이 설정되지 않았습니다."
+                        }
+                        
+                        let formatter = DateFormatter()
+                        formatter.dateFormat = "a h시 mm분" // 오전/오후 + 시:분 형식
+                        formatter.locale = Locale(identifier: "ko_KR") // 한국어로 설정
+                        return formatter.string(from: remindTime)
+                    }
+                    Text(formattedRemindTime)
+                        .font(.Pretendard.Medium.size16)
+                } else {
+                    Text("정해진 시간이 없습니다.")
+                        .font(.Pretendard.Medium.size16)
+                }
+                
+                Spacer()
+            }
+        }
+        .padding()
+        .background(.white)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.myF0E8DF, lineWidth: 1)
+        )
+
+    }
 }
 
+// 요일 버튼 컴포넌트
+struct DayButton: View {
+    let title: String
+    @Binding var isSelected: Bool
+    
+    var body: some View {
+        Button(action: {
+            isSelected.toggle()
+        }) {
+            Text(title)
+                .font(.Pretendard.Medium.size17)
+                .foregroundStyle(.white)
+                .frame(width: 36, height: 36)
+                .background(isSelected ? Color.my538F53 : Color.myCFCFCF)
+                .clipShape(Circle())
+        }
+        .buttonStyle(PlainButtonStyle()) // 기본 효과 제거
+    }
+}
