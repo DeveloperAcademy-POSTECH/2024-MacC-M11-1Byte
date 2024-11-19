@@ -93,6 +93,9 @@ struct SubGoalDetailGridView: View {
                     label: { EmptyView() }
                 )
             }
+            Spacer()
+            // 메모 모아보기
+            
         }
     }
 }
