@@ -46,13 +46,14 @@ struct WorkView: View {
                 
                 HStack{
                     Text("완벽하지 않아도 괜찮아요.\n중요한 것은 꾸준히 다시 시작하는 거예요!")
+                        .font(.Pretendard.Medium.size14)
+                        .foregroundStyle(Color.my3C3C3C)
                     Image("Turtle_Main")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 105, height: 85)
                 }
                 .padding()
-                .frame(maxWidth: .infinity)
                 .background(Color.my6FB56F)
                 
                 VStack(spacing: 0) {

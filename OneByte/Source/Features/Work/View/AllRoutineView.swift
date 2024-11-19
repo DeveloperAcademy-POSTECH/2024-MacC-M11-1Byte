@@ -191,7 +191,7 @@ struct WeekAchieveCell: View {
                     
                     Spacer()
                     
-                    Text("달성한 횟수 \(achieveCount)/\(achieveGoal)")
+                    Text("달성한 횟수 \(achieveCount)/\(achieveGoal)개")
                         .font(.Pretendard.Medium.size12)
                         .foregroundStyle(Color.my727272)
                 }
@@ -213,7 +213,7 @@ struct WeekAchieveCell: View {
                             .font(.Pretendard.Medium.size11)
                             .frame(width: 18, height: 18)
                             .foregroundStyle(currentDay == days[index] ? .white : Color.my7D7D7D)
-                            .background(currentDay == days[index] ? Color.my385E38 : .clear)
+                            .background(currentDay == days[index] ? Color.my6FB56F : .clear)
                             .clipShape(Circle())
                         
                         Button {
@@ -223,7 +223,7 @@ struct WeekAchieveCell: View {
                         }
                         .frame(maxWidth: .infinity/7, minHeight: 41) // ⚠️⚠️ 나중에 높이 수정
                         .foregroundColor(currentDay == days[index] ? .white : Color.myDBDBDC)
-                        .overlay(currentDay == days[index] ? RoundedRectangle(cornerRadius: 8).stroke(Color.my385E38, lineWidth: 3) : nil)
+                        .overlay(currentDay == days[index] ? RoundedRectangle(cornerRadius: 8).stroke(Color(hex: "DBDBDC"), lineWidth: 3) : nil)
                         .cornerRadius(8)
                     }
                     .frame(maxWidth: .infinity)
@@ -242,34 +242,34 @@ struct WeekAchieveCell: View {
     }
 }
 
-#Preview {
-    AllRoutineView()
-}
-
-//struct WeekAchieveCell_Previews: PreviewProvider {
-//    static var previews: some View {
-//        WeekAchieveCell(
-//            detailGoalTitle: "운동하기",
-//            achieveCount: 3,
-//            achieveGoal: 5,
-//            alertMon: true,
-//            alertTue: false,
-//            alertWed: true,
-//            alertThu: false,
-//            alertFri: true,
-//            alertSat: false,
-//            alertSun: false,
-//            isRemind: true,
-//            remindTime: Date(),
-//            achieveMon: true,
-//            achieveTue: false,
-//            achieveWed: true,
-//            achieveThu: false,
-//            achieveFri: true,
-//            achieveSat: false,
-//            achieveSun: false
-//        )
-//        .previewLayout(.sizeThatFits) // 크기 조정
-//        .padding()
-//    }
+//#Preview {
+//    AllRoutineView()
 //}
+
+struct WeekAchieveCell_Previews: PreviewProvider {
+    static var previews: some View {
+        WeekAchieveCell(
+            detailGoalTitle: "운동하기",
+            achieveCount: 3,
+            achieveGoal: 5,
+            alertMon: true,
+            alertTue: false,
+            alertWed: true,
+            alertThu: false,
+            alertFri: true,
+            alertSat: false,
+            alertSun: false,
+            isRemind: true,
+            remindTime: Date(),
+            achieveMon: true,
+            achieveTue: false,
+            achieveWed: true,
+            achieveThu: false,
+            achieveFri: true,
+            achieveSat: false,
+            achieveSun: false
+        )
+        .previewLayout(.sizeThatFits) // 크기 조정
+        .padding()
+    }
+}
