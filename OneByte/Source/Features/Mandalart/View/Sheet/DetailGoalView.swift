@@ -104,7 +104,7 @@ struct DetailGoalView: View {
                         )
                     }
                 }, label: {
-                    Text(isEditing ? "저장" : "편집")
+                    Text(isEditing ? "저장" : "수정")
                         .foregroundStyle(Color.my538F53)
                 })
             })
