@@ -27,6 +27,7 @@ struct TodayRoutineView: View {
                         TodayRoutineCell(detailGoal: detailGoal)
                     }
                 }
+                    
                 
                 // 오후 루틴 섹션
                 if !viewModel.afternoonGoals(from: todayGoals).isEmpty {
@@ -92,6 +93,7 @@ struct TodayRoutineCell: View {
             )
             .cornerRadius(8)
         }
+        .frame(height: 69)
         .padding()
         .background(Color.white)
         .cornerRadius(12)

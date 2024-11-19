@@ -10,8 +10,10 @@ import SwiftUI
 @Observable
 class WorkViewModel {
     
+    var mainDateManager = DateManager()
     var selectedPicker: routineTapInfo = .today
     var routineType: routineTapInfo
+    var todayDate = Date() // 헤더뷰
     
     init(routineType: routineTapInfo) {
         self.routineType = routineType

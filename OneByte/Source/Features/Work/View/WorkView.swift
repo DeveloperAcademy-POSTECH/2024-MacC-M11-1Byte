@@ -47,10 +47,15 @@ struct WorkView: View {
     // MARK: 헤더 뷰
     private func headerView() -> some View {
         HStack {
-            Text("할 일")
-                .font(.Pretendard.Bold.size22)
-                .foregroundStyle(.white)
-            
+            HStack(alignment: .bottom) {
+                Text("\(viewModel.mainDateManager.koreanFormattedDate(for: viewModel.todayDate)) (\(Date().currentDay))")
+                    .font(.Pretendard.Bold.size22)
+                    .foregroundStyle(.white)
+                
+                Text(viewModel.mainDateManager.koreanMonthAndWeek(for: viewModel.todayDate))
+                    .font(.Pretendard.SemiBold.size14)
+                    .foregroundStyle(Color.myB0E4B0)
+            }
             Spacer()
             
             NavigationLink {
