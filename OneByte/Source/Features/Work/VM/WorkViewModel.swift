@@ -17,7 +17,7 @@ class WorkViewModel {
         self.routineType = routineType
     }
     
-    func updatePicker(to picker: routineTapInfo) {
+    func routinePicker(to picker: routineTapInfo) {
         withAnimation(.easeInOut) {
             self.selectedPicker = picker
         }

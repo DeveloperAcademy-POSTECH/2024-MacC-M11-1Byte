@@ -13,7 +13,7 @@ enum routineTapInfo : String, CaseIterable {
     case all = "전체 루틴"
 }
 
-// MARK: 전체 루틴 Tab
+// MARK: 루틴 탭/전체 루틴 Tab
 enum tapInfo : String, CaseIterable {
     
     case all, first, second, third, fourth

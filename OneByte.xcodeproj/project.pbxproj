@@ -57,6 +57,8 @@
 		1FD4052A2CECBFCB00403A19 /* RoutineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD405292CECBFCB00403A19 /* RoutineModel.swift */; };
 		1FD4052C2CECBFF900403A19 /* WorkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD4052B2CECBFF900403A19 /* WorkViewModel.swift */; };
 		1FD405302CECC42500403A19 /* AllRoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD4052F2CECC42500403A19 /* AllRoutineViewModel.swift */; };
+		1FD405362CECE6F800403A19 /* TodayRouitneTypeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD405352CECE6F800403A19 /* TodayRouitneTypeHeaderView.swift */; };
+		1FD405382CECE7B400403A19 /* TodayRoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD405372CECE7B400403A19 /* TodayRoutineViewModel.swift */; };
 		1FE2B8D62CDFAF8600781E20 /* Int+GridExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE2B8D52CDFAF8600781E20 /* Int+GridExtensions.swift */; };
 		1FE2B8D82CDFB12500781E20 /* CustomCornerRoundedRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE2B8D72CDFB12500781E20 /* CustomCornerRoundedRectangle.swift */; };
 		610595CE2CE2140D005ED7B4 /* SubGoalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595CD2CE2140D005ED7B4 /* SubGoalCell.swift */; };
@@ -133,6 +135,8 @@
 		1FD405292CECBFCB00403A19 /* RoutineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineModel.swift; sourceTree = "<group>"; };
 		1FD4052B2CECBFF900403A19 /* WorkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkViewModel.swift; sourceTree = "<group>"; };
 		1FD4052F2CECC42500403A19 /* AllRoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRoutineViewModel.swift; sourceTree = "<group>"; };
+		1FD405352CECE6F800403A19 /* TodayRouitneTypeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRouitneTypeHeaderView.swift; sourceTree = "<group>"; };
+		1FD405372CECE7B400403A19 /* TodayRoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutineViewModel.swift; sourceTree = "<group>"; };
 		1FE2B8D52CDFAF8600781E20 /* Int+GridExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+GridExtensions.swift"; sourceTree = "<group>"; };
 		1FE2B8D72CDFB12500781E20 /* CustomCornerRoundedRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCornerRoundedRectangle.swift; sourceTree = "<group>"; };
 		610595CD2CE2140D005ED7B4 /* SubGoalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubGoalCell.swift; sourceTree = "<group>"; };
@@ -322,6 +326,7 @@
 				615A0A0C2CC0AE8700908531 /* WorkView.swift */,
 				1FD405222CEC74E800403A19 /* AllRoutineView.swift */,
 				1FD405242CEC79DD00403A19 /* TodayRoutineView.swift */,
+				1FD405352CECE6F800403A19 /* TodayRouitneTypeHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -463,6 +468,7 @@
 			children = (
 				1FD4052B2CECBFF900403A19 /* WorkViewModel.swift */,
 				1FD4052F2CECC42500403A19 /* AllRoutineViewModel.swift */,
+				1FD405372CECE7B400403A19 /* TodayRoutineViewModel.swift */,
 			);
 			path = VM;
 			sourceTree = "<group>";
@@ -570,6 +576,7 @@
 				617816202CE5DF6A00834AAD /* DateManager.swift in Sources */,
 				610595D92CE2584D005ED7B4 /* MadalartShape.swift in Sources */,
 				1FD405252CEC79DD00403A19 /* TodayRoutineView.swift in Sources */,
+				1FD405362CECE6F800403A19 /* TodayRouitneTypeHeaderView.swift in Sources */,
 				1FB10A252CDF511600D54EC5 /* GoButton.swift in Sources */,
 				1F599E362CE6648B00788D07 /* PrivacyPolicyRow.swift in Sources */,
 				1F599E3A2CE66AA300788D07 /* SettingViewModel.swift in Sources */,
@@ -623,6 +630,7 @@
 				1F599E302CE6640600788D07 /* AchievedRow.swift in Sources */,
 				1F599E342CE6643B00788D07 /* FontRow.swift in Sources */,
 				1FD4052C2CECBFF900403A19 /* WorkViewModel.swift in Sources */,
+				1FD405382CECE7B400403A19 /* TodayRoutineViewModel.swift in Sources */,
 				610595D22CE214CE005ED7B4 /* SubGoalDetailGridView.swift in Sources */,
 				610595D42CE21505005ED7B4 /* MainGoalSheetView.swift in Sources */,
 			);

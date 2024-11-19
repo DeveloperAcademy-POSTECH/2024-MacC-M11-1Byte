@@ -100,7 +100,7 @@ struct WorkView: View {
                     }
                 }
                 .onTapGesture {
-                    viewModel.updatePicker(to: item)
+                    viewModel.routinePicker(to: item)
                 }
             }
         }
