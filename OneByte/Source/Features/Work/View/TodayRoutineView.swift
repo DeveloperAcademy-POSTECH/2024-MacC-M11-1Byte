@@ -64,18 +64,19 @@ struct TodayRoutineCell: View {
             if let remindTime = detailGoal.remindTime {
                 Text(remindTime.timeString)
                     .font(.Pretendard.Medium.size14)
-                    .foregroundStyle(Color.my727272)
+                    .foregroundStyle(detailGoal.isAchievedToday ? Color.my727272.opacity(0.6) : Color.my727272)
                     .padding(.bottom)
             }
             
             VStack(alignment: .leading, spacing: 4) {
                 Text(detailGoal.title)
                     .font(.Pretendard.SemiBold.size16)
-                    .foregroundStyle(Color.my2B2B2B)
+                    .foregroundStyle(detailGoal.isAchievedToday ? Color.my2B2B2B.opacity(0.7) : Color.my2B2B2B)
                     .strikethrough(detailGoal.isAchievedToday)
                 
-                Text(detailGoal.memo) // ⚠️⚠️⚠️ 나중에 detailGoal에 해당하는 Subgoal title띄워지게  ⚠️⚠️⚠️
+                Text(detailGoal.memo) // ⚠️⚠️⚠️ Subgoal을 입력해야만 DetailGoal이 입력가능한 위계가 생기면, detailGoal에 해당하는 Subgoal title 띄워지게  ⚠️⚠️⚠️
                     .font(.Pretendard.SemiBold.size12)
+                    .foregroundStyle(detailGoal.isAchievedToday ? Color.my428142.opacity(0.7) : Color.my428142)
                     .foregroundStyle(Color.my428142)
             }
             Spacer()
