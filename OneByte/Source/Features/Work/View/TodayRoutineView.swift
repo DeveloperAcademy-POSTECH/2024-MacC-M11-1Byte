@@ -102,7 +102,7 @@ struct TodayRoutineCell: View {
         )
     }
     private func toggleAchievement() {
-            let todayIndex = Calendar.current.component(.weekday, from: Date()) - 1
+        let todayIndex = Date().mondayBasedIndex() // 월요일 기준 인덱스
             switch todayIndex {
             case 0: detailGoal.achieveMon.toggle()
             case 1: detailGoal.achieveTue.toggle()
@@ -139,16 +139,16 @@ extension Date {
 
 extension DetailGoal {
     var isAchievedToday: Bool {
-        let todayIndex = Calendar.current.component(.weekday, from: Date()) - 1
-        switch todayIndex {
-        case 0: return achieveMon
-        case 1: return achieveTue
-        case 2: return achieveWed
-        case 3: return achieveThu
-        case 4: return achieveFri
-        case 5: return achieveSat
-        case 6: return achieveSun
-        default: return false
-        }
-    }
+           let todayIndex = Date().mondayBasedIndex()
+           switch todayIndex {
+           case 0: return achieveMon
+           case 1: return achieveTue
+           case 2: return achieveWed
+           case 3: return achieveThu
+           case 4: return achieveFri
+           case 5: return achieveSat
+           case 6: return achieveSun
+           default: return false
+           }
+       }
 }

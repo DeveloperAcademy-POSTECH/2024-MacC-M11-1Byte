@@ -175,8 +175,8 @@ struct TodoView : View {
                                 print("❌[DEBUG] achieveCount : \(detailGoal.achieveCount)")
                                 print("❌[DEBUG] achieveGoal : \(detailGoal.achieveGoal)")
                                 print("❌[DEBUG] alertDays : \(detailGoal.alertMon), \(detailGoal.alertTue), \(detailGoal.alertWed), \(detailGoal.alertThu), \(detailGoal.alertFri), \(detailGoal.alertSat), \(detailGoal.alertSun)")
-                                print("❌[DEBUG]: achieveDays : \(detailGoal.achieveMon), \(detailGoal.achieveTue), \(detailGoal.achieveWed), \(detailGoal.achieveThu), \(detailGoal.achieveFri), \(detailGoal.achieveSat), \(detailGoal.achieveSun)")
-                                print("❌[DEBUG]: 알림설정 : \(detailGoal.isRemind ? "설정됨" : "설정 안됨")")
+                                print("❌[DEBUG] achieveDays : \(detailGoal.achieveMon), \(detailGoal.achieveTue), \(detailGoal.achieveWed), \(detailGoal.achieveThu), \(detailGoal.achieveFri), \(detailGoal.achieveSat), \(detailGoal.achieveSun)")
+                                print("❌[DEBUG] 알림설정 : \(detailGoal.isRemind ? "설정됨" : "설정 안됨")")
                                 if let time = detailGoal.remindTime {
                                     print("❌[DEBUG] 알림시간 : \(time)")
                                 }
@@ -261,7 +261,7 @@ struct WeekAchieveCell: View {
                             if isAlertActive(for: index) {
                                 if Date().currentDay == days[index] {
                                     // 루틴이고 오늘이면, 흰색 배경
-                                    Image("RoutineDay")
+                                    Image(isAchieved(for: index) ? "AchieveClover1" : "RoutineDay")
                                         .resizable()
                                         .scaledToFit()
                                 } else if isFutureDay(index: index) {

@@ -37,4 +37,10 @@ extension Date {
         formatter.dateFormat = "HH:mm"
         return formatter.string(from: self)
     }
+    
+    /// 월요일 시작(0) ~ 일요일(6)로 요일 인덱스를 반환
+       func mondayBasedIndex() -> Int {
+           let weekday = Calendar.current.component(.weekday, from: self)
+           return (weekday + 5) % 7
+       }
 }
