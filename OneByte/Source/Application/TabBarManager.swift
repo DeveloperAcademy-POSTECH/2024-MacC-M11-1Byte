@@ -17,10 +17,10 @@ struct TabBarManager: View {
                     Text("나의 목표")
                 }
             
-            WorkView()
+            RoutineMainView()
                 .tabItem {
-                    Image(systemName: "chart.bar.xaxis.ascending.badge.clock")
-                    Text("할 일")
+                    Image(systemName: "list.bullet.rectangle.fill")
+                    Text("루틴")
                 }
             
             StatisticView()
