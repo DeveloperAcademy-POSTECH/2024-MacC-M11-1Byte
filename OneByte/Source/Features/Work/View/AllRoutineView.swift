@@ -13,7 +13,7 @@ struct AllRoutineView: View {
     @Namespace private var animation
     @Query var mainGoals: [MainGoal]
     @State var viewModel = AllRoutineViewModel()
-    
+
     var body: some View {
         VStack(spacing: 0) {
             SubgoalTabView()
@@ -43,7 +43,7 @@ struct AllRoutineView: View {
                                         WeekAchieveCell(
                                             detailGoalTitle: detailGoal.title,
                                             achieveCount: detailGoal.achieveCount,
-                                            achieveGoal: detailGoal.achieveGoal,
+                                            achieveGoal: calcAchieveGoal(for: detailGoal),
                                             alertMon: detailGoal.alertMon,
                                             alertTue: detailGoal.alertTue,
                                             alertWed: detailGoal.alertWed,
@@ -114,6 +114,13 @@ struct AllRoutineView: View {
         .padding(.vertical, 25)
         .padding(5)
     }
+    
+    // achieveGoal 계산 메서드
+       func calcAchieveGoal(for detailGoal: DetailGoal) -> Int {
+           return [detailGoal.alertMon, detailGoal.alertTue,detailGoal.alertWed, detailGoal.alertThu, detailGoal.alertFri, detailGoal.alertSat, detailGoal.alertSun]
+               .filter { $0 }
+               .count
+       }
 }
 
 struct TodoView : View {
@@ -143,7 +150,7 @@ struct TodoView : View {
                         WeekAchieveCell(
                             detailGoalTitle: detailGoal.title,
                             achieveCount: detailGoal.achieveCount,
-                            achieveGoal: detailGoal.achieveGoal,
+                            achieveGoal: calcAchieveGoal(for: detailGoal),
                             alertMon: detailGoal.alertMon,
                             alertTue: detailGoal.alertTue,
                             alertWed: detailGoal.alertWed,
@@ -169,6 +176,12 @@ struct TodoView : View {
         }
         .frame(maxWidth: .infinity)
     }
+    // achieveGoal 계산 메서드
+       func calcAchieveGoal(for detailGoal: DetailGoal) -> Int {
+           return [detailGoal.alertMon, detailGoal.alertTue,detailGoal.alertWed, detailGoal.alertThu, detailGoal.alertFri, detailGoal.alertSat, detailGoal.alertSun]
+               .filter { $0 }
+               .count
+       }
 }
 
 struct WeekAchieveCell: View {
@@ -194,7 +207,6 @@ struct WeekAchieveCell: View {
     var achieveSun: Bool
     
     let days: [String] = ["월","화","수","목","금","토","일"] // 요일 데이터 - 고정
-    
     
     var body: some View {
         VStack(spacing: 15) {
@@ -248,7 +260,7 @@ struct WeekAchieveCell: View {
                                     //  성취 판단 ( alert는 True였는데 )
                                     if isAchieved(for: index) {
                                         // 성취 -> achieve도 true일 때
-                                        Image("AchievedClover1")
+                                        Image("AchieveClover1")
                                             .resizable()
                                             .scaledToFit()
                                     } else {
@@ -297,9 +309,10 @@ struct WeekAchieveCell: View {
     
     // alert가 true긴하지만, 아직 해당요일이 안됐을때 확인
     private func isFutureDay(index: Int) -> Bool {
-        // 현재 요일 인덱스를 계산
-        let todayIndex = Calendar.current.component(.weekday, from: Date()) - 1
-        return index > todayIndex
+        // 현재 요일 인덱스를 월요일 시작(0)으로 맞춤
+           let todayIndex = (Calendar.current.component(.weekday, from: Date()) + 5) % 7
+           // 오늘 이후 요일인지 확인
+           return index > todayIndex
     }
     
     // 요일별 Achieve 상태
