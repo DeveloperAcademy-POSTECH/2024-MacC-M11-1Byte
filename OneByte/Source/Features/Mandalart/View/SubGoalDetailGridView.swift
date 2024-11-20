@@ -89,12 +89,9 @@ struct SubGoalDetailGridView: View {
                 .padding(.top, 45/852 * UIScreen.main.bounds.height)
                 .padding(.bottom, 50/852 * UIScreen.main.bounds.height)
                 .navigationTitle(selectedSubGoal.title)
-                // NavigationLink는 여기서 한 번만 사용
-                NavigationLink(
-                    destination: DetailGoalView(detailGoal: .constant(selectedDetailGoal ?? sortedDetailGoals.first!)),
-                    isActive: $navigation,
-                    label: { EmptyView() }
-                )
+                .navigationLink(isActive: $navigation) {
+                    DetailGoalView(detailGoal: .constant(selectedDetailGoal ?? sortedDetailGoals.first))
+                }
                 Spacer()
                 // 메모 모아보기
                 memoes()
@@ -106,7 +103,6 @@ struct SubGoalDetailGridView: View {
         .navigationBarBackButtonHidden()
         .backButtonToolbar { dismiss() }
         .background(Color.myFFFAF4)
-        
     }
 }
 
@@ -141,7 +137,6 @@ extension SubGoalDetailGridView {
                                         Text(detailGoal.memo) // 디테일골 메모
                                             .font(.Pretendard.Medium.size14)
                                             .foregroundStyle(Color.my657665)
-//                                            .lineLimit(2) // 최대 두 줄 표시
                                     }
                                     Spacer()
                                 }
@@ -166,16 +161,16 @@ extension SubGoalDetailGridView {
                         .padding(.bottom, 53)
                     Spacer()
                 }
-                    Image("Turtle_Empty")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 149/852 * UIScreen.main.bounds.height)
-                    Text("아직 메모가 없어요!")
-                        .font(.Pretendard.SemiBold.size16)
-                        .padding(.vertical, 10)
-                    Text("루틴에 대한 메모를 작성하고 확인해 보세요.")
-                        .font(.Pretendard.Medium.size14)
-                        .foregroundStyle(Color.my878787)
+                Image("Turtle_Empty")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 149/852 * UIScreen.main.bounds.height)
+                Text("아직 메모가 없어요!")
+                    .font(.Pretendard.SemiBold.size16)
+                    .padding(.vertical, 10)
+                Text("루틴에 대한 메모를 작성하고 확인해 보세요.")
+                    .font(.Pretendard.Medium.size14)
+                    .foregroundStyle(Color.my878787)
             }
         }
     }

@@ -141,10 +141,10 @@ struct DetailGoalView: View {
                                 content.title = "알림 제목"
                                 content.body = "알림 내용"
                                 content.sound = .default
-
+                                
                                 let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60, repeats: false)
                                 let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
-
+                                
                                 scheduleNotification(for: newTitle, on: selectedDays, at: remindTime)
                             }
                         } else {
@@ -360,55 +360,55 @@ extension DetailGoalView {
                 .foregroundStyle(Color.myB4A99D)
         }
         .padding(.leading, 4)
-       Section {
-           VStack(spacing: 0){
-               // 알림 설정 토글
-               HStack() {
-                   Text("알림 설정")
-                       .font(.Pretendard.SemiBold.size16)
-                       .foregroundStyle(.black)
-                   Spacer()
-                   
-                   Toggle("", isOn: $isRemind)
-                       .toggleStyle(SwitchToggleStyle(tint: Color.my538F53)) // 초록색 토글
-               }
-               
-               if isRemind {
-                   Divider()
-                       .foregroundStyle(Color.myF0E8DF)
-                       .frame(height: 1)
-                       .padding(.vertical, 8)
-                       
-                   // 알림 시간 설정
-                   HStack {
-                       Text("알림 시간")
-                           .font(.Pretendard.SemiBold.size16)
-                           .foregroundStyle(.black)
-                       Spacer()
-                       
-                       // 알림 시간을 선택할 수 있는 DatePicker
-                       DatePicker(
-                        "",
-                        selection: Binding(
-                            get: { remindTime ?? Date() },
-                            set: { remindTime = $0 }
-                        ),
-                        displayedComponents: .hourAndMinute
-                       )
-                       .labelsHidden() // 라벨 숨기기
-                   }
-               }
-           }
-           .padding(.horizontal)
-           .padding(.vertical, 10)
+        Section {
+            VStack(spacing: 0){
+                // 알림 설정 토글
+                HStack() {
+                    Text("알림 설정")
+                        .font(.Pretendard.SemiBold.size16)
+                        .foregroundStyle(.black)
+                    Spacer()
+                    
+                    Toggle("", isOn: $isRemind)
+                        .toggleStyle(SwitchToggleStyle(tint: Color.my538F53)) // 초록색 토글
+                }
+                
+                if isRemind {
+                    Divider()
+                        .foregroundStyle(Color.myF0E8DF)
+                        .frame(height: 1)
+                        .padding(.vertical, 8)
+                    
+                    // 알림 시간 설정
+                    HStack {
+                        Text("알림 시간")
+                            .font(.Pretendard.SemiBold.size16)
+                            .foregroundStyle(.black)
+                        Spacer()
+                        
+                        // 알림 시간을 선택할 수 있는 DatePicker
+                        DatePicker(
+                            "",
+                            selection: Binding(
+                                get: { remindTime ?? Date() },
+                                set: { remindTime = $0 }
+                            ),
+                            displayedComponents: .hourAndMinute
+                        )
+                        .labelsHidden() // 라벨 숨기기
+                    }
+                }
+            }
+            .padding(.horizontal)
+            .padding(.vertical, 10)
         }
-       .background(.white)
-       .cornerRadius(12)
-       .overlay(
-           RoundedRectangle(cornerRadius: 12)
-               .stroke(Color.myF0E8DF, lineWidth: 1)
-       )
-       .padding(.top, -18)
+        .background(.white)
+        .cornerRadius(12)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.myF0E8DF, lineWidth: 1)
+        )
+        .padding(.top, -18)
     }
     
     @ViewBuilder

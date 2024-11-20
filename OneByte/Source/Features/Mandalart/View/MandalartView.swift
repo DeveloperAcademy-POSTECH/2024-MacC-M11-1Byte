@@ -17,9 +17,9 @@ struct MandalartView: View {
         NavigationStack() {
             if let firstMainGoal = mainGoals.first {
                 OuterGridView(mainGoal: $mainGoal)
-                .onAppear {
-                    mainGoal = firstMainGoal
-                }
+                    .onAppear {
+                        mainGoal = firstMainGoal
+                    }
             } else {
                 Text("MainGoal 데이터를 찾을 수 없습니다.")
                     .foregroundStyle(.gray)
@@ -31,7 +31,6 @@ struct MandalartView: View {
         }
     }
 }
-
 
 // MARK: 첫화면 -  전체 81개짜리
 struct OuterGridView: View {
