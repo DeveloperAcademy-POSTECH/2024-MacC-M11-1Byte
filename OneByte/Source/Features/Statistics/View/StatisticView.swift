@@ -42,47 +42,54 @@ struct StatisticView: View {
         
         let cloverGetThisMonth = viewModel.getCurrentMonthClovers()
         let cloverStates = viewModel.classifyCloverState(clovers: cloverGetThisMonth)
-        
-        RoundedRectangle(cornerRadius: 12)
-            .fill(Color.my6FB56F)
-            .frame(maxWidth: .infinity)
-            .frame(height: 146)
-            .padding()
-            .overlay(
-                VStack(alignment: .leading) {
-                    HStack {
-                        Spacer()
-                        Rectangle()
-                            .foregroundColor(.clear)
-                            .frame(width: 83, height: 24)
-                            .background(.white.opacity(0.8))
-                            .cornerRadius(22.5)
-                            .overlay(
-                                HStack(spacing: 10) {
-                                    Text("\(cloverStates[2])개")
-                                    Text("\(cloverStates[1])개")
-                                }
-                            )
-                            .padding(.trailing, 30)
-                            .padding(.top, 10)
-                    }
-                    
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("김만복님!\n이번 달 클로버를 \(cloverGetThisMonth.count)번 획득했어요")
-                            .font(
-                                Font.custom("Pretendard", size: 20)
-                                    .weight(.bold)
-                            )
-                            .foregroundColor(.white)
-                        
-                        Text("모든 성장은 작은 시도에서 시작된답니다.\n다음 목표부터 하나씩 도전해볼까요?")
-                            .font(.Pretendard.SemiBold.size14)
-                            .foregroundColor(Color.my4A4A4A)
-                            .frame(width: 227, alignment: .leading)
-                    }
-                    .padding(.leading, 20)
+    
+        ZStack(alignment: .leading) {
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.my6FB56F)
+                .frame(maxWidth: .infinity)
+                .frame(height: 146)
+                .padding()
+            
+            VStack {
+                HStack {
+                    Spacer()
+                    Rectangle()
+                        .foregroundColor(.clear)
+                        .frame(width: 83, height: 24)
+                        .background(.white.opacity(0.8))
+                        .cornerRadius(22.5)
+                        .overlay(
+                            HStack(spacing: 10) {
+                                Text("\(cloverStates[2])개")
+                                Text("\(cloverStates[1])개")
+                            }
+                        )
+                        .padding(.trailing, 30)
+                        .padding(.top)
                 }
-            )
+                .padding(.top)
+                Spacer()
+            }
+            
+            VStack(alignment: .leading, spacing: 16) {
+                Text("김만복님!\n이번 달 클로버를 \(cloverGetThisMonth.count)번 획득했어요") // member의 이름으로 "김만복" 대체해야 함
+                    .font(
+                        Font.custom("Pretendard", size: 20)
+                            .weight(.bold)
+                    )
+                    .foregroundColor(.white)
+                
+                Text("모든 성장은 작은 시도에서 시작된답니다.\n다음 목표부터 하나씩 도전해볼까요?")
+                    .font(.Pretendard.SemiBold.size14)
+                    .foregroundColor(Color.my4A4A4A)
+                    .frame(width: 227, alignment: .leading)
+            }
+            .padding(.leading, 41)
+            .padding(.top, 26)
+            .padding(.bottom, 20)
+            
+            
+        }
     }
     
     @ViewBuilder
