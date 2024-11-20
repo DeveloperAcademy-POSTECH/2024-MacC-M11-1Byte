@@ -12,13 +12,17 @@ import SwiftData
 class Clover {
     var id: Int
     var cloverYear: Int
-    var cloverWeek: Int
+    var cloverMonth: Int
+    var cloverWeekOfMonth: Int
+    var cloverWeekOfYear: Int
     var cloverState: Int
     
-    init(id: Int, cloverYear: Int, cloverWeek: Int, cloverState: Int) {
+    init(id: Int, cloverYear: Int, cloverMonth: Int, cloverWeekOfMonth: Int, cloverWeekOfYear: Int, cloverState: Int) {
         self.id = id
         self.cloverYear = cloverYear
-        self.cloverWeek = cloverWeek
+        self.cloverMonth = cloverMonth
+        self.cloverWeekOfMonth = cloverWeekOfMonth
+        self.cloverWeekOfYear = cloverWeekOfYear
         self.cloverState = cloverState
     }
 }
