@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct StatisticView: View {
-    
+
     @State var viewModel = StatisticViewModel()
     
     var body: some View {
@@ -72,7 +72,7 @@ struct StatisticView: View {
             }
             
             VStack(alignment: .leading, spacing: 16) {
-                Text("김만복님!\n이번 달 클로버를 \(cloverGetThisMonth.count)번 획득했어요") // member의 이름으로 "김만복" 대체해야 함
+                Text("\(viewModel.getPofileNickName())님! \n이번 달 클로버를 \(cloverGetThisMonth.count)번 획득했어요") // member의 이름으로 "김만복" 대체해야 함
                     .font(
                         Font.custom("Pretendard", size: 20)
                             .weight(.bold)
@@ -187,6 +187,8 @@ struct StatisticView: View {
         Clover(id: 11, cloverYear: 2024, cloverMonth: 11, cloverWeekOfMonth: 2, cloverWeekOfYear: 45, cloverState: 2),
         Clover(id: 12, cloverYear: 2024, cloverMonth: 11, cloverWeekOfMonth: 3, cloverWeekOfYear: 46, cloverState: 1),
     ]
+    
+    sampleViewModel.profile = Profile(nickName: "빈치")
     return StatisticView(viewModel: sampleViewModel)
     
 }

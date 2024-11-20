@@ -8,15 +8,18 @@
 import SwiftUI
 import SwiftData
 
-@Observable
-class StatisticViewModel {
-
-    //    @Query(
-    //        filter: #Predicate<Clover> { $0.cloverYear == Calendar.current.component(.year, from: Date()) }
-    //    ) private var clovers: [Clover]
-    var clovers: [Clover] = [] // 테스트 용
+class StatisticViewModel: ObservableObject  {
     
-    @Query private var member: [Member]
+    @Environment(\.modelContext) private var modelContext
+
+    var clovers: [Clover] = [] // 테스트 용
+    var profile: Profile? = nil
+    
+//    @Query private var profile: [Profile]
+//    @Query(
+//        filter: #Predicate<Clover> { $0.cloverYear == Calendar.current.component(.year, from: Date()) }
+//    ) private var clovers: [Clover]
+    
     
     private let currentMonth = Calendar.current.component(.month, from: Date())
 
@@ -32,11 +35,16 @@ class StatisticViewModel {
         classifyCloverState(clovers: clovers)
     }
     
+    func getPofileNickName() -> String {
+        return profile!.nickName
+    }
+    
     func filterCloversByMonth(month: Int) -> [Clover] {
         return clovers.filter { clover in
             clover.cloverMonth == month
         }
     }
+    
 
     func classifyCloverState(clovers: [Clover]) -> [Int] {
         var transparentCloverCount = 0
