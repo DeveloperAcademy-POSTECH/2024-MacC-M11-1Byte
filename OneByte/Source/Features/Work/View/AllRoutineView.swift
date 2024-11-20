@@ -163,13 +163,9 @@ struct TodoView : View {
                         )
                     }
                 }
-//                .frame(maxWidth: .infinity) ❌❌❌❌❌ 지워 ❌❌❌❌❌
                 .padding(.horizontal)
             }
-//            .background(Color.myFFFAF4) ❌❌❌❌❌ 지워 ❌❌❌❌❌
         }
-//        .frame(maxWidth: .infinity) ❌❌❌❌❌ 지워 ❌❌❌❌❌
-//        .background(Color.myFFFAF4) ❌❌❌❌❌ 지워 ❌❌❌❌❌
     }
 }
 
