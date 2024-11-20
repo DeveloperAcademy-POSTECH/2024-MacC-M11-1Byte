@@ -41,6 +41,8 @@ struct DetailGoalView: View {
     @State private var achieveSat: Bool = false
     @State private var achieveSun: Bool = false
     
+    @State private var showAlert = false
+    
     private let titleLimit = 20 // 제목 글자수 제한
     private let memoLimit = 100 // 메모 글자수 제한
     
@@ -62,14 +64,42 @@ struct DetailGoalView: View {
                     // 리마인드 알림
                     remind()
                     
+                    Button(action: {
+                        showAlert = true
+                    }, label: {
+                        HStack(spacing: 8) {
+                            Image(systemName: "trash")
+                                .font(.system(size: 16))
+                                .foregroundStyle(.red)
+                            Text("삭제하기")
+                                .font(.Pretendard.Medium.size16)
+                                .foregroundStyle(.red)
+                        }
+                        .padding(.vertical, 14.5)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.myF0E8DF)
+                        .cornerRadius(12)
+                    })
+                    .alert("루틴을 삭제하시겠습니까?", isPresented: $showAlert) {
+                        Button("삭제하기", role: .destructive) {
+                            if let detailGoal = detailGoal {
+                                viewModel.deleteDetailGoal(
+                                    detailGoal: detailGoal, modelContext: modelContext, newTitle: "", newMemo: "", achieveCount: 0, achieveGoal: 0, alertMon: false, alertTue: false, alertWed: false, alertThu: false, alertFri: false, alertSat: false, alertSun: false, isRemind: false, remindTime: nil, achieveMon: false, achieveTue: false, achieveWed: false, achieveThu: false, achieveFri: false, achieveSat: false, achieveSun: false
+                                )
+                            }
+                            isEditing = false
+                            // 버튼 누르면 SubGoalDetailGridView로 pop되게 하기
+                        }
+                        Button("계속하기", role: .cancel) {}
+                    } message: {
+                        Text("삭제한 루틴은 복구할 수 없어요.")
+                    }
                 } else {
                     // 저장되었을 때 보여주는 화면
                     saved()
                 }
-                
                 Spacer()
             }
-            
         }
         .navigationBarBackButtonHidden()
         .backButtonToolbar { dismiss() }
