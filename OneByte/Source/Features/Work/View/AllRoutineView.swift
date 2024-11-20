@@ -13,7 +13,7 @@ struct AllRoutineView: View {
     @Namespace private var animation
     @Query var mainGoals: [MainGoal]
     @State var viewModel = AllRoutineViewModel()
-
+    
     var body: some View {
         VStack(spacing: 0) {
             SubgoalTabView()
@@ -116,11 +116,11 @@ struct AllRoutineView: View {
     }
     
     // achieveGoal 계산 메서드
-       func calcAchieveGoal(for detailGoal: DetailGoal) -> Int {
-           return [detailGoal.alertMon, detailGoal.alertTue,detailGoal.alertWed, detailGoal.alertThu, detailGoal.alertFri, detailGoal.alertSat, detailGoal.alertSun]
-               .filter { $0 }
-               .count
-       }
+    func calcAchieveGoal(for detailGoal: DetailGoal) -> Int {
+        return [detailGoal.alertMon, detailGoal.alertTue,detailGoal.alertWed, detailGoal.alertThu, detailGoal.alertFri, detailGoal.alertSat, detailGoal.alertSun]
+            .filter { $0 }
+            .count
+    }
 }
 
 struct TodoView : View {
@@ -177,11 +177,11 @@ struct TodoView : View {
         .frame(maxWidth: .infinity)
     }
     // achieveGoal 계산 메서드
-       func calcAchieveGoal(for detailGoal: DetailGoal) -> Int {
-           return [detailGoal.alertMon, detailGoal.alertTue,detailGoal.alertWed, detailGoal.alertThu, detailGoal.alertFri, detailGoal.alertSat, detailGoal.alertSun]
-               .filter { $0 }
-               .count
-       }
+    func calcAchieveGoal(for detailGoal: DetailGoal) -> Int {
+        return [detailGoal.alertMon, detailGoal.alertTue,detailGoal.alertWed, detailGoal.alertThu, detailGoal.alertFri, detailGoal.alertSat, detailGoal.alertSun]
+            .filter { $0 }
+            .count
+    }
 }
 
 struct WeekAchieveCell: View {
@@ -283,7 +283,6 @@ struct WeekAchieveCell: View {
             }
             .frame(maxWidth: .infinity)
         }
-        .frame(height: 120) // ⚠️⚠️⚠️⚠️⚠️ 프리뷰 볼때 적용하는 높이 ⚠️⚠️⚠️⚠️⚠️
         .padding()
         .background(Color.white)
         .cornerRadius(12)
@@ -310,9 +309,9 @@ struct WeekAchieveCell: View {
     // alert가 true긴하지만, 아직 해당요일이 안됐을때 확인
     private func isFutureDay(index: Int) -> Bool {
         // 현재 요일 인덱스를 월요일 시작(0)으로 맞춤
-           let todayIndex = (Calendar.current.component(.weekday, from: Date()) + 5) % 7
-           // 오늘 이후 요일인지 확인
-           return index > todayIndex
+        let todayIndex = (Calendar.current.component(.weekday, from: Date()) + 5) % 7
+        // 오늘 이후 요일인지 확인
+        return index > todayIndex
     }
     
     // 요일별 Achieve 상태

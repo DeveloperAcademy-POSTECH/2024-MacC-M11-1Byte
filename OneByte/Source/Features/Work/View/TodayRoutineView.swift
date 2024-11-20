@@ -80,7 +80,10 @@ struct TodayRoutineCell: View {
             Spacer()
             
             Button {
+                print("⚠️[DEBUG] 현재 완료 체크하는 Title : \(detailGoal.title)")
+                print("⚠️[DEBUG] 오늘의 루틴 성취 완료 체크 전 : \(detailGoal.isAchievedToday)")
                 toggleAchievement()
+                print("⚠️[DEBUG] 오늘의 루틴 성취 완료 체크 후 : \(detailGoal.isAchievedToday)")
             } label: {
                 Image(detailGoal.isAchievedToday ? "AchieveClover1" : "RoutineCheck")
                     .resizable()
@@ -146,40 +149,5 @@ extension DetailGoal {
         case 6: return achieveSun
         default: return false
         }
-    }
-}
-
-struct TodayRoutineCell_Previews: PreviewProvider {
-    static var previews: some View {
-        // 더미 데이터 생성
-        let sampleDetailGoal = DetailGoal(
-            id: 1,
-            title: "매일아침 유산균 먹기",
-            memo: "건강한 내가 되기",
-            achieveCount: 3,
-            achieveGoal: 5,
-            alertMon: true,
-            alertTue: false,
-            alertWed: false,
-            alertThu: false,
-            alertFri: false,
-            alertSat: false,
-            alertSun: false,
-            isRemind: true,
-            remindTime: Date(),
-            achieveMon: true,
-            achieveTue: false,
-            achieveWed: false,
-            achieveThu: false,
-            achieveFri: false,
-            achieveSat: false,
-            achieveSun: false
-        )
-        
-        // 프리뷰 렌더링
-        TodayRoutineCell(detailGoal: sampleDetailGoal)
-            .previewLayout(.sizeThatFits) // 적절한 크기 조정
-            .padding() // 여백 추가
-            .background(Color.myFFFAF4) // 배경색 설정
     }
 }
