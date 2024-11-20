@@ -78,6 +78,7 @@
 		618FD0742CDF11210003450D /* CreateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618FD0732CDF11210003450D /* CreateService.swift */; };
 		618FD0762CDF11410003450D /* UpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618FD0752CDF11410003450D /* UpdateService.swift */; };
 		618FD0782CDF11760003450D /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618FD0772CDF11760003450D /* Protocol.swift */; };
+		61E28B822CEE01FE000F77FB /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E28B812CEE01FE000F77FB /* Notification.swift */; };
 		61FA4DF32CE77EDD00256B57 /* BackButtonToolbarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FA4DF22CE77EDD00256B57 /* BackButtonToolbarModifier.swift */; };
 		61FA4DF52CE7803600256B57 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FA4DF42CE7803600256B57 /* View+.swift */; };
 /* End PBXBuildFile section */
@@ -156,6 +157,7 @@
 		618FD0732CDF11210003450D /* CreateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateService.swift; sourceTree = "<group>"; };
 		618FD0752CDF11410003450D /* UpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateService.swift; sourceTree = "<group>"; };
 		618FD0772CDF11760003450D /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
+		61E28B812CEE01FE000F77FB /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		61FA4DF22CE77EDD00256B57 /* BackButtonToolbarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButtonToolbarModifier.swift; sourceTree = "<group>"; };
 		61FA4DF42CE7803600256B57 /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -407,6 +409,7 @@
 				1F79EDCD2CC0A25D0079088B /* OneByteApp.swift */,
 				615A0A0A2CC0ADA800908531 /* TabBarManager.swift */,
 				1F88AB382CD607F90009730D /* NavigationManager.swift */,
+				61E28B812CEE01FE000F77FB /* Notification.swift */,
 				6178161F2CE5DF6A00834AAD /* DateManager.swift */,
 			);
 			path = Application;
@@ -632,6 +635,7 @@
 				1FD4052C2CECBFF900403A19 /* RoutineMainViewModel.swift in Sources */,
 				1FD405382CECE7B400403A19 /* TodayRoutineViewModel.swift in Sources */,
 				610595D22CE214CE005ED7B4 /* SubGoalDetailGridView.swift in Sources */,
+				61E28B822CEE01FE000F77FB /* Notification.swift in Sources */,
 				610595D42CE21505005ED7B4 /* MainGoalSheetView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

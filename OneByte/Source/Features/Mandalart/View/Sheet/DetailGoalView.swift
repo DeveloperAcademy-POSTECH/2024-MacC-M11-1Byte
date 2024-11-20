@@ -132,6 +132,31 @@ struct DetailGoalView: View {
                             achieveSat: achieveSat,
                             achieveSun: achieveSun
                         )
+                        // 알림 설정 호출
+                        if isRemind {
+                            let selectedDays = getSelectedDays()
+                            if let remindTime = remindTime {
+                                let identifier = "\(detailGoal.title)-\(getSelectedDays().joined(separator: ","))"
+                                let content = UNMutableNotificationContent()
+                                content.title = "알림 제목"
+                                content.body = "알림 내용"
+                                content.sound = .default
+
+                                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60, repeats: false)
+                                let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+
+                                scheduleNotification(for: newTitle, on: selectedDays, at: remindTime)
+                            }
+                        } else {
+                            let identifier = "\(newTitle)-\(getSelectedDays().joined(separator: ","))"
+                            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
+                        }
+                        // 디버깅: 알림 확인
+                        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+                            for request in requests {
+                                print("Pending notification: \(request.identifier)")
+                            }
+                        }
                     }
                 }, label: {
                     Text(isEditing ? "저장" : "수정")
