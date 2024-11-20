@@ -80,6 +80,7 @@ struct TodayRoutineCell: View {
             Spacer()
             
             Button {
+                print("⚠️[DEBUG] 현재 완료 체크하는 id : \(detailGoal.id)")
                 print("⚠️[DEBUG] 현재 완료 체크하는 Title : \(detailGoal.title)")
                 print("⚠️[DEBUG] 오늘의 루틴 성취 완료 체크 전 : \(detailGoal.isAchievedToday)")
                 toggleAchievement()
