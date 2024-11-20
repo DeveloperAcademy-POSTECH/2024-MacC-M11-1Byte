@@ -14,12 +14,12 @@ struct MandalartView: View {
     @State private var mainGoal: MainGoal?
     
     var body: some View {
-        NavigationStack {
+        NavigationStack() {
             if let firstMainGoal = mainGoals.first {
                 OuterGridView(mainGoal: $mainGoal)
-                .onAppear {
-                    mainGoal = firstMainGoal
-                }
+                    .onAppear {
+                        mainGoal = firstMainGoal
+                    }
             } else {
                 Text("MainGoal 데이터를 찾을 수 없습니다.")
                     .foregroundStyle(.gray)
@@ -31,7 +31,6 @@ struct MandalartView: View {
         }
     }
 }
-
 
 // MARK: 첫화면 -  전체 81개짜리
 struct OuterGridView: View {
@@ -55,14 +54,9 @@ struct OuterGridView: View {
             // 날짜 및 공유, 설정 버튼
             HStack(alignment: .bottom ,spacing: 8) {
                 // 한국 날짜 형식으로 오늘 날짜 표시
-                Text(dateManager.koreanFormattedDate(for: currentDate))
+                Text("나의 만다라트")
                     .font(.Pretendard.Bold.size22)
-                    .foregroundStyle(Color.my566956)
-                
-                // 현재 달의 몇 주차인지 표시
-                Text(dateManager.koreanMonthAndWeek(for: currentDate))
-                    .font(.Pretendard.Medium.size14)
-                    .foregroundStyle(Color.my538F53)
+                    .foregroundStyle(Color.myB4A99D)
                 
                 Spacer()
                 Button(action: {
