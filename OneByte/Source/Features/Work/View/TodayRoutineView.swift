@@ -66,11 +66,6 @@ struct TodayRoutineCell: View {
                     .font(.Pretendard.Medium.size14)
                     .foregroundStyle(Color.my727272)
                     .padding(.bottom)
-            } else {
-                Text("          ") // 빈 문자열 대신 공백을 명시적으로 설정
-                    .font(.Pretendard.Medium.size14)
-                    .opacity(0)
-                    .padding(.bottom)
             }
             
             VStack(alignment: .leading, spacing: 4) {
@@ -78,24 +73,20 @@ struct TodayRoutineCell: View {
                     .font(.Pretendard.SemiBold.size16)
                     .foregroundStyle(Color.my2B2B2B)
                 
-                Text(detailGoal.memo) // ⚠️⚠️⚠️ 나중에 detailGoal에 해당하는 Subgoal title띄워지게
+                Text(detailGoal.memo) // ⚠️⚠️⚠️ 나중에 detailGoal에 해당하는 Subgoal title띄워지게  ⚠️⚠️⚠️
                     .font(.Pretendard.SemiBold.size12)
                     .foregroundStyle(Color.my428142)
             }
             Spacer()
             
             Button {
-                print("클로버 버튼 탭")
+                toggleAchievement()
             } label: {
-                Rectangle()
+                Image(detailGoal.isAchievedToday ? "AchieveClover1" : "RoutineCheck")
+                    .resizable()
             }
             .frame(width: 32, height: 32)
-            .foregroundColor(.white)
-            .overlay(
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(Color(hex: "385E38"), lineWidth: 3)
-            )
-            .cornerRadius(8)
+
         }
         .frame(height: 69)
         .padding(.horizontal)
@@ -106,6 +97,19 @@ struct TodayRoutineCell: View {
                 .stroke(Color(hex: "F0E8DF"), lineWidth: 1)
         )
     }
+    private func toggleAchievement() {
+            let todayIndex = Calendar.current.component(.weekday, from: Date()) - 1
+            switch todayIndex {
+            case 0: detailGoal.achieveMon.toggle()
+            case 1: detailGoal.achieveTue.toggle()
+            case 2: detailGoal.achieveWed.toggle()
+            case 3: detailGoal.achieveThu.toggle()
+            case 4: detailGoal.achieveFri.toggle()
+            case 5: detailGoal.achieveSat.toggle()
+            case 6: detailGoal.achieveSun.toggle()
+            default: break
+            }
+        }
 }
 
 extension DetailGoal {
@@ -126,6 +130,22 @@ extension DetailGoal {
 extension Date {
     var hour: Int {
         return Calendar.current.component(.hour, from: self)
+    }
+}
+
+extension DetailGoal {
+    var isAchievedToday: Bool {
+        let todayIndex = Calendar.current.component(.weekday, from: Date()) - 1
+        switch todayIndex {
+        case 0: return achieveMon
+        case 1: return achieveTue
+        case 2: return achieveWed
+        case 3: return achieveThu
+        case 4: return achieveFri
+        case 5: return achieveSat
+        case 6: return achieveSun
+        default: return false
+        }
     }
 }
 

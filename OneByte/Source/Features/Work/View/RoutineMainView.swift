@@ -13,6 +13,7 @@ struct RoutineMainView: View {
     
     @State var viewModel = RoutineMainViewModel(routineType: .today)
     @Namespace private var animation
+    @Query var mainGoals: [MainGoal]
     
     var body: some View {
         NavigationStack {

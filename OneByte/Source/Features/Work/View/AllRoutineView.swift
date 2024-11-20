@@ -70,26 +70,26 @@ struct AllRoutineView: View {
                 }
             } else { // 모든 루틴(.all)보는게 아닐경우, 각 탭마다 Subgoal ID를 찾아서 View
                 if let mainGoal = mainGoals.first,
-                     let selectedSubGoal = viewModel.selectedSubGoal(for: mainGoal) {
-                      // SubGoal, DetailGoal 둘다 비어있는 탭이면
-                      if viewModel.isSubGoalEmpty(selectedSubGoal) {
-                          VStack(spacing: 5) {
-                              Image("Turtle_Empty")
-                                  .resizable()
-                                  .scaledToFit()
-                                  .frame(width: 101, height: 149)
-                                  .padding(.top, 45)
-                              Text("아직 루틴이 없어요!")
-                                  .font(.Pretendard.SemiBold.size18)
-                                  .padding(.top)
-                              Text("만다라트에서 루틴을 추가해보세요.")
-                                  .font(.Pretendard.Regular.size16)
-                                  .foregroundStyle(Color.my878787)
-                          }
-                      } else {
-                          TodoView(tapType: viewModel.selectedPicker, subGoal: selectedSubGoal)
-                      }
-                  }
+                   let selectedSubGoal = viewModel.selectedSubGoal(for: mainGoal) {
+                    // SubGoal, DetailGoal 둘다 비어있는 탭이면
+                    if viewModel.isSubGoalEmpty(selectedSubGoal) {
+                        VStack(spacing: 5) {
+                            Image("Turtle_Empty")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 101, height: 149)
+                                .padding(.top, 45)
+                            Text("아직 루틴이 없어요!")
+                                .font(.Pretendard.SemiBold.size18)
+                                .padding(.top)
+                            Text("만다라트에서 루틴을 추가해보세요.")
+                                .font(.Pretendard.Regular.size16)
+                                .foregroundStyle(Color.my878787)
+                        }
+                    } else {
+                        TodoView(tapType: viewModel.selectedPicker, subGoal: selectedSubGoal)
+                    }
+                }
             }
         }
         .background(Color.myFFFAF4)
@@ -163,9 +163,11 @@ struct TodoView : View {
                         )
                     }
                 }
+                .frame(maxWidth: .infinity)
                 .padding(.horizontal)
             }
         }
+        .frame(maxWidth: .infinity)
     }
 }
 
@@ -229,26 +231,47 @@ struct WeekAchieveCell: View {
                             .background(Date().currentDay == days[index] ? Color.my6FB56F : .clear)
                             .clipShape(Circle())
                         
-                        Button {
-                            print("클로버 버튼 탭")
-                        } label: {
-                            Rectangle()
+                        
+                        ZStack {
+                            if isAlertActive(for: index) {
+                                if Date().currentDay == days[index] {
+                                    // 루틴이고 오늘이면, 흰색 배경
+                                    Image("RoutineDay")
+                                        .resizable()
+                                        .scaledToFit()
+                                } else if isFutureDay(index: index) {
+                                    // 루틴이긴한데 아직 오지 않은 요일은 회색 배경
+                                    Image("RoutineNotYet")
+                                        .resizable()
+                                        .scaledToFit()
+                                } else {
+                                    //  성취 판단 ( alert는 True였는데 )
+                                    if isAchieved(for: index) {
+                                        // 성취 -> achieve도 true일 때
+                                        Image("AchievedClover1")
+                                            .resizable()
+                                            .scaledToFit()
+                                    } else {
+                                        // 미성취 -> achieve가 false일 때
+                                        Image("NoAchieve")
+                                            .resizable()
+                                            .scaledToFit()
+                                    }
+                                }
+                            } else {
+                                // 루틴이 없는 날 ( alert가 false인 날들)
+                                Image("NoRoutineDay")
+                                    .resizable()
+                                    .scaledToFit()
+                            }
                         }
-                        .frame(maxWidth: .infinity/7, minHeight: 41) // ⚠️⚠️ 나중에 높이 수정
-                        .foregroundStyle(Date().currentDay == days[index] ? .white : Color.myDBDBDC)
-                        .overlay(
-                            Date().currentDay == days[index] ?
-                            RoundedRectangle(cornerRadius: 8).stroke(Color(hex: "DBDBDC"), lineWidth: 2)
-                            : nil
-                        )
-                        .cornerRadius(8)
                     }
                     .frame(maxWidth: .infinity)
                 }
             }
             .frame(maxWidth: .infinity)
         }
-        //        .frame(height: 120) // ⚠️⚠️⚠️⚠️⚠️ 프리뷰 볼때 적용하는 높이 ⚠️⚠️⚠️⚠️⚠️
+        .frame(height: 120) // ⚠️⚠️⚠️⚠️⚠️ 프리뷰 볼때 적용하는 높이 ⚠️⚠️⚠️⚠️⚠️
         .padding()
         .background(Color.white)
         .cornerRadius(12)
@@ -256,6 +279,41 @@ struct WeekAchieveCell: View {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color.myF0E8DF, lineWidth: 1)
         )
+    }
+    
+    // alert 요일중 True, False 확인하는 함수
+    private func isAlertActive(for index: Int) -> Bool {
+        switch index {
+        case 0: return alertMon
+        case 1: return alertTue
+        case 2: return alertWed
+        case 3: return alertThu
+        case 4: return alertFri
+        case 5: return alertSat
+        case 6: return alertSun
+        default: return false
+        }
+    }
+    
+    // alert가 true긴하지만, 아직 해당요일이 안됐을때 확인
+    private func isFutureDay(index: Int) -> Bool {
+        // 현재 요일 인덱스를 계산
+        let todayIndex = Calendar.current.component(.weekday, from: Date()) - 1
+        return index > todayIndex
+    }
+    
+    // 요일별 Achieve 상태
+    private func isAchieved(for index: Int) -> Bool {
+        switch index {
+        case 0: return achieveMon
+        case 1: return achieveTue
+        case 2: return achieveWed
+        case 3: return achieveThu
+        case 4: return achieveFri
+        case 5: return achieveSat
+        case 6: return achieveSun
+        default: return false
+        }
     }
 }
 
