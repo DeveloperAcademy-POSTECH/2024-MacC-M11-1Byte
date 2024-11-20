@@ -41,8 +41,10 @@ struct DetailGoalView: View {
     @State private var achieveSat: Bool = false
     @State private var achieveSun: Bool = false
     
+    @State private var showAlert = false
+    
     private let titleLimit = 20 // 제목 글자수 제한
-    private let memoLimit = 150 // 메모 글자수 제한
+    private let memoLimit = 100 // 메모 글자수 제한
     
     var body: some View {
         ScrollView {
@@ -62,14 +64,42 @@ struct DetailGoalView: View {
                     // 리마인드 알림
                     remind()
                     
+                    Button(action: {
+                        showAlert = true
+                    }, label: {
+                        HStack(spacing: 8) {
+                            Image(systemName: "trash")
+                                .font(.system(size: 16))
+                                .foregroundStyle(.red)
+                            Text("삭제하기")
+                                .font(.Pretendard.Medium.size16)
+                                .foregroundStyle(.red)
+                        }
+                        .padding(.vertical, 14.5)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.myF0E8DF)
+                        .cornerRadius(12)
+                    })
+                    .alert("루틴을 삭제하시겠습니까?", isPresented: $showAlert) {
+                        Button("삭제하기", role: .destructive) {
+                            if let detailGoal = detailGoal {
+                                viewModel.deleteDetailGoal(
+                                    detailGoal: detailGoal, modelContext: modelContext, newTitle: "", newMemo: "", achieveCount: 0, achieveGoal: 0, alertMon: false, alertTue: false, alertWed: false, alertThu: false, alertFri: false, alertSat: false, alertSun: false, isRemind: false, remindTime: nil, achieveMon: false, achieveTue: false, achieveWed: false, achieveThu: false, achieveFri: false, achieveSat: false, achieveSun: false
+                                )
+                            }
+                            isEditing = false
+                            // 버튼 누르면 SubGoalDetailGridView로 pop되게 하기
+                        }
+                        Button("계속하기", role: .cancel) {}
+                    } message: {
+                        Text("삭제한 루틴은 복구할 수 없어요.")
+                    }
                 } else {
                     // 저장되었을 때 보여주는 화면
                     saved()
                 }
-                
                 Spacer()
             }
-            
         }
         .navigationBarBackButtonHidden()
         .backButtonToolbar { dismiss() }
@@ -102,6 +132,31 @@ struct DetailGoalView: View {
                             achieveSat: achieveSat,
                             achieveSun: achieveSun
                         )
+                        // 알림 설정 호출
+                        if isRemind {
+                            let selectedDays = getSelectedDays()
+                            if let remindTime = remindTime {
+                                let identifier = "\(detailGoal.title)-\(getSelectedDays().joined(separator: ","))"
+                                let content = UNMutableNotificationContent()
+                                content.title = "알림 제목"
+                                content.body = "알림 내용"
+                                content.sound = .default
+                                
+                                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60, repeats: false)
+                                let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+                                
+                                scheduleNotification(for: newTitle, on: selectedDays, at: remindTime)
+                            }
+                        } else {
+                            let identifier = "\(newTitle)-\(getSelectedDays().joined(separator: ","))"
+                            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
+                        }
+                        // 디버깅: 알림 확인
+                        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+                            for request in requests {
+                                print("Pending notification: \(request.identifier)")
+                            }
+                        }
                     }
                 }, label: {
                     Text(isEditing ? "저장" : "수정")
@@ -222,8 +277,6 @@ extension DetailGoalView {
                 TextField("루틴에 대한 메모를 자유롭게 작성해보세요.", text: $newMemo, axis: .vertical)
                     .scrollContentBackground(.hidden)
                     .padding()
-                    .background(.clear)
-                    .cornerRadius(12)
                     .onChange(of: newMemo) { oldValue, newValue in
                         if newValue.count > memoLimit {
                             newMemo = String(newValue.prefix(memoLimit))
@@ -245,12 +298,13 @@ extension DetailGoalView {
                 }
                 .padding([.trailing, .bottom], 10)
             }
-            
-            
         }
         .frame(maxWidth: .infinity)
         .frame(height: 133/852 * UIScreen.main.bounds.height)
-        .background(.white)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(.white)
+        )
         .overlay(
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color.myF0E8DF, lineWidth: 1)
@@ -288,6 +342,7 @@ extension DetailGoalView {
         .frame(maxWidth: .infinity)
         .frame(height: 105/852 * UIScreen.main.bounds.height)
         .background(.white)
+        .cornerRadius(12)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color.myF0E8DF, lineWidth: 1)
@@ -305,54 +360,55 @@ extension DetailGoalView {
                 .foregroundStyle(Color.myB4A99D)
         }
         .padding(.leading, 4)
-       Section {
-           VStack(spacing: 0){
-               // 알림 설정 토글
-               HStack() {
-                   Text("알림 설정")
-                       .font(.Pretendard.SemiBold.size16)
-                       .foregroundStyle(.black)
-                   Spacer()
-                   
-                   Toggle("", isOn: $isRemind)
-                       .toggleStyle(SwitchToggleStyle(tint: Color.my538F53)) // 초록색 토글
-               }
-               
-               if isRemind {
-                   Divider()
-                       .foregroundStyle(Color.myF0E8DF)
-                       .frame(height: 1)
-                       .padding(.vertical, 8)
-                       
-                   // 알림 시간 설정
-                   HStack {
-                       Text("알림 시간")
-                           .font(.Pretendard.SemiBold.size16)
-                           .foregroundStyle(.black)
-                       Spacer()
-                       
-                       // 알림 시간을 선택할 수 있는 DatePicker
-                       DatePicker(
-                        "",
-                        selection: Binding(
-                            get: { remindTime ?? Date() },
-                            set: { remindTime = $0 }
-                        ),
-                        displayedComponents: .hourAndMinute
-                       )
-                       .labelsHidden() // 라벨 숨기기
-                   }
-               }
-           }
-           .padding(.horizontal)
-           .padding(.vertical, 10)
+        Section {
+            VStack(spacing: 0){
+                // 알림 설정 토글
+                HStack() {
+                    Text("알림 설정")
+                        .font(.Pretendard.SemiBold.size16)
+                        .foregroundStyle(.black)
+                    Spacer()
+                    
+                    Toggle("", isOn: $isRemind)
+                        .toggleStyle(SwitchToggleStyle(tint: Color.my538F53)) // 초록색 토글
+                }
+                
+                if isRemind {
+                    Divider()
+                        .foregroundStyle(Color.myF0E8DF)
+                        .frame(height: 1)
+                        .padding(.vertical, 8)
+                    
+                    // 알림 시간 설정
+                    HStack {
+                        Text("알림 시간")
+                            .font(.Pretendard.SemiBold.size16)
+                            .foregroundStyle(.black)
+                        Spacer()
+                        
+                        // 알림 시간을 선택할 수 있는 DatePicker
+                        DatePicker(
+                            "",
+                            selection: Binding(
+                                get: { remindTime ?? Date() },
+                                set: { remindTime = $0 }
+                            ),
+                            displayedComponents: .hourAndMinute
+                        )
+                        .labelsHidden() // 라벨 숨기기
+                    }
+                }
+            }
+            .padding(.horizontal)
+            .padding(.vertical, 10)
         }
-       .background(.white)
-       .overlay(
-           RoundedRectangle(cornerRadius: 12)
-               .stroke(Color.myF0E8DF, lineWidth: 1)
-       )
-       .padding(.top, -18)
+        .background(.white)
+        .cornerRadius(12)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.myF0E8DF, lineWidth: 1)
+        )
+        .padding(.top, -18)
     }
     
     @ViewBuilder
@@ -401,7 +457,7 @@ extension DetailGoalView {
                 if isRemind {
                     var formattedRemindTime: String {
                         guard let remindTime = remindTime else {
-                            return "시간이 설정되지 않았습니다."
+                            return "미설정"
                         }
                         
                         let formatter = DateFormatter()
@@ -412,20 +468,20 @@ extension DetailGoalView {
                     Text(formattedRemindTime)
                         .font(.Pretendard.Medium.size16)
                 } else {
-                    Text("정해진 시간이 없습니다.")
+                    Text("미설정")
                         .font(.Pretendard.Medium.size16)
+                        .foregroundStyle(Color.gray)
                 }
-                
                 Spacer()
             }
         }
         .padding()
         .background(.white)
+        .cornerRadius(12)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color.myF0E8DF, lineWidth: 1)
         )
-
     }
 }
 

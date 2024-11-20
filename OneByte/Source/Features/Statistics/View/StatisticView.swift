@@ -9,8 +9,9 @@ import SwiftUI
 import SwiftData
 
 struct StatisticView: View {
+    @Environment(\.modelContext) private var modelContext
     
-    @State var viewModel = StatisticViewModel()
+    @StateObject var viewModel = StatisticViewModel()
     
     var body: some View {
         ScrollView {
@@ -24,11 +25,9 @@ struct StatisticView: View {
                     Spacer()
                 }
                 .padding()
-                
-                // 이번달 클로버 정보
+            
                 thisMonthCloverInfoView()
                 
-                // 올해의 클로버 정보
                 thisYearCloverInfoView()
                 
                 Spacer()
@@ -39,12 +38,58 @@ struct StatisticView: View {
     
     @ViewBuilder
     private func thisMonthCloverInfoView() -> some View {
-        RoundedRectangle(cornerRadius: 20)
-            .fill(Color.my6FB56F) // 배경색 (녹색)
-            .frame(maxWidth: .infinity)
-            .frame(height: 146)
-            .padding()
-            // ⚠️⚠️ 추가 구현
+        ZStack(alignment: .leading) {
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.my6FB56F)
+                .frame(maxWidth: .infinity)
+                .frame(height: 146)
+                .padding()
+            
+            VStack {
+                HStack {
+                    Spacer()
+                    Rectangle()
+                        .foregroundStyle(.clear)
+                        .frame(width: 83, height: 24)
+                        .background(.white.opacity(0.8))
+                        .cornerRadius(22.5)
+                        .overlay(
+                            HStack(spacing: 5) {
+                                Image("Clover_Gold")
+                                    .resizable()
+                                    .frame(width: 15, height: 15)
+                                Text("\(viewModel.currentMonthCloverStates[2])")
+                                    .font(.Pretendard.SemiBold.size12)
+                                    .foregroundStyle(.myA7A7A7)
+                                Image("Clover_Green")
+                                    .resizable()
+                                    .frame(width: 15, height: 15)
+                                Text("\(viewModel.currentMonthCloverStates[1])")
+                                    .font(.Pretendard.SemiBold.size12)
+                                    .foregroundStyle(.myA7A7A7)
+                            }
+                        )
+                        .padding(.trailing, 30)
+                        .padding(.top)
+                }
+                .padding(.top)
+                Spacer()
+            }
+            
+            VStack(alignment: .leading, spacing: 16) {
+                Text("\(viewModel.profileNickName)님! \n이번 달 클로버를 \(viewModel.currentMonthClovers.count)번 획득했어요")
+                    .font(.Pretendard.Bold.size20)
+                    .foregroundStyle(.white)
+                
+                Text("모든 성장은 작은 시도에서 시작된답니다.\n다음 목표부터 하나씩 도전해볼까요?")
+                    .font(.Pretendard.SemiBold.size14)
+                    .foregroundStyle(Color.my4A4A4A)
+                    .frame(width: 227, alignment: .leading)
+            }
+            .padding(.leading, 41)
+            .padding(.top, 26)
+            .padding(.bottom, 20)
+        }
     }
     
     @ViewBuilder
@@ -52,13 +97,13 @@ struct StatisticView: View {
         VStack(spacing: 5){
             HStack {
                 Text("올해의 클로버")
-                    .font(.Pretendard.Bold.size18)
+                    .font(.Pretendard.SemiBold.size18)
                     .padding(.leading, 5)
                 Spacer()
             }
             HStack {
                 Text("올해의 내가 수집한 클로버를 모아볼 수 있어요.")
-                    .font(.Pretendard.Medium.size14)
+                    .font(.caption)
                     .foregroundStyle(Color.myA8A8A8)
                     .padding(.leading, 5)
                 Spacer()
@@ -72,10 +117,14 @@ struct StatisticView: View {
                         Spacer()
                     }
                     HStack {
-                        Image(systemName: "star.fill")
-                        
-                        Text("5")
-                            .font(.Pretendard.SemiBold.size20)
+                        Image("Clover_Gold")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                        Text("\(viewModel.currentMonthCloverStates[2])")
+                            .font(
+                                Font.custom("SF Pro", size: 20)
+                                    .weight(.semibold)
+                            )
                         Spacer()
                     }
                 }
@@ -92,16 +141,18 @@ struct StatisticView: View {
                         Spacer()
                     }
                     HStack {
-                        Image(systemName: "star.fill")
-                        
-                        Text("16")
-                            .font(.Pretendard.SemiBold.size20)
+                        Image("Clover_Green")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                        Text("\(viewModel.currentMonthCloverStates[1])")
+                            .font(
+                                Font.custom("SF Pro", size: 20)
+                                    .weight(.semibold)
+                            )
                         Spacer()
                     }
                 }
                 .padding(.leading)
-                
-                // ⚠️⚠️ 추가 구현
             }
             .frame(maxWidth: .infinity)
             .frame(height: 82)
@@ -117,6 +168,4 @@ struct StatisticView: View {
     }
 }
 
-#Preview {
-    StatisticView()
-}
+
