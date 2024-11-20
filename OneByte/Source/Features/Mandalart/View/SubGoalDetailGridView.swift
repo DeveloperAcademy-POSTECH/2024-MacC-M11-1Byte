@@ -10,12 +10,14 @@ import SwiftData
 
 // MARK: 두번째 화면 - 클릭된 셀의 SubGoal 및 관련된 DetailGoals만 3x3 그리드로 표시하는 뷰
 struct SubGoalDetailGridView: View {
+    @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
+    
     @State var navigation: Bool = false
-    @Binding var subGoal: SubGoal?
     @State private var selectedDetailGoal: DetailGoal?
     @State var subSheetIsPresented: Bool = false
     @State private var detailSheetIsPresented = false
+    @Binding var subGoal: SubGoal?
     
     private let innerColumns = Array(repeating: GridItem(.fixed(123/852 * UIScreen.main.bounds.height)), count: 2)
     private let viewModel = MandalartViewModel(
@@ -25,10 +27,10 @@ struct SubGoalDetailGridView: View {
     )
     
     var body: some View {
-        VStack(alignment: .center) {
+        VStack(alignment: .center, spacing: 0) {
             if let selectedSubGoal = subGoal {
                 let sortedDetailGoals = selectedSubGoal.detailGoals.sorted(by: { $0.id < $1.id })
-                
+                Spacer()
                 LazyVGrid(columns: innerColumns, spacing: 5) {
                     ForEach(0..<4, id: \.self) { index in
                         let cornerRadius: CGFloat = 48
@@ -84,7 +86,8 @@ struct SubGoalDetailGridView: View {
                         }
                     }
                 }
-                .padding(.horizontal, 20/393 * UIScreen.main.bounds.width)
+                .padding(.top, 45/852 * UIScreen.main.bounds.height)
+                .padding(.bottom, 50/852 * UIScreen.main.bounds.height)
                 .navigationTitle(selectedSubGoal.title)
                 // NavigationLink는 여기서 한 번만 사용
                 NavigationLink(
@@ -92,10 +95,88 @@ struct SubGoalDetailGridView: View {
                     isActive: $navigation,
                     label: { EmptyView() }
                 )
+                Spacer()
+                // 메모 모아보기
+                memoes()
+                    .navigationTitle(selectedSubGoal.title)
+                Spacer()
             }
-            Spacer()
-            // 메모 모아보기
+        } // VStack 끝
+        .padding(.horizontal, 20/393 * UIScreen.main.bounds.width)
+        .navigationBarBackButtonHidden()
+        .backButtonToolbar { dismiss() }
+        .background(Color.myFFFAF4)
+        
+    }
+}
+
+extension SubGoalDetailGridView {
+    @ViewBuilder
+    func memoes() -> some View {
+        // 메모 모아보기 리스트
+        if let selectedSubGoal = subGoal {
+            let sortedDetailGoals = selectedSubGoal.detailGoals.sorted(by: { $0.id < $1.id })
+            let filteredMemos = sortedDetailGoals.filter { !$0.memo.isEmpty }
             
+            if !filteredMemos.isEmpty {
+                VStack(alignment: .leading, spacing: 16) {
+                    Text("메모 모아보기")
+                        .font(.Pretendard.SemiBold.size18)
+                        .padding(.leading, 4)
+                    
+                    ScrollView {
+                        VStack(spacing: 12) {
+                            ForEach(filteredMemos, id: \.id) { detailGoal in
+                                HStack(spacing: 14) {
+                                    let randomFace = ["Face1", "Face2", "Face3"].randomElement() ?? "Face1"
+                                    Image(randomFace) // 랜덤 아이콘
+                                        .scaledToFit()
+                                        .frame(width: 33/393 * UIScreen.main.bounds.width)
+                                    
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text(detailGoal.title) // 디테일골 제목
+                                            .font(.Pretendard.Bold.size16)
+                                            .foregroundStyle(Color.my2D5C2D)
+                                        
+                                        Text(detailGoal.memo) // 디테일골 메모
+                                            .font(.Pretendard.Medium.size14)
+                                            .foregroundStyle(Color.my657665)
+//                                            .lineLimit(2) // 최대 두 줄 표시
+                                    }
+                                    Spacer()
+                                }
+                                .padding()
+                                .background(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .fill(.white)
+                                )
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(Color.myF0E8DF, lineWidth: 1)
+                                )
+                            }
+                        }
+                    }
+                }
+            } else {
+                HStack(){
+                    Text("메모 모아보기")
+                        .font(.Pretendard.SemiBold.size18)
+                        .padding(.leading, 20)
+                        .padding(.bottom, 53)
+                    Spacer()
+                }
+                    Image("Turtle_Empty")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 149/852 * UIScreen.main.bounds.height)
+                    Text("아직 메모가 없어요!")
+                        .font(.Pretendard.SemiBold.size16)
+                        .padding(.vertical, 10)
+                    Text("루틴에 대한 메모를 작성하고 확인해 보세요.")
+                        .font(.Pretendard.Medium.size14)
+                        .foregroundStyle(Color.my878787)
+            }
         }
     }
 }

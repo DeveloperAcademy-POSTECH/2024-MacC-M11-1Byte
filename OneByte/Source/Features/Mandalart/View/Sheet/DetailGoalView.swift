@@ -42,7 +42,7 @@ struct DetailGoalView: View {
     @State private var achieveSun: Bool = false
     
     private let titleLimit = 20 // 제목 글자수 제한
-    private let memoLimit = 150 // 메모 글자수 제한
+    private let memoLimit = 100 // 메모 글자수 제한
     
     var body: some View {
         ScrollView {
@@ -222,8 +222,6 @@ extension DetailGoalView {
                 TextField("루틴에 대한 메모를 자유롭게 작성해보세요.", text: $newMemo, axis: .vertical)
                     .scrollContentBackground(.hidden)
                     .padding()
-                    .background(.clear)
-                    .cornerRadius(12)
                     .onChange(of: newMemo) { oldValue, newValue in
                         if newValue.count > memoLimit {
                             newMemo = String(newValue.prefix(memoLimit))
@@ -245,12 +243,13 @@ extension DetailGoalView {
                 }
                 .padding([.trailing, .bottom], 10)
             }
-            
-            
         }
         .frame(maxWidth: .infinity)
         .frame(height: 133/852 * UIScreen.main.bounds.height)
-        .background(.white)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(.white)
+        )
         .overlay(
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color.myF0E8DF, lineWidth: 1)
@@ -288,6 +287,7 @@ extension DetailGoalView {
         .frame(maxWidth: .infinity)
         .frame(height: 105/852 * UIScreen.main.bounds.height)
         .background(.white)
+        .cornerRadius(12)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color.myF0E8DF, lineWidth: 1)
@@ -348,6 +348,7 @@ extension DetailGoalView {
            .padding(.vertical, 10)
         }
        .background(.white)
+       .cornerRadius(12)
        .overlay(
            RoundedRectangle(cornerRadius: 12)
                .stroke(Color.myF0E8DF, lineWidth: 1)
@@ -401,7 +402,7 @@ extension DetailGoalView {
                 if isRemind {
                     var formattedRemindTime: String {
                         guard let remindTime = remindTime else {
-                            return "시간이 설정되지 않았습니다."
+                            return "미설정"
                         }
                         
                         let formatter = DateFormatter()
@@ -412,20 +413,20 @@ extension DetailGoalView {
                     Text(formattedRemindTime)
                         .font(.Pretendard.Medium.size16)
                 } else {
-                    Text("정해진 시간이 없습니다.")
+                    Text("미설정")
                         .font(.Pretendard.Medium.size16)
+                        .foregroundStyle(Color.gray)
                 }
-                
                 Spacer()
             }
         }
         .padding()
         .background(.white)
+        .cornerRadius(12)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color.myF0E8DF, lineWidth: 1)
         )
-
     }
 }
 
