@@ -252,7 +252,7 @@ struct WeekAchieveCell: View {
                         Text(days[index])
                             .font(.Pretendard.Medium.size11)
                             .frame(width: 18, height: 18)
-                            .foregroundStyle(Date().currentDay == days[index] ? .white : Color.my7D7D7D)
+                            .foregroundStyle(Date().currentDay == days[index] ? .white : isAlertActive(for: index) ? Color.my7D7D7D : Color.myDBDBDC)
                             .background(Date().currentDay == days[index] ? Color.my6FB56F : .clear)
                             .clipShape(Circle())
                         
