@@ -103,19 +103,53 @@ struct TodayRoutineCell: View {
                 .stroke(Color(hex: "F0E8DF"), lineWidth: 1)
         )
     }
+    
     private func toggleAchievement() {
         let todayIndex = Date().mondayBasedIndex() // 월요일 기준 인덱스
-            switch todayIndex {
-            case 0: detailGoal.achieveMon.toggle()
-            case 1: detailGoal.achieveTue.toggle()
-            case 2: detailGoal.achieveWed.toggle()
-            case 3: detailGoal.achieveThu.toggle()
-            case 4: detailGoal.achieveFri.toggle()
-            case 5: detailGoal.achieveSat.toggle()
-            case 6: detailGoal.achieveSun.toggle()
-            default: break
-            }
+        var isAchievedBeforeToggle = detailGoal.isAchievedToday
+
+        // 오늘의 요일에 해당하는 achieve 값을 토글
+        switch todayIndex {
+        case 0: detailGoal.achieveMon.toggle()
+        case 1: detailGoal.achieveTue.toggle()
+        case 2: detailGoal.achieveWed.toggle()
+        case 3: detailGoal.achieveThu.toggle()
+        case 4: detailGoal.achieveFri.toggle()
+        case 5: detailGoal.achieveSat.toggle()
+        case 6: detailGoal.achieveSun.toggle()
+        default: break
         }
+
+        // 토글 후 새로운 상태를 가져옴
+        let isAchievedAfterToggle = detailGoal.isAchievedToday
+
+        // 이전 상태와 새로운 상태를 비교하여 achieveCount 업데이트
+        if isAchievedAfterToggle && !isAchievedBeforeToggle {
+            // 완료로 변경된 경우
+            detailGoal.achieveCount += 1
+        } else if !isAchievedAfterToggle && isAchievedBeforeToggle {
+            // 미완료로 변경된 경우
+            detailGoal.achieveCount -= 1
+        }
+
+        // achieveCount가 음수가 되지 않도록 방지
+        if detailGoal.achieveCount < 0 {
+            detailGoal.achieveCount = 0
+        }
+    }
+//    private func toggleAchievement() {
+//        let todayIndex = Date().mondayBasedIndex() // 월요일 기준 인덱스
+//            switch todayIndex {
+//            case 0: detailGoal.achieveMon.toggle()
+//            case 1: detailGoal.achieveTue.toggle()
+//            case 2: detailGoal.achieveWed.toggle()
+//            case 3: detailGoal.achieveThu.toggle()
+//            case 4: detailGoal.achieveFri.toggle()
+//            case 5: detailGoal.achieveSat.toggle()
+//            case 6: detailGoal.achieveSun.toggle()
+//            default: break
+//            }
+//        }
 }
 
 extension DetailGoal {

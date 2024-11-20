@@ -66,6 +66,7 @@ struct AllRoutineView: View {
                             }
                         }
                         .padding(.horizontal)
+                        .padding(.bottom)
                     }
                 }
             } else { // 모든 루틴(.all)보는게 아닐경우, 각 탭마다 Subgoal ID를 찾아서 View
