@@ -72,6 +72,7 @@ struct TodayRoutineCell: View {
                 Text(detailGoal.title)
                     .font(.Pretendard.SemiBold.size16)
                     .foregroundStyle(Color.my2B2B2B)
+                    .strikethrough(detailGoal.isAchievedToday)
                 
                 Text(detailGoal.memo) // ⚠️⚠️⚠️ 나중에 detailGoal에 해당하는 Subgoal title띄워지게  ⚠️⚠️⚠️
                     .font(.Pretendard.SemiBold.size12)
