@@ -10,19 +10,16 @@ import SwiftData
 
 class StatisticViewModel: ObservableObject  {
     
-    @Environment(\.modelContext) private var modelContext
-
-    var clovers: [Clover] = [] // 테스트 용
-    var profile: Profile? = nil
-    
-//    @Query private var profile: [Profile]
-//    @Query(
-//        filter: #Predicate<Clover> { $0.cloverYear == Calendar.current.component(.year, from: Date()) }
-//    ) private var clovers: [Clover]
-    
+    @Query private var profile: [Profile]
+    @Query private var allClovers: [Clover]
     
     private let currentMonth = Calendar.current.component(.month, from: Date())
-
+    private let currentYear = Calendar.current.component(.year, from: Date())
+    
+    private var clovers: [Clover] {
+        allClovers.filter {$0.cloverYear == currentYear}
+    }
+    
     func getCurrentMonthClovers() -> [Clover] {
         return filterCloversByMonth(month: currentMonth)
     }
@@ -35,8 +32,8 @@ class StatisticViewModel: ObservableObject  {
         classifyCloverState(clovers: clovers)
     }
     
-    func getPofileNickName() -> String {
-        return profile!.nickName
+    func getProfileNickName() -> String {
+        return "이빈치" // profile[0].nickName
     }
     
     func filterCloversByMonth(month: Int) -> [Clover] {
@@ -45,11 +42,10 @@ class StatisticViewModel: ObservableObject  {
         }
     }
     
-
     func classifyCloverState(clovers: [Clover]) -> [Int] {
         var transparentCloverCount = 0
         var normalCloverCount = 0
-        var goldenClovercount = 0
+        var goldenCloverCount = 0
         
         for clover in clovers {
             switch clover.cloverState {
@@ -58,13 +54,13 @@ class StatisticViewModel: ObservableObject  {
             case 1:
                 normalCloverCount += 1
             case 2:
-                goldenClovercount += 1
+                goldenCloverCount += 1
             default:
                 break
             }
         }
         
-        return [transparentCloverCount, normalCloverCount, goldenClovercount]
+        return [transparentCloverCount, normalCloverCount, goldenCloverCount]
         
     }
    

@@ -9,7 +9,8 @@ import SwiftUI
 import SwiftData
 
 struct StatisticView: View {
-
+    @Environment(\.modelContext) private var modelContext
+    
     @State var viewModel = StatisticViewModel()
     
     var body: some View {
@@ -59,9 +60,19 @@ struct StatisticView: View {
                         .background(.white.opacity(0.8))
                         .cornerRadius(22.5)
                         .overlay(
-                            HStack(spacing: 10) {
-                                Text("\(cloverStates[2])개")
-                                Text("\(cloverStates[1])개")
+                            HStack(spacing: 5) {
+                                Image("Clover_Gold")
+                                    .resizable()
+                                    .frame(width: 15, height: 15)
+                                Text("\(cloverStates[2])")
+                                    .font(.Pretendard.SemiBold.size12)
+                                    .foregroundColor(.myA7A7A7)
+                                Image("Clover_Green")
+                                    .resizable()
+                                    .frame(width: 15, height: 15)
+                                Text("\(cloverStates[1])")
+                                    .font(.Pretendard.SemiBold.size12)
+                                    .foregroundColor(.myA7A7A7)
                             }
                         )
                         .padding(.trailing, 30)
@@ -72,11 +83,8 @@ struct StatisticView: View {
             }
             
             VStack(alignment: .leading, spacing: 16) {
-                Text("\(viewModel.getPofileNickName())님! \n이번 달 클로버를 \(cloverGetThisMonth.count)번 획득했어요") // member의 이름으로 "김만복" 대체해야 함
-                    .font(
-                        Font.custom("Pretendard", size: 20)
-                            .weight(.bold)
-                    )
+                Text("\(viewModel.getProfileNickName())님! \n이번 달 클로버를 \(cloverGetThisMonth.count)번 획득했어요") // member의 이름으로 "김만복" 대체해야 함
+                    .font(.Pretendard.Bold.size20)
                     .foregroundColor(.white)
                 
                 Text("모든 성장은 작은 시도에서 시작된답니다.\n다음 목표부터 하나씩 도전해볼까요?")
@@ -120,7 +128,9 @@ struct StatisticView: View {
                         Spacer()
                     }
                     HStack {
-                        Image(systemName: "star.fill")
+                        Image("Clover_Gold")
+                            .resizable()
+                            .frame(width: 20, height: 20)
                         Text("\(cloverStates[2])")
                             .font(
                                 Font.custom("SF Pro", size: 20)
@@ -142,8 +152,9 @@ struct StatisticView: View {
                         Spacer()
                     }
                     HStack {
-                        Image(systemName: "star.fill")
-                        
+                        Image("Clover_Green")
+                            .resizable()
+                            .frame(width: 20, height: 20)
                         Text("\(cloverStates[1])")
                             .font(
                                 Font.custom("SF Pro", size: 20)
@@ -170,25 +181,25 @@ struct StatisticView: View {
     }
 }
 
-#Preview {
-    let sampleViewModel = StatisticViewModel()
-    
-    sampleViewModel.clovers = [
-        Clover(id: 1, cloverYear: 2024, cloverMonth: 1, cloverWeekOfMonth: 1, cloverWeekOfYear: 1, cloverState: 1),
-        Clover(id: 2, cloverYear: 2024, cloverMonth: 1, cloverWeekOfMonth: 2, cloverWeekOfYear: 2, cloverState: 2),
-        Clover(id: 3, cloverYear: 2024, cloverMonth: 1, cloverWeekOfMonth: 3, cloverWeekOfYear: 3, cloverState: 0),
-        Clover(id: 4, cloverYear: 2024, cloverMonth: 1, cloverWeekOfMonth: 4, cloverWeekOfYear: 4, cloverState: 1),
-        Clover(id: 5, cloverYear: 2024, cloverMonth: 1, cloverWeekOfMonth: 5, cloverWeekOfYear: 5, cloverState: 1),
-        Clover(id: 6, cloverYear: 2024, cloverMonth: 2, cloverWeekOfMonth: 1, cloverWeekOfYear: 6, cloverState: 2),
-        Clover(id: 7, cloverYear: 2024, cloverMonth: 2, cloverWeekOfMonth: 2, cloverWeekOfYear: 7, cloverState: 1),
-        Clover(id: 8, cloverYear: 2024, cloverMonth: 2, cloverWeekOfMonth: 3, cloverWeekOfYear: 8, cloverState: 0),
-        Clover(id: 9, cloverYear: 2024, cloverMonth: 2, cloverWeekOfMonth: 4, cloverWeekOfYear: 9, cloverState: 1),
-        Clover(id: 10, cloverYear: 2024, cloverMonth: 11, cloverWeekOfMonth: 1, cloverWeekOfYear: 44, cloverState: 1),
-        Clover(id: 11, cloverYear: 2024, cloverMonth: 11, cloverWeekOfMonth: 2, cloverWeekOfYear: 45, cloverState: 2),
-        Clover(id: 12, cloverYear: 2024, cloverMonth: 11, cloverWeekOfMonth: 3, cloverWeekOfYear: 46, cloverState: 1),
-    ]
-    
-    sampleViewModel.profile = Profile(nickName: "빈치")
-    return StatisticView(viewModel: sampleViewModel)
-    
-}
+//#Preview { // 테스트 할 때 주석 풀고 사용해주시길
+//    let sampleViewModel = StatisticViewModel()
+//    
+//    sampleViewModel.clovers = [
+//        Clover(id: 1, cloverYear: 2024, cloverMonth: 1, cloverWeekOfMonth: 1, cloverWeekOfYear: 1, cloverState: 1),
+//        Clover(id: 2, cloverYear: 2024, cloverMonth: 1, cloverWeekOfMonth: 2, cloverWeekOfYear: 2, cloverState: 2),
+//        Clover(id: 3, cloverYear: 2024, cloverMonth: 1, cloverWeekOfMonth: 3, cloverWeekOfYear: 3, cloverState: 0),
+//        Clover(id: 4, cloverYear: 2024, cloverMonth: 1, cloverWeekOfMonth: 4, cloverWeekOfYear: 4, cloverState: 1),
+//        Clover(id: 5, cloverYear: 2024, cloverMonth: 1, cloverWeekOfMonth: 5, cloverWeekOfYear: 5, cloverState: 1),
+//        Clover(id: 6, cloverYear: 2024, cloverMonth: 2, cloverWeekOfMonth: 1, cloverWeekOfYear: 6, cloverState: 2),
+//        Clover(id: 7, cloverYear: 2024, cloverMonth: 2, cloverWeekOfMonth: 2, cloverWeekOfYear: 7, cloverState: 1),
+//        Clover(id: 8, cloverYear: 2024, cloverMonth: 2, cloverWeekOfMonth: 3, cloverWeekOfYear: 8, cloverState: 0),
+//        Clover(id: 9, cloverYear: 2024, cloverMonth: 2, cloverWeekOfMonth: 4, cloverWeekOfYear: 9, cloverState: 1),
+//        Clover(id: 10, cloverYear: 2024, cloverMonth: 11, cloverWeekOfMonth: 1, cloverWeekOfYear: 44, cloverState: 1),
+//        Clover(id: 11, cloverYear: 2024, cloverMonth: 11, cloverWeekOfMonth: 2, cloverWeekOfYear: 45, cloverState: 2),
+//        Clover(id: 12, cloverYear: 2024, cloverMonth: 11, cloverWeekOfMonth: 3, cloverWeekOfYear: 46, cloverState: 1),
+//    ]
+//    
+//    sampleViewModel.profile = Profile(nickName: "빈치")
+//    return StatisticView(viewModel: sampleViewModel)
+//    
+//}
