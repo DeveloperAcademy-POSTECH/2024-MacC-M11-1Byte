@@ -11,35 +11,37 @@ import SwiftData
 class StatisticViewModel: ObservableObject  {
     
     @Query private var profile: [Profile]
-    @Query private var allClovers: [Clover]
+    @Query private var clovers: [Clover]
     
     private let currentMonth = Calendar.current.component(.month, from: Date())
     private let currentYear = Calendar.current.component(.year, from: Date())
     
-    private var clovers: [Clover] {
-        allClovers.filter {$0.cloverYear == currentYear}
+    var currentMonthClovers: [Clover] {
+        filterCloversByMonth(clovers: clovers, month: currentMonth)
     }
     
-    func getCurrentMonthClovers() -> [Clover] {
-        return filterCloversByMonth(month: currentMonth)
+    var currentYearClovers: [Clover] {
+        filterCloversByYear(clovers: clovers, year: currentYear)
     }
     
-    func getCurrentMonthCloverStates() -> [Int] {
-        classifyCloverState(clovers: getCurrentMonthClovers())
+    var currentMonthCloverStates: [Int] {
+        classifyCloverState(clovers: currentMonthClovers)
     }
     
-    func getCurrentYearCloverStates() -> [Int] {
-        classifyCloverState(clovers: clovers)
+    var currentYearCloverStates: [Int] {
+        classifyCloverState(clovers: currentYearClovers)
     }
     
-    func getProfileNickName() -> String {
-        return "이빈치" // profile[0].nickName
+    var profileNickName: String {
+        "이빈치" // 현재 프로필 데이터 없어서 빌드 안 되기 때문에 하드코딩 해놓음 -> profile[0].nickName
     }
     
-    func filterCloversByMonth(month: Int) -> [Clover] {
-        return clovers.filter { clover in
-            clover.cloverMonth == month
-        }
+    func filterCloversByMonth(clovers: [Clover], month: Int) -> [Clover] {
+        return clovers.filter { $0.cloverMonth == month }
+    }
+    
+    func filterCloversByYear(clovers: [Clover], year: Int) -> [Clover] {
+        return clovers.filter { $0.cloverYear == year }
     }
     
     func classifyCloverState(clovers: [Clover]) -> [Int] {

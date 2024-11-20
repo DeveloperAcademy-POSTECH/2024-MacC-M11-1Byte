@@ -11,7 +11,7 @@ import SwiftData
 struct StatisticView: View {
     @Environment(\.modelContext) private var modelContext
     
-    @State var viewModel = StatisticViewModel()
+    @StateObject var viewModel = StatisticViewModel()
     
     var body: some View {
         ScrollView {
@@ -25,11 +25,9 @@ struct StatisticView: View {
                     Spacer()
                 }
                 .padding()
-                
-                // 이번달 클로버 정보
+            
                 thisMonthCloverInfoView()
                 
-                // 올해의 클로버 정보
                 thisYearCloverInfoView()
                 
                 Spacer()
@@ -40,10 +38,6 @@ struct StatisticView: View {
     
     @ViewBuilder
     private func thisMonthCloverInfoView() -> some View {
-        
-        let cloverGetThisMonth = viewModel.getCurrentMonthClovers()
-        let cloverStates = viewModel.classifyCloverState(clovers: cloverGetThisMonth)
-    
         ZStack(alignment: .leading) {
             RoundedRectangle(cornerRadius: 12)
                 .fill(Color.my6FB56F)
@@ -55,7 +49,7 @@ struct StatisticView: View {
                 HStack {
                     Spacer()
                     Rectangle()
-                        .foregroundColor(.clear)
+                        .foregroundStyle(.clear)
                         .frame(width: 83, height: 24)
                         .background(.white.opacity(0.8))
                         .cornerRadius(22.5)
@@ -64,15 +58,15 @@ struct StatisticView: View {
                                 Image("Clover_Gold")
                                     .resizable()
                                     .frame(width: 15, height: 15)
-                                Text("\(cloverStates[2])")
+                                Text("\(viewModel.currentMonthCloverStates[2])")
                                     .font(.Pretendard.SemiBold.size12)
-                                    .foregroundColor(.myA7A7A7)
+                                    .foregroundStyle(.myA7A7A7)
                                 Image("Clover_Green")
                                     .resizable()
                                     .frame(width: 15, height: 15)
-                                Text("\(cloverStates[1])")
+                                Text("\(viewModel.currentMonthCloverStates[1])")
                                     .font(.Pretendard.SemiBold.size12)
-                                    .foregroundColor(.myA7A7A7)
+                                    .foregroundStyle(.myA7A7A7)
                             }
                         )
                         .padding(.trailing, 30)
@@ -83,28 +77,23 @@ struct StatisticView: View {
             }
             
             VStack(alignment: .leading, spacing: 16) {
-                Text("\(viewModel.getProfileNickName())님! \n이번 달 클로버를 \(cloverGetThisMonth.count)번 획득했어요") // member의 이름으로 "김만복" 대체해야 함
+                Text("\(viewModel.profileNickName)님! \n이번 달 클로버를 \(viewModel.currentMonthClovers.count)번 획득했어요")
                     .font(.Pretendard.Bold.size20)
-                    .foregroundColor(.white)
+                    .foregroundStyle(.white)
                 
                 Text("모든 성장은 작은 시도에서 시작된답니다.\n다음 목표부터 하나씩 도전해볼까요?")
                     .font(.Pretendard.SemiBold.size14)
-                    .foregroundColor(Color.my4A4A4A)
+                    .foregroundStyle(Color.my4A4A4A)
                     .frame(width: 227, alignment: .leading)
             }
             .padding(.leading, 41)
             .padding(.top, 26)
             .padding(.bottom, 20)
-            
-            
         }
     }
     
     @ViewBuilder
     private func thisYearCloverInfoView() -> some View {
-        
-        let cloverStates = viewModel.getCurrentYearCloverStates()
-        
         VStack(spacing: 5){
             HStack {
                 Text("올해의 클로버")
@@ -131,7 +120,7 @@ struct StatisticView: View {
                         Image("Clover_Gold")
                             .resizable()
                             .frame(width: 20, height: 20)
-                        Text("\(cloverStates[2])")
+                        Text("\(viewModel.currentMonthCloverStates[2])")
                             .font(
                                 Font.custom("SF Pro", size: 20)
                                     .weight(.semibold)
@@ -155,7 +144,7 @@ struct StatisticView: View {
                         Image("Clover_Green")
                             .resizable()
                             .frame(width: 20, height: 20)
-                        Text("\(cloverStates[1])")
+                        Text("\(viewModel.currentMonthCloverStates[1])")
                             .font(
                                 Font.custom("SF Pro", size: 20)
                                     .weight(.semibold)
@@ -164,8 +153,6 @@ struct StatisticView: View {
                     }
                 }
                 .padding(.leading)
-                
-                // ⚠️⚠️ 추가 구현
             }
             .frame(maxWidth: .infinity)
             .frame(height: 82)
