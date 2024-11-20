@@ -181,25 +181,4 @@ struct StatisticView: View {
     }
 }
 
-//#Preview { // 테스트 할 때 주석 풀고 사용해주시길
-//    let sampleViewModel = StatisticViewModel()
-//    
-//    sampleViewModel.clovers = [
-//        Clover(id: 1, cloverYear: 2024, cloverMonth: 1, cloverWeekOfMonth: 1, cloverWeekOfYear: 1, cloverState: 1),
-//        Clover(id: 2, cloverYear: 2024, cloverMonth: 1, cloverWeekOfMonth: 2, cloverWeekOfYear: 2, cloverState: 2),
-//        Clover(id: 3, cloverYear: 2024, cloverMonth: 1, cloverWeekOfMonth: 3, cloverWeekOfYear: 3, cloverState: 0),
-//        Clover(id: 4, cloverYear: 2024, cloverMonth: 1, cloverWeekOfMonth: 4, cloverWeekOfYear: 4, cloverState: 1),
-//        Clover(id: 5, cloverYear: 2024, cloverMonth: 1, cloverWeekOfMonth: 5, cloverWeekOfYear: 5, cloverState: 1),
-//        Clover(id: 6, cloverYear: 2024, cloverMonth: 2, cloverWeekOfMonth: 1, cloverWeekOfYear: 6, cloverState: 2),
-//        Clover(id: 7, cloverYear: 2024, cloverMonth: 2, cloverWeekOfMonth: 2, cloverWeekOfYear: 7, cloverState: 1),
-//        Clover(id: 8, cloverYear: 2024, cloverMonth: 2, cloverWeekOfMonth: 3, cloverWeekOfYear: 8, cloverState: 0),
-//        Clover(id: 9, cloverYear: 2024, cloverMonth: 2, cloverWeekOfMonth: 4, cloverWeekOfYear: 9, cloverState: 1),
-//        Clover(id: 10, cloverYear: 2024, cloverMonth: 11, cloverWeekOfMonth: 1, cloverWeekOfYear: 44, cloverState: 1),
-//        Clover(id: 11, cloverYear: 2024, cloverMonth: 11, cloverWeekOfMonth: 2, cloverWeekOfYear: 45, cloverState: 2),
-//        Clover(id: 12, cloverYear: 2024, cloverMonth: 11, cloverWeekOfMonth: 3, cloverWeekOfYear: 46, cloverState: 1),
-//    ]
-//    
-//    sampleViewModel.profile = Profile(nickName: "빈치")
-//    return StatisticView(viewModel: sampleViewModel)
-//    
-//}
+
