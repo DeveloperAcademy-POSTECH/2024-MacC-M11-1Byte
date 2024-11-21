@@ -92,12 +92,14 @@ struct SubGoalDetailGridView: View {
                 // 메모 모아보기
                 memoes()
                     .navigationTitle(selectedSubGoal.title)
+                    .padding(.top, 63)
                 Spacer()
             } else {
                 ProgressView("loading..")
             }
         } // VStack 끝
         .padding(.horizontal, 20/393 * UIScreen.main.bounds.width)
+        .padding(.top, 55)
 //        .navigationBarBackButtonHidden()
 //        .backButtonToolbar { dismiss() }
         .background(Color.myFFFAF4)

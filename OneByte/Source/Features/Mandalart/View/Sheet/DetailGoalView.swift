@@ -49,7 +49,6 @@ struct DetailGoalView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 28/852 * UIScreen.main.bounds.height) {
                 Spacer()
-                
                 if isEditing {
                     // 타이틀 입력란
                     detailGaolTitle()
@@ -63,36 +62,8 @@ struct DetailGoalView: View {
                     // 리마인드 알림
                     remind()
                     
-                    Button(action: {
-                        showAlert = true
-                    }, label: {
-                        HStack(spacing: 8) {
-                            Image(systemName: "trash")
-                                .font(.system(size: 16))
-                                .foregroundStyle(.red)
-                            Text("삭제하기")
-                                .font(.Pretendard.Medium.size16)
-                                .foregroundStyle(.red)
-                        }
-                        .padding(.vertical, 14.5)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.myF0E8DF)
-                        .cornerRadius(12)
-                    })
-                    .alert("루틴을 삭제하시겠습니까?", isPresented: $showAlert) {
-                        Button("삭제하기", role: .destructive) {
-                            if let detailGoal = detailGoal {
-                                viewModel.deleteDetailGoal(
-                                    detailGoal: detailGoal, newTitle: "", newMemo: "", achieveCount: 0, achieveGoal: 0, alertMon: false, alertTue: false, alertWed: false, alertThu: false, alertFri: false, alertSat: false, alertSun: false, isRemind: false, remindTime: nil, achieveMon: false, achieveTue: false, achieveWed: false, achieveThu: false, achieveFri: false, achieveSat: false, achieveSun: false
-                                )
-                            }
-                            isEditing = false
-                            // 버튼 누르면 SubGoalDetailGridView로 pop되게 하기
-                        }
-                        Button("계속하기", role: .cancel) {}
-                    } message: {
-                        Text("삭제한 루틴은 복구할 수 없어요.")
-                    }
+                    // 삭제 버튼
+                    deleteButton()
                 } else {
                     // 저장되었을 때 보여주는 화면
                     saved()
@@ -107,6 +78,10 @@ struct DetailGoalView: View {
                 Button(action: {
                     isEditing.toggle()
                     if !isEditing, let detailGoal = detailGoal{
+                        // 요일 갯수 계산
+                        achieveGoal = [alertMon, alertTue, alertWed, alertThu, alertFri, alertSat, alertSun]
+                            .filter { $0 }
+                            .count
                         viewModel.updateDetailGoal(
                             detailGoal: detailGoal,
                             newTitle: newTitle,
@@ -480,6 +455,40 @@ extension DetailGoalView {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color.myF0E8DF, lineWidth: 1)
         )
+    }
+    
+    @ViewBuilder
+    func deleteButton() -> some View {
+        Button(action: {
+            showAlert = true
+        }, label: {
+            HStack(spacing: 8) {
+                Image(systemName: "trash")
+                    .font(.system(size: 16))
+                    .foregroundStyle(.red)
+                Text("삭제하기")
+                    .font(.Pretendard.Medium.size16)
+                    .foregroundStyle(.red)
+            }
+            .padding(.vertical, 14.5)
+            .frame(maxWidth: .infinity)
+            .background(Color.myF0E8DF)
+            .cornerRadius(12)
+        })
+        .alert("루틴을 삭제하시겠습니까?", isPresented: $showAlert) {
+            Button("삭제하기", role: .destructive) {
+                if let detailGoal = detailGoal {
+                    viewModel.deleteDetailGoal(
+                        detailGoal: detailGoal, newTitle: "", newMemo: "", achieveCount: 0, achieveGoal: 0, alertMon: false, alertTue: false, alertWed: false, alertThu: false, alertFri: false, alertSat: false, alertSun: false, isRemind: false, remindTime: nil, achieveMon: false, achieveTue: false, achieveWed: false, achieveThu: false, achieveFri: false, achieveSat: false, achieveSun: false
+                    )
+                }
+                isEditing = false
+                // 버튼 누르면 SubGoalDetailGridView로 pop되게 하기
+            }
+            Button("계속하기", role: .cancel) {}
+        } message: {
+            Text("삭제한 루틴은 복구할 수 없어요.")
+        }
     }
 }
 
