@@ -11,8 +11,6 @@ import SwiftData
 // MARK: 두번째 화면 - 클릭된 셀의 SubGoal 및 관련된 DetailGoals만 3x3 그리드로 표시하는 뷰
 struct SubGoalDetailGridView: View {
 //    @Environment(\.dismiss) private var dismiss
-//    @Environment(\.modelContext) private var modelContext
-//    
     @State var navigation: Bool = false
     @State private var selectedDetailGoal: DetailGoal?
     @State var subSheetIsPresented: Bool = false
@@ -72,15 +70,15 @@ struct SubGoalDetailGridView: View {
                                         .modifier(NextMandalartButtonModifier(color: Color.myBFEBBB))
                                 }
                                 .cornerRadius(cornerRadius, corners: cornerStyle, defaultRadius: 18)
-//                                .contextMenu {
-//                                    Button(role: .destructive) {
-//                                        viewModel.deleteDetailGoal(
-//                                            detailGoal: detailGoal, modelContext: modelContext, newTitle: "", newMemo: "", achieveCount: 0, achieveGoal: 0, alertMon: false, alertTue: false, alertWed: false, alertThu: false, alertFri: false, alertSat: false, alertSun: false, isRemind: false, remindTime: nil, achieveMon: false, achieveTue: false, achieveWed: false, achieveThu: false, achieveFri: false, achieveSat: false, achieveSun: false
-//                                        )
-//                                    } label: {
-//                                        Label("Delete", systemImage: "trash")
-//                                    }
-//                                }
+                                .contextMenu {
+                                    Button(role: .destructive) {
+                                        viewModel.deleteDetailGoal(
+                                            detailGoal: detailGoal, newTitle: "", newMemo: "", achieveCount: 0, achieveGoal: 0, alertMon: false, alertTue: false, alertWed: false, alertThu: false, alertFri: false, alertSat: false, alertSun: false, isRemind: false, remindTime: nil, achieveMon: false, achieveTue: false, achieveWed: false, achieveThu: false, achieveFri: false, achieveSat: false, achieveSun: false
+                                        )
+                                    } label: {
+                                        Label("Delete", systemImage: "trash")
+                                    }
+                                }
                             }
                         }
                     }
