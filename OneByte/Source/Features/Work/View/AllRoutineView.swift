@@ -96,13 +96,6 @@ struct AllRoutineView: View {
         .padding(.vertical, 25)
         .padding(5)
     }
-    
-    // achieveGoal 계산 메서드
-    func calcAchieveGoal(for detailGoal: DetailGoal) -> Int {
-        return [detailGoal.alertMon, detailGoal.alertTue,detailGoal.alertWed, detailGoal.alertThu, detailGoal.alertFri, detailGoal.alertSat, detailGoal.alertSun]
-            .filter { $0 }
-            .count
-    }
 }
 
 struct WeekRoutineView : View {
@@ -151,17 +144,11 @@ struct WeekRoutineView : View {
         }
         .frame(maxWidth: .infinity)
     }
-    // achieveGoal 계산 메서드 ( alertMon~Sun 7개의 데이터중 true인것의 갯수가 achieveGoal개수가 됨)
-    func calcAchieveGoal(for detailGoal: DetailGoal) -> Int {
-        return [detailGoal.alertMon, detailGoal.alertTue, detailGoal.alertWed, detailGoal.alertThu, detailGoal.alertFri, detailGoal.alertSat, detailGoal.alertSun]
-                .filter { $0 }
-                .count
-    }
 }
 
 struct WeekAchieveCell: View {
+    
     let detailGoal: DetailGoal
-
     let days: [String] = ["월","화","수","목","금","토","일"]
 
     var body: some View {
@@ -174,7 +161,7 @@ struct WeekAchieveCell: View {
 
                     Spacer()
 
-                    Text("달성한 횟수 \(detailGoal.achieveCount)/\(achieveGoal)개")
+                    Text("달성한 횟수 \(detailGoal.achieveCount)/\(detailGoal.achieveGoal)개")
                         .font(.Pretendard.Medium.size12)
                         .foregroundStyle(Color.my727272)
                 }
@@ -203,7 +190,7 @@ struct WeekAchieveCell: View {
                             if isAlertActive(for: index) {
                                 if Date().currentDay == days[index] {
                                     // 루틴이고 오늘인데 아직 성취 안했으면 흰색배경, 성취까지 했으면 해당 클로버 이미지
-                                    Image(isAchieved(for: index) ? "AchieveClover\(detailGoal.achieveCount + (7 - achieveGoal))" : "RoutineDay")
+                                    Image(isAchieved(for: index) ? "AchieveClover\(detailGoal.achieveCount + (7 - detailGoal.achieveGoal))" : "RoutineDay")
                                         .resizable()
                                         .scaledToFit()
                                 } else if isFutureDay(index: index) {
@@ -240,12 +227,6 @@ struct WeekAchieveCell: View {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color.myF0E8DF, lineWidth: 1)
         )
-    }
-
-    private var achieveGoal: Int {
-        return [detailGoal.alertMon, detailGoal.alertTue, detailGoal.alertWed, detailGoal.alertThu, detailGoal.alertFri, detailGoal.alertSat, detailGoal.alertSun]
-            .filter { $0 }
-            .count
     }
 
     // alert 요일중 True, False 확인하여 UI
