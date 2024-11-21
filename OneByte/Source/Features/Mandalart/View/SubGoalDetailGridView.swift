@@ -32,7 +32,7 @@ struct SubGoalDetailGridView: View {
                         let cornerRadius: CGFloat = 48
                         let cornerStyle = cornerStyle(for: index) // cornerStyle 함수 사용
                         
-                        if index == 3 {
+                        if index == (4 - selectedSubGoal.id) {
                             // 네 번째 셀에 서브골 제목 표시
                             Button(action: {
                                 subSheetIsPresented = true
@@ -56,7 +56,7 @@ struct SubGoalDetailGridView: View {
                             }
                         } else {
                             // 나머지 셀에 디테일골 제목 표시
-                            let detailGoalIndex = index < 3 ? index : index - 1
+                            let detailGoalIndex = index < (4 - selectedSubGoal.id) ? index : index - 1
                             if detailGoalIndex < sortedDetailGoals.count {
                                 let detailGoal = sortedDetailGoals[detailGoalIndex]
                                 
@@ -88,18 +88,17 @@ struct SubGoalDetailGridView: View {
                         DetailGoalView(detailGoal: .constant(detailGoal))
 //                    }
                 }
-                Spacer()
+                .padding(.top, 55)
                 // 메모 모아보기
                 memoes()
                     .navigationTitle(selectedSubGoal.title)
-                    .padding(.top, 63)
-                Spacer()
+                
             } else {
                 ProgressView("loading..")
             }
         } // VStack 끝
         .padding(.horizontal, 20/393 * UIScreen.main.bounds.width)
-        .padding(.top, 55)
+        
 //        .navigationBarBackButtonHidden()
 //        .backButtonToolbar { dismiss() }
         .background(Color.myFFFAF4)
@@ -120,6 +119,7 @@ extension SubGoalDetailGridView {
                     Text("메모 모아보기")
                         .font(.Pretendard.SemiBold.size18)
                         .padding(.leading, 4)
+                        .padding(.top, 47)
                     
                     ScrollView {
                         VStack(spacing: 12) {
@@ -159,19 +159,22 @@ extension SubGoalDetailGridView {
                     Text("메모 모아보기")
                         .font(.Pretendard.SemiBold.size18)
                         .padding(.leading, 20)
-                        .padding(.bottom, 53)
+                        .padding(.top, 63)
                     Spacer()
                 }
                 Image("Turtle_Empty")
                     .resizable()
                     .scaledToFit()
                     .frame(height: 149/852 * UIScreen.main.bounds.height)
+                    .padding(.top, 53)
                 Text("아직 메모가 없어요!")
                     .font(.Pretendard.SemiBold.size16)
                     .padding(.vertical, 10)
                 Text("루틴에 대한 메모를 작성하고 확인해 보세요.")
                     .font(.Pretendard.Medium.size14)
                     .foregroundStyle(Color.my878787)
+                    .padding(.bottom, 79)
+                Spacer()
             }
         }
     }
