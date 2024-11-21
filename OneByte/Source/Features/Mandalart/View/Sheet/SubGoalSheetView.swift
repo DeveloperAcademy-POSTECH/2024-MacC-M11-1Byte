@@ -89,7 +89,6 @@ struct SubGoalsheetView: View {
                     if let subGoal = subGoal {
                         viewModel.updateSubGoal(
                             subGoal: subGoal,
-                            modelContext: modelContext,
                             newTitle: newTitle,
                             leafState: leafState
                         )

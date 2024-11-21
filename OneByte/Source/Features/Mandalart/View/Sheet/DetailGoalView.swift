@@ -9,7 +9,6 @@ import SwiftUI
 
 struct DetailGoalView: View {
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.modelContext) private var modelContext
     @Environment(\.managedObjectContext) private var context
     private let viewModel = MandalartViewModel(
         createService: CreateService(),
@@ -110,7 +109,6 @@ struct DetailGoalView: View {
                     if !isEditing, let detailGoal = detailGoal{
                         viewModel.updateDetailGoal(
                             detailGoal: detailGoal,
-                            modelContext: modelContext,
                             newTitle: newTitle,
                             newMemo: newMemo,
                             achieveCount: achieveCount,

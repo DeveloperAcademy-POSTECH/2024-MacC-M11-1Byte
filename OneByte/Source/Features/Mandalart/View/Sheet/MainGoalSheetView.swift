@@ -91,7 +91,6 @@ struct MainGoalsheetView: View {
                     if let mainGoal = mainGoal {
                         viewModel.updateMainGoal(
                             mainGoal: mainGoal,
-                            modelContext: modelContext,
                             id: mainGoal.id,
                             newTitle: newTitle,
                             cloverState: cloverState)

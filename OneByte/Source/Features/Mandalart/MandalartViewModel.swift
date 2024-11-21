@@ -26,18 +26,17 @@ class MandalartViewModel: ObservableObject {
         createService.createGoals(modelContext: modelContext)
     }
     
-    func updateMainGoal(mainGoal: MainGoal, modelContext: ModelContext, id: Int, newTitle: String, cloverState: Int) {
-        updateService.updateMainGoal(mainGoal: mainGoal, modelContext: modelContext, id: id, newTitle: newTitle, cloverState: cloverState)
+    func updateMainGoal(mainGoal: MainGoal,id: Int, newTitle: String, cloverState: Int) {
+        updateService.updateMainGoal(mainGoal: mainGoal, id: id, newTitle: newTitle, cloverState: cloverState)
     }
     
-    func updateSubGoal(subGoal: SubGoal, modelContext: ModelContext, newTitle: String, leafState: Int) {
-        updateService.updateSubGoal(subGoal:subGoal, modelContext: modelContext, newTitle: newTitle, leafState: leafState)
+    func updateSubGoal(subGoal: SubGoal, newTitle: String, leafState: Int) {
+        updateService.updateSubGoal(subGoal:subGoal,newTitle: newTitle, leafState: leafState)
     }
     
-    func updateDetailGoal(detailGoal: DetailGoal, modelContext: ModelContext, newTitle: String, newMemo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool) {
+    func updateDetailGoal(detailGoal: DetailGoal, newTitle: String, newMemo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool) {
         updateService.updateDetailGoal(
             detailGoal: detailGoal,
-            modelContext: modelContext,
             title: newTitle,
             memo: newMemo,
             achieveCount: achieveCount,
