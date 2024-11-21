@@ -82,6 +82,12 @@ struct DetailGoalView: View {
                         achieveGoal = [alertMon, alertTue, alertWed, alertThu, alertFri, alertSat, alertSun]
                             .filter { $0 }
                             .count
+                        
+                        // 알림 시간 기본값 설정
+                        if isRemind, remindTime == nil {
+                            remindTime = Date() // 현재 시간으로 설정
+                        }
+                        
                         viewModel.updateDetailGoal(
                             detailGoal: detailGoal,
                             newTitle: newTitle,
@@ -484,6 +490,7 @@ extension DetailGoalView {
                 }
                 isEditing = false
                 // 버튼 누르면 SubGoalDetailGridView로 pop되게 하기
+                dismiss()
             }
             Button("계속하기", role: .cancel) {}
         } message: {
