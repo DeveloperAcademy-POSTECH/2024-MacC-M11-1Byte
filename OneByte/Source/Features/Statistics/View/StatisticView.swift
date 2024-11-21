@@ -125,7 +125,7 @@ struct StatisticView: View {
                         Image("Clover_Gold")
                             .resizable()
                             .frame(width: 20, height: 20)
-                        Text("\(viewModel.currentMonthCloverStates[2])")
+                        Text("\(viewModel.currentYearCloverStates[2])")
                             .font(
                                 Font.custom("SF Pro", size: 20)
                                     .weight(.semibold)
@@ -149,7 +149,7 @@ struct StatisticView: View {
                         Image("Clover_Green")
                             .resizable()
                             .frame(width: 20, height: 20)
-                        Text("\(viewModel.currentMonthCloverStates[1])")
+                        Text("\(viewModel.currentYearCloverStates[1])")
                             .font(
                                 Font.custom("SF Pro", size: 20)
                                     .weight(.semibold)
@@ -226,10 +226,14 @@ struct StatisticView: View {
                                                 .resizable()
                                                 .frame(width: 38, height: 38)
                                         case 1:
-                                            Image("Clover_Green")
+                                            Image("Clover_Light")
                                                 .resizable()
                                                 .frame(width: 38, height: 38)
                                         case 2:
+                                            Image("Clover_Green")
+                                                .resizable()
+                                                .frame(width: 38, height: 38)
+                                        case 3:
                                             Image("Clover_Gold")
                                                 .resizable()
                                                 .frame(width: 38, height: 38)
