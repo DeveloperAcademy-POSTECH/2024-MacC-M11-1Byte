@@ -92,11 +92,10 @@ struct TodayRoutineCell: View {
                     .resizable()
             }
             .frame(width: 32, height: 32)
-
         }
         .frame(height: 69)
         .padding(.horizontal)
-        .background(Color.white)
+        .background(.white)
         .cornerRadius(12)
         .overlay(
             RoundedRectangle(cornerRadius: 12)

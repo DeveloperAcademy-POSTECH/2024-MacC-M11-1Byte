@@ -29,12 +29,16 @@ class TodayRoutineViewModel {
     
     // 오전 루틴 필터링
     func morningGoals(from todayGoals: [DetailGoal]) -> [DetailGoal] {
-        todayGoals.filter { $0.isRemind && ($0.remindTime?.hour ?? 0) < 12 }
+        return todayGoals
+            .filter { $0.isRemind && ($0.remindTime?.hour ?? 0) < 12 } // 오전 오후 구분
+            .sorted(by: { ($0.remindTime ?? Date.distantPast) < ($1.remindTime ?? Date.distantPast) }) // 시간순 정렬
     }
     
     // 오후 루틴 필터링
     func afternoonGoals(from todayGoals: [DetailGoal]) -> [DetailGoal] {
-        todayGoals.filter { $0.isRemind && ($0.remindTime?.hour ?? 0) >= 12 }
+        return todayGoals
+            .filter { $0.isRemind && ($0.remindTime?.hour ?? 0) >= 12 } // 오전 오후 구분
+            .sorted(by: { ($0.remindTime ?? Date.distantPast) < ($1.remindTime ?? Date.distantPast) }) // 시간순 정렬
     }
     
     // 자유 루틴 필터링
