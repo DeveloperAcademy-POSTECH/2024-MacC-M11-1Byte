@@ -10,6 +10,7 @@ import SwiftData
 
 struct TodayRoutineView: View {
     
+    @Environment(\.modelContext) private var modelContext
     @Query var mainGoals: [MainGoal] // 모든 MainGoal 데이터를 쿼리
     @State var viewModel = TodayRoutineViewModel()
     
@@ -23,8 +24,10 @@ struct TodayRoutineView: View {
                 if !viewModel.morningGoals(from: todayGoals).isEmpty {
                     TodayRoutineTypeHeaderView(routineimage: "sun.max.fill", routineTimeType: "오전 루틴")
                     
-                    ForEach(viewModel.morningGoals(from: todayGoals), id: \.id) { detailGoal in
-                        TodayRoutineCell(detailGoal: detailGoal)
+                    if let mainGoal = mainGoals.first { // MainGoal 가져오기
+                        ForEach(viewModel.morningGoals(from: todayGoals), id: \.id) { detailGoal in
+                            TodayRoutineCell(mainGoal: mainGoal, detailGoal: detailGoal, viewModel: viewModel, modelContext: modelContext) // mainGoal 전달
+                        }
                     }
                 }
                 
@@ -33,8 +36,10 @@ struct TodayRoutineView: View {
                     TodayRoutineTypeHeaderView(routineimage: "moon.fill", routineTimeType: "오후 루틴")
                         .padding(.top)
                     
-                    ForEach(viewModel.afternoonGoals(from: todayGoals), id: \.id) { detailGoal in
-                        TodayRoutineCell(detailGoal: detailGoal)
+                    if let mainGoal = mainGoals.first { // MainGoal 가져오기
+                        ForEach(viewModel.afternoonGoals(from: todayGoals), id: \.id) { detailGoal in
+                            TodayRoutineCell(mainGoal: mainGoal, detailGoal: detailGoal, viewModel: viewModel, modelContext: modelContext)
+                        }
                     }
                 }
                 
@@ -43,8 +48,10 @@ struct TodayRoutineView: View {
                     TodayRoutineTypeHeaderView(routineimage: "star.fill", routineTimeType: "자유 루틴")
                         .padding(.top)
                     
-                    ForEach(viewModel.freeGoals(from: todayGoals), id: \.id) { detailGoal in
-                        TodayRoutineCell(detailGoal: detailGoal)
+                    if let mainGoal = mainGoals.first { // MainGoal 가져오기
+                        ForEach(viewModel.freeGoals(from: todayGoals), id: \.id) { detailGoal in
+                            TodayRoutineCell(mainGoal: mainGoal, detailGoal: detailGoal, viewModel: viewModel, modelContext: modelContext)
+                        }
                     }
                 }
             }
@@ -56,8 +63,10 @@ struct TodayRoutineView: View {
 
 struct TodayRoutineCell: View {
     
+    let mainGoal: MainGoal
     let detailGoal: DetailGoal
-    @State var viewModel = TodayRoutineViewModel()
+    let viewModel: TodayRoutineViewModel
+    let modelContext: ModelContext
     
     var body: some View {
         HStack(spacing: 15) {
@@ -86,8 +95,9 @@ struct TodayRoutineCell: View {
                 print("⚠️[DEBUG] 현재 완료 체크하는 id : \(detailGoal.id)")
                 print("⚠️[DEBUG] 현재 완료 체크하는 Title : \(detailGoal.title)")
                 print("⚠️[DEBUG] 오늘의 루틴 성취 완료 체크 전 : \(detailGoal.isAchievedToday)")
-                viewModel.toggleAchievement(for: detailGoal)
+                viewModel.toggleAchievement(for: detailGoal, in: mainGoal, context: modelContext)
                 print("⚠️[DEBUG] 오늘의 루틴 성취 완료 체크 후 : \(detailGoal.isAchievedToday)")
+                print("⚠️[DEBUG] MainGoal의 CloverState : \(mainGoal.cloverState)")
             } label: {
                 Image(detailGoal.isAchievedToday ? "AchieveClover1" : "RoutineCheck")
                     .resizable()

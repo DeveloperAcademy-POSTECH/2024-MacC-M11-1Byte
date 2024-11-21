@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @Observable
 class TodayRoutineViewModel {
@@ -61,7 +62,7 @@ class TodayRoutineViewModel {
     }
     
     // MARK: 오늘의 루틴 목록 중에서 완료/미완료 여부에 따라 achieveMon 데이터 변경
-    func toggleAchievement(for detailGoal: DetailGoal) {
+    func toggleAchievement(for detailGoal: DetailGoal, in mainGoal: MainGoal, context: ModelContext) {
         let todayIndex = Date().mondayBasedIndex()  // 월요일 기준 인덱스
         let isAchievedBeforeToggle = detailGoal.isAchievedToday
         
@@ -86,5 +87,41 @@ class TodayRoutineViewModel {
         } else if !isAchievedAfterToggle && isAchievedBeforeToggle {
             detailGoal.achieveCount -= 1// 미완료로 변경된 경우
         }
+        updateCloverState(for: mainGoal) // MainGoal의 cloverState 업데이트 함수 호출
+        
+        // 변경 사항 저장
+        do {
+            try context.save()
+        } catch {
+            print("Error saving data: \(error)")
+        }
+    }
+    
+    // MARK: MainGoal의 cloverState 업데이트
+    func updateCloverState(for mainGoal: MainGoal) {
+        // 모든 DetailGoal 가져오기
+        let allDetailGoals = mainGoal.subGoals.flatMap { $0.detailGoals }
+        
+        // 모든 DetailGoal의 상태 확인
+        let allAchieveCount = allDetailGoals.map { $0.achieveCount }
+        let allAchieveGoal = allDetailGoals.map { $0.achieveGoal }
+        
+        // 1) 모든 achieveCount가 0이면 cloverState = 1
+        if allAchieveCount.allSatisfy({ $0 == 0 }) {
+            mainGoal.cloverState = 1
+            return
+        }
+        
+        // 2) 1개 이상 achieveCount가 0보다 크면 cloverState = 2
+        if allAchieveCount.contains(where: { $0 > 0 }) {
+            mainGoal.cloverState = 2
+        }
+        
+        // 3) 모든 achieveCount가 achieveGoal과 같으면 cloverState = 3
+        if zip(allAchieveCount, allAchieveGoal).allSatisfy({ $0 == $1 }) {
+            mainGoal.cloverState = 3
+            return
+        }
     }
 }
+
