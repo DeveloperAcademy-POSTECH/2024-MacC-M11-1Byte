@@ -15,15 +15,25 @@ class StatisticViewModel: ObservableObject  {
     
     var profile: [Profile] = [Profile(nickName: "이빈치")]
     var clovers: [Clover] = [
-        Clover(id: 1, cloverYear: 2024, cloverMonth: 11, cloverWeekOfMonth: 3, cloverWeekOfYear: 46, cloverState: 0),
-        Clover(id: 2, cloverYear: 2024, cloverMonth: 11, cloverWeekOfMonth: 3, cloverWeekOfYear: 46, cloverState: 1),
-        Clover(id: 3, cloverYear: 2024, cloverMonth: 10, cloverWeekOfMonth: 4, cloverWeekOfYear: 45, cloverState: 2),
-        Clover(id: 4, cloverYear: 2023, cloverMonth: 11, cloverWeekOfMonth: 2, cloverWeekOfYear: 44, cloverState: 1)
+        Clover(id: 1, cloverYear: 2024, cloverMonth: 11, cloverWeekOfMonth: 1, cloverWeekOfYear: 45, cloverState: 0),
+        Clover(id: 2, cloverYear: 2024, cloverMonth: 11, cloverWeekOfMonth: 2, cloverWeekOfYear: 46, cloverState: 1),
+        Clover(id: 3, cloverYear: 2024, cloverMonth: 11, cloverWeekOfMonth: 3, cloverWeekOfYear: 47, cloverState: 2),
+        Clover(id: 4, cloverYear: 2024, cloverMonth: 11, cloverWeekOfMonth: 4, cloverWeekOfYear: 48, cloverState: 1),
+        Clover(id: 5, cloverYear: 2024, cloverMonth: 12, cloverWeekOfMonth: 1, cloverWeekOfYear: 49, cloverState: 0),
+        Clover(id: 6, cloverYear: 2024, cloverMonth: 12, cloverWeekOfMonth: 2, cloverWeekOfYear: 50, cloverState: 0),
+        Clover(id: 7, cloverYear: 2024, cloverMonth: 12, cloverWeekOfMonth: 3, cloverWeekOfYear: 51, cloverState: 0),
+        Clover(id: 8, cloverYear: 2024, cloverMonth: 10, cloverWeekOfMonth: 4, cloverWeekOfYear: 52, cloverState: 0),
+        Clover(id: 8, cloverYear: 2024, cloverMonth: 10, cloverWeekOfMonth: 4, cloverWeekOfYear: 52, cloverState: 0),
+        Clover(id: 8, cloverYear: 2024, cloverMonth: 10, cloverWeekOfMonth: 4, cloverWeekOfYear: 52, cloverState: 0),
+        Clover(id: 8, cloverYear: 2024, cloverMonth: 9, cloverWeekOfMonth: 4, cloverWeekOfYear: 52, cloverState: 0),
+        Clover(id: 8, cloverYear: 2024, cloverMonth: 9, cloverWeekOfMonth: 4, cloverWeekOfYear: 52, cloverState: 0),
+        Clover(id: 8, cloverYear: 2024, cloverMonth: 8, cloverWeekOfMonth: 4, cloverWeekOfYear: 52, cloverState: 0),
+        
     ]
 
     
-    private let currentMonth = Calendar.current.component(.month, from: Date())
-    private let currentYear = Calendar.current.component(.year, from: Date())
+    let currentMonth = Calendar.current.component(.month, from: Date())
+    let currentYear = Calendar.current.component(.year, from: Date())
     
     var currentMonthClovers: [Clover] {
         filterCloversByMonth(clovers: clovers, month: currentMonth)
@@ -39,6 +49,23 @@ class StatisticViewModel: ObservableObject  {
     
     var currentYearCloverStates: [Int] {
         classifyCloverState(clovers: currentYearClovers)
+    }
+    
+    var weeklyCloverInfoHeight: CGFloat {
+        if let range = currentYearCloverMonthRange {
+            let monthCount = currentMonth - range.min + 1
+            return CGFloat(monthCount) * 60 + 40
+        } else {
+            return 0
+        }
+    }
+    
+    var currentYearCloverMonthRange: (min: Int, max: Int)? {
+        let months = currentYearClovers.map { $0.cloverMonth }
+        guard let minMonth = months.min(), let maxMonth = months.max() else {
+            return nil
+        }
+        return (min: minMonth, max: maxMonth)
     }
     
     var profileNickName: String {

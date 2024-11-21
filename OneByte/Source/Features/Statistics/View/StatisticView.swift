@@ -95,36 +95,7 @@ struct StatisticView: View {
         }
     }
     
-    @ViewBuilder
-    private func weeklyCloverInfoView() -> some View {
-        ZStack {
-            Rectangle()
-                .foregroundStyle(.white)
-                .frame(width: .infinity, height: 339)
-                .cornerRadius(13)
-                .padding()
-            VStack {
-                HStack(spacing: 30) {
-                    Text("1주차")
-                        .font(Font.Pretendard.SemiBold.size12)
-                    Text("2주차")
-                        .font(Font.Pretendard.SemiBold.size12)
-                    Text("3주차")
-                        .font(Font.Pretendard.SemiBold.size12)
-                    Text("4주차")
-                        .font(Font.Pretendard.SemiBold.size12)
-                    Text("5주차")
-                        .font(Font.Pretendard.SemiBold.size12)
-                }
-                Spacer()
-                // 1..현재 달까지
-                // for (n..5) :
-                // if n==cloverWeekOfMonth -> states 검사 -> green || gold 출력
-                // else -> empty clover 출력
-            }
-            .padding(.top, 28)
-        }.background(.blue)
-    }
+    
     
     @ViewBuilder
     private func thisYearCloverInfoView() -> some View {
@@ -192,13 +163,105 @@ struct StatisticView: View {
             .frame(height: 82)
             .background(.white)
             .cornerRadius(12)
-            .background(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.myF0E8DF, lineWidth: 1)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12) // 테두리 추가
+                    .stroke(Color.myF0E8DF, lineWidth: 1) // 테두리 색상과 두께 설정
             )
             .padding(.top, 5)
         }
-        .padding()
+        .padding(.horizontal)
+        .padding(.top)
+    }
+    
+    @ViewBuilder
+    private func weeklyCloverInfoView() -> some View {
+        ZStack(alignment: .top) {
+            Rectangle()
+                .foregroundStyle(.white)
+                .frame(width: .infinity, height: viewModel.weeklyCloverInfoHeight)
+                .cornerRadius(13)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 13) // 테두리 추가
+                        .stroke(Color.myF0E8DF, lineWidth: 1) // 테두리 색상과 두께 설정
+                )
+                .padding()
+            VStack(spacing: 20) {
+                HStack(spacing: 30) {
+                    Spacer()
+                        .frame(width: 20)
+                    Text("1주차")
+                        .font(Font.Pretendard.SemiBold.size12)
+                        .foregroundStyle(.my9C9C9C)
+                    Text("2주차")
+                        .font(Font.Pretendard.SemiBold.size12)
+                        .foregroundStyle(.my9C9C9C)
+                    Text("3주차")
+                        .font(Font.Pretendard.SemiBold.size12)
+                        .foregroundStyle(.my9C9C9C)
+                    Text("4주차")
+                        .font(Font.Pretendard.SemiBold.size12)
+                        .foregroundStyle(.my9C9C9C)
+                    Text("5주차")
+                        .font(Font.Pretendard.SemiBold.size12)
+                        .foregroundStyle(.my9C9C9C)
+                }
+                
+                if let range = viewModel.currentYearCloverMonthRange {
+                    ForEach(Array(stride(from: viewModel.currentMonth, through: range.min, by: -1)), id: \.self) { month in // 내림차순
+                        let cloversForMonth = viewModel.filterCloversByMonth(clovers: viewModel.clovers, month: month)
+                        VStack(spacing: 9) {
+                            HStack(spacing: 20) {
+                                Text("\(month)월")
+                                    .font(Font.Pretendard.Bold.size14)
+                                    .foregroundStyle(.my566956)
+                                    .frame(width: 30)
+                                
+                                ForEach(1...5, id: \.self) { week in
+                                    let cloverForWeek = cloversForMonth.filter { $0.cloverWeekOfMonth == week }
+                                    
+                                    if let firstClover = cloverForWeek.first {
+                                        switch firstClover.cloverState {
+                                        case 0:
+                                            Image("Clover_Empty")
+                                                .resizable()
+                                                .frame(width: 38, height: 38)
+                                        case 1:
+                                            Image("Clover_Green")
+                                                .resizable()
+                                                .frame(width: 38, height: 38)
+                                        case 2:
+                                            Image("Clover_Gold")
+                                                .resizable()
+                                                .frame(width: 38, height: 38)
+                                        default:
+                                            Image("Clover_Empty")
+                                                .resizable()
+                                                .frame(width: 38, height: 38)
+                                        }
+                                    } else {
+                                        Image("Clover_Empty")
+                                            .resizable()
+                                            .frame(width: 38, height: 38)
+                                    }
+                                }
+                            }.padding(.top, -9)
+                            Divider()
+                                .padding(.horizontal, 30)
+                                
+                        }
+                        
+                        
+                    }
+                } else {
+                    Text("No data available for the current year")
+                        .font(.caption)
+                        .foregroundStyle(Color.gray)
+                }
+            }
+            .padding(.top, 28)
+            
+        }
+        
     }
 }
 
