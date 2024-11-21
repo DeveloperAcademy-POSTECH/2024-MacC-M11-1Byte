@@ -21,15 +21,7 @@ struct SettingView: View {
                     .ignoresSafeArea(edges: .bottom)
                 
                 ScrollView {
-                    VStack {
-                        HStack {
-                            Text("설정")
-                                .font(.Pretendard.Bold.size22)
-                                .foregroundStyle(Color.myB4A99D)
-                            
-                            Spacer()
-                        }
-                        
+                    HStack {
                         profileInfoView()
                     }
                     .padding()
@@ -91,6 +83,8 @@ struct SettingView: View {
                 }
             }
         }
+        .navigationTitle("설정")
+        .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
