@@ -38,9 +38,15 @@ extension Date {
         return formatter.string(from: self)
     }
     
-    /// 월요일 시작(0) ~ 일요일(6)로 요일 인덱스를 반환
-       func mondayBasedIndex() -> Int {
-           let weekday = Calendar.current.component(.weekday, from: self)
-           return (weekday + 5) % 7
-       }
+    // TodayRoutineView에서 오전/오후루틴 시간순으로 정렬하기위해 시간을 반환
+    var hour: Int {
+        return Calendar.current.component(.hour, from: self)
+    }
+    
+    // 월요일 시작(0) ~ 일요일(6)로 요일 인덱스를 반환
+    func mondayBasedIndex() -> Int {
+        let weekday = Calendar.current.component(.weekday, from: self)
+        return (weekday + 5) % 7
+    }
+    
 }

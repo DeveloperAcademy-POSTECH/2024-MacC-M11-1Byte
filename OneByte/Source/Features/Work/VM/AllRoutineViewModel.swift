@@ -34,7 +34,7 @@ class AllRoutineViewModel {
         }
     }
     
-    // 탭선택에 따라 picker, animation
+    // 탭선택에 따라 picker -> animation
     func allRoutineTapPicker(to picker: tapInfo) {
         withAnimation(.easeInOut) {
             self.selectedPicker = picker

@@ -57,6 +57,7 @@ struct TodayRoutineView: View {
 struct TodayRoutineCell: View {
     
     let detailGoal: DetailGoal
+    @State var viewModel = TodayRoutineViewModel()
     
     var body: some View {
         HStack(spacing: 15) {
@@ -74,7 +75,7 @@ struct TodayRoutineCell: View {
                     .foregroundStyle(detailGoal.isAchievedToday ? Color.my2B2B2B.opacity(0.7) : Color.my2B2B2B)
                     .strikethrough(detailGoal.isAchievedToday)
                 
-                Text(detailGoal.memo) // ⚠️⚠️⚠️ Subgoal을 입력해야만 DetailGoal이 입력가능한 위계가 생기면, detailGoal에 해당하는 Subgoal title 띄워지게  ⚠️⚠️⚠️
+                Text(detailGoal.memo) // 🚧🚧🚧 Subgoal을 입력해야만 DetailGoal이 입력가능한 위계가 생기면, detailGoal에 해당하는 Subgoal title 띄워지게  
                     .font(.Pretendard.SemiBold.size12)
                     .foregroundStyle(detailGoal.isAchievedToday ? Color.my428142.opacity(0.7) : Color.my428142)
                     .foregroundStyle(Color.my428142)
@@ -85,7 +86,7 @@ struct TodayRoutineCell: View {
                 print("⚠️[DEBUG] 현재 완료 체크하는 id : \(detailGoal.id)")
                 print("⚠️[DEBUG] 현재 완료 체크하는 Title : \(detailGoal.title)")
                 print("⚠️[DEBUG] 오늘의 루틴 성취 완료 체크 전 : \(detailGoal.isAchievedToday)")
-                toggleAchievement()
+                viewModel.toggleAchievement(for: detailGoal)
                 print("⚠️[DEBUG] 오늘의 루틴 성취 완료 체크 후 : \(detailGoal.isAchievedToday)")
             } label: {
                 Image(detailGoal.isAchievedToday ? "AchieveClover1" : "RoutineCheck")
@@ -102,77 +103,10 @@ struct TodayRoutineCell: View {
                 .stroke(Color(hex: "F0E8DF"), lineWidth: 1)
         )
     }
-    
-    private func toggleAchievement() {
-        let todayIndex = Date().mondayBasedIndex() // 월요일 기준 인덱스
-        var isAchievedBeforeToggle = detailGoal.isAchievedToday
-
-        // 오늘의 요일에 해당하는 achieve 값을 토글
-        switch todayIndex {
-        case 0: detailGoal.achieveMon.toggle()
-        case 1: detailGoal.achieveTue.toggle()
-        case 2: detailGoal.achieveWed.toggle()
-        case 3: detailGoal.achieveThu.toggle()
-        case 4: detailGoal.achieveFri.toggle()
-        case 5: detailGoal.achieveSat.toggle()
-        case 6: detailGoal.achieveSun.toggle()
-        default: break
-        }
-
-        // 토글 후 새로운 상태를 가져옴
-        let isAchievedAfterToggle = detailGoal.isAchievedToday
-
-        // 이전 상태와 새로운 상태를 비교하여 achieveCount 업데이트
-        if isAchievedAfterToggle && !isAchievedBeforeToggle {
-            // 완료로 변경된 경우
-            detailGoal.achieveCount += 1
-        } else if !isAchievedAfterToggle && isAchievedBeforeToggle {
-            // 미완료로 변경된 경우
-            detailGoal.achieveCount -= 1
-        }
-
-        // achieveCount가 음수가 되지 않도록 방지
-        if detailGoal.achieveCount < 0 {
-            detailGoal.achieveCount = 0
-        }
-    }
-//    private func toggleAchievement() {
-//        let todayIndex = Date().mondayBasedIndex() // 월요일 기준 인덱스
-//            switch todayIndex {
-//            case 0: detailGoal.achieveMon.toggle()
-//            case 1: detailGoal.achieveTue.toggle()
-//            case 2: detailGoal.achieveWed.toggle()
-//            case 3: detailGoal.achieveThu.toggle()
-//            case 4: detailGoal.achieveFri.toggle()
-//            case 5: detailGoal.achieveSat.toggle()
-//            case 6: detailGoal.achieveSun.toggle()
-//            default: break
-//            }
-//        }
 }
 
 extension DetailGoal {
-    func isTodayRoutine(for day: String) -> Bool {
-        switch day {
-        case "월": return alertMon
-        case "화": return alertTue
-        case "수": return alertWed
-        case "목": return alertThu
-        case "금": return alertFri
-        case "토": return alertSat
-        case "일": return alertSun
-        default: return false
-        }
-    }
-}
-
-extension Date {
-    var hour: Int {
-        return Calendar.current.component(.hour, from: self)
-    }
-}
-
-extension DetailGoal {
+    //  오늘의 루틴 완료 여부를 확인 및 UI 업데이트
     var isAchievedToday: Bool {
            let todayIndex = Date().mondayBasedIndex()
            switch todayIndex {

@@ -16,7 +16,7 @@ struct AllRoutineView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            SubgoalTabView()
+            SubgoalTabView() // 전체루틴 상단 Subgoal 탭
             
             // 모든 루틴 전부(.all) 보는 탭
             if viewModel.selectedPicker == .all {
@@ -88,7 +88,8 @@ struct AllRoutineView: View {
                                 .foregroundStyle(Color.my878787)
                         }
                     } else {
-                        TodoView(tapType: viewModel.selectedPicker, subGoal: selectedSubGoal)
+                        // 루틴이 있을시, 전체루틴 Cell을 보여줌
+                        WeekRoutineView(tapType: viewModel.selectedPicker, subGoal: selectedSubGoal)
                     }
                 }
             }
@@ -124,7 +125,7 @@ struct AllRoutineView: View {
     }
 }
 
-struct TodoView : View {
+struct WeekRoutineView : View {
     
     var tapType : tapInfo
     var subGoal: SubGoal
@@ -170,18 +171,18 @@ struct TodoView : View {
                             achieveSun: detailGoal.achieveSat
                         )
                         .onTapGesture {
-                                print("❌[DEBUG] title : \(detailGoal.title) 데이터 출력")
-                                print("❌[DEBUG] id : \(detailGoal.id)")
-                                print("❌[DEBUG] memo : \(detailGoal.memo)")
-                                print("❌[DEBUG] achieveCount : \(detailGoal.achieveCount)")
-                                print("❌[DEBUG] achieveGoal : \(detailGoal.achieveGoal)")
-                                print("❌[DEBUG] alertDays : \(detailGoal.alertMon), \(detailGoal.alertTue), \(detailGoal.alertWed), \(detailGoal.alertThu), \(detailGoal.alertFri), \(detailGoal.alertSat), \(detailGoal.alertSun)")
-                                print("❌[DEBUG] achieveDays : \(detailGoal.achieveMon), \(detailGoal.achieveTue), \(detailGoal.achieveWed), \(detailGoal.achieveThu), \(detailGoal.achieveFri), \(detailGoal.achieveSat), \(detailGoal.achieveSun)")
-                                print("❌[DEBUG] 알림설정 : \(detailGoal.isRemind ? "설정됨" : "설정 안됨")")
-                                if let time = detailGoal.remindTime {
-                                    print("❌[DEBUG] 알림시간 : \(time)")
-                                }
+                            print("❌[DEBUG] title : \(detailGoal.title) 데이터 출력")
+                            print("❌[DEBUG] id : \(detailGoal.id)")
+                            print("❌[DEBUG] memo : \(detailGoal.memo)")
+                            print("❌[DEBUG] achieveCount : \(detailGoal.achieveCount)")
+                            print("❌[DEBUG] achieveGoal : \(detailGoal.achieveGoal)")
+                            print("❌[DEBUG] alertDays : \(detailGoal.alertMon), \(detailGoal.alertTue), \(detailGoal.alertWed), \(detailGoal.alertThu), \(detailGoal.alertFri), \(detailGoal.alertSat), \(detailGoal.alertSun)")
+                            print("❌[DEBUG] achieveDays : \(detailGoal.achieveMon), \(detailGoal.achieveTue), \(detailGoal.achieveWed), \(detailGoal.achieveThu), \(detailGoal.achieveFri), \(detailGoal.achieveSat), \(detailGoal.achieveSun)")
+                            print("❌[DEBUG] 알림설정 : \(detailGoal.isRemind ? "설정됨" : "설정 안됨")")
+                            if let time = detailGoal.remindTime {
+                                print("❌[DEBUG] 알림시간 : \(time)")
                             }
+                        }
                     }
                 }
                 .frame(maxWidth: .infinity)
@@ -190,7 +191,7 @@ struct TodoView : View {
         }
         .frame(maxWidth: .infinity)
     }
-    // achieveGoal 계산 메서드
+    // achieveGoal 계산 메서드 ( alertMon~Sun 7개의 데이터중 true인것의 갯수가 achieveGoal개수가 됨)
     func calcAchieveGoal(for detailGoal: DetailGoal) -> Int {
         return [detailGoal.alertMon, detailGoal.alertTue,detailGoal.alertWed, detailGoal.alertThu, detailGoal.alertFri, detailGoal.alertSat, detailGoal.alertSun]
             .filter { $0 }
@@ -261,32 +262,27 @@ struct WeekAchieveCell: View {
                         ZStack {
                             if isAlertActive(for: index) {
                                 if Date().currentDay == days[index] {
-                                    // 루틴이고 오늘이면, 흰색 배경
+                                    // 루틴이고 오늘인데 아직 성취 안했으면 흰색배경, 성취까지 했으면 해당 클로버 이미지
                                     Image(isAchieved(for: index) ? "AchieveClover\(achieveCount + (7 - achieveGoal))" : "RoutineDay")
                                         .resizable()
                                         .scaledToFit()
                                 } else if isFutureDay(index: index) {
-                                    // 루틴이긴한데 아직 오지 않은 요일은 회색 배경
-                                    Image("RoutineNotYet")
+                                    Image("RoutineNotYet")  // 루틴이긴한데 아직 오지 않은 요일은 회색 배경
                                         .resizable()
                                         .scaledToFit()
                                 } else {
-                                    //  성취 판단 ( alert는 True였는데 )
-                                    if isAchieved(for: index) {
-                                        // 성취 -> achieve도 true일 때
-                                        Image("AchieveClover1")
+                                    if isAchieved(for: index) { //  성취 판단 ( alert는 True였는데 )
+                                        Image("AchieveClover1")  // 성취 -> achieve도 true일 때
                                             .resizable()
                                             .scaledToFit()
                                     } else {
-                                        // 미성취 -> achieve가 false일 때
-                                        Image("NoAchieve")
+                                        Image("NoAchieve") // 미성취 -> achieve가 false일 때
                                             .resizable()
                                             .scaledToFit()
                                     }
                                 }
                             } else {
-                                // 루틴이 없는 날 ( alert가 false인 날들)
-                                Image("NoRoutineDay")
+                                Image("NoRoutineDay") // 루틴이 없는 날 ( alert가 false인 날들)
                                     .resizable()
                                     .scaledToFit()
                             }
@@ -306,7 +302,7 @@ struct WeekAchieveCell: View {
         )
     }
     
-    // alert 요일중 True, False 확인하는 함수
+    // alert 요일중 True, False 확인하여 UI
     private func isAlertActive(for index: Int) -> Bool {
         switch index {
         case 0: return alertMon
@@ -322,13 +318,11 @@ struct WeekAchieveCell: View {
     
     // alert가 true긴하지만, 아직 해당요일이 안됐을때 확인
     private func isFutureDay(index: Int) -> Bool {
-        // 현재 요일 인덱스를 월요일 시작(0)으로 맞춤
-        let todayIndex = (Calendar.current.component(.weekday, from: Date()) + 5) % 7
-        // 오늘 이후 요일인지 확인
-        return index > todayIndex
+        let todayIndex = (Calendar.current.component(.weekday, from: Date()) + 5) % 7  // 현재 요일 인덱스를 월요일 시작(0)으로 맞춤
+        return index > todayIndex // 오늘 이후 요일인지 확인
     }
     
-    // 요일별 Achieve 상태
+    // 요일별 Achieve 상태에 따라 UI
     private func isAchieved(for index: Int) -> Bool {
         switch index {
         case 0: return achieveMon
@@ -342,10 +336,6 @@ struct WeekAchieveCell: View {
         }
     }
 }
-
-//#Preview {
-//    AllRoutineView()
-//}
 
 struct WeekAchieveCell_Previews: PreviewProvider {
     static var previews: some View {
