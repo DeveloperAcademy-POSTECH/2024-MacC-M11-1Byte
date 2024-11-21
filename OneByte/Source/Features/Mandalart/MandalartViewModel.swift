@@ -65,8 +65,8 @@ class MandalartViewModel: ObservableObject {
         deleteService.deleteMainGoal(mainGoal: mainGoal, modelContext: modelContext, id: id, newTitle: newTitle, cloverState: cloverState)
     }
     
-    func deleteSubGoal(subGoal: SubGoal, modelContext: ModelContext, id: Int, newTitle: String, leafState: Int) {
-        deleteService.deleteSubGoal(subGoal: subGoal, modelContext: modelContext, newTitle: newTitle, leafState: leafState)
+    func deleteSubGoal(subGoal: SubGoal, id: Int, newTitle: String, leafState: Int) {
+        deleteService.deleteSubGoal(subGoal: subGoal, newTitle: newTitle, leafState: leafState)
     }
     
     func deleteDetailGoal(detailGoal: DetailGoal, modelContext: ModelContext, newTitle: String, newMemo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool) {

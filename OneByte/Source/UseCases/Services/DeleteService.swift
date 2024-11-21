@@ -25,7 +25,7 @@ class DeleteService: DeleteGoalUseCase {
         mainGoal.cloverState = 0
     }
     
-    func deleteSubGoal(subGoal: SubGoal, modelContext: ModelContext, newTitle: String, leafState: Int) {
+    func deleteSubGoal(subGoal: SubGoal, newTitle: String, leafState: Int) {
         subGoal.title = ""
         subGoal.leafState = 0
     }

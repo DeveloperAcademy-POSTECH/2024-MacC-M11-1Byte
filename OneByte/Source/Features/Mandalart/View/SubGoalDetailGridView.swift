@@ -10,16 +10,14 @@ import SwiftData
 
 // MARK: 두번째 화면 - 클릭된 셀의 SubGoal 및 관련된 DetailGoals만 3x3 그리드로 표시하는 뷰
 struct SubGoalDetailGridView: View {
-    @Environment(\.dismiss) private var dismiss
-    @Environment(\.modelContext) private var modelContext
-    
+//    @Environment(\.dismiss) private var dismiss
+//    @Environment(\.modelContext) private var modelContext
+//    
     @State var navigation: Bool = false
     @State private var selectedDetailGoal: DetailGoal?
     @State var subSheetIsPresented: Bool = false
-    @State private var detailSheetIsPresented = false
     @Binding var subGoal: SubGoal?
     
-    private let innerColumns = Array(repeating: GridItem(.fixed(123/852 * UIScreen.main.bounds.height)), count: 2)
     private let viewModel = MandalartViewModel(
         createService: CreateService(),
         updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []),
@@ -31,7 +29,7 @@ struct SubGoalDetailGridView: View {
             if let selectedSubGoal = subGoal {
                 let sortedDetailGoals = selectedSubGoal.detailGoals.sorted(by: { $0.id < $1.id })
                 Spacer()
-                LazyVGrid(columns: innerColumns, spacing: 5) {
+                LazyVGrid(columns: Array(repeating: GridItem(.fixed(123/852 * UIScreen.main.bounds.height)), count: 2), spacing: 5) {
                     ForEach(0..<4, id: \.self) { index in
                         let cornerRadius: CGFloat = 48
                         let cornerStyle = cornerStyle(for: index) // cornerStyle 함수 사용
@@ -53,7 +51,7 @@ struct SubGoalDetailGridView: View {
                             })
                             .contextMenu {
                                 Button(role: .destructive){
-                                    viewModel.deleteSubGoal(subGoal: selectedSubGoal, modelContext: modelContext, id: selectedSubGoal.id, newTitle: "", leafState: 0)
+                                    viewModel.deleteSubGoal(subGoal: selectedSubGoal, id: selectedSubGoal.id, newTitle: "", leafState: 0)
                                 } label: {
                                     Label("Delete", systemImage: "trash")
                                 }
@@ -65,6 +63,7 @@ struct SubGoalDetailGridView: View {
                                 let detailGoal = sortedDetailGoals[detailGoalIndex]
                                 
                                 Button(action: {
+                                    let detailGoal = sortedDetailGoals[detailGoalIndex]
                                     selectedDetailGoal = detailGoal
                                     navigation = true
                                 }) {
@@ -73,36 +72,38 @@ struct SubGoalDetailGridView: View {
                                         .modifier(NextMandalartButtonModifier(color: Color.myBFEBBB))
                                 }
                                 .cornerRadius(cornerRadius, corners: cornerStyle, defaultRadius: 18)
-                                .contextMenu {
-                                    Button(role: .destructive) {
-                                        viewModel.deleteDetailGoal(
-                                            detailGoal: detailGoal, modelContext: modelContext, newTitle: "", newMemo: "", achieveCount: 0, achieveGoal: 0, alertMon: false, alertTue: false, alertWed: false, alertThu: false, alertFri: false, alertSat: false, alertSun: false, isRemind: false, remindTime: nil, achieveMon: false, achieveTue: false, achieveWed: false, achieveThu: false, achieveFri: false, achieveSat: false, achieveSun: false
-                                        )
-                                    } label: {
-                                        Label("Delete", systemImage: "trash")
-                                    }
-                                }
+//                                .contextMenu {
+//                                    Button(role: .destructive) {
+//                                        viewModel.deleteDetailGoal(
+//                                            detailGoal: detailGoal, modelContext: modelContext, newTitle: "", newMemo: "", achieveCount: 0, achieveGoal: 0, alertMon: false, alertTue: false, alertWed: false, alertThu: false, alertFri: false, alertSat: false, alertSun: false, isRemind: false, remindTime: nil, achieveMon: false, achieveTue: false, achieveWed: false, achieveThu: false, achieveFri: false, achieveSat: false, achieveSun: false
+//                                        )
+//                                    } label: {
+//                                        Label("Delete", systemImage: "trash")
+//                                    }
+//                                }
                             }
                         }
                     }
                 }
-                .padding(.top, 45/852 * UIScreen.main.bounds.height)
-                .padding(.bottom, 50/852 * UIScreen.main.bounds.height)
-                .navigationTitle(selectedSubGoal.title)
-                .navigationLink(isActive: $navigation) {
-                    DetailGoalView(detailGoal: .constant(selectedDetailGoal ?? sortedDetailGoals.first))
+                .navigationDestination(isPresented: $navigation) {
+                    let detailGoal = selectedDetailGoal
+                        DetailGoalView(detailGoal: .constant(detailGoal))
+//                    }
                 }
                 Spacer()
                 // 메모 모아보기
                 memoes()
                     .navigationTitle(selectedSubGoal.title)
                 Spacer()
+            } else {
+                ProgressView("loading..")
             }
         } // VStack 끝
         .padding(.horizontal, 20/393 * UIScreen.main.bounds.width)
-        .navigationBarBackButtonHidden()
-        .backButtonToolbar { dismiss() }
+//        .navigationBarBackButtonHidden()
+//        .backButtonToolbar { dismiss() }
         .background(Color.myFFFAF4)
+        .navigationTitle(subGoal?.title ?? "")
     }
 }
 

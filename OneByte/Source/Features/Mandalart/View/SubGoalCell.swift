@@ -11,6 +11,7 @@ import SwiftData
 
 // MARK: 첫화면 - 9개 서브골-디테일골들
 struct SubGoalCell: View {
+    
     @Binding var selectedSubGoal: SubGoal?
     @State private var isHidden = true
     private let innerColumns = Array(repeating: GridItem(.fixed(78/852 * UIScreen.main.bounds.height)), count: 2)

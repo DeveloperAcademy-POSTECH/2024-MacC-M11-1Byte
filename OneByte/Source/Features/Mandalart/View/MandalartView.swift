@@ -8,6 +8,7 @@ import SwiftUI
 import SwiftData
 
 struct MandalartView: View {
+    @Environment(\.modelContext) private var modelContext
     @AppStorage("FirstOnboarding") var FirstOnboarding: Bool = true
     @Query private var mainGoals: [MainGoal]
     @State var isPresented = false
@@ -17,6 +18,7 @@ struct MandalartView: View {
         NavigationStack() {
             if let firstMainGoal = mainGoals.first {
                 OuterGridView(mainGoal: $mainGoal)
+                    .environment(\.modelContext, modelContext)
                     .onAppear {
                         mainGoal = firstMainGoal
                     }

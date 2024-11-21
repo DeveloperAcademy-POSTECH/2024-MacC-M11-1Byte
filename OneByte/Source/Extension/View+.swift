@@ -22,11 +22,13 @@ extension View {
     func navigationLink<T: View>(isActive: Binding<Bool>, destination: @escaping () -> T) -> some View {
         background(
             NavigationLink(
-                destination: LazyView(content: destination),
-                isActive: isActive,
+                value: isActive.wrappedValue,
                 label: { EmptyView() }
             )
-            .hidden() // Make the NavigationLink invisible
+            .navigationDestination(isPresented: isActive) {
+                destination()
+            }
+            .hidden() // 숨김 처리
         )
     }
 }
