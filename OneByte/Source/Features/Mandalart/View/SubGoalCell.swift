@@ -13,7 +13,7 @@ import SwiftData
 struct SubGoalCell: View {
     
     @Binding var selectedSubGoal: SubGoal?
-    @State private var isHidden = true
+//    @State private var isHidden = true
     private let innerColumns = Array(repeating: GridItem(.fixed(78/852 * UIScreen.main.bounds.height)), count: 2)
     
     var body: some View {
@@ -23,13 +23,8 @@ struct SubGoalCell: View {
                 let detailGoalsSorted = selectedSubGoal.detailGoals.sorted(by: { $0.id < $1.id })
                 
                 NavigationLink(destination: SubGoalDetailGridView(subGoal: $selectedSubGoal)
-                    .toolbar(isHidden ? .hidden : .visible, for: .tabBar) // 상태 관리
-                    .onAppear {
-                        isHidden = true
-                    }
-                    .onDisappear {
-                        isHidden = false
-                    }) {
+                    .toolbar(.hidden, for: .tabBar) // 상태 관리
+                     ){
                         LazyVGrid(columns: innerColumns, spacing: 4) {
                             ForEach(0..<4, id: \.self) { index in
                                 let cornerRadius: CGFloat = 30
