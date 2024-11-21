@@ -10,8 +10,17 @@ import SwiftData
 
 class StatisticViewModel: ObservableObject  {
     
-    @Query private var profile: [Profile]
-    @Query private var clovers: [Clover]
+//    @Query private var profile: [Profile]
+//    @Query private var clovers: [Clover]
+    
+    var profile: [Profile] = [Profile(nickName: "이빈치")]
+    var clovers: [Clover] = [
+        Clover(id: 1, cloverYear: 2024, cloverMonth: 11, cloverWeekOfMonth: 3, cloverWeekOfYear: 46, cloverState: 0),
+        Clover(id: 2, cloverYear: 2024, cloverMonth: 11, cloverWeekOfMonth: 3, cloverWeekOfYear: 46, cloverState: 1),
+        Clover(id: 3, cloverYear: 2024, cloverMonth: 10, cloverWeekOfMonth: 4, cloverWeekOfYear: 45, cloverState: 2),
+        Clover(id: 4, cloverYear: 2023, cloverMonth: 11, cloverWeekOfMonth: 2, cloverWeekOfYear: 44, cloverState: 1)
+    ]
+
     
     private let currentMonth = Calendar.current.component(.month, from: Date())
     private let currentYear = Calendar.current.component(.year, from: Date())

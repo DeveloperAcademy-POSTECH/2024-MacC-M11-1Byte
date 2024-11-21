@@ -30,6 +30,9 @@ struct StatisticView: View {
                 
                 thisYearCloverInfoView()
                 
+                weeklyCloverInfoView()
+
+                
                 Spacer()
             }
         }
@@ -90,6 +93,37 @@ struct StatisticView: View {
             .padding(.top, 26)
             .padding(.bottom, 20)
         }
+    }
+    
+    @ViewBuilder
+    private func weeklyCloverInfoView() -> some View {
+        ZStack {
+            Rectangle()
+                .foregroundStyle(.white)
+                .frame(width: .infinity, height: 339)
+                .cornerRadius(13)
+                .padding()
+            VStack {
+                HStack(spacing: 30) {
+                    Text("1주차")
+                        .font(Font.Pretendard.SemiBold.size12)
+                    Text("2주차")
+                        .font(Font.Pretendard.SemiBold.size12)
+                    Text("3주차")
+                        .font(Font.Pretendard.SemiBold.size12)
+                    Text("4주차")
+                        .font(Font.Pretendard.SemiBold.size12)
+                    Text("5주차")
+                        .font(Font.Pretendard.SemiBold.size12)
+                }
+                Spacer()
+                // 1..현재 달까지
+                // for (n..5) :
+                // if n==cloverWeekOfMonth -> states 검사 -> green || gold 출력
+                // else -> empty clover 출력
+            }
+            .padding(.top, 28)
+        }.background(.blue)
     }
     
     @ViewBuilder
@@ -168,4 +202,7 @@ struct StatisticView: View {
     }
 }
 
+#Preview {
+    StatisticView()
+}
 
