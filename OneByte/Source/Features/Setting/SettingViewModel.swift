@@ -91,6 +91,15 @@ class SettingViewModel{
         }
     }
     
+    // 하고만다 앱의 '휴대폰 설정'화면으로 이동
+    func openAppSettings() {
+        if let appSettingsURL = URL(string: UIApplication.openSettingsURLString) {
+            if UIApplication.shared.canOpenURL(appSettingsURL) {
+                UIApplication.shared.open(appSettingsURL, options: [:], completionHandler: nil)
+            }
+        }
+    }
+    
     // 앱 버전정보 가져오기
     var appVersion: String {
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"

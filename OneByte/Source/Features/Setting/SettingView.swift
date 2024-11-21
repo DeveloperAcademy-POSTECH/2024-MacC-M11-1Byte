@@ -36,10 +36,18 @@ struct SettingView: View {
                         Divider()
                             .foregroundStyle(Color.myF0E8DF)
                         
-                        NavigationLink(destination: Text("알림 설정 화면")) {
-                            NotificationRow()
-                                .foregroundStyle(.black)
+                        Button {
+                            viewModel.openAppSettings()
+                        } label: {
+                            HStack {
+                                Text("알림 설정")
+                                    .font(.Pretendard.SemiBold.size16)
+                                    .foregroundStyle(.black)
+                                Spacer()
+                            }
+                            .padding()
                         }
+                        
                         Divider()
                             .foregroundStyle(Color.myF0E8DF)
                         
