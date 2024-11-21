@@ -26,7 +26,15 @@ struct TodayRoutineView: View {
                     
                     if let mainGoal = mainGoals.first { // MainGoal 가져오기
                         ForEach(viewModel.morningGoals(from: todayGoals), id: \.id) { detailGoal in
-                            TodayRoutineCell(mainGoal: mainGoal, detailGoal: detailGoal, viewModel: viewModel, modelContext: modelContext) // mainGoal 전달
+                            if let subGoal = mainGoal.subGoals.first(where: { $0.detailGoals.contains(detailGoal) }) {
+                                TodayRoutineCell(
+                                    mainGoal: mainGoal,
+                                    detailGoal: detailGoal,
+                                    subGoalTitle: subGoal.title,
+                                    viewModel: viewModel,
+                                    modelContext: modelContext
+                                )
+                            }
                         }
                     }
                 }
@@ -38,7 +46,15 @@ struct TodayRoutineView: View {
                     
                     if let mainGoal = mainGoals.first { // MainGoal 가져오기
                         ForEach(viewModel.afternoonGoals(from: todayGoals), id: \.id) { detailGoal in
-                            TodayRoutineCell(mainGoal: mainGoal, detailGoal: detailGoal, viewModel: viewModel, modelContext: modelContext)
+                            if let subGoal = mainGoal.subGoals.first(where: { $0.detailGoals.contains(detailGoal) }) {
+                                TodayRoutineCell(
+                                    mainGoal: mainGoal,
+                                    detailGoal: detailGoal,
+                                    subGoalTitle: subGoal.title,
+                                    viewModel: viewModel,
+                                    modelContext: modelContext
+                                )
+                            }
                         }
                     }
                 }
@@ -50,7 +66,15 @@ struct TodayRoutineView: View {
                     
                     if let mainGoal = mainGoals.first { // MainGoal 가져오기
                         ForEach(viewModel.freeGoals(from: todayGoals), id: \.id) { detailGoal in
-                            TodayRoutineCell(mainGoal: mainGoal, detailGoal: detailGoal, viewModel: viewModel, modelContext: modelContext)
+                            if let subGoal = mainGoal.subGoals.first(where: { $0.detailGoals.contains(detailGoal) }) {
+                                TodayRoutineCell(
+                                    mainGoal: mainGoal,
+                                    detailGoal: detailGoal,
+                                    subGoalTitle: subGoal.title,
+                                    viewModel: viewModel,
+                                    modelContext: modelContext
+                                )
+                            }
                         }
                     }
                 }
@@ -65,6 +89,7 @@ struct TodayRoutineCell: View {
     
     let mainGoal: MainGoal
     let detailGoal: DetailGoal
+    let subGoalTitle: String
     let viewModel: TodayRoutineViewModel
     let modelContext: ModelContext
     
@@ -84,7 +109,7 @@ struct TodayRoutineCell: View {
                     .foregroundStyle(detailGoal.isAchievedToday ? Color.my2B2B2B.opacity(0.7) : Color.my2B2B2B)
                     .strikethrough(detailGoal.isAchievedToday)
                 
-                Text(detailGoal.memo) // 🚧🚧🚧 Subgoal을 입력해야만 DetailGoal이 입력가능한 위계가 생기면, detailGoal에 해당하는 Subgoal title 띄워지게  
+                Text(subGoalTitle) // 🚧🚧🚧 Subgoal을 입력해야만 DetailGoal이 입력가능한 위계가 생기면, detailGoal에 해당하는 Subgoal title 띄워지게
                     .font(.Pretendard.SemiBold.size12)
                     .foregroundStyle(detailGoal.isAchievedToday ? Color.my428142.opacity(0.7) : Color.my428142)
                     .foregroundStyle(Color.my428142)
