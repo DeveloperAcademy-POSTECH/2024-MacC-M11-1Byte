@@ -11,6 +11,8 @@ import SwiftData
 @Observable
 class SettingViewModel{
     
+    var settingViewTabBarVisible: Bool = false // 탭바 hidden 변수
+    
     // 프로필 관련 (닉네임 및 디데이)
     var isEditNicknameSheet: Bool = false
     var profile: [Profile] = []
