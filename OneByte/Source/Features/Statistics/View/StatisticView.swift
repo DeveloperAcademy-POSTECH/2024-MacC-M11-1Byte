@@ -16,7 +16,6 @@ struct StatisticView: View {
     var body: some View {
         ScrollView {
             VStack{
-                // 최상단 헤더
                 HStack {
                     Text("통계")
                         .font(.Pretendard.Bold.size22)
@@ -47,7 +46,12 @@ struct StatisticView: View {
                 .frame(maxWidth: .infinity)
                 .frame(height: 146)
                 .padding()
-            
+            HStack {
+                Spacer()
+                Image("Clover_Back")
+                    .frame(width: 130, height: 130)
+                    .padding(.trailing, 28)
+            }
             VStack {
                 HStack {
                     Spacer()
@@ -73,7 +77,7 @@ struct StatisticView: View {
                             }
                         )
                         .padding(.trailing, 30)
-                        .padding(.top)
+                        .padding(.top, 10)
                 }
                 .padding(.top)
                 Spacer()
