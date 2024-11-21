@@ -262,7 +262,7 @@ struct WeekAchieveCell: View {
                             if isAlertActive(for: index) {
                                 if Date().currentDay == days[index] {
                                     // 루틴이고 오늘이면, 흰색 배경
-                                    Image(isAchieved(for: index) ? "AchieveClover1" : "RoutineDay")
+                                    Image(isAchieved(for: index) ? "AchieveClover\(achieveCount + (7 - achieveGoal))" : "RoutineDay")
                                         .resizable()
                                         .scaledToFit()
                                 } else if isFutureDay(index: index) {
