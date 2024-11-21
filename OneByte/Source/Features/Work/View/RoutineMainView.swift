@@ -74,7 +74,7 @@ struct RoutineMainView: View {
         .padding()
     }
     
-    // MARK: 동기부여 메시지 뷰 ⚠️⚠️⚠️⚠️⚠️ 메세지 수정해야함 ⚠️⚠️⚠️⚠️⚠️
+    // MARK: 동기부여 메시지 뷰
     private func motivationMessageView() -> some View {
         HStack(spacing: 0) {
             TurtleMessageView(message: viewModel.message)
