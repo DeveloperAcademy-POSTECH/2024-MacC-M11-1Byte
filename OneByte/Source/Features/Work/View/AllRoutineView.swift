@@ -40,27 +40,7 @@ struct AllRoutineView: View {
                                     
                                     // ViewModel에서 DetailGoal 필터링
                                     ForEach(viewModel.filteredDetailGoals(from: subGoal), id: \.id) { detailGoal in
-                                        WeekAchieveCell(
-                                            detailGoalTitle: detailGoal.title,
-                                            achieveCount: detailGoal.achieveCount,
-                                            achieveGoal: calcAchieveGoal(for: detailGoal),
-                                            alertMon: detailGoal.alertMon,
-                                            alertTue: detailGoal.alertTue,
-                                            alertWed: detailGoal.alertWed,
-                                            alertThu: detailGoal.alertThu,
-                                            alertFri: detailGoal.alertFri,
-                                            alertSat: detailGoal.alertSat,
-                                            alertSun: detailGoal.alertSun,
-                                            isRemind: detailGoal.isRemind,
-                                            remindTime: detailGoal.remindTime,
-                                            achieveMon: detailGoal.achieveMon,
-                                            achieveTue: detailGoal.achieveTue,
-                                            achieveWed: detailGoal.achieveWed,
-                                            achieveThu: detailGoal.achieveThu,
-                                            achieveFri: detailGoal.achieveFri,
-                                            achieveSat: detailGoal.achieveSat,
-                                            achieveSun: detailGoal.achieveSat
-                                        )
+                                        WeekAchieveCell(detailGoal: detailGoal)
                                     }
                                 }
                             }
@@ -149,27 +129,7 @@ struct WeekRoutineView : View {
                 VStack(spacing: 20) {
                     // 빈 제목이 아닌 DetailGoal만 표시
                     ForEach(subGoal.detailGoals.filter { !$0.title.isEmpty }, id: \.id) { detailGoal in
-                        WeekAchieveCell(
-                            detailGoalTitle: detailGoal.title,
-                            achieveCount: detailGoal.achieveCount,
-                            achieveGoal: calcAchieveGoal(for: detailGoal),
-                            alertMon: detailGoal.alertMon,
-                            alertTue: detailGoal.alertTue,
-                            alertWed: detailGoal.alertWed,
-                            alertThu: detailGoal.alertThu,
-                            alertFri: detailGoal.alertFri,
-                            alertSat: detailGoal.alertSat,
-                            alertSun: detailGoal.alertSun,
-                            isRemind: detailGoal.isRemind,
-                            remindTime: detailGoal.remindTime,
-                            achieveMon: detailGoal.achieveMon,
-                            achieveTue: detailGoal.achieveTue,
-                            achieveWed: detailGoal.achieveWed,
-                            achieveThu: detailGoal.achieveThu,
-                            achieveFri: detailGoal.achieveFri,
-                            achieveSat: detailGoal.achieveSat,
-                            achieveSun: detailGoal.achieveSat
-                        )
+                        WeekAchieveCell(detailGoal: detailGoal)
                         .onTapGesture {
                             print("❌[DEBUG] title : \(detailGoal.title) 데이터 출력")
                             print("❌[DEBUG] id : \(detailGoal.id)")
@@ -193,52 +153,33 @@ struct WeekRoutineView : View {
     }
     // achieveGoal 계산 메서드 ( alertMon~Sun 7개의 데이터중 true인것의 갯수가 achieveGoal개수가 됨)
     func calcAchieveGoal(for detailGoal: DetailGoal) -> Int {
-        return [detailGoal.alertMon, detailGoal.alertTue,detailGoal.alertWed, detailGoal.alertThu, detailGoal.alertFri, detailGoal.alertSat, detailGoal.alertSun]
-            .filter { $0 }
-            .count
+        return [detailGoal.alertMon, detailGoal.alertTue, detailGoal.alertWed, detailGoal.alertThu, detailGoal.alertFri, detailGoal.alertSat, detailGoal.alertSun]
+                .filter { $0 }
+                .count
     }
 }
 
 struct WeekAchieveCell: View {
-    
-    let detailGoalTitle: String
-    let achieveCount: Int
-    let achieveGoal: Int
-    let alertMon: Bool
-    let alertTue: Bool
-    let alertWed: Bool
-    let alertThu: Bool
-    let alertFri: Bool
-    let alertSat: Bool
-    let alertSun: Bool
-    let isRemind: Bool
-    let remindTime: Date?
-    var achieveMon: Bool
-    var achieveTue: Bool
-    var achieveWed: Bool
-    var achieveThu: Bool
-    var achieveFri: Bool
-    var achieveSat: Bool
-    var achieveSun: Bool
-    
-    let days: [String] = ["월","화","수","목","금","토","일"] // 요일 데이터 - 고정
-    
+    let detailGoal: DetailGoal
+
+    let days: [String] = ["월","화","수","목","금","토","일"]
+
     var body: some View {
         VStack(spacing: 15) {
             VStack(spacing: 5) {
                 HStack {
-                    Text(detailGoalTitle)
+                    Text(detailGoal.title)
                         .font(.Pretendard.Bold.size16)
                         .foregroundStyle(Color.my2B2B2B)
-                    
+
                     Spacer()
-                    
-                    Text("달성한 횟수 \(achieveCount)/\(achieveGoal)개")
+
+                    Text("달성한 횟수 \(detailGoal.achieveCount)/\(achieveGoal)개")
                         .font(.Pretendard.Medium.size12)
                         .foregroundStyle(Color.my727272)
                 }
                 HStack {
-                    if let remindTime = remindTime {
+                    if let remindTime = detailGoal.remindTime {
                         Text(remindTime.alertTimeString)
                             .font(.Pretendard.Medium.size12)
                             .foregroundStyle(Color.my727272)
@@ -257,13 +198,12 @@ struct WeekAchieveCell: View {
                             .foregroundStyle(Date().currentDay == days[index] ? .white : isAlertActive(for: index) ? Color.my7D7D7D : Color.myDBDBDC)
                             .background(Date().currentDay == days[index] ? Color.my6FB56F : .clear)
                             .clipShape(Circle())
-                        
-                        
+
                         ZStack {
                             if isAlertActive(for: index) {
                                 if Date().currentDay == days[index] {
                                     // 루틴이고 오늘인데 아직 성취 안했으면 흰색배경, 성취까지 했으면 해당 클로버 이미지
-                                    Image(isAchieved(for: index) ? "AchieveClover\(achieveCount + (7 - achieveGoal))" : "RoutineDay")
+                                    Image(isAchieved(for: index) ? "AchieveClover\(detailGoal.achieveCount + (7 - achieveGoal))" : "RoutineDay")
                                         .resizable()
                                         .scaledToFit()
                                 } else if isFutureDay(index: index) {
@@ -271,18 +211,18 @@ struct WeekAchieveCell: View {
                                         .resizable()
                                         .scaledToFit()
                                 } else {
-                                    if isAchieved(for: index) { //  성취 판단 ( alert는 True였는데 )
-                                        Image("AchieveClover1")  // 성취 -> achieve도 true일 때
+                                    if isAchieved(for: index) { // 성취 판단
+                                        Image("AchieveClover1")  // 성취한 경우
                                             .resizable()
                                             .scaledToFit()
                                     } else {
-                                        Image("NoAchieve") // 미성취 -> achieve가 false일 때
+                                        Image("NoAchieve") // 미성취한 경우
                                             .resizable()
                                             .scaledToFit()
                                     }
                                 }
                             } else {
-                                Image("NoRoutineDay") // 루틴이 없는 날 ( alert가 false인 날들)
+                                Image("NoRoutineDay") // 루틴이 없는 날
                                     .resizable()
                                     .scaledToFit()
                             }
@@ -301,66 +241,52 @@ struct WeekAchieveCell: View {
                 .stroke(Color.myF0E8DF, lineWidth: 1)
         )
     }
-    
+
+    private var achieveGoal: Int {
+        return [detailGoal.alertMon, detailGoal.alertTue, detailGoal.alertWed, detailGoal.alertThu, detailGoal.alertFri, detailGoal.alertSat, detailGoal.alertSun]
+            .filter { $0 }
+            .count
+    }
+
     // alert 요일중 True, False 확인하여 UI
     private func isAlertActive(for index: Int) -> Bool {
         switch index {
-        case 0: return alertMon
-        case 1: return alertTue
-        case 2: return alertWed
-        case 3: return alertThu
-        case 4: return alertFri
-        case 5: return alertSat
-        case 6: return alertSun
+        case 0: return detailGoal.alertMon
+        case 1: return detailGoal.alertTue
+        case 2: return detailGoal.alertWed
+        case 3: return detailGoal.alertThu
+        case 4: return detailGoal.alertFri
+        case 5: return detailGoal.alertSat
+        case 6: return detailGoal.alertSun
         default: return false
         }
     }
-    
+
     // alert가 true긴하지만, 아직 해당요일이 안됐을때 확인
     private func isFutureDay(index: Int) -> Bool {
-        let todayIndex = (Calendar.current.component(.weekday, from: Date()) + 5) % 7  // 현재 요일 인덱스를 월요일 시작(0)으로 맞춤
-        return index > todayIndex // 오늘 이후 요일인지 확인
+        let todayIndex = Date().mondayBasedIndex()
+        return index > todayIndex
     }
-    
+
     // 요일별 Achieve 상태에 따라 UI
     private func isAchieved(for index: Int) -> Bool {
         switch index {
-        case 0: return achieveMon
-        case 1: return achieveTue
-        case 2: return achieveWed
-        case 3: return achieveThu
-        case 4: return achieveFri
-        case 5: return achieveSat
-        case 6: return achieveSun
+        case 0: return detailGoal.achieveMon
+        case 1: return detailGoal.achieveTue
+        case 2: return detailGoal.achieveWed
+        case 3: return detailGoal.achieveThu
+        case 4: return detailGoal.achieveFri
+        case 5: return detailGoal.achieveSat
+        case 6: return detailGoal.achieveSun
         default: return false
         }
     }
 }
 
-struct WeekAchieveCell_Previews: PreviewProvider {
-    static var previews: some View {
-        WeekAchieveCell(
-            detailGoalTitle: "운동하기",
-            achieveCount: 3,
-            achieveGoal: 5,
-            alertMon: true,
-            alertTue: false,
-            alertWed: true,
-            alertThu: false,
-            alertFri: true,
-            alertSat: false,
-            alertSun: false,
-            isRemind: true,
-            remindTime: Date(),
-            achieveMon: true,
-            achieveTue: false,
-            achieveWed: true,
-            achieveThu: false,
-            achieveFri: true,
-            achieveSat: false,
-            achieveSun: false
-        )
-        .previewLayout(.sizeThatFits) // 크기 조정
-        .padding()
-    }
-}
+//struct WeekAchieveCell_Previews: PreviewProvider {
+//    static var previews: some View {
+//        WeekAchieveCell(detailGoal: DetailGoal(id: Int, title: String, memo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool))
+//        .previewLayout(.sizeThatFits) // 크기 조정
+//        .padding()
+//    }
+//}
