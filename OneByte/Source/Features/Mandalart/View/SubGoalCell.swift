@@ -13,6 +13,7 @@ import SwiftData
 struct SubGoalCell: View {
     
     @Binding var selectedSubGoal: SubGoal?
+    @State var tabBarVisible: Bool = true
 //    @State private var isHidden = true
     private let innerColumns = Array(repeating: GridItem(.fixed(78/852 * UIScreen.main.bounds.height)), count: 2)
     
@@ -22,8 +23,8 @@ struct SubGoalCell: View {
                 // 디테일골을 id에 따라 정렬
                 let detailGoalsSorted = selectedSubGoal.detailGoals.sorted(by: { $0.id < $1.id })
                 
-                NavigationLink(destination: SubGoalDetailGridView(subGoal: $selectedSubGoal)
-                    .toolbar(.hidden, for: .tabBar)
+                NavigationLink(destination: SubGoalDetailGridView(subGoal: $selectedSubGoal, tabBarVisible: $tabBarVisible)
+//                    .toolbar(.hidden, for: .tabBar)
                      ){
                         LazyVGrid(columns: innerColumns, spacing: 4) {
                             ForEach(0..<4, id: \.self) { index in
@@ -50,6 +51,9 @@ struct SubGoalCell: View {
             } else {
                 Text("SubGoal을 찾을 수가 없습니다.")
             }
+        }
+        .onAppear{
+            tabBarVisible = true
         }
     }
 }
