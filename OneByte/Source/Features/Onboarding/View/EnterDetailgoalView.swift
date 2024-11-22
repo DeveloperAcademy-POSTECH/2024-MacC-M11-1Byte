@@ -138,9 +138,9 @@ struct EnterDetailgoalView: View {
                             achieveSat: false,
                             achieveSun: false
                         )
-                        //                        navigationManager.push(to: .onboardFinish)
+                        navigationManager.push(to: .onboardDays)
                     } else {
-                        print("Error: DetailGoal with ID 1 not found.")
+                        print("❌ Error: DetailGoal ID 1 not found.")
                     }
                 } label: {
                     Text("다음")

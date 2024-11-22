@@ -15,7 +15,8 @@ struct DaysCycleView: View {
     @Environment(\.modelContext) private var modelContext
     
     @State var viewModel = OnboardingViewModel(createService: CreateService(), updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
-
+    
+    @Query private var subGoals: [SubGoal]
     @Query private var detailGoals: [DetailGoal]
     @State private var targetDetailGoal: DetailGoal? // id가 1인 SubGoal 저장변수
     
@@ -70,6 +71,7 @@ struct DaysCycleView: View {
                 
                 if let title = targetDetailGoal?.title {
                     Text(title)
+                        .foregroundStyle(.black)
                         .font(.Pretendard.Medium.size20)
                         .multilineTextAlignment(.center)
                 }
@@ -106,8 +108,11 @@ struct DaysCycleView: View {
         }
         .navigationBarBackButtonHidden()
         .onAppear {
-            // EnterSubgoalView에서 사용자가 입력한 Subgoal중 id 1번 값을 찾아 담음
-            targetDetailGoal = detailGoals.first(where: { $0.id == 1 })
+            // 사용자가 입력한 Subgoal id 1의 DetailGoal중 id 1번 값을 찾아 담음
+            if let targetSubGoal = subGoals.first(where: { $0.id == 1 }),
+               let targetDetail = targetSubGoal.detailGoals.first(where: { $0.id == 1 }) {
+                targetDetailGoal = targetDetail
+            }
         }
     }
 }
@@ -126,6 +131,7 @@ struct DaysCycleButton: View {
                 .foregroundStyle(isSelected ? .white : Color.my95D895)
                 .frame(width: 36, height: 36)
                 .background(isSelected ? Color.my95D895 : .white)
+                .clipShape(Circle())
                 .overlay(
                     Circle()
                         .stroke(isSelected ? .white : Color.my95D895 , lineWidth: 1)
