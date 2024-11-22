@@ -45,7 +45,7 @@ struct OnboardingStartView: View {
                 .padding(.bottom)
                 
                 GoButton {
-                    navigationManager.push(to: .onboardReady)
+                    handleNextButtonTap()
                 } label: {
                     Text("다음")
                 }
@@ -61,6 +61,20 @@ struct OnboardingStartView: View {
             }
         }
         .environment(navigationManager)
+    }
+    
+    private func handleNextButtonTap() {
+        // 마지막 온보딩 페이지인지 확인
+        if nowOnboard == OnboardingExplain.allCases.last {
+            // 네비게이션으로 이동
+            navigationManager.push(to: .onboardReady)
+        } else {
+            // 다음 페이지로 이동
+            if let currentIndex = OnboardingExplain.allCases.firstIndex(of: nowOnboard),
+               currentIndex + 1 < OnboardingExplain.allCases.count {
+                nowOnboard = OnboardingExplain.allCases[currentIndex + 1]
+            }
+        }
     }
 }
 
