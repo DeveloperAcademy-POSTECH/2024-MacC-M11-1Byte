@@ -70,12 +70,12 @@ struct DaysCycleView: View {
                     .foregroundStyle(Color.myB4A99D)
                     .padding(.top)
                 
-                if let title = targetDetailGoal?.title {
-                    Text(title)
+//                if let title = targetDetailGoal?.title {
+                    Text(targetDetailGoal?.title ?? "")
                         .foregroundStyle(.black)
                         .font(.Pretendard.Medium.size20)
                         .multilineTextAlignment(.center)
-                }
+//                }
                 
                 HStack(spacing: 7) {
                     DaysCycleButton(day: "일", isSelected: $alertSun, onChange: updateAchieveGoal)

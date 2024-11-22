@@ -16,12 +16,6 @@ enum PathType: Hashable {
     case onboardDays
     case onboardComplete
     case onboardFinish
-//    case onboardQuestion
-//    case onboardMaingoal
-//    case onboardSubgoal
-//    case onboardDetailgoal
-//    case onboardFinish
-//    case onboardInfo
 }
 
 extension PathType {
@@ -49,33 +43,6 @@ extension PathType {
             
         case .onboardFinish:
             OnboardingFinishView()
-//        case .onboardQuestion:
-//            QuestionView()
-//                .navigationBarBackButtonHidden()
-//                .navigationBarHidden(true)
-//            
-//        case .onboardMaingoal:
-//            EnterMaingoalView()
-//                .navigationBarBackButtonHidden()
-//                .navigationBarHidden(true)
-//            
-//        case .onboardSubgoal:
-//            EnterSubgoalView()
-//                .navigationBarBackButtonHidden()
-//                .navigationBarHidden(true)
-//            
-//        case .onboardDetailgoal:
-//            EnterDetailgoalView()
-//                .navigationBarBackButtonHidden()
-//                .navigationBarHidden(true)
-//            
-//        case .onboardFinish:
-//            OnboardingFinishView()
-//                .navigationBarBackButtonHidden()
-//            
-//        case .onboardInfo:
-//            OnboardingExplainView()
-//                .navigationBarBackButtonHidden()
         }
     }
 }

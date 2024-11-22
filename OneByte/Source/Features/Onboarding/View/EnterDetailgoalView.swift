@@ -11,7 +11,6 @@ import SwiftData
 struct EnterDetailgoalView: View {
     
     @Environment(NavigationManager.self) var navigationManager
-    @AppStorage("FirstOnboarding") private var isFirstOnboarding: Bool? // 온보딩 첫 동작시에만
     
     @Environment(\.modelContext) private var modelContext
     @Query private var subGoals: [SubGoal]
