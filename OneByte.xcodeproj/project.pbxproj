@@ -41,7 +41,7 @@
 		1FA50DEE2CE0B25C00369F7F /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA50DED2CE0B25C00369F7F /* UIApplication+.swift */; };
 		1FB10A252CDF511600D54EC5 /* GoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A242CDF511600D54EC5 /* GoButton.swift */; };
 		1FB10A272CDF512800D54EC5 /* PassButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A262CDF512800D54EC5 /* PassButton.swift */; };
-		1FB10A292CDF515300D54EC5 /* QuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A282CDF515300D54EC5 /* QuestionView.swift */; };
+		1FB10A292CDF515300D54EC5 /* ReadyCycleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A282CDF515300D54EC5 /* ReadyCycleView.swift */; };
 		1FB10A2C2CDF52E600D54EC5 /* OnboardingProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A2B2CDF52E600D54EC5 /* OnboardingProgressBar.swift */; };
 		1FB10A2E2CDF54B400D54EC5 /* EnterMaingoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A2D2CDF54B400D54EC5 /* EnterMaingoalView.swift */; };
 		1FB10A302CDF55AA00D54EC5 /* EnterSubgoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A2F2CDF55AA00D54EC5 /* EnterSubgoalView.swift */; };
@@ -60,6 +60,7 @@
 		1FD405362CECE6F800403A19 /* TodayRouitneTypeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD405352CECE6F800403A19 /* TodayRouitneTypeHeaderView.swift */; };
 		1FD405382CECE7B400403A19 /* TodayRoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD405372CECE7B400403A19 /* TodayRoutineViewModel.swift */; };
 		1FD4053C2CED987700403A19 /* TurtleMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD4053B2CED987700403A19 /* TurtleMessageView.swift */; };
+		1FE27C712CF0B7F600A4C6BE /* DaysCycleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE27C702CF0B7F600A4C6BE /* DaysCycleView.swift */; };
 		1FE2B8D62CDFAF8600781E20 /* Int+GridExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE2B8D52CDFAF8600781E20 /* Int+GridExtensions.swift */; };
 		1FE2B8D82CDFB12500781E20 /* CustomCornerRoundedRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE2B8D72CDFB12500781E20 /* CustomCornerRoundedRectangle.swift */; };
 		610595CE2CE2140D005ED7B4 /* SubGoalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595CD2CE2140D005ED7B4 /* SubGoalCell.swift */; };
@@ -121,7 +122,7 @@
 		1FA50DED2CE0B25C00369F7F /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
 		1FB10A242CDF511600D54EC5 /* GoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoButton.swift; sourceTree = "<group>"; };
 		1FB10A262CDF512800D54EC5 /* PassButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassButton.swift; sourceTree = "<group>"; };
-		1FB10A282CDF515300D54EC5 /* QuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionView.swift; sourceTree = "<group>"; };
+		1FB10A282CDF515300D54EC5 /* ReadyCycleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadyCycleView.swift; sourceTree = "<group>"; };
 		1FB10A2B2CDF52E600D54EC5 /* OnboardingProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingProgressBar.swift; sourceTree = "<group>"; };
 		1FB10A2D2CDF54B400D54EC5 /* EnterMaingoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterMaingoalView.swift; sourceTree = "<group>"; };
 		1FB10A2F2CDF55AA00D54EC5 /* EnterSubgoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSubgoalView.swift; sourceTree = "<group>"; };
@@ -140,6 +141,7 @@
 		1FD405352CECE6F800403A19 /* TodayRouitneTypeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRouitneTypeHeaderView.swift; sourceTree = "<group>"; };
 		1FD405372CECE7B400403A19 /* TodayRoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutineViewModel.swift; sourceTree = "<group>"; };
 		1FD4053B2CED987700403A19 /* TurtleMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurtleMessageView.swift; sourceTree = "<group>"; };
+		1FE27C702CF0B7F600A4C6BE /* DaysCycleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysCycleView.swift; sourceTree = "<group>"; };
 		1FE2B8D52CDFAF8600781E20 /* Int+GridExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+GridExtensions.swift"; sourceTree = "<group>"; };
 		1FE2B8D72CDFB12500781E20 /* CustomCornerRoundedRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCornerRoundedRectangle.swift; sourceTree = "<group>"; };
 		610595CD2CE2140D005ED7B4 /* SubGoalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubGoalCell.swift; sourceTree = "<group>"; };
@@ -442,13 +444,14 @@
 			isa = PBXGroup;
 			children = (
 				1F4D8BEF2CDF4F9E00A0B5CC /* OnboardingStartView.swift */,
-				1FB10A282CDF515300D54EC5 /* QuestionView.swift */,
-				1FB10A2D2CDF54B400D54EC5 /* EnterMaingoalView.swift */,
-				1FB10A312CDF56E200D54EC5 /* EnterDetailgoalView.swift */,
-				1FB10A2F2CDF55AA00D54EC5 /* EnterSubgoalView.swift */,
-				1FB10A332CDF593600D54EC5 /* OnboardingFinishView.swift */,
-				1FB10A352CDF5C7900D54EC5 /* OnboardingExplainView.swift */,
 				1FB10A392CDF60D100D54EC5 /* OnboardingExplainPageView.swift */,
+				1FB10A282CDF515300D54EC5 /* ReadyCycleView.swift */,
+				1FB10A2F2CDF55AA00D54EC5 /* EnterSubgoalView.swift */,
+				1FB10A312CDF56E200D54EC5 /* EnterDetailgoalView.swift */,
+				1FE27C702CF0B7F600A4C6BE /* DaysCycleView.swift */,
+				1FB10A332CDF593600D54EC5 /* OnboardingFinishView.swift */,
+				1FB10A2D2CDF54B400D54EC5 /* EnterMaingoalView.swift */,
+				1FB10A352CDF5C7900D54EC5 /* OnboardingExplainView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -588,6 +591,7 @@
 				1F599E3A2CE66AA300788D07 /* SettingViewModel.swift in Sources */,
 				1FD405302CECC42500403A19 /* AllRoutineViewModel.swift in Sources */,
 				1F599E2A2CE5F77000788D07 /* Profile.swift in Sources */,
+				1FE27C712CF0B7F600A4C6BE /* DaysCycleView.swift in Sources */,
 				1F42BE892CDF838500A59703 /* Font+.swift in Sources */,
 				1F4D8BF02CDF4F9E00A0B5CC /* OnboardingStartView.swift in Sources */,
 				1FB10A382CDF5FE800D54EC5 /* OnboardingExplain.swift in Sources */,
@@ -632,7 +636,7 @@
 				1FB10A272CDF512800D54EC5 /* PassButton.swift in Sources */,
 				618FD0762CDF11410003450D /* UpdateService.swift in Sources */,
 				1FD4053C2CED987700403A19 /* TurtleMessageView.swift in Sources */,
-				1FB10A292CDF515300D54EC5 /* QuestionView.swift in Sources */,
+				1FB10A292CDF515300D54EC5 /* ReadyCycleView.swift in Sources */,
 				1F4D8BF22CDF4FC300A0B5CC /* Onboarding.swift in Sources */,
 				1F599E302CE6640600788D07 /* AchievedRow.swift in Sources */,
 				1F599E342CE6643B00788D07 /* FontRow.swift in Sources */,

@@ -7,23 +7,21 @@
 
 import SwiftUI
 
-// MARK: 온보딩 전체 흐름 Enumeration 데이터
-enum Onboarding {
+// MARK: 온보딩 목표설정 Enumeration 데이터
+enum Onboarding: CaseIterable {
     
-    case start, question, maingoal, subgoal, detailgoal, finish
+    case ready, subgoalCycle, detailgoalCycle, daysCycle, finish
     
     var onboardingTitle: String {
         switch self {
-        case .start:
-            return "안녕하세요. 다라에요!"
-        case .question:
-            return "만다라트가 무엇인지\n알고 계시나요?"
-        case .maingoal:
-            return "2025년 달성하고 싶은\n최종 목표는 무엇인가요?"
-        case .subgoal:
-            return "세부 목표를 작성해보세요."
-        case .detailgoal:
-            return "할 일 하나를 작성해보아요."
+        case .ready:
+            return "다라와 함께\n목표설정을 시작해봐요"
+        case .subgoalCycle:
+            return "달성하고 싶은 목표가\n무엇인가요?"
+        case .detailgoalCycle:
+            return "목표 달성을 위해\n어떤 루틴이 필요할까요?"
+        case .daysCycle:
+            return "매주 어떤 요일에\n실천할 루틴인가요?"
         case .finish:
             return "수고하셨습니다."
         }
@@ -31,35 +29,16 @@ enum Onboarding {
     
     var onboardingSubTitle: String {
         switch self {
-        case .start:
-            return "2025년 목표를 세우고 싶으신가요?\n1년 동안 이루고 싶은 목표 세우기를\n도와드릴게요!"
-        case .question:
-            return "'만다라트' 기법을 사용해 다라와 함께\n1년의 목표를 세워봐요."
-        case .maingoal:
-            return ""
-        case .subgoal:
-            return "최종 목표를 달성하기 위한"
-        case .detailgoal:
-            return "마지막으로,\n작성하신 세부 목표를 달성하기 위한"
+        case .ready:
+            return "4가지 목표 중 하나를 함께 작성해보고\n목표달성을 위한 루틴도 만들어봐요"
+        case .subgoalCycle:
+            return "나의 꾸준한 노력으로 이루고 싶은 일들은\n어떤 것이 있을지 떠올려보세요"
+        case .detailgoalCycle:
+            return "목표를 달성하기 위해 실천해야 하는\n노력들은 무엇이 있을지 생각해보세요"
+        case .daysCycle:
+            return "루틴을 실천할 요일을 선정하여\n루틴을 구체화해보세요"
         case .finish:
             return "이제 스스로 남은 만다라트 칸을 채워보세요."
-        }
-    }
-    
-    var onboardingTipMessage: String {
-        switch self {
-        case .start:
-            return ""
-        case .question:
-            return ""
-        case .maingoal:
-            return "'매일 성장하는 사람', 프로 갓생러'와 같이 내가 되고싶은 나의 모습을 떠올려 보세요. '잔잔하지만, 알맹이 있는한 해'와 같이 2025년이 어떤 모습이었으면 좋겠는지상상해도 좋습니다."
-        case .subgoal:
-            return "세부 목표는 '건강','학업'과 같은 카테고리나 '새로운 도전을 주저하지 않기'와 같은 목표로도 작성할 수 있습니다."
-        case .detailgoal:
-            return "할 일을 작성할 때에는 현실적으로 달성 가능한지 또는 구체적으로 행동할 수 있는 내용인지 고려해보아요."
-        case .finish:
-            return ""
         }
     }
 }

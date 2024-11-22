@@ -16,41 +16,38 @@ struct OnboardingStartView: View {
     @Query var clovers: [Clover]
     @State var viewModel = OnboardingViewModel(createService: CreateService(), updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     
-    
-    var nowOnboard: Onboarding = .start
+    @State private var nowOnboard: OnboardingExplain = .first
     
     var body: some View {
         NavigationStack(path: $navigationManager.path) {
             VStack {
-                Spacer()
-                // 상단 텍스트
-                VStack(spacing: 10) {
-                    Text(nowOnboard.onboardingTitle)
-                        .font(.Pretendard.Bold.size26)
-                    
-                    Text(nowOnboard.onboardingSubTitle)
-                        .font(.Pretendard.Regular.size18)
-                        .multilineTextAlignment(.center)
-                        .lineSpacing(4)
+                // 만다라트 설명 5페이지뷰 탭뷰
+                TabView(selection: $nowOnboard) {
+                    ForEach(OnboardingExplain.allCases, id: \.self) { onboarding in
+                        OnboardingExplainPageView(
+                            nowOnboard: nowOnboard
+                        )
+                        .tag(onboarding)
+                    }
                 }
-                Spacer()
+                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                 
-                // 중앙 캐릭터 이미지
-                HStack {
-                    Image("Turtle_1")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 215)
+                // Indicator ( 현재 Page/전체 Page 나타내는 dots )
+                VStack {
+                    HStack(spacing: 8) {
+                        ForEach(OnboardingExplain.allCases, id: \.self) { onboarding in
+                            Circle()
+                                .frame(width: 8, height: 8)
+                                .foregroundStyle(nowOnboard == onboarding ? Color.my636363 : Color.my919191)
+                        }
+                    }
                 }
-                .padding()
+                .padding(.bottom)
                 
-                Spacer()
-                
-                // 하단 Button
                 GoButton {
-                    navigationManager.push(to: .onboardQuestion)
+                    navigationManager.push(to: .onboardReady)
                 } label: {
-                    Text("목표 세우러 가기")
+                    Text("다음")
                 }
                 .padding()
             }

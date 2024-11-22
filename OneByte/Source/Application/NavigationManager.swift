@@ -10,12 +10,16 @@ import SwiftUI
 enum PathType: Hashable {
     // 온보딩 case
     case onboardStart
-    case onboardQuestion
-    case onboardMaingoal
+    case onboardReady
     case onboardSubgoal
     case onboardDetailgoal
-    case onboardFinish
-    case onboardInfo
+    case onboardDays
+//    case onboardQuestion
+//    case onboardMaingoal
+//    case onboardSubgoal
+//    case onboardDetailgoal
+//    case onboardFinish
+//    case onboardInfo
 }
 
 extension PathType {
@@ -26,33 +30,45 @@ extension PathType {
         case .onboardStart:
             OnboardingStartView()
             
-        case .onboardQuestion:
-            QuestionView()
-                .navigationBarBackButtonHidden()
-                .navigationBarHidden(true)
-            
-        case .onboardMaingoal:
-            EnterMaingoalView()
-                .navigationBarBackButtonHidden()
-                .navigationBarHidden(true)
+        case .onboardReady:
+            ReadyCycleView()
             
         case .onboardSubgoal:
-            EnterSubgoalView()
-                .navigationBarBackButtonHidden()
-                .navigationBarHidden(true)
+            EnterSubgoalView() // SubgoalCycleView로 이름 변경
             
         case .onboardDetailgoal:
             EnterDetailgoalView()
-                .navigationBarBackButtonHidden()
-                .navigationBarHidden(true)
             
-        case .onboardFinish:
-            OnboardingFinishView()
-                .navigationBarBackButtonHidden()
+        case .onboardDays:
+            DaysCycleView()
             
-        case .onboardInfo:
-            OnboardingExplainView()
-                .navigationBarBackButtonHidden()
+//        case .onboardQuestion:
+//            QuestionView()
+//                .navigationBarBackButtonHidden()
+//                .navigationBarHidden(true)
+//            
+//        case .onboardMaingoal:
+//            EnterMaingoalView()
+//                .navigationBarBackButtonHidden()
+//                .navigationBarHidden(true)
+//            
+//        case .onboardSubgoal:
+//            EnterSubgoalView()
+//                .navigationBarBackButtonHidden()
+//                .navigationBarHidden(true)
+//            
+//        case .onboardDetailgoal:
+//            EnterDetailgoalView()
+//                .navigationBarBackButtonHidden()
+//                .navigationBarHidden(true)
+//            
+//        case .onboardFinish:
+//            OnboardingFinishView()
+//                .navigationBarBackButtonHidden()
+//            
+//        case .onboardInfo:
+//            OnboardingExplainView()
+//                .navigationBarBackButtonHidden()
         }
     }
 }

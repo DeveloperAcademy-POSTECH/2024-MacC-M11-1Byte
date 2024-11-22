@@ -18,24 +18,14 @@ struct EnterDetailgoalView: View {
     
     @State var viewModel = OnboardingViewModel(createService: CreateService(), updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     @State private var userDetailGoal: String = "" // 사용자 SubGoal 입력 텍스트
-    @State private var userDetailGoalNewMemo: String = ""
     @State private var targetSubGoal: SubGoal? // id가 1인 SubGoal 저장변수
     @FocusState private var isFocused: Bool // TextField 포커스 상태 관리
-    private let detailGoalLimit = 15 // 글자 수 제한
+    private let detailGoalLimit = 20 // 글자 수 제한
     
-    // 3x3 View Custom 변수들
-    let items = Array(1...9)
-    let gridSpacing: CGFloat = 5 // 셀 간 수직 간격
-    let horizontalPadding: CGFloat = 15 // 양쪽 여백 설정
-    let columns: [GridItem] = Array(repeating: GridItem(.flexible(), spacing: 5), count: 3) // 수평 간격 설정
-    
-    var nowOnboard: Onboarding = .detailgoal
+    var nowOnboard: Onboarding = .detailgoalCycle
     
     var body: some View {
-        let gridWidth = UIScreen.main.bounds.width - (horizontalPadding * 2)
-        let itemSize = (gridWidth - (gridSpacing * 2)) / 3
-        
-        VStack {
+        VStack(spacing: 0) {
             // Back Button & 프로그레스 바
             HStack {
                 Button {
@@ -47,128 +37,77 @@ struct EnterDetailgoalView: View {
                             .bold()
                     }
                 }
-                OnboardingProgressBar(value: 4/5)
+                OnboardingProgressBar(value: 2/5)
                     .frame(height: 10)
                     .padding()
                     .padding(.trailing)
             }
             .padding(.horizontal)
-            
-            VStack(spacing: 10) {
-                Text(nowOnboard.onboardingSubTitle)
-                    .font(.Pretendard.Bold.size17)
-                    .foregroundStyle(Color.my919191)
-                    .multilineTextAlignment(.center)
-                
+
+            VStack(spacing: 12) {
                 Text(nowOnboard.onboardingTitle)
                     .font(.Pretendard.Bold.size26)
                     .multilineTextAlignment(.center)
+                    .lineSpacing(3.6)
+                Text(nowOnboard.onboardingSubTitle)
+                    .font(.Pretendard.Regular.size16)
+                    .foregroundStyle(Color.my919191)
+                    .multilineTextAlignment(.center)
+                    .lineSpacing(2.4)
             }
+            .padding(.top, 31)
             
-            // 팁 메세지 영역
-            ZStack {
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(Color.myD4F7D7)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 112) // ✅ 나중에 디자인팀에서 보여주는 방식 바꿔주면, mini에서 텍스트 짤림문제 해결하기
-                
-                VStack(alignment: .leading) {
-                    (Text("TIP ")
-                        .font(.Pretendard.Bold.size14) +
-                     Text(nowOnboard.onboardingTipMessage))
-                    .font(.Pretendard.Regular.size14)
-                    .multilineTextAlignment(.leading)
-                    .lineSpacing(4)
-                    .padding()
-                }
-            }
-            .padding(.horizontal)
-            
-            Spacer()
-            
-            HStack(spacing: 0) {
-                Spacer()
-                Text("\(userDetailGoal.count)")
-                    .foregroundStyle(Color.my6C6C6C)
-                Text("/15")
-                    .foregroundStyle(Color.my6C6C6C.opacity(0.5))
-            }
-            .padding(.trailing)
-            
-            // 중앙 3x3 View
-            LazyVGrid(columns: columns, spacing: gridSpacing) {
-                ForEach(items, id: \.self) { item in
-                    let radiusValues = item.cornerRadiusValues(for3x3Grid: 20)
-                    
-                    ZStack {
-                        CustomCornerRoundedRectangle(
-                            topLeft: radiusValues.topLeft,
-                            topRight: radiusValues.topRight,
-                            bottomLeft: radiusValues.bottomLeft,
-                            bottomRight: radiusValues.bottomRight
-                        )
-                        .fill(
-                            item == 1 ? Color.myF7F7A0 :
-                                item == 5 ? Color.myD2E3D6 :
-                                Color.myEEEEEE
-                        )
-                        .onTapGesture {
-                            if item == 1 {
-                                isFocused = true // 1번 아이템 터치 시 TextField에 포커스 맞추기
-                            } else {
-                                isFocused = false // 다른 셀 터치 시 포커스 해제
-                                UIApplication.shared.endEditing() // 키보드 dismiss
-                            }
-                        }
-                        .frame(width: itemSize, height: itemSize) // 항상 1:1 비율 설정
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.my95D895)
+                .frame(maxWidth: .infinity)
+                .frame(height: 154)
+                .overlay (
+                    VStack(spacing: 5) {
                         
-                        if item == 1 {
-                            // 1번 셀일 경우 TextField와 터치 가능
-                            TextField("할 일", text: $userDetailGoal, axis: .vertical)
-                                .font(.Pretendard.Regular.size18)
-                                .multilineTextAlignment(.center)
+                        Text("목표")
+                            .font(.Pretendard.Medium.size16)
+                            .foregroundStyle(Color.my538F53)
+                            .padding(.top)
+                        Text("건강한 삶 살기" )
+                            .font(.Pretendard.Medium.size20)
+                        
+                        ZStack {
+                            TextField("목표를 위한 루틴을 추가해보세요", text: $userDetailGoal)
+                                .font(.Pretendard.Medium.size16)
+                                .multilineTextAlignment(.leading)
                                 .focused($isFocused)
                                 .submitLabel(.done)
-                                .padding(10)
+                                .frame(height: 54)
+                                .padding(.horizontal)
+                                .background(.white)
+                                .cornerRadius(12)
                                 .onChange(of: userDetailGoal) { oldValue, newValue in
                                     if newValue.count > detailGoalLimit {
                                         userDetailGoal = String(newValue.prefix(detailGoalLimit))
                                     }
-                                    if let lastChar = newValue.last, lastChar == "\n" {
-                                        userDetailGoal = String(newValue.dropLast())
-                                        isFocused = false
-                                    }
                                 }
-                        }
-                        
-                        // item이 5인 중앙은 SubGoal
-                        if item == 5 {
-                            if let title = targetSubGoal?.title {
-                                Text(title)
-                                    .font(.Pretendard.Medium.size20)
-                                    .multilineTextAlignment(.center)
-                            } else {
-                                Text("")
+                            
+                            HStack(spacing: 0) {
+                                Spacer()
+                                Text("\(userDetailGoal.count)")
+                                    .foregroundStyle(Color.my6C6C6C)
+                                    .font(.Pretendard.Medium.size14)
+                                Text("/20")
+                                    .foregroundStyle(Color.my6C6C6C.opacity(0.5))
+                                    .font(.Pretendard.Medium.size14)
                             }
-                        } else {
-                            Text("")
+                            .padding(.trailing)
                         }
+                        .padding()
                     }
-                }
-            }
-            .frame(width: gridWidth) // LazyVGrid의 너비를 설정하여 양쪽 여백을 구현
-            .padding(.horizontal, gridSpacing) // 수직 간격을 위한 추가 패딩
+                )
+                .padding(.horizontal)
+                .padding(.top, 81)
             
             Spacer()
             
             // 하단 Button
             HStack {
-                PassButton {
-                    isFirstOnboarding = false // 온보딩 close
-                } label: {
-                    Text("건너 뛰기")
-                }
-                
                 GoButton {
                     if let targetSubGoal = targetSubGoal, // id = 1에 해당하는 SubGoal의
                        let detailGoalToUpdate = targetSubGoal.detailGoals.first(where: { $0.id == 1 }) { // id = 1 DetailGoal 공간에 Update
@@ -176,7 +115,7 @@ struct EnterDetailgoalView: View {
                             detailGoal: detailGoalToUpdate,
                             modelContext: modelContext,
                             newTitle: userDetailGoal,
-                            newMemo: userDetailGoalNewMemo,
+                            newMemo: "",
                             achieveCount: 0,
                             achieveGoal: 0,
                             alertMon: false,
@@ -196,7 +135,7 @@ struct EnterDetailgoalView: View {
                             achieveSat: false,
                             achieveSun: false
                         )
-                        navigationManager.push(to: .onboardFinish)
+                        //                        navigationManager.push(to: .onboardFinish)
                     } else {
                         print("Error: DetailGoal with ID 1 not found.")
                     }
@@ -206,6 +145,7 @@ struct EnterDetailgoalView: View {
             }
             .padding()
         }
+        .navigationBarBackButtonHidden()
         .contentShape(Rectangle())
         .onAppear {
             // EnterSubgoalView에서 사용자가 입력한 Subgoal중 id 1번 값을 찾아 담음
@@ -218,6 +158,6 @@ struct EnterDetailgoalView: View {
 }
 
 #Preview {
-    EnterDetailgoalView(nowOnboard: .detailgoal)
+    EnterDetailgoalView(nowOnboard: .detailgoalCycle)
         .environment(NavigationManager())
 }
