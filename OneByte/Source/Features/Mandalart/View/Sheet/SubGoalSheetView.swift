@@ -99,10 +99,11 @@ struct SubGoalsheetView: View {
                         .frame(maxWidth: .infinity)
                         .font(.Pretendard.Medium.size16)
                         .padding()
-                        .background(Color.my538F53)
-                        .foregroundStyle(.white)
+                        .background(newTitle == "" ? Color.my538F53.opacity(0.7) : Color.my538F53)
+                        .foregroundStyle(newTitle == "" ? .white.opacity(0.7) : .white)
                         .cornerRadius(12)
                 }
+                .disabled(newTitle == "")
             }
         }
         .padding(.horizontal)

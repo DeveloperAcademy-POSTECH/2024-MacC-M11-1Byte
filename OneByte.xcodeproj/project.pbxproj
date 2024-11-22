@@ -79,6 +79,7 @@
 		618FD0742CDF11210003450D /* CreateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618FD0732CDF11210003450D /* CreateService.swift */; };
 		618FD0762CDF11410003450D /* UpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618FD0752CDF11410003450D /* UpdateService.swift */; };
 		618FD0782CDF11760003450D /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618FD0772CDF11760003450D /* Protocol.swift */; };
+		61CC00FD2CF0276B0009D063 /* DetailGoalColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CC00FC2CF0276B0009D063 /* DetailGoalColor.swift */; };
 		61E28B822CEE01FE000F77FB /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E28B812CEE01FE000F77FB /* Notification.swift */; };
 		61FA4DF32CE77EDD00256B57 /* BackButtonToolbarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FA4DF22CE77EDD00256B57 /* BackButtonToolbarModifier.swift */; };
 		61FA4DF52CE7803600256B57 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FA4DF42CE7803600256B57 /* View+.swift */; };
@@ -159,6 +160,7 @@
 		618FD0732CDF11210003450D /* CreateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateService.swift; sourceTree = "<group>"; };
 		618FD0752CDF11410003450D /* UpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateService.swift; sourceTree = "<group>"; };
 		618FD0772CDF11760003450D /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
+		61CC00FC2CF0276B0009D063 /* DetailGoalColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoalColor.swift; sourceTree = "<group>"; };
 		61E28B812CEE01FE000F77FB /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		61FA4DF22CE77EDD00256B57 /* BackButtonToolbarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButtonToolbarModifier.swift; sourceTree = "<group>"; };
 		61FA4DF42CE7803600256B57 /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
@@ -433,6 +435,7 @@
 			children = (
 				1FB10A2B2CDF52E600D54EC5 /* OnboardingProgressBar.swift */,
 				1FD4053B2CED987700403A19 /* TurtleMessageView.swift */,
+				61CC00FC2CF0276B0009D063 /* DetailGoalColor.swift */,
 				1FE2B8D72CDFB12500781E20 /* CustomCornerRoundedRectangle.swift */,
 			);
 			path = Helper;
@@ -583,6 +586,7 @@
 				610595D92CE2584D005ED7B4 /* MadalartShape.swift in Sources */,
 				1FD405252CEC79DD00403A19 /* TodayRoutineView.swift in Sources */,
 				1FD405362CECE6F800403A19 /* TodayRouitneTypeHeaderView.swift in Sources */,
+				61CC00FD2CF0276B0009D063 /* DetailGoalColor.swift in Sources */,
 				1FB10A252CDF511600D54EC5 /* GoButton.swift in Sources */,
 				1F599E362CE6648B00788D07 /* PrivacyPolicyRow.swift in Sources */,
 				1F599E3A2CE66AA300788D07 /* SettingViewModel.swift in Sources */,
@@ -775,7 +779,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"OneByte/Preview Content\"";
-				DEVELOPMENT_TEAM = WTK65UP9RZ;
+				DEVELOPMENT_TEAM = TA9TKWGKS3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OneByte/Info.plist;
@@ -811,7 +815,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"OneByte/Preview Content\"";
-				DEVELOPMENT_TEAM = WTK65UP9RZ;
+				DEVELOPMENT_TEAM = TA9TKWGKS3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OneByte/Info.plist;

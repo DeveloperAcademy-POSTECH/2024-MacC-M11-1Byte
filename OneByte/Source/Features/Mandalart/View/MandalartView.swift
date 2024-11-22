@@ -54,9 +54,9 @@ struct OuterGridView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             // 날짜 및 공유, 설정 버튼
-            HStack(alignment: .bottom ,spacing: 8) {
+            HStack(alignment: .center ,spacing: 8) {
                 // 한국 날짜 형식으로 오늘 날짜 표시
-                Text("나의 만다라트")
+                Text("나의 계획")
                     .font(.Pretendard.Bold.size22)
                     .foregroundStyle(Color.myB4A99D)
                 
@@ -67,10 +67,10 @@ struct OuterGridView: View {
                     Image(systemName: "square.and.arrow.up")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(height: 25)
+                        .frame(height: 24)
                         .foregroundStyle(Color.my566956)
                 }
-                .padding(.trailing, 6)
+                .padding(.trailing, 10)
                 
                 Button(action: {
                     print("gear")
@@ -83,23 +83,16 @@ struct OuterGridView: View {
                 }
             }
             .padding(.vertical)
+//            .padding(.top, 21/852 * UIScreen.main.bounds.height)
             
-            // 구분선
-            Rectangle()
-                .padding(.horizontal, -40) // 패딩 값 무시하기 위함
-                .frame(maxWidth: .infinity, maxHeight: 1)
-                .foregroundStyle(Color.myDBD1C5)
-            
-            Spacer()
-            
-            // 목표 & 마감일까지 남은 시간
+            // 목표
             HStack {
                 // 목표 시트 버튼
                 Button(action: {
                     mainIsPresented = true
                 }){
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("나의 목표")
+                        Text("나의 다짐")
                             .foregroundStyle(Color.myD5F3D1)
                             .font(.Pretendard.Medium.size14)
                         
@@ -109,7 +102,7 @@ struct OuterGridView: View {
                             .kerning(-0.32) // 자간
                     }
                     .frame(maxWidth: .infinity, alignment: .leading) // 전체 너비에서 왼쪽 정렬
-                    .padding(.horizontal,10)
+                    .padding(.horizontal)
                     .padding(.vertical)
                     .background(Color.my538F53)
                     .cornerRadius(12)
@@ -121,7 +114,8 @@ struct OuterGridView: View {
                 }
             }
             .frame(height: 76/852 * UIScreen.main.bounds.height)
-            .padding(.bottom, 25/852 * UIScreen.main.bounds.height)
+            .padding(.bottom, 30/852 * UIScreen.main.bounds.height)
+            .padding(.top, 10/852 * UIScreen.main.bounds.height)
             
             ZStack {
                 // 만다라트 그리드
@@ -169,6 +163,7 @@ struct OuterGridView: View {
                 })
             }
             .padding(.bottom, 47/852 * UIScreen.main.bounds.height)
+            Spacer()
         }
         .padding(.horizontal, 20/393 * UIScreen.main.bounds.width)
     }

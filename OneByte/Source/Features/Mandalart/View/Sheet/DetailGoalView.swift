@@ -72,7 +72,10 @@ struct DetailGoalView: View {
                 Spacer()
             }
         }
-        
+        .contentShape(Rectangle())
+        .onTapGesture {
+            UIApplication.shared.endEditing()
+        }
         .navigationBarBackButtonHidden()
         .backButtonToolbar { dismiss() }
         .toolbar {
@@ -141,8 +144,9 @@ struct DetailGoalView: View {
                     }
                 }, label: {
                     Text(isEditing ? "저장" : "수정")
-                        .foregroundStyle(Color.my538F53)
+                        .foregroundStyle((isEditing && newTitle == "") ? Color.my538F53.opacity(0.5) : Color.my538F53)
                 })
+                .disabled(newTitle == "" && isEditing == true)
             })
         }
         .padding(.horizontal, 20)
