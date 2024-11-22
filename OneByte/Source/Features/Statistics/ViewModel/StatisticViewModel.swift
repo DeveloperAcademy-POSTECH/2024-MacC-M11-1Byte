@@ -33,7 +33,7 @@ class StatisticViewModel: ObservableObject  {
 //        Clover(id: 8, cloverYear: 2024, cloverMonth: 9, cloverWeekOfMonth: 4, cloverWeekOfYear: 39, cloverState: 3),
 //        Clover(id: 8, cloverYear: 2024, cloverMonth: 9, cloverWeekOfMonth: 5, cloverWeekOfYear: 40, cloverState: 2),
 //        
-//    ] // 테스트 데이터임
+//    ] // 테스트 데이터
 
     
     let currentMonth = Calendar.current.component(.month, from: Date())
@@ -58,7 +58,7 @@ class StatisticViewModel: ObservableObject  {
     var weeklyCloverInfoHeight: CGFloat {
         if let range = currentYearCloverMonthRange {
             let monthCount = currentMonth - range.min + 1
-            return CGFloat(monthCount) * 60 + 40
+            return CGFloat(monthCount) * 65 + 40
         } else {
             return 44
         }

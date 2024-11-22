@@ -16,7 +16,7 @@ struct StatisticView: View {
     var body: some View {
         NavigationStack{
             ScrollView {
-                VStack{
+                VStack(spacing: 0){
                     HStack {
                         Text("통계")
                             .font(.Pretendard.Bold.size22)
@@ -33,16 +33,17 @@ struct StatisticView: View {
                                 .foregroundStyle(Color.my566956)
                         }
                     }
-                    .padding()
                     
                     thisMonthCloverInfoView()
-                    
+                        .padding(.top, 52)
                     thisYearCloverInfoView()
-                    
+                        .padding(.top, 40)
                     weeklyCloverInfoView()
+                        .padding(.top, 10)
                     
                     Spacer()
                 }
+                .padding(.horizontal, 20)
             }
             .background(Color.myFFFAF4)
         }
@@ -57,27 +58,27 @@ struct StatisticView: View {
                     Image("Turtle_Body")
                     Spacer()
                 }
-                .padding(.top, -32)
-                .padding(.trailing,40)
+                .padding(.top, -44)
+                .padding(.trailing, 25)
             }
             
             RoundedRectangle(cornerRadius: 12)
                 .fill(Color.my6FB56F)
                 .frame(maxWidth: .infinity)
                 .frame(height: 146)
-                .padding()
             
             HStack {
                 Spacer()
                 Image("Clover_Back")
                     .frame(width: 130, height: 130)
-                    .padding(.trailing, 28)
+                    .padding(.trailing, 10)
             }
-            VStack {
+            VStack(spacing: 0) {
                 HStack {
                     Spacer()
-                    VStack {
+                    VStack(spacing: 0) {
                         Image("Turtle_Hands")
+                            .padding(.trailing, 16.97)
                         Rectangle()
                             .foregroundStyle(.clear)
                             .frame(width: 83, height: 24)
@@ -99,14 +100,13 @@ struct StatisticView: View {
                                         .foregroundStyle(.myA7A7A7)
                                 }
                             )
-                            .padding(.top, -8)
-                        
+                            .padding(.top, 1.05)
                     }
-                    .padding(.top, -12)
-                    .padding(.trailing, 30)
                 }
-                .padding(.top)
+                .padding(.trailing, 10)
+                .padding(.top, -12)
                 Spacer()
+
             }
             
             VStack(alignment: .leading, spacing: 16) {
@@ -119,29 +119,31 @@ struct StatisticView: View {
                     .foregroundStyle(Color.my4A4A4A)
                     .frame(width: 227, alignment: .leading)
             }
-            .padding(.leading, 36)
+            .padding(.leading, 21)
             .padding(.top, 26)
             .padding(.bottom, 20)
-        }.padding(.vertical, 16)
+        }
     }
     
     
     
     @ViewBuilder
     private func thisYearCloverInfoView() -> some View {
-        VStack(spacing: 5){
-            HStack {
-                Text("올해의 클로버")
-                    .font(.Pretendard.SemiBold.size18)
-                    .padding(.leading, 5)
-                Spacer()
-            }
-            HStack {
-                Text("올해의 내가 수집한 클로버를 모아볼 수 있어요.")
-                    .font(.Pretendard.Medium.size14)
-                    .foregroundStyle(Color.myA8A8A8)
-                    .padding(.leading, 5)
-                Spacer()
+        VStack(spacing: 10){
+            VStack(spacing: 2) {
+                HStack {
+                    Text("올해의 클로버")
+                        .font(.Pretendard.SemiBold.size18)
+                        .padding(.leading, 5)
+                    Spacer()
+                }
+                HStack {
+                    Text("올해의 내가 수집한 클로버를 모아볼 수 있어요.")
+                        .font(.Pretendard.Medium.size14)
+                        .foregroundStyle(Color.myA8A8A8)
+                        .padding(.leading, 5)
+                    Spacer()
+                }
             }
             
             HStack(alignment: .center) {
@@ -160,7 +162,7 @@ struct StatisticView: View {
                         Spacer()
                     }
                 }
-                .padding(.leading)
+                .padding(.leading, 20)
                 
                 Divider()
                     .frame(height: 60)
@@ -181,19 +183,17 @@ struct StatisticView: View {
                         Spacer()
                     }
                 }
-                .padding(.leading)
+                .padding(.leading, 20)
             }
             .frame(maxWidth: .infinity)
             .frame(height: 82)
             .background(.white)
             .cornerRadius(12)
             .overlay(
-                RoundedRectangle(cornerRadius: 12) // 테두리 추가
-                    .stroke(Color.myF0E8DF, lineWidth: 1) // 테두리 색상과 두께 설정
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color.myF0E8DF, lineWidth: 1)
             )
-            .padding(.top, 5)
         }
-        .padding(.horizontal)
     }
     
     @ViewBuilder
@@ -205,13 +205,11 @@ struct StatisticView: View {
                 .frame(width: .infinity, height: viewModel.weeklyCloverInfoHeight)
                 .cornerRadius(13)
                 .overlay(
-                    RoundedRectangle(cornerRadius: 13) // 테두리 추가
-                        .stroke(Color.myF0E8DF, lineWidth: 1) // 테두리 색상과 두께 설정
+                    RoundedRectangle(cornerRadius: 13)
+                        .stroke(Color.myF0E8DF, lineWidth: 1)
                 )
-                .padding()
-            VStack(spacing: 20) {
-
-                
+            
+            VStack(spacing: 11) {
                 if let range = viewModel.currentYearCloverMonthRange {
                     HStack(spacing: 30) {
                         Spacer()
@@ -232,6 +230,9 @@ struct StatisticView: View {
                             .font(Font.Pretendard.SemiBold.size12)
                             .foregroundStyle(.my9C9C9C)
                     }
+                    .padding(.top, 18)
+                    .padding(.bottom, 9)
+                    
                     ForEach(Array(stride(from: viewModel.currentMonth, through: range.min, by: -1)), id: \.self) { month in // 내림차순
                         let cloversForMonth = viewModel.filterCloversByMonth(clovers: viewModel.clovers, month: month)
                         VStack(spacing: 9) {
@@ -273,17 +274,18 @@ struct StatisticView: View {
                                             .frame(width: 38, height: 38)
                                     }
                                 }
-                            }.padding(.top, -9)
+                            }
+                            
                             Divider()
-                                .padding(.horizontal, 30)
+                                .padding(.horizontal, 12)
                         }
                     }
                 } else {
                     Text("클로버를 찾을 수 없습니다")
                         .font(.Pretendard.Regular.size16)
+                        .padding(.top, 12)
                 }
             }
-            .padding(.top, 28)
         }
     }
 }
