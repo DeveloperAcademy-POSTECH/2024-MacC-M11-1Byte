@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// MARK: 온보딩에서 목표 입력 여부에 따라, 버튼 색상 & 활성화 여부 변경되는 공통 버튼
+// MARK: Onboarding에서 데이터 입력 여부에 따라, 버튼 색상 & 활성화 여부 변경되는 공통 버튼
 struct NextButton<Content: View>: View {
     
     let label: Content
