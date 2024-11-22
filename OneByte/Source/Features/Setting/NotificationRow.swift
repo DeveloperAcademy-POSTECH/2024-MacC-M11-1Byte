@@ -15,6 +15,7 @@ struct NotificationRow: View {
                 .font(.Pretendard.SemiBold.size16)
             Spacer()
         }
+        .frame(maxWidth: .infinity)
         .padding()
         
     }

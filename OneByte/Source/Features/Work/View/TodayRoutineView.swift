@@ -10,6 +10,7 @@ import SwiftData
 
 struct TodayRoutineView: View {
     
+    @Environment(\.modelContext) private var modelContext
     @Query var mainGoals: [MainGoal] // 모든 MainGoal 데이터를 쿼리
     @State var viewModel = TodayRoutineViewModel()
     
@@ -23,8 +24,18 @@ struct TodayRoutineView: View {
                 if !viewModel.morningGoals(from: todayGoals).isEmpty {
                     TodayRoutineTypeHeaderView(routineimage: "sun.max.fill", routineTimeType: "오전 루틴")
                     
-                    ForEach(viewModel.morningGoals(from: todayGoals), id: \.id) { detailGoal in
-                        TodayRoutineCell(detailGoal: detailGoal)
+                    if let mainGoal = mainGoals.first { // MainGoal 가져오기
+                        ForEach(viewModel.morningGoals(from: todayGoals), id: \.id) { detailGoal in
+                            if let subGoal = mainGoal.subGoals.first(where: { $0.detailGoals.contains(detailGoal) }) {
+                                TodayRoutineCell(
+                                    mainGoal: mainGoal,
+                                    detailGoal: detailGoal,
+                                    subGoalTitle: subGoal.title,
+                                    viewModel: viewModel,
+                                    modelContext: modelContext
+                                )
+                            }
+                        }
                     }
                 }
                 
@@ -33,8 +44,18 @@ struct TodayRoutineView: View {
                     TodayRoutineTypeHeaderView(routineimage: "moon.fill", routineTimeType: "오후 루틴")
                         .padding(.top)
                     
-                    ForEach(viewModel.afternoonGoals(from: todayGoals), id: \.id) { detailGoal in
-                        TodayRoutineCell(detailGoal: detailGoal)
+                    if let mainGoal = mainGoals.first { // MainGoal 가져오기
+                        ForEach(viewModel.afternoonGoals(from: todayGoals), id: \.id) { detailGoal in
+                            if let subGoal = mainGoal.subGoals.first(where: { $0.detailGoals.contains(detailGoal) }) {
+                                TodayRoutineCell(
+                                    mainGoal: mainGoal,
+                                    detailGoal: detailGoal,
+                                    subGoalTitle: subGoal.title,
+                                    viewModel: viewModel,
+                                    modelContext: modelContext
+                                )
+                            }
+                        }
                     }
                 }
                 
@@ -43,8 +64,18 @@ struct TodayRoutineView: View {
                     TodayRoutineTypeHeaderView(routineimage: "star.fill", routineTimeType: "자유 루틴")
                         .padding(.top)
                     
-                    ForEach(viewModel.freeGoals(from: todayGoals), id: \.id) { detailGoal in
-                        TodayRoutineCell(detailGoal: detailGoal)
+                    if let mainGoal = mainGoals.first { // MainGoal 가져오기
+                        ForEach(viewModel.freeGoals(from: todayGoals), id: \.id) { detailGoal in
+                            if let subGoal = mainGoal.subGoals.first(where: { $0.detailGoals.contains(detailGoal) }) {
+                                TodayRoutineCell(
+                                    mainGoal: mainGoal,
+                                    detailGoal: detailGoal,
+                                    subGoalTitle: subGoal.title,
+                                    viewModel: viewModel,
+                                    modelContext: modelContext
+                                )
+                            }
+                        }
                     }
                 }
             }
@@ -56,7 +87,11 @@ struct TodayRoutineView: View {
 
 struct TodayRoutineCell: View {
     
+    let mainGoal: MainGoal
     let detailGoal: DetailGoal
+    let subGoalTitle: String
+    let viewModel: TodayRoutineViewModel
+    let modelContext: ModelContext
     
     var body: some View {
         HStack(spacing: 15) {
@@ -64,42 +99,39 @@ struct TodayRoutineCell: View {
             if let remindTime = detailGoal.remindTime {
                 Text(remindTime.timeString)
                     .font(.Pretendard.Medium.size14)
-                    .foregroundStyle(Color.my727272)
-                    .padding(.bottom)
-            } else {
-                Text("          ") // 빈 문자열 대신 공백을 명시적으로 설정
-                    .font(.Pretendard.Medium.size14)
-                    .opacity(0)
+                    .foregroundStyle(detailGoal.isAchievedToday ? Color.my727272.opacity(0.6) : Color.my727272)
                     .padding(.bottom)
             }
             
             VStack(alignment: .leading, spacing: 4) {
                 Text(detailGoal.title)
                     .font(.Pretendard.SemiBold.size16)
-                    .foregroundStyle(Color.my2B2B2B)
+                    .foregroundStyle(detailGoal.isAchievedToday ? Color.my2B2B2B.opacity(0.7) : Color.my2B2B2B)
+                    .strikethrough(detailGoal.isAchievedToday)
                 
-                Text(detailGoal.memo) // ⚠️⚠️⚠️ 나중에 detailGoal에 해당하는 Subgoal title띄워지게
+                Text(subGoalTitle) // 🚧🚧🚧 Subgoal을 입력해야만 DetailGoal이 입력가능한 위계가 생기면, detailGoal에 해당하는 Subgoal title 띄워지게
                     .font(.Pretendard.SemiBold.size12)
+                    .foregroundStyle(detailGoal.isAchievedToday ? Color.my428142.opacity(0.7) : Color.my428142)
                     .foregroundStyle(Color.my428142)
             }
             Spacer()
             
             Button {
-                print("클로버 버튼 탭")
+                print("⚠️[DEBUG] 현재 완료 체크하는 id : \(detailGoal.id)")
+                print("⚠️[DEBUG] 현재 완료 체크하는 Title : \(detailGoal.title)")
+                print("⚠️[DEBUG] 오늘의 루틴 성취 완료 체크 전 : \(detailGoal.isAchievedToday)")
+                viewModel.toggleAchievement(for: detailGoal, in: mainGoal, context: modelContext)
+                print("⚠️[DEBUG] 오늘의 루틴 성취 완료 체크 후 : \(detailGoal.isAchievedToday)")
+                print("⚠️[DEBUG] MainGoal의 CloverState : \(mainGoal.cloverState)")
             } label: {
-                Rectangle()
+                Image(detailGoal.isAchievedToday ? "AchieveClover1" : "RoutineCheck")
+                    .resizable()
             }
             .frame(width: 32, height: 32)
-            .foregroundColor(.white)
-            .overlay(
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(Color(hex: "385E38"), lineWidth: 3)
-            )
-            .cornerRadius(8)
         }
         .frame(height: 69)
         .padding(.horizontal)
-        .background(Color.white)
+        .background(.white)
         .cornerRadius(12)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
@@ -109,57 +141,18 @@ struct TodayRoutineCell: View {
 }
 
 extension DetailGoal {
-    func isTodayRoutine(for day: String) -> Bool {
-        switch day {
-        case "월": return alertMon
-        case "화": return alertTue
-        case "수": return alertWed
-        case "목": return alertThu
-        case "금": return alertFri
-        case "토": return alertSat
-        case "일": return alertSun
-        default: return false
-        }
-    }
-}
-
-extension Date {
-    var hour: Int {
-        return Calendar.current.component(.hour, from: self)
-    }
-}
-
-struct TodayRoutineCell_Previews: PreviewProvider {
-    static var previews: some View {
-        // 더미 데이터 생성
-        let sampleDetailGoal = DetailGoal(
-            id: 1,
-            title: "매일아침 유산균 먹기",
-            memo: "건강한 내가 되기",
-            achieveCount: 3,
-            achieveGoal: 5,
-            alertMon: true,
-            alertTue: false,
-            alertWed: false,
-            alertThu: false,
-            alertFri: false,
-            alertSat: false,
-            alertSun: false,
-            isRemind: true,
-            remindTime: Date(),
-            achieveMon: true,
-            achieveTue: false,
-            achieveWed: false,
-            achieveThu: false,
-            achieveFri: false,
-            achieveSat: false,
-            achieveSun: false
-        )
-        
-        // 프리뷰 렌더링
-        TodayRoutineCell(detailGoal: sampleDetailGoal)
-            .previewLayout(.sizeThatFits) // 적절한 크기 조정
-            .padding() // 여백 추가
-            .background(Color.myFFFAF4) // 배경색 설정
-    }
+    //  오늘의 루틴 완료 여부를 확인 및 UI 업데이트
+    var isAchievedToday: Bool {
+           let todayIndex = Date().mondayBasedIndex()
+           switch todayIndex {
+           case 0: return achieveMon
+           case 1: return achieveTue
+           case 2: return achieveWed
+           case 3: return achieveThu
+           case 4: return achieveFri
+           case 5: return achieveSat
+           case 6: return achieveSun
+           default: return false
+           }
+       }
 }

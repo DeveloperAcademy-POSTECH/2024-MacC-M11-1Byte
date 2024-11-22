@@ -13,6 +13,7 @@ struct RoutineMainView: View {
     
     @State var viewModel = RoutineMainViewModel(routineType: .today)
     @Namespace private var animation
+    @Query var mainGoals: [MainGoal]
     
     var body: some View {
         NavigationStack {
@@ -24,6 +25,7 @@ struct RoutineMainView: View {
                     headerView() // 헤더 뷰
                     
                     motivationMessageView() // 만북이 메세지 뷰
+                        .padding(.top, 10)
                     
                     VStack(spacing: 0) {
                         animate() // Tabbar Picker
@@ -72,19 +74,19 @@ struct RoutineMainView: View {
         .padding()
     }
     
-    // MARK: 동기부여 메시지 뷰 ⚠️⚠️⚠️⚠️⚠️ 메세지 수정해야함 ⚠️⚠️⚠️⚠️⚠️
+    // MARK: 동기부여 메시지 뷰
     private func motivationMessageView() -> some View {
-        HStack {
-            Text("완벽하지 않아도 괜찮아요.\n중요한 것은 꾸준히 다시 시작하는 거예요!")
-                .font(.Pretendard.Medium.size14)
-                .foregroundStyle(Color.my3C3C3C)
+        HStack(spacing: 0) {
+            TurtleMessageView(message: viewModel.message)
+                .padding(.bottom, 30)
+            
             Image("Turtle_Main")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 105, height: 85)
         }
+        .frame(maxWidth: .infinity)
         .padding()
-        .background(Color.my6FB56F)
     }
     
     // MARK: Tabbar Picker 뷰
@@ -113,6 +115,7 @@ struct RoutineMainView: View {
         }
     }
 }
+
 
 #Preview {
     RoutineMainView()
