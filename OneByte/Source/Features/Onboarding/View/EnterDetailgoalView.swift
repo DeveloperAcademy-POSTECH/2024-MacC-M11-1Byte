@@ -43,7 +43,7 @@ struct EnterDetailgoalView: View {
                     .padding(.trailing)
             }
             .padding(.horizontal)
-
+            
             VStack(spacing: 12) {
                 Text(nowOnboard.onboardingTitle)
                     .font(.Pretendard.Bold.size26)
@@ -51,7 +51,7 @@ struct EnterDetailgoalView: View {
                     .lineSpacing(3.6)
                 Text(nowOnboard.onboardingSubTitle)
                     .font(.Pretendard.Regular.size16)
-                    .foregroundStyle(Color.my919191)
+                    .foregroundStyle(Color.my5A5A5A)
                     .multilineTextAlignment(.center)
                     .lineSpacing(2.4)
             }
@@ -63,13 +63,16 @@ struct EnterDetailgoalView: View {
                 .frame(height: 154)
                 .overlay (
                     VStack(spacing: 5) {
-                        
                         Text("목표")
                             .font(.Pretendard.Medium.size16)
                             .foregroundStyle(Color.my538F53)
                             .padding(.top)
-                        Text("건강한 삶 살기" )
-                            .font(.Pretendard.Medium.size20)
+                        
+                        if let title = targetSubGoal?.title {
+                            Text(title)
+                                .font(.Pretendard.Medium.size20)
+                                .multilineTextAlignment(.center)
+                        }
                         
                         ZStack {
                             TextField("목표를 위한 루틴을 추가해보세요", text: $userDetailGoal)
