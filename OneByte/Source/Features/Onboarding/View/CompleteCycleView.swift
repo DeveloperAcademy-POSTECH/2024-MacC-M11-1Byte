@@ -67,7 +67,7 @@ struct CompleteCycleView: View {
                 VStack(spacing: 4) {
                     Text("목표")
                         .font(.Pretendard.Medium.size16)
-                        .foregroundStyle(Color.my538F53)
+                        .foregroundStyle(.my538F53)
                     Text(targetSubGoal?.title ?? "")
                         .font(.Pretendard.Medium.size20)
                 }

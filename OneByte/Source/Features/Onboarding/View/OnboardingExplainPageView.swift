@@ -21,7 +21,7 @@ struct OnboardingExplainPageView: View {
                     .lineSpacing(3.6)
                 Text(nowOnboard.onboardingSubTitle)
                     .font(.Pretendard.Regular.size16)
-                    .foregroundStyle(Color.my5A5A5A)
+                    .foregroundStyle(.my5A5A5A)
                     .multilineTextAlignment(.center)
                     .lineSpacing(2.4)
             }

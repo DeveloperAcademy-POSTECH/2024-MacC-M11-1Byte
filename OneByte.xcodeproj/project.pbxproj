@@ -61,7 +61,6 @@
 		1FE27C712CF0B7F600A4C6BE /* DaysCycleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE27C702CF0B7F600A4C6BE /* DaysCycleView.swift */; };
 		1FE27C752CF0C8AF00A4C6BE /* CompleteCycleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE27C742CF0C8AF00A4C6BE /* CompleteCycleView.swift */; };
 		1FE2B8D62CDFAF8600781E20 /* Int+GridExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE2B8D52CDFAF8600781E20 /* Int+GridExtensions.swift */; };
-		1FE2B8D82CDFB12500781E20 /* CustomCornerRoundedRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE2B8D72CDFB12500781E20 /* CustomCornerRoundedRectangle.swift */; };
 		610595CE2CE2140D005ED7B4 /* SubGoalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595CD2CE2140D005ED7B4 /* SubGoalCell.swift */; };
 		610595D22CE214CE005ED7B4 /* SubGoalDetailGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595D12CE214CE005ED7B4 /* SubGoalDetailGridView.swift */; };
 		610595D42CE21505005ED7B4 /* MainGoalSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595D32CE21505005ED7B4 /* MainGoalSheetView.swift */; };
@@ -141,7 +140,6 @@
 		1FE27C702CF0B7F600A4C6BE /* DaysCycleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysCycleView.swift; sourceTree = "<group>"; };
 		1FE27C742CF0C8AF00A4C6BE /* CompleteCycleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteCycleView.swift; sourceTree = "<group>"; };
 		1FE2B8D52CDFAF8600781E20 /* Int+GridExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+GridExtensions.swift"; sourceTree = "<group>"; };
-		1FE2B8D72CDFB12500781E20 /* CustomCornerRoundedRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCornerRoundedRectangle.swift; sourceTree = "<group>"; };
 		610595CD2CE2140D005ED7B4 /* SubGoalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubGoalCell.swift; sourceTree = "<group>"; };
 		610595D12CE214CE005ED7B4 /* SubGoalDetailGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubGoalDetailGridView.swift; sourceTree = "<group>"; };
 		610595D32CE21505005ED7B4 /* MainGoalSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGoalSheetView.swift; sourceTree = "<group>"; };
@@ -432,7 +430,6 @@
 			children = (
 				1FB10A2B2CDF52E600D54EC5 /* OnboardingProgressBar.swift */,
 				1FD4053B2CED987700403A19 /* TurtleMessageView.swift */,
-				1FE2B8D72CDFB12500781E20 /* CustomCornerRoundedRectangle.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -607,7 +604,6 @@
 				610595DB2CE2EA54005ED7B4 /* SubGoalSheetView.swift in Sources */,
 				613904E82CD20457008E591D /* MandalartView.swift in Sources */,
 				1FA420942CC0DC19001CB92D /* Color+.swift in Sources */,
-				1FE2B8D82CDFB12500781E20 /* CustomCornerRoundedRectangle.swift in Sources */,
 				1FB10A342CDF593600D54EC5 /* OnboardingFinishView.swift in Sources */,
 				1F599E262CE5DEBE00788D07 /* SettingView.swift in Sources */,
 				1FB10A3C2CDF78C400D54EC5 /* NextButton.swift in Sources */,

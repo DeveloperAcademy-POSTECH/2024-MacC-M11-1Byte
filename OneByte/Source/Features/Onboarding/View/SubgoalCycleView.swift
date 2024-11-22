@@ -41,7 +41,7 @@ struct SubgoalCycleView: View {
                     .lineSpacing(3.6)
                 Text(nowOnboard.onboardingSubTitle)
                     .font(.Pretendard.Regular.size16)
-                    .foregroundStyle(Color.my5A5A5A)
+                    .foregroundStyle(.my5A5A5A)
                     .multilineTextAlignment(.center)
                     .lineSpacing(2.4)
             }
@@ -50,7 +50,7 @@ struct SubgoalCycleView: View {
             // SubGoal 입력 창
             ZStack {
                 RoundedRectangle(cornerRadius: 24)
-                    .fill(Color.my95D895)
+                    .fill(.my95D895)
                     .onTapGesture {
                         isFocused = true // Cell 전체영역 터치 시 TextField에 포커스
                     }
@@ -76,9 +76,9 @@ struct SubgoalCycleView: View {
                     HStack(spacing: 0) {
                         Spacer()
                         Text("\(userSubGoal.count)")
-                            .foregroundStyle(Color.my6C6C6C)
+                            .foregroundStyle(.my6C6C6C)
                         Text("/15")
-                            .foregroundStyle(Color.my6C6C6C.opacity(0.5))
+                            .foregroundStyle(.my6C6C6C.opacity(0.5))
                     }
                 }
                 .padding()

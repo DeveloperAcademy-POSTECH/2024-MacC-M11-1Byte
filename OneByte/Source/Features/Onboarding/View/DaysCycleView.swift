@@ -165,13 +165,13 @@ struct DaysCycleButton: View {
         }) {
             Text(day)
                 .font(.Pretendard.Medium.size17)
-                .foregroundStyle(isSelected ? .white : Color.my95D895)
+                .foregroundStyle(isSelected ? .white : .my95D895)
                 .frame(width: 36, height: 36)
-                .background(isSelected ? Color.my95D895 : .white)
+                .background(isSelected ? .my95D895 : .white)
                 .clipShape(Circle())
                 .overlay(
                     Circle()
-                        .stroke(isSelected ? .white : Color.my95D895 , lineWidth: 1)
+                        .stroke(isSelected ? .white : .my95D895 , lineWidth: 1)
                 )
         }
         .buttonStyle(PlainButtonStyle())

@@ -49,7 +49,7 @@ struct RoutineCycleView: View {
                     .lineSpacing(3.6)
                 Text(nowOnboard.onboardingSubTitle)
                     .font(.Pretendard.Regular.size16)
-                    .foregroundStyle(Color.my5A5A5A)
+                    .foregroundStyle(.my5A5A5A)
                     .multilineTextAlignment(.center)
                     .lineSpacing(2.4)
             }
@@ -90,10 +90,10 @@ struct RoutineCycleView: View {
                             HStack(spacing: 0) {
                                 Spacer()
                                 Text("\(userDetailGoal.count)")
-                                    .foregroundStyle(Color.my6C6C6C)
+                                    .foregroundStyle(.my6C6C6C)
                                     .font(.Pretendard.Medium.size14)
                                 Text("/20")
-                                    .foregroundStyle(Color.my6C6C6C.opacity(0.5))
+                                    .foregroundStyle(.my6C6C6C.opacity(0.5))
                                     .font(.Pretendard.Medium.size14)
                             }
                             .padding(.trailing)
