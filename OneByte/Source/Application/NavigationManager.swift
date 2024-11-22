@@ -31,18 +31,23 @@ extension PathType {
             
         case .onboardSubgoal:
             EnterSubgoalView() // SubgoalCycleView로 이름 변경
+                .navigationBarBackButtonHidden()
             
         case .onboardDetailgoal:
             EnterDetailgoalView()
+                .navigationBarBackButtonHidden()
             
         case .onboardDays:
             DaysCycleView()
+                .navigationBarBackButtonHidden()
             
         case .onboardComplete:
             CompleteCycleView()
+                .navigationBarBackButtonHidden()
             
         case .onboardFinish:
             OnboardingFinishView()
+                .navigationBarBackButtonHidden()
         }
     }
 }

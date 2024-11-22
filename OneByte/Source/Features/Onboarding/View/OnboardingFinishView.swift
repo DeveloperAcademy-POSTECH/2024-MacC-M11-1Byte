@@ -66,7 +66,6 @@ struct OnboardingFinishView: View {
             .padding()
         }
         .background(.myFFFAF4)
-        .navigationBarBackButtonHidden()
     }
 }
 

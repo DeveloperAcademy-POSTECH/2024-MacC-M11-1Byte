@@ -140,7 +140,6 @@ struct DaysCycleView: View {
             .padding()
         }
         .background(.myFFFAF4)
-        .navigationBarBackButtonHidden()
         .onAppear {
             // 사용자가 입력한 Subgoal id 1의 DetailGoal중 id 1번 값을 찾아 담음
             if let targetSubGoal = subGoals.first(where: { $0.id == 1 }),

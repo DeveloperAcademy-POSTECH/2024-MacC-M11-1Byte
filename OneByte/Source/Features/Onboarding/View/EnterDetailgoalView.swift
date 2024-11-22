@@ -147,7 +147,6 @@ struct EnterDetailgoalView: View {
             .padding()
         }
         .background(.myFFFAF4)
-        .navigationBarBackButtonHidden()
         .contentShape(Rectangle())
         .onAppear {
             // EnterSubgoalView에서 사용자가 입력한 Subgoal중 id 1번 값을 찾아 담음
