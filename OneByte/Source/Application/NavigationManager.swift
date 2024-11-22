@@ -30,11 +30,11 @@ extension PathType {
             ReadyCycleView()
             
         case .onboardSubgoal:
-            EnterSubgoalView() // SubgoalCycleView로 이름 변경
+            SubgoalCycleView() // SubgoalCycleView로 이름 변경
                 .navigationBarBackButtonHidden()
             
         case .onboardDetailgoal:
-            EnterDetailgoalView()
+            RoutineCycleView()
                 .navigationBarBackButtonHidden()
             
         case .onboardDays:

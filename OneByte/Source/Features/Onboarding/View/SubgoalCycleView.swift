@@ -1,7 +1,7 @@
 import SwiftUI
 import SwiftData
 
-struct EnterSubgoalView: View {
+struct SubgoalCycleView: View {
     
     @Environment(NavigationManager.self) var navigationManager
     @Environment(\.modelContext) private var modelContext
@@ -118,6 +118,6 @@ struct EnterSubgoalView: View {
 }
 
 #Preview {
-    EnterSubgoalView(nowOnboard: .subgoalCycle)
+    SubgoalCycleView(nowOnboard: .subgoalCycle)
         .environment(NavigationManager())
 }

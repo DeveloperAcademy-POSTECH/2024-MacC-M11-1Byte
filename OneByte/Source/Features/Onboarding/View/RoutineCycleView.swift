@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct EnterDetailgoalView: View {
+struct RoutineCycleView: View {
     
     @Environment(NavigationManager.self) var navigationManager
     
@@ -160,6 +160,6 @@ struct EnterDetailgoalView: View {
 }
 
 #Preview {
-    EnterDetailgoalView(nowOnboard: .detailgoalCycle)
+    RoutineCycleView(nowOnboard: .detailgoalCycle)
         .environment(NavigationManager())
 }
