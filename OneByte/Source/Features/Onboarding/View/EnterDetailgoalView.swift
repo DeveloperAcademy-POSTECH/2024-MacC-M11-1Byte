@@ -111,7 +111,7 @@ struct EnterDetailgoalView: View {
             
             // 하단 Button
             HStack {
-                GoButton {
+                NextButton(isEnabled: !userDetailGoal.isEmpty) {
                     if let targetSubGoal = targetSubGoal, // id = 1에 해당하는 SubGoal의
                        let detailGoalToUpdate = targetSubGoal.detailGoals.first(where: { $0.id == 1 }) { // id = 1 DetailGoal 공간에 Update
                         viewModel.updateDetailGoal(

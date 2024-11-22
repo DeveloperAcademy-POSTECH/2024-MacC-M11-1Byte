@@ -90,7 +90,7 @@ struct EnterSubgoalView: View {
             
             // 하단 Button
             HStack {
-                GoButton {
+                NextButton(isEnabled: !userSubGoal.isEmpty) {
                     if let subGoal = mainGoals.first?.subGoals.first(where: { $0.id == 1 }) {
                         viewModel.updateSubGoal(
                             subGoal: subGoal,
