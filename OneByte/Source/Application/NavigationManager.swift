@@ -14,6 +14,7 @@ enum PathType: Hashable {
     case onboardSubgoal
     case onboardDetailgoal
     case onboardDays
+    case onboardComplete
 //    case onboardQuestion
 //    case onboardMaingoal
 //    case onboardSubgoal
@@ -41,6 +42,9 @@ extension PathType {
             
         case .onboardDays:
             DaysCycleView()
+            
+        case .onboardComplete:
+            CompleteCycleView()
             
 //        case .onboardQuestion:
 //            QuestionView()

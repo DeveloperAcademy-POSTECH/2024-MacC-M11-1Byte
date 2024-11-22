@@ -132,6 +132,7 @@ struct DaysCycleView: View {
                         achieveSat: targetDetailGoal.achieveSat,
                         achieveSun: targetDetailGoal.achieveSun
                     )
+                    navigationManager.push(to: .onboardComplete)
                 } label: {
                     Text("다음")
                 }
