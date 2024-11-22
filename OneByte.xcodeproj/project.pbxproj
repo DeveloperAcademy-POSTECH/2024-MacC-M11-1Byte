@@ -59,6 +59,7 @@
 		1FD405302CECC42500403A19 /* AllRoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD4052F2CECC42500403A19 /* AllRoutineViewModel.swift */; };
 		1FD405362CECE6F800403A19 /* TodayRouitneTypeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD405352CECE6F800403A19 /* TodayRouitneTypeHeaderView.swift */; };
 		1FD405382CECE7B400403A19 /* TodayRoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD405372CECE7B400403A19 /* TodayRoutineViewModel.swift */; };
+		1FD4053C2CED987700403A19 /* TurtleMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD4053B2CED987700403A19 /* TurtleMessageView.swift */; };
 		1FE2B8D62CDFAF8600781E20 /* Int+GridExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE2B8D52CDFAF8600781E20 /* Int+GridExtensions.swift */; };
 		1FE2B8D82CDFB12500781E20 /* CustomCornerRoundedRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE2B8D72CDFB12500781E20 /* CustomCornerRoundedRectangle.swift */; };
 		610595CE2CE2140D005ED7B4 /* SubGoalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595CD2CE2140D005ED7B4 /* SubGoalCell.swift */; };
@@ -138,6 +139,7 @@
 		1FD4052F2CECC42500403A19 /* AllRoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRoutineViewModel.swift; sourceTree = "<group>"; };
 		1FD405352CECE6F800403A19 /* TodayRouitneTypeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRouitneTypeHeaderView.swift; sourceTree = "<group>"; };
 		1FD405372CECE7B400403A19 /* TodayRoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutineViewModel.swift; sourceTree = "<group>"; };
+		1FD4053B2CED987700403A19 /* TurtleMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurtleMessageView.swift; sourceTree = "<group>"; };
 		1FE2B8D52CDFAF8600781E20 /* Int+GridExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+GridExtensions.swift"; sourceTree = "<group>"; };
 		1FE2B8D72CDFB12500781E20 /* CustomCornerRoundedRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCornerRoundedRectangle.swift; sourceTree = "<group>"; };
 		610595CD2CE2140D005ED7B4 /* SubGoalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubGoalCell.swift; sourceTree = "<group>"; };
@@ -430,6 +432,7 @@
 			isa = PBXGroup;
 			children = (
 				1FB10A2B2CDF52E600D54EC5 /* OnboardingProgressBar.swift */,
+				1FD4053B2CED987700403A19 /* TurtleMessageView.swift */,
 				1FE2B8D72CDFB12500781E20 /* CustomCornerRoundedRectangle.swift */,
 			);
 			path = Helper;
@@ -628,6 +631,7 @@
 				610595CE2CE2140D005ED7B4 /* SubGoalCell.swift in Sources */,
 				1FB10A272CDF512800D54EC5 /* PassButton.swift in Sources */,
 				618FD0762CDF11410003450D /* UpdateService.swift in Sources */,
+				1FD4053C2CED987700403A19 /* TurtleMessageView.swift in Sources */,
 				1FB10A292CDF515300D54EC5 /* QuestionView.swift in Sources */,
 				1F4D8BF22CDF4FC300A0B5CC /* Onboarding.swift in Sources */,
 				1F599E302CE6640600788D07 /* AchievedRow.swift in Sources */,
@@ -771,7 +775,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"OneByte/Preview Content\"";
-				DEVELOPMENT_TEAM = TA9TKWGKS3;
+				DEVELOPMENT_TEAM = WTK65UP9RZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OneByte/Info.plist;
@@ -807,7 +811,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"OneByte/Preview Content\"";
-				DEVELOPMENT_TEAM = TA9TKWGKS3;
+				DEVELOPMENT_TEAM = WTK65UP9RZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OneByte/Info.plist;

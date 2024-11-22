@@ -11,6 +11,8 @@ import SwiftData
 @Observable
 class SettingViewModel{
     
+    var settingViewTabBarVisible: Bool = false // 탭바 hidden 변수
+    
     // 프로필 관련 (닉네임 및 디데이)
     var isEditNicknameSheet: Bool = false
     var profile: [Profile] = []
@@ -86,6 +88,15 @@ class SettingViewModel{
             print("닉네임 저장 성공")
         } catch {
             print("닉네임 저장 실패: \(error)")
+        }
+    }
+    
+    // 하고만다 앱의 '휴대폰 설정'화면으로 이동
+    func openAppSettings() {
+        if let appSettingsURL = URL(string: UIApplication.openSettingsURLString) {
+            if UIApplication.shared.canOpenURL(appSettingsURL) {
+                UIApplication.shared.open(appSettingsURL, options: [:], completionHandler: nil)
+            }
         }
     }
     

@@ -12,8 +12,7 @@ struct SettingView: View {
     
     @Query private var profile: [Profile]
     @Environment(\.dismiss) private var dismiss
-    
-    @State var viewModel = SettingViewModel()
+    @Bindable var viewModel = SettingViewModel()
     
     var body: some View {
         NavigationStack {
@@ -22,15 +21,7 @@ struct SettingView: View {
                     .ignoresSafeArea(edges: .bottom)
                 
                 ScrollView {
-                    VStack {
-                        HStack {
-                            Text("설정")
-                                .font(.Pretendard.Bold.size22)
-                                .foregroundStyle(Color.myB4A99D)
-                            
-                            Spacer()
-                        }
-                        
+                    HStack {
                         profileInfoView()
                     }
                     .padding()
@@ -45,10 +36,18 @@ struct SettingView: View {
                         Divider()
                             .foregroundStyle(Color.myF0E8DF)
                         
-                        NavigationLink(destination: Text("알림 설정 화면")) {
-                            NotificationRow()
-                                .foregroundStyle(.black)
+                        Button {
+                            viewModel.openAppSettings()
+                        } label: {
+                            HStack {
+                                Text("알림 설정")
+                                    .font(.Pretendard.SemiBold.size16)
+                                    .foregroundStyle(.black)
+                                Spacer()
+                            }
+                            .padding()
                         }
+                        
                         Divider()
                             .foregroundStyle(Color.myF0E8DF)
                         
@@ -92,7 +91,23 @@ struct SettingView: View {
                 }
             }
         }
+        .navigationTitle("설정")
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden()
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    self.viewModel.settingViewTabBarVisible = true
+                    dismiss()
+                }) {
+                    Image(systemName: "chevron.left")
+                        .tint(Color.myB4A99D)
+                }
+            }
+        }
+        .toolbar(viewModel.settingViewTabBarVisible ? .visible : .hidden, for: .tabBar)
         .onAppear {
+            viewModel.settingViewTabBarVisible = false // 첫 진입시 Tabbar 숨김
             viewModel.readProfile(profile) // 닉네임 정보
             viewModel.calculateDaysSinceInstall() // 앱 설치한지 몇일 됐는지 계산
         }
