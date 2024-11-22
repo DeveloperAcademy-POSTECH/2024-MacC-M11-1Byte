@@ -15,7 +15,6 @@ struct ReadyCycleView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            Spacer()
             // 상단 텍스트
             VStack(spacing: 12) {
                 Text(nowOnboard.onboardingTitle)
@@ -28,7 +27,7 @@ struct ReadyCycleView: View {
                     .multilineTextAlignment(.center)
                     .lineSpacing(2.4)
             }
-            .padding()
+            .padding(.top, 80)
             
             Spacer()
             
@@ -39,7 +38,6 @@ struct ReadyCycleView: View {
                     .scaledToFit()
                     .frame(height: 200)
             }
-            .padding()
             
             Spacer()
             
