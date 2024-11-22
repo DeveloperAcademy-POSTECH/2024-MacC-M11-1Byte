@@ -160,7 +160,7 @@ struct CompleteCycleView: View {
             // 하단 Button
             HStack {
                 GoButton {
-                    navigationManager.push(to: .onboardComplete)
+                    navigationManager.push(to: .onboardFinish)
                 } label: {
                     Text("다음")
                 }
