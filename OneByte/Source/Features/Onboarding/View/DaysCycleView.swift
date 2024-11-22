@@ -11,7 +11,6 @@ import SwiftData
 struct DaysCycleView: View {
     
     @Environment(NavigationManager.self) var navigationManager
-    @AppStorage("FirstOnboarding") private var isFirstOnboarding: Bool? // 온보딩 첫 동작시에만
     @Environment(\.modelContext) private var modelContext
     
     @State var viewModel = OnboardingViewModel(createService: CreateService(), updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
@@ -70,12 +69,10 @@ struct DaysCycleView: View {
                     .foregroundStyle(Color.myB4A99D)
                     .padding(.top)
                 
-//                if let title = targetDetailGoal?.title {
-                    Text(targetDetailGoal?.title ?? "")
-                        .foregroundStyle(.black)
-                        .font(.Pretendard.Medium.size20)
-                        .multilineTextAlignment(.center)
-//                }
+                Text(targetDetailGoal?.title ?? "")
+                    .foregroundStyle(.black)
+                    .font(.Pretendard.Medium.size20)
+                    .multilineTextAlignment(.center)
                 
                 HStack(spacing: 7) {
                     DaysCycleButton(day: "일", isSelected: $alertSun, onChange: updateAchieveGoal)

@@ -94,7 +94,6 @@ struct SubgoalCycleView: View {
                     if let subGoal = mainGoals.first?.subGoals.first(where: { $0.id == 1 }) {
                         viewModel.updateSubGoal(
                             subGoal: subGoal,
-                            modelContext: modelContext,
                             newTitle: userSubGoal,
                             leafState: 0
                         )

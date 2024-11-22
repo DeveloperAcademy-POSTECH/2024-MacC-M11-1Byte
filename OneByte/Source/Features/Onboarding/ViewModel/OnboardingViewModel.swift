@@ -30,7 +30,7 @@ class OnboardingViewModel: ObservableObject {
     }
     
     // MainGoal 업데이트
-    func updateMainGoal(mainGoals: [MainGoal], modelContext: ModelContext, userMainGoal: String, cloverState: Int ) {
+    func updateMainGoal(mainGoals: [MainGoal], userMainGoal: String, cloverState: Int ) {
         guard let mainGoal = mainGoals.first else {
             print("Error: mainGoal이 nil입니다.")
             return
@@ -45,7 +45,7 @@ class OnboardingViewModel: ObservableObject {
     }
     
     // SubGoal 업데이트
-    func updateSubGoal(subGoal: SubGoal, modelContext: ModelContext, newTitle: String, leafState: Int) {
+    func updateSubGoal(subGoal: SubGoal, newTitle: String, leafState: Int) {
         updateService.updateSubGoal(
             subGoal: subGoal,
             newTitle: newTitle,

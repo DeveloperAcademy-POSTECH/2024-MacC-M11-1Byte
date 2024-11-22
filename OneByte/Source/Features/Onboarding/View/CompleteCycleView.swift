@@ -89,6 +89,7 @@ struct CompleteCycleView: View {
                         .font(.Pretendard.Medium.size16)
                         .foregroundStyle(.myB4A99D)
                         .padding(.top)
+                    
                     HStack(spacing: 8) {
                         DaysCycleCell(
                             day: "일",

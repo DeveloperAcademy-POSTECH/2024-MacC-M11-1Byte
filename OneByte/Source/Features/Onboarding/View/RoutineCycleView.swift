@@ -18,7 +18,6 @@ struct RoutineCycleView: View {
     @State var viewModel = OnboardingViewModel(createService: CreateService(), updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     @State private var userDetailGoal: String = "" // 사용자 SubGoal 입력 텍스트
     @State private var targetSubGoal: SubGoal? // id가 1인 SubGoal 저장변수
-    @FocusState private var isFocused: Bool // TextField 포커스 상태 관리
     private let detailGoalLimit = 20 // 글자 수 제한
     
     var nowOnboard: Onboarding = .detailgoalCycle
@@ -77,7 +76,6 @@ struct RoutineCycleView: View {
                             TextField("목표를 위한 루틴을 추가해보세요", text: $userDetailGoal)
                                 .font(.Pretendard.Medium.size16)
                                 .multilineTextAlignment(.leading)
-                                .focused($isFocused)
                                 .submitLabel(.done)
                                 .frame(height: 54)
                                 .padding(.horizontal)
