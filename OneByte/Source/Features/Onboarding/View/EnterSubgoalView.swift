@@ -108,6 +108,7 @@ struct EnterSubgoalView: View {
             }
             .padding()
         }
+        .background(.myFFFAF4)
         .navigationBarBackButtonHidden()
         .contentShape(Rectangle())
         .onTapGesture {

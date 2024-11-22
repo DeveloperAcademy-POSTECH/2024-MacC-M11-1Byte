@@ -53,6 +53,7 @@ struct ReadyCycleView: View {
             }
             .padding()
         }
+        .background(.myFFFAF4)
         .navigationBarBackButtonHidden()
     }
 }

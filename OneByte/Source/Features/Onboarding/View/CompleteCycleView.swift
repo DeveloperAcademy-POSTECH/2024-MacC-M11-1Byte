@@ -167,6 +167,7 @@ struct CompleteCycleView: View {
             }
             .padding()
         }
+        .background(.myFFFAF4)
         .navigationBarBackButtonHidden()
         .onAppear {
             targetSubGoal = subGoals.first(where: { $0.id == 1 })

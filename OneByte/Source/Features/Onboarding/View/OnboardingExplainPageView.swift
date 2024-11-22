@@ -37,6 +37,7 @@ struct OnboardingExplainPageView: View {
             .padding(.horizontal)
             Spacer()
         }
+        .background(.myFFFAF4)
     }
 }
 
