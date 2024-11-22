@@ -20,6 +20,7 @@ struct DaysCycleView: View {
     @Query private var detailGoals: [DetailGoal]
     @State private var targetDetailGoal: DetailGoal? // id가 1인 SubGoal 저장변수
     
+    @State private var achieveGoal = 0
     @State private var alertMon: Bool = false
     @State private var alertTue: Bool = false
     @State private var alertWed: Bool = false
@@ -99,7 +100,38 @@ struct DaysCycleView: View {
             // 하단 Button
             HStack {
                 GoButton {
-                    // action
+                    achieveGoal = [alertMon, alertTue, alertWed, alertThu, alertFri, alertSat, alertSun]
+                        .filter { $0 }
+                        .count
+                    
+                    guard let targetDetailGoal = targetDetailGoal else {
+                        print("⚠️ targetDetailGoal is nil")
+                        return
+                    }
+                    
+                    viewModel.updateDetailGoal(
+                        detailGoal: targetDetailGoal,
+                        newTitle: targetDetailGoal.title,
+                        newMemo: targetDetailGoal.memo,
+                        achieveCount: targetDetailGoal.achieveCount,
+                        achieveGoal: achieveGoal,
+                        alertMon: alertMon,
+                        alertTue: alertTue,
+                        alertWed: alertWed,
+                        alertThu: alertThu,
+                        alertFri: alertFri,
+                        alertSat: alertSat,
+                        alertSun: alertSun,
+                        isRemind: targetDetailGoal.isRemind,
+                        remindTime: targetDetailGoal.remindTime,
+                        achieveMon: targetDetailGoal.achieveMon,
+                        achieveTue: targetDetailGoal.achieveTue,
+                        achieveWed: targetDetailGoal.achieveWed,
+                        achieveThu: targetDetailGoal.achieveThu,
+                        achieveFri: targetDetailGoal.achieveFri,
+                        achieveSat: targetDetailGoal.achieveSat,
+                        achieveSun: targetDetailGoal.achieveSun
+                    )
                 } label: {
                     Text("다음")
                 }

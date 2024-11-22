@@ -116,7 +116,6 @@ struct EnterDetailgoalView: View {
                        let detailGoalToUpdate = targetSubGoal.detailGoals.first(where: { $0.id == 1 }) { // id = 1 DetailGoal 공간에 Update
                         viewModel.updateDetailGoal(
                             detailGoal: detailGoalToUpdate,
-                            modelContext: modelContext,
                             newTitle: userDetailGoal,
                             newMemo: "",
                             achieveCount: 0,
