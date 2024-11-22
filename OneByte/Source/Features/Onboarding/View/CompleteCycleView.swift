@@ -11,7 +11,6 @@ import SwiftData
 struct CompleteCycleView: View {
     
     @Environment(NavigationManager.self) var navigationManager
-    @AppStorage("FirstOnboarding") private var isFirstOnboarding: Bool? // 온보딩 첫 동작시에만
     @Environment(\.modelContext) private var modelContext
     
     @State var viewModel = OnboardingViewModel(createService: CreateService(), updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))

@@ -95,7 +95,7 @@ struct SubgoalCycleView: View {
                         viewModel.updateSubGoal(
                             subGoal: subGoal,
                             newTitle: userSubGoal,
-                            leafState: 0
+                            leafState: subGoal.leafState
                         )
                         navigationManager.push(to: .onboardDetailgoal)
                     } else {
