@@ -50,6 +50,7 @@ struct OuterGridView: View {
         updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []),
         deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: [])
     )
+    @State private var capturedImage: UIImage? = nil
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -61,14 +62,24 @@ struct OuterGridView: View {
                     .foregroundStyle(Color.myB4A99D)
                 
                 Spacer()
+                
                 Button(action: {
                     print("share")
+                    
                 }){
-                    Image(systemName: "square.and.arrow.up")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(height: 24)
-                        .foregroundStyle(Color.my566956)
+                    if let image = capturedImage {
+                        let newImage = Image(uiImage: image)
+                        ShareLink(
+                            item: newImage,
+                            preview: SharePreview("공유할 이미지", image: newImage)
+                        ) {
+                            Label("", systemImage: "square.and.arrow.up")
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundStyle(Color.my566956)
+                                .font(.system(size: 20, weight: .medium))
+                                // 이부분은 프리텐다드로 하면 적용이 안됨!
+                        }
+                    }
                 }
                 .padding(.trailing, 10)
                 
@@ -83,8 +94,43 @@ struct OuterGridView: View {
                 }
             }
             .padding(.vertical)
-//            .padding(.top, 21/852 * UIScreen.main.bounds.height)
+           
+                // 목표 & 만다라트 그리드
+                captureView()
+            Spacer()
             
+            // 다라 & comment
+            HStack() {
+                Image("Turtle_5")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 73/393 * UIScreen.main.bounds.width)
+                
+                ZStack{
+                    Image("comment")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: 55)
+                    Text("한 걸음씩 가다 보면\n어느새 큰 변화를 느낄 거예요!")
+                        .font(.Pretendard.Medium.size14)
+                }
+            }
+            .padding(.bottom, 47/852 * UIScreen.main.bounds.height)
+            Spacer()
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                capturedImage = captureView().padding().padding(.top, -30).snapshot()
+            }
+        }
+        .padding(.horizontal, 20/393 * UIScreen.main.bounds.width)
+    }
+}
+
+extension OuterGridView {
+    @ViewBuilder
+    func captureView() -> some View {
+        VStack {
             // 목표
             HStack {
                 // 목표 시트 버튼
@@ -117,8 +163,8 @@ struct OuterGridView: View {
             .padding(.bottom, 30/852 * UIScreen.main.bounds.height)
             .padding(.top, 10/852 * UIScreen.main.bounds.height)
             
+            // 만다라트 그리드
             ZStack {
-                // 만다라트 그리드
                 if let selectedMainGoal = mainGoal {
                     LazyVGrid(columns: outerColumns, spacing: 32/393 * UIScreen.main.bounds.width) {
                         let sortedSubGoals = selectedMainGoal.subGoals.sorted(by: { $0.id < $1.id }) // 정렬된 SubGoals 배열
@@ -135,36 +181,15 @@ struct OuterGridView: View {
                     .fill(Color.my538F53)
                     .frame(width: 69, height: 69)
             }
-            
-            Spacer()
-            
-            // 다라 & comment
-            HStack() {
-                Image("Turtle_5")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 73/393 * UIScreen.main.bounds.width)
-                
-                ZStack{
-                    Image("comment")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(height: 55)
-                    Text("한 걸음씩 가다 보면\n어느새 큰 변화를 느낄 거예요!")
-                        .font(.Pretendard.Medium.size14)
-                }
-                
-                Button(action: {
-                    if let selectedMainGoal = mainGoal {
-                        viewModel.resetAllData(modelContext: modelContext, mainGoal: selectedMainGoal)
-                    }
-                }, label: {
-                    Text("모두 삭제")
-                })
-            }
-            .padding(.bottom, 47/852 * UIScreen.main.bounds.height)
             Spacer()
         }
-        .padding(.horizontal, 20/393 * UIScreen.main.bounds.width)
     }
+}
+struct Photo: Transferable {
+    static var transferRepresentation: some TransferRepresentation {
+        ProxyRepresentation(exporting: \.image)
+    }
+
+    public var image: Image
+    public var caption: String
 }

@@ -45,6 +45,7 @@ struct SubGoalCell: View {
                                         .font(.Pretendard.Medium.size12)
                                         .background(colorForGoal(achieveGoal: detailGoal.achieveGoal, achieveCount: detailGoal.achieveCount))
                                         .cornerRadius(cornerRadius, corners: cornerStyle, defaultRadius: 11)
+                                        .cornerRadius(11)
                                 }
                             }
                         }
