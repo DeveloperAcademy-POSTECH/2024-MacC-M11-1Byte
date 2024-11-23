@@ -6,59 +6,75 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct OnboardingStartView: View {
     
     @Environment(\.modelContext) private var modelContext
     @State private var navigationManager = NavigationManager()
     
-    @State var viewModel = OnboardingViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []))
+    @Query var clovers: [Clover]
+    @State var viewModel = OnboardingViewModel(createService: CreateService(), updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     
-    var nowOnboard: Onboarding = .start
+    @State private var nowOnboard: OnboardingExplain = .first
     
     var body: some View {
         NavigationStack(path: $navigationManager.path) {
             VStack {
-                Spacer()
-                // 상단 텍스트
-                VStack(spacing: 10) {
-                    Text(nowOnboard.onboardingTitle)
-                        .font(.Pretendard.Bold.size26)
-                    
-                    Text(nowOnboard.onboardingSubTitle)
-                        .font(.Pretendard.Regular.size18)
-                        .multilineTextAlignment(.center)
-                        .lineSpacing(4)
+                // 만다라트 설명 5페이지뷰 탭뷰
+                TabView(selection: $nowOnboard) {
+                    ForEach(OnboardingExplain.allCases, id: \.self) { onboarding in
+                        OnboardingExplainPageView(
+                            nowOnboard: nowOnboard
+                        )
+                        .tag(onboarding)
+                    }
                 }
-                Spacer()
+                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                 
-                // 중앙 캐릭터 이미지
-                HStack {
-                    Image("Turtle_1")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 215)
+                // Indicator ( 현재 Page/전체 Page 나타내는 dots )
+                VStack {
+                    HStack(spacing: 8) {
+                        ForEach(OnboardingExplain.allCases, id: \.self) { onboarding in
+                            Circle()
+                                .frame(width: 8, height: 8)
+                                .foregroundStyle(nowOnboard == onboarding ? .my636363 : .my919191)
+                        }
+                    }
                 }
-                .padding()
+                .padding(.bottom)
                 
-                Spacer()
-                
-                // 하단 Button
                 GoButton {
-                    navigationManager.push(to: .onboardQuestion)
+                    handleNextButtonTap()
                 } label: {
-                    Text("목표 세우러 가기")
+                    Text("다음")
                 }
                 .padding()
             }
+            .background(.myFFFAF4)
             .navigationDestination(for: PathType.self) { pathType in
                 pathType.NavigatingView()
             }
             .onAppear {
-                viewModel.createGoals(modelContext: modelContext) // 온보딩 등장시 데이터 생성
+                viewModel.createGoals(modelContext: modelContext) // 온보딩 등장시 루틴 데이터 생성
+                viewModel.createAllCloverData(modelContext: modelContext) // 온보딩 등장시 클로버 데이터 생성
             }
         }
         .environment(navigationManager)
+    }
+    
+    private func handleNextButtonTap() {
+        // 마지막 온보딩 페이지인지 확인
+        if nowOnboard == OnboardingExplain.allCases.last {
+            // 네비게이션으로 이동
+            navigationManager.push(to: .onboardReady)
+        } else {
+            // 다음 페이지로 이동
+            if let currentIndex = OnboardingExplain.allCases.firstIndex(of: nowOnboard),
+               currentIndex + 1 < OnboardingExplain.allCases.count {
+                nowOnboard = OnboardingExplain.allCases[currentIndex + 1]
+            }
+        }
     }
 }
 

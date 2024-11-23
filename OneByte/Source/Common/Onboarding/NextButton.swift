@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// MARK: 온보딩에서 목표 입력 여부에 따라, 버튼 색상 & 활성화 여부 변경되는 공통 버튼
+// MARK: Onboarding에서 데이터 입력 여부에 따라, 버튼 색상 & 활성화 여부 변경되는 공통 버튼
 struct NextButton<Content: View>: View {
     
     let label: Content
@@ -27,12 +27,12 @@ struct NextButton<Content: View>: View {
             }
         }) {
             label
-                .font(isEnabled ? .Pretendard.Medium.size18 : .Pretendard.Regular.size18)
+                .font(.Pretendard.Medium.size18)
                 .foregroundStyle(.white)
                 .frame(maxWidth: .infinity)
                 .frame(height: 53)
-                .background(isEnabled ? Color(hex: "538F53") : Color(hex: "C9C9C9"))
-                .clipShape(RoundedRectangle(cornerRadius: 16))
+                .background(isEnabled ? .my538F53 : .myD9D9D9)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
         }
         .disabled(!isEnabled) // 버튼이 비활성화된 경우 터치가 불가능하게 설정
     }

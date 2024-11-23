@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// MARK: 온보딩에서 다음 화면으로 넘어가는 공통 버튼
+// MARK: OnboardingExplainPages에서 다음 화면으로 넘어가는 공통 버튼
 struct GoButton<Content: View>: View {
     
     let label: Content
@@ -27,7 +27,7 @@ struct GoButton<Content: View>: View {
                 .foregroundStyle(.white)
                 .frame(maxWidth: .infinity)
                 .frame(height: 53)
-                .background(Color(hex: "538F53"))
+                .background(Color.my538F53)
                 .clipShape(RoundedRectangle(cornerRadius: 16))
         }
     }

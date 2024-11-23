@@ -10,11 +10,14 @@ import SwiftData
 
 @main
 struct OneByteApp: App {
+    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             MainGoal.self,
             SubGoal.self,
-            DetailGoal.self
+            DetailGoal.self,
+            Clover.self,
+            Profile.self
         ])
         
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)

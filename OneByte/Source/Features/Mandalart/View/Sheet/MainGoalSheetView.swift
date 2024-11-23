@@ -13,23 +13,30 @@ struct MainGoalsheetView: View {
     @Environment(\.managedObjectContext) private var context
     @Binding var mainGoal: MainGoal? // 옵셔널로 변경
     @Binding var isPresented: Bool
+    private let titleLimit = 15 // 제목 글자수 제한
+    
     @State private var newTitle: String = ""
     @State private var newMemo: String = ""
+    @State private var cloverState: Int = 0
     
-    private let viewModel = MandalartViewModel(createService: ClientCreateService(), updateService: ClientUpdateService(mainGoals: [], subGoals: [], detailGoals: []), deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []))
-    private let titleLimit = 15 // 제목 글자수 제한
+    private let viewModel = MandalartViewModel(
+        createService: CreateService(),
+        updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []),
+        deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: [])
+    )
     
     var body: some View {
         VStack {
-            Text("핵심 목표")
+            Text("나의 목표")
                 .font(.Pretendard.SemiBold.size17)
             
             // 핵심 목표 제목 입력란
             ZStack {
-                TextField("핵심 목표를 입력해주세요", text: $newTitle)
+                TextField("나의 목표를 입력해주세요", text: $newTitle)
                     .padding()
                     .background(.white)
-                    .cornerRadius(8)
+                    .font(.Pretendard.Medium.size16)
+                    .cornerRadius(12)
                     .onChange(of: newTitle) { oldValue, newValue in
                         if newValue.count > titleLimit {
                             newTitle = String(newValue.prefix(titleLimit))
@@ -37,17 +44,17 @@ struct MainGoalsheetView: View {
                     }
                 HStack {
                     Spacer()
-                    Button(action: {
-                        if let mainGoal = mainGoal {
+                    if newTitle != "" {
+                        Button(action: {
                             newTitle = ""
-                        }
-                    }, label: {
-                        Image(systemName: "xmark.circle.fill")
-                            .resizable()
-                            .frame(width: 23, height: 23)
-                            .foregroundStyle(Color.myB9B9B9)
-                    })
-                    .padding(.trailing)
+                        }, label: {
+                            Image(systemName: "xmark.circle.fill")
+                                .resizable()
+                                .frame(width: 23, height: 23)
+                                .foregroundStyle(Color.myB9B9B9)
+                        })
+                        .padding(.trailing)
+                    }
                 }
             }
             .padding(.top, 20/852 * UIScreen.main.bounds.height)
@@ -58,11 +65,11 @@ struct MainGoalsheetView: View {
                 Text("\(newTitle.count)")
                     .font(.Pretendard.Medium.size12)
                     .foregroundStyle(Color.my6C6C6C)
-                Text("/15")
+                Text("/\(titleLimit)")
                     .font(.Pretendard.Medium.size12)
                     .foregroundStyle(Color.my6C6C6C.opacity(0.5))
             }
-            .padding(.trailing, 5)
+            .padding(.trailing, 10)
             
             Spacer()
             
@@ -73,25 +80,32 @@ struct MainGoalsheetView: View {
                 }) {
                     Text("취소")
                         .frame(maxWidth: .infinity)
+                        .font(.Pretendard.Medium.size16)
                         .padding()
                         .background(Color.my787880.opacity(0.2))
                         .foregroundStyle(Color.my3C3C43.opacity(0.6))
-                        .cornerRadius(8)
+                        .cornerRadius(12)
                 }
                 
                 Button(action: {
                     if let mainGoal = mainGoal {
-                        viewModel.updateMainGoal(mainGoal: mainGoal, modelContext: modelContext, id: mainGoal.id, newTitle: newTitle)
+                        viewModel.updateMainGoal(
+                            mainGoal: mainGoal,
+                            id: mainGoal.id,
+                            newTitle: newTitle,
+                            cloverState: cloverState)
                     }
                     isPresented = false
                 }) {
                     Text("저장")
                         .frame(maxWidth: .infinity)
+                        .font(.Pretendard.Medium.size16)
                         .padding()
-                        .background(Color.my538F53)
-                        .foregroundStyle(.white)
-                        .cornerRadius(8)
+                        .background(newTitle == "" ? Color.my538F53.opacity(0.7) : Color.my538F53)
+                        .foregroundStyle(newTitle == "" ? .white.opacity(0.7) : .white)
+                        .cornerRadius(12)
                 }
+                .disabled(newTitle == "")
             }
         }
         .padding(.horizontal)

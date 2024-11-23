@@ -8,78 +8,45 @@
 import SwiftUI
 
 enum PathType: Hashable {
-    // 회고 case
-    case main
-    case total
-    case select
-    case retrospect
-    case complete
-    
     // 온보딩 case
     case onboardStart
-    case onboardQuestion
-    case onboardMaingoal
+    case onboardReady
     case onboardSubgoal
     case onboardDetailgoal
+    case onboardDays
+    case onboardComplete
     case onboardFinish
-    case onboardInfo
 }
 
 extension PathType {
     @ViewBuilder
     func NavigatingView() -> some View {
         switch self {
-        // 회고 case
-        case .main:
-            RetrospectMainView()
-                .navigationBarBackButtonHidden()
-            
-        case .total:
-            RetrospectTotalView()
-                .navigationBarBackButtonHidden()
-            
-        case .select:
-            RetrospectSelectView()
-                .navigationBarBackButtonHidden()
-            
-        case .retrospect:
-            RetrospectView()
-                .navigationBarBackButtonHidden()
-            
-        case .complete:
-            RetrospectCompleteView()
-                .navigationBarBackButtonHidden()
-            
         // 온보딩 case
         case .onboardStart:
             OnboardingStartView()
             
-        case .onboardQuestion:
-            QuestionView()
-                .navigationBarBackButtonHidden()
-                .navigationBarHidden(true)
-            
-        case .onboardMaingoal:
-            EnterMaingoalView()
-                .navigationBarBackButtonHidden()
-                .navigationBarHidden(true)
+        case .onboardReady:
+            ReadyCycleView()
             
         case .onboardSubgoal:
-            EnterSubgoalView()
+            SubgoalCycleView() // SubgoalCycleView로 이름 변경
                 .navigationBarBackButtonHidden()
-                .navigationBarHidden(true)
             
         case .onboardDetailgoal:
-            EnterDetailgoalView()
+            RoutineCycleView()
                 .navigationBarBackButtonHidden()
-                .navigationBarHidden(true)
+            
+        case .onboardDays:
+            DaysCycleView()
+                .navigationBarBackButtonHidden()
+            
+        case .onboardComplete:
+            CompleteCycleView()
+                .navigationBarBackButtonHidden()
             
         case .onboardFinish:
             OnboardingFinishView()
-                .navigationBarBackButtonHidden()
-            
-        case .onboardInfo:
-            OnboardingExplainView()
                 .navigationBarBackButtonHidden()
         }
     }
