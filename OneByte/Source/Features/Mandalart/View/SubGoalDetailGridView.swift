@@ -16,6 +16,7 @@ struct SubGoalDetailGridView: View {
     @State var subSheetIsPresented: Bool = false
     @Binding var subGoal: SubGoal?
     @Binding var tabBarVisible: Bool
+    @Binding var isTabBarMainVisible: Bool
     
     private let viewModel = MandalartViewModel(
         createService: CreateService(),
@@ -109,6 +110,7 @@ struct SubGoalDetailGridView: View {
         .toolbar(tabBarVisible ? .visible : .hidden, for: .tabBar)
         .onAppear{
             tabBarVisible = false
+            isTabBarMainVisible = false
         }
     }
 }

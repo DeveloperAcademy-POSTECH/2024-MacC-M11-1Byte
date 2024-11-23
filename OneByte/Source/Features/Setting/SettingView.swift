@@ -13,6 +13,7 @@ struct SettingView: View {
     @Query private var profile: [Profile]
     @Environment(\.dismiss) private var dismiss
     @Bindable var viewModel = SettingViewModel()
+    @Binding var isTabBarMainVisible: Bool
     
     var body: some View {
         NavigationStack {
@@ -107,6 +108,7 @@ struct SettingView: View {
         }
         .toolbar(viewModel.settingViewTabBarVisible ? .visible : .hidden, for: .tabBar)
         .onAppear {
+            isTabBarMainVisible = false
             viewModel.settingViewTabBarVisible = false // 첫 진입시 Tabbar 숨김
             viewModel.readProfile(profile) // 닉네임 정보
             viewModel.calculateDaysSinceInstall() // 앱 설치한지 몇일 됐는지 계산
@@ -155,5 +157,5 @@ struct SettingView: View {
 }
 
 #Preview {
-    SettingView()
+    SettingView(isTabBarMainVisible: .constant(true))
 }

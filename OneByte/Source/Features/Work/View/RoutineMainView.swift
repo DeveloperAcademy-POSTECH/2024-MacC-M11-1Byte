@@ -15,6 +15,7 @@ struct RoutineMainView: View {
     @Namespace private var animation
     @Query var mainGoals: [MainGoal]
     @Query var clovers: [Clover]
+    @Binding var isTabBarMainVisible: Bool
     
     var body: some View {
         NavigationStack {
@@ -47,8 +48,7 @@ struct RoutineMainView: View {
                 }
             }
             .onAppear {
-                // 일주일 지났는지 계산 후, 초기화하는 로직
-//                viewModel.resetGoals(goals: mainGoals, modelContext: modelContext)
+                isTabBarMainVisible = true
             }
         }
     }
@@ -68,7 +68,7 @@ struct RoutineMainView: View {
             Spacer()
             
             NavigationLink {
-                SettingView()
+                SettingView(isTabBarMainVisible: $isTabBarMainVisible)
             } label: {
                 Image(systemName: "gear")
                     .resizable()
@@ -133,5 +133,5 @@ struct RoutineMainView: View {
 
 
 #Preview {
-    RoutineMainView()
+    RoutineMainView(isTabBarMainVisible: .constant(true))
 }

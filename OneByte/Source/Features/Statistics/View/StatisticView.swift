@@ -13,6 +13,7 @@ struct StatisticView: View {
     @Query var clovers: [Clover]
     @Query var profile: [Profile]
     @State var viewModel = StatisticViewModel()
+    @Binding var isTabBarMainVisible: Bool
     
     var body: some View {
         NavigationStack{
@@ -25,7 +26,7 @@ struct StatisticView: View {
                     Spacer()
                     
                     NavigationLink {
-                        SettingView()
+                        SettingView(isTabBarMainVisible: $isTabBarMainVisible)
                     } label: {
                         Image(systemName: "gear")
                             .resizable()
@@ -48,6 +49,7 @@ struct StatisticView: View {
             .padding(.horizontal, 20)
             .background(Color.myFFFAF4)
             .onAppear {
+                isTabBarMainVisible = true
                 viewModel.setClovers(clovers)
                 viewModel.setProfile(profile)
             }
@@ -299,6 +301,6 @@ struct StatisticView: View {
 }
 
 #Preview {
-    StatisticView()
+    StatisticView(isTabBarMainVisible: .constant(true))
 }
 
