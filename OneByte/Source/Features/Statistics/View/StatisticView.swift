@@ -10,8 +10,9 @@ import SwiftData
 
 struct StatisticView: View {
     @Environment(\.modelContext) private var modelContext
-    
-    @StateObject var viewModel = StatisticViewModel()
+    @Query var clovers: [Clover]
+    @Query var profile: [Profile]
+    @State var viewModel = StatisticViewModel()
     
     var body: some View {
         NavigationStack{
@@ -46,6 +47,10 @@ struct StatisticView: View {
             }
             .padding(.horizontal, 20)
             .background(Color.myFFFAF4)
+            .onAppear {
+                viewModel.setClovers(clovers)
+                viewModel.setProfile(profile)
+            }
         }
     }
     
@@ -235,7 +240,7 @@ struct StatisticView: View {
                     .padding(.bottom, 9)
                     
                     ForEach(Array(stride(from: viewModel.currentMonth, through: range.min, by: -1)), id: \.self) { month in // 내림차순
-                        let cloversForMonth = viewModel.filterCloversByMonth(clovers: viewModel.clovers, month: month)
+                        let cloversForMonth = viewModel.filterCloversByMonth(clovers: viewModel.currentYearClovers, month: month)
                         VStack(spacing: 9) {
                             HStack(spacing: 20) {
                                 Text("\(month)월")
@@ -276,9 +281,11 @@ struct StatisticView: View {
                                     }
                                 }
                             }
+                            if viewModel.weeklyCloverInfoHeight > 100 {
+                                Divider()
+                                    .padding(.horizontal, 12)
+                            }
                             
-                            Divider()
-                                .padding(.horizontal, 12)
                         }
                     }
                 } else {
