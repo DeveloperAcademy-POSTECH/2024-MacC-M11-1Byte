@@ -115,7 +115,7 @@ struct StatisticView: View {
             }
             
             VStack(alignment: .leading, spacing: 16) {
-                Text("\(viewModel.profileNickName)님! \n이번 달 클로버를 \(viewModel.currentMonthClovers.count)번 획득했어요")
+                Text("\(viewModel.profileNickName)님! \n이번 달 클로버를 \(viewModel.currentMonthClovers.count)개 획득했어요")
                     .font(.Pretendard.Bold.size20)
                     .foregroundStyle(.white)
                 
