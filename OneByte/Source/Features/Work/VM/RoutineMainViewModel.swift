@@ -30,6 +30,16 @@ class RoutineMainViewModel {
         }
     }
     
+    func calcCurrentDay() {
+        let today = Date()
+        let calendar = Calendar(identifier: .iso8601)
+        
+        let result = Date.calculateISOWeekAndMonthWeek(for: today)
+        let currentMonth: Int = calendar.component(.month, from: today)
+        let currentYear: Int = result.year
+        let currentWeekOfMonth: Int = result.weekOfMonth
+    }
+    
 //    func needsReset() -> Bool {
 //        let calendar = Calendar.current
 //        let today = Date()

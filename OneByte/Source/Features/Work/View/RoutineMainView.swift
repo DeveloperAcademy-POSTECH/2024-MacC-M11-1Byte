@@ -57,7 +57,7 @@ struct RoutineMainView: View {
     private func headerView() -> some View {
         HStack {
             HStack(alignment: .bottom) {
-                Text("\(viewModel.mainDateManager.koreanFormattedDate(for: viewModel.todayDate)) (\(Date().currentDay))")
+                Text("\(Date().currentDateString)")
                     .font(.Pretendard.Bold.size22)
                     .foregroundStyle(.white)
                 
