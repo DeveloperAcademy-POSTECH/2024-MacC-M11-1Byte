@@ -191,29 +191,21 @@ struct WeekAchieveCell: View {
                                 if Date().currentDay == days[index] {
                                     // 루틴이고 오늘인데
                                     if isAchieved(for: index) {
-                                        // 성취했으면 그라데이션 클로버
-                                        RoutineCloverGradation.image(
-                                            for: detailGoal.achieveGoal,
-                                            achieveCount: detailGoal.achieveCount
-                                        )
-                                        .resizable()
-                                        .scaledToFit()
-                                    } else {
-                                        // 성취안했으면 흰색이미지
-                                        Image("RoutineDay")
-                                            .resizable()
-                                            .scaledToFit()
-                                    }
+                                           cloverImage(for: detailGoal.achieveGoal, achieveCount: detailGoal.achieveCount)
+                                               .resizable()
+                                               .scaledToFit()
+                                       } else {
+                                           Image("RoutineDay")
+                                               .resizable()
+                                               .scaledToFit()
+                                       }
                                 } else if isFutureDay(index: index) {
                                     Image("RoutineNotYet")  // 루틴이긴한데 아직 오지 않은 요일은 회색 배경
                                         .resizable()
                                         .scaledToFit()
                                 } else {
                                     if isAchieved(for: index) { // 성취 판단
-                                        RoutineCloverGradation.image( // 성취한 경우
-                                            for: detailGoal.achieveGoal,
-                                            achieveCount: detailGoal.achieveCount
-                                        )
+                                        cloverImage(for: detailGoal.achieveGoal, achieveCount: detailGoal.achieveCount)
                                         .resizable()
                                         .scaledToFit()
                                     } else {
@@ -276,11 +268,8 @@ struct WeekAchieveCell: View {
         default: return false
         }
     }
-}
-
-// 루틴별 현재 성취횟수/목표횟수에 따른 그라데이션 클로버
-enum RoutineCloverGradation {
-    static func image(for achieveGoal: Int, achieveCount: Int) -> Image {
+    
+    func cloverImage(for achieveGoal: Int, achieveCount: Int) -> Image {
         // 주당 목표 횟수는 1 ~ 7로 가정
         guard achieveGoal >= 1 && achieveGoal <= 7 else {
             return Image("DefaultClover") // 기본 이미지 반환
@@ -294,6 +283,7 @@ enum RoutineCloverGradation {
         return Image(cloverImageName)
     }
 }
+
 
 //struct WeekAchieveCell_Previews: PreviewProvider {
 //    static var previews: some View {
