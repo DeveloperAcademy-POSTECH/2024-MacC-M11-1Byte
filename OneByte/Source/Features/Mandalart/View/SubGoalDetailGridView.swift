@@ -15,6 +15,7 @@ struct SubGoalDetailGridView: View {
     @State private var selectedDetailGoal: DetailGoal?
     @State var subSheetIsPresented: Bool = false
     @Binding var subGoal: SubGoal?
+    @Binding var tabBarVisible: Bool
     
     private let viewModel = MandalartViewModel(
         createService: CreateService(),
@@ -39,7 +40,8 @@ struct SubGoalDetailGridView: View {
                             }, label: {
                                 Text(selectedSubGoal.title)
                                     .font(.Pretendard.SemiBold.size18)
-                                    .modifier(NextMandalartButtonModifier(color: Color.my95D895))
+                                    .modifier(NextMandalartButtonModifier())
+                                    .background(Color.my95D895)
                             })
                             .cornerRadius(18)
                             .sheet(isPresented: $subSheetIsPresented, content: {
@@ -67,7 +69,8 @@ struct SubGoalDetailGridView: View {
                                 }) {
                                     Text(detailGoal.title)
                                         .font(.Pretendard.Medium.size18)
-                                        .modifier(NextMandalartButtonModifier(color: Color.myBFEBBB))
+                                        .modifier(NextMandalartButtonModifier())
+                                        .background(Color.myBFEBBB)
                                 }
                                 .cornerRadius(cornerRadius, corners: cornerStyle, defaultRadius: 18)
                                 .contextMenu {
@@ -85,7 +88,7 @@ struct SubGoalDetailGridView: View {
                 }
                 .navigationDestination(isPresented: $navigation) {
                     let detailGoal = selectedDetailGoal
-                        DetailGoalView(detailGoal: .constant(detailGoal))
+                        DetailGoalView(detailGoal: .constant(detailGoal), tabBarVisible: $tabBarVisible)
 //                    }
                 }
                 .padding(.top, 55)
@@ -103,6 +106,10 @@ struct SubGoalDetailGridView: View {
 //        .backButtonToolbar { dismiss() }
         .background(Color.myFFFAF4)
         .navigationTitle(subGoal?.title ?? "")
+        .toolbar(tabBarVisible ? .visible : .hidden, for: .tabBar)
+        .onAppear{
+            tabBarVisible = false
+        }
     }
 }
 

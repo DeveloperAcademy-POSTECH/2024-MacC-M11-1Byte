@@ -31,6 +31,11 @@ struct MandalartView: View {
         .fullScreenCover(isPresented: $FirstOnboarding) {
             OnboardingStartView()
         }
+        .onChange(of: FirstOnboarding) { old, newValue in
+                   if !newValue {
+                       requestNotificationPermission()
+                   }
+               }
     }
 }
 
@@ -50,27 +55,38 @@ struct OuterGridView: View {
         updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []),
         deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: [])
     )
+    @State private var capturedImage: UIImage? = nil
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             // 날짜 및 공유, 설정 버튼
-            HStack(alignment: .bottom ,spacing: 8) {
+            HStack(alignment: .center ,spacing: 8) {
                 // 한국 날짜 형식으로 오늘 날짜 표시
-                Text("나의 만다라트")
+                Text("나의 계획")
                     .font(.Pretendard.Bold.size22)
                     .foregroundStyle(Color.myB4A99D)
                 
                 Spacer()
+                
                 Button(action: {
                     print("share")
+                    
                 }){
-                    Image(systemName: "square.and.arrow.up")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(height: 25)
-                        .foregroundStyle(Color.my566956)
+                    if let image = capturedImage {
+                        let newImage = Image(uiImage: image)
+                        ShareLink(
+                            item: newImage,
+                            preview: SharePreview("공유할 이미지", image: newImage)
+                        ) {
+                            Label("", systemImage: "square.and.arrow.up")
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundStyle(Color.my566956)
+                                .font(.system(size: 20, weight: .medium))
+                                // 이부분은 프리텐다드로 하면 적용이 안됨!
+                        }
+                    }
                 }
-                .padding(.trailing, 6)
+                .padding(.trailing, 10)
                 
                 Button(action: {
                     print("gear")
@@ -83,65 +99,9 @@ struct OuterGridView: View {
                 }
             }
             .padding(.vertical)
-            
-            // 구분선
-            Rectangle()
-                .padding(.horizontal, -40) // 패딩 값 무시하기 위함
-                .frame(maxWidth: .infinity, maxHeight: 1)
-                .foregroundStyle(Color.myDBD1C5)
-            
-            Spacer()
-            
-            // 목표 & 마감일까지 남은 시간
-            HStack {
-                // 목표 시트 버튼
-                Button(action: {
-                    mainIsPresented = true
-                }){
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("나의 목표")
-                            .foregroundStyle(Color.myD5F3D1)
-                            .font(.Pretendard.Medium.size14)
-                        
-                        Text(mainGoal?.title ?? "")
-                            .foregroundStyle(.white)
-                            .font(.Pretendard.Bold.size16)
-                            .kerning(-0.32) // 자간
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading) // 전체 너비에서 왼쪽 정렬
-                    .padding(.horizontal,10)
-                    .padding(.vertical)
-                    .background(Color.my538F53)
-                    .cornerRadius(12)
-                }
-                .sheet(isPresented: $mainIsPresented) {
-                    MainGoalsheetView(mainGoal: $mainGoal, isPresented: $mainIsPresented)
-                        .presentationDragIndicator(.visible)
-                        .presentationDetents([.height(244/852 * UIScreen.main.bounds.height)])
-                }
-            }
-            .frame(height: 76/852 * UIScreen.main.bounds.height)
-            .padding(.bottom, 25/852 * UIScreen.main.bounds.height)
-            
-            ZStack {
-                // 만다라트 그리드
-                if let selectedMainGoal = mainGoal {
-                    LazyVGrid(columns: outerColumns, spacing: 32/393 * UIScreen.main.bounds.width) {
-                        let sortedSubGoals = selectedMainGoal.subGoals.sorted(by: { $0.id < $1.id }) // 정렬된 SubGoals 배열
-                        ForEach(sortedSubGoals, id: \.id) { subGoal in
-                            SubGoalCell(selectedSubGoal: .constant(subGoal))
-                        }
-                    }
-                } else {
-                    Text("찾을 수 없습니다.")
-                }
-                
-                // 메인골 자리
-                RoundedRectangle(cornerSize: CGSize(width: 30, height: 30))
-                    .fill(Color.my538F53)
-                    .frame(width: 69, height: 69)
-            }
-            
+           
+                // 목표 & 만다라트 그리드
+                captureView()
             Spacer()
             
             // 다라 & comment
@@ -159,17 +119,91 @@ struct OuterGridView: View {
                     Text("한 걸음씩 가다 보면\n어느새 큰 변화를 느낄 거예요!")
                         .font(.Pretendard.Medium.size14)
                 }
-                
-                Button(action: {
-                    if let selectedMainGoal = mainGoal {
-                        viewModel.resetAllData(modelContext: modelContext, mainGoal: selectedMainGoal)
-                    }
-                }, label: {
-                    Text("모두 삭제")
-                })
             }
             .padding(.bottom, 47/852 * UIScreen.main.bounds.height)
+            Spacer()
         }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                capturedImage = captureView().padding().padding(.top, -30).snapshot()
+            }
+        }
+        
         .padding(.horizontal, 20/393 * UIScreen.main.bounds.width)
     }
+}
+
+extension OuterGridView {
+    @ViewBuilder
+    func captureView() -> some View {
+        VStack {
+            // 목표
+            HStack {
+                // 목표 시트 버튼
+                Button(action: {
+                    mainIsPresented = true
+                }){
+                    VStack(alignment: .leading, spacing: 4) {
+                        HStack(spacing: 0) {
+                            Text("나의 다짐")
+                                .foregroundStyle(Color.myD5F3D1)
+                                .font(.Pretendard.Medium.size14)
+                            Spacer()
+                            Image(systemName: "ellipsis")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 22)
+                                .foregroundStyle(Color.myD5F3D1)
+                        }
+                        
+                        Text(mainGoal?.title ?? "")
+                            .foregroundStyle(.white)
+                            .font(.Pretendard.Bold.size16)
+                            .kerning(-0.32) // 자간
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading) // 전체 너비에서 왼쪽 정렬
+                    .padding(.horizontal)
+                    .padding(.vertical)
+                    .background(Color.my538F53)
+                    .cornerRadius(12)
+                }
+                .sheet(isPresented: $mainIsPresented) {
+                    MainGoalsheetView(mainGoal: $mainGoal, isPresented: $mainIsPresented)
+                        .presentationDragIndicator(.visible)
+                        .presentationDetents([.height(244/852 * UIScreen.main.bounds.height)])
+                }
+            }
+            .frame(height: 76/852 * UIScreen.main.bounds.height)
+            .padding(.bottom, 30/852 * UIScreen.main.bounds.height)
+            .padding(.top, 10/852 * UIScreen.main.bounds.height)
+            
+            // 만다라트 그리드
+            ZStack {
+                if let selectedMainGoal = mainGoal {
+                    LazyVGrid(columns: outerColumns, spacing: 32/393 * UIScreen.main.bounds.width) {
+                        let sortedSubGoals = selectedMainGoal.subGoals.sorted(by: { $0.id < $1.id }) // 정렬된 SubGoals 배열
+                        ForEach(sortedSubGoals, id: \.id) { subGoal in
+                            SubGoalCell(selectedSubGoal: .constant(subGoal))
+                        }
+                    }
+                } else {
+                    Text("찾을 수 없습니다.")
+                }
+                
+                // 메인골 자리
+                RoundedRectangle(cornerSize: CGSize(width: 30, height: 30))
+                    .fill(Color.my538F53)
+                    .frame(width: 69, height: 69)
+            }
+            Spacer()
+        }
+    }
+}
+struct Photo: Transferable {
+    static var transferRepresentation: some TransferRepresentation {
+        ProxyRepresentation(exporting: \.image)
+    }
+
+    public var image: Image
+    public var caption: String
 }

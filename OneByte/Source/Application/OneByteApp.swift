@@ -10,9 +10,7 @@ import SwiftData
 
 @main
 struct OneByteApp: App {
-    init() {
-        requestNotificationPermission()
-    }
+    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             MainGoal.self,

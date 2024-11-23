@@ -13,7 +13,8 @@ import SwiftData
 struct SubGoalCell: View {
     
     @Binding var selectedSubGoal: SubGoal?
-//    @State private var isHidden = true
+    @State var tabBarVisible: Bool = true
+    //    @State private var isHidden = true
     private let innerColumns = Array(repeating: GridItem(.fixed(78/852 * UIScreen.main.bounds.height)), count: 2)
     
     var body: some View {
@@ -22,34 +23,40 @@ struct SubGoalCell: View {
                 // 디테일골을 id에 따라 정렬
                 let detailGoalsSorted = selectedSubGoal.detailGoals.sorted(by: { $0.id < $1.id })
                 
-                NavigationLink(destination: SubGoalDetailGridView(subGoal: $selectedSubGoal)
-                    .toolbar(.hidden, for: .tabBar)
-                     ){
-                        LazyVGrid(columns: innerColumns, spacing: 4) {
-                            ForEach(0..<4, id: \.self) { index in
-                                let cornerRadius: CGFloat = 30
-                                let cornerStyle = cornerStyle(for: index)
-                                if index == (4 - selectedSubGoal.id) {
-                                    Text(selectedSubGoal.title.prefix(8))
-                                        .modifier(MandalartButtonModifier(color: Color.my95D895))
-                                        .font(.Pretendard.Bold.size14)
+                NavigationLink(destination: SubGoalDetailGridView(subGoal: $selectedSubGoal, tabBarVisible: $tabBarVisible)
+                ){
+                    LazyVGrid(columns: innerColumns, spacing: 4) {
+                        ForEach(0..<4, id: \.self) { index in
+                            let cornerRadius: CGFloat = 30
+                            let cornerStyle = cornerStyle(for: index)
+                            if index == (4 - selectedSubGoal.id) {
+                                Text(selectedSubGoal.title.prefix(8))
+                                    .modifier(MandalartButtonModifier())
+                                    .background(Color.my95D895)
+                                    .font(.Pretendard.Bold.size14)
+                                    .cornerRadius(11)
+                                
+                            } else {
+                                let detailGoalIndex = index < (4 - selectedSubGoal.id) ? index : index - 1
+                                if detailGoalIndex < detailGoalsSorted.count {
+                                    let detailGoal = detailGoalsSorted[detailGoalIndex]
+                                    Text(detailGoal.title.prefix(8))
+                                        .modifier(MandalartButtonModifier())
+                                        .font(.Pretendard.Medium.size12)
+                                        .background(colorForGoal(achieveGoal: detailGoal.achieveGoal, achieveCount: detailGoal.achieveCount))
+                                        .cornerRadius(cornerRadius, corners: cornerStyle, defaultRadius: 11)
                                         .cornerRadius(11)
-                                } else {
-                                    let detailGoalIndex = index < (4 - selectedSubGoal.id) ? index : index - 1
-                                    if detailGoalIndex < detailGoalsSorted.count {
-                                        let detailGoal = detailGoalsSorted[detailGoalIndex]
-                                        Text(detailGoal.title.prefix(8))
-                                            .modifier(MandalartButtonModifier(color: Color.myBFEBBB))
-                                            .font(.Pretendard.Medium.size12)
-                                            .cornerRadius(cornerRadius, corners: cornerStyle, defaultRadius: 11)
-                                    }
                                 }
                             }
                         }
                     }
+                }
             } else {
                 Text("SubGoal을 찾을 수가 없습니다.")
             }
+        }
+        .onAppear{
+            tabBarVisible = true
         }
     }
 }

@@ -21,6 +21,7 @@ struct DetailGoalView: View {
     @State private var newMemo: String = ""
     @State private var achieveCount = 0
     @State private var achieveGoal = 0
+    @Binding var tabBarVisible: Bool
     
     // 알람 요일
     @State private var alertMon: Bool = false
@@ -70,6 +71,11 @@ struct DetailGoalView: View {
                 }
                 Spacer()
             }
+        }
+        .scrollIndicators(.hidden)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            UIApplication.shared.endEditing()
         }
         .navigationBarBackButtonHidden()
         .backButtonToolbar { dismiss() }
@@ -139,12 +145,14 @@ struct DetailGoalView: View {
                     }
                 }, label: {
                     Text(isEditing ? "저장" : "수정")
-                        .foregroundStyle(Color.my538F53)
+                        .foregroundStyle((isEditing && newTitle == "") ? Color.my538F53.opacity(0.5) : Color.my538F53)
                 })
+                .disabled(newTitle == "" && isEditing == true)
             })
         }
         .padding(.horizontal, 20)
         .onAppear {
+            tabBarVisible = false
             if let detailGoal = detailGoal {
                 newTitle = detailGoal.title
                 newMemo = detailGoal.memo
