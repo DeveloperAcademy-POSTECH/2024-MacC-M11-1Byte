@@ -123,5 +123,24 @@ class TodayRoutineViewModel {
             return
         }
     }
+    
+    // MainGoal CloverState 변경시킬때,Clover객체에서 현재 날짜에 맞는 주차찾아 CloverState 업데이트 시키기 위해 날짜 찾음
+    func calculateCurrentWeekAndMonthWeek() {
+        let today = Date()
+        
+        // 주차 및 월차 계산
+        let result = Date.calculateISOWeekAndMonthWeek(for: today)
+        print("연도: \(result.year), 주차: \(result.weekOfYear), 월차: \(result.weekOfMonth)")
+        
+        // 주 시작일과 종료일 계산
+        if let range = Date.weekDateRange(for: today) {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy.MM.dd"
+            
+            print("주 시작일: \(formatter.string(from: range.start))")
+            print("주 종료일: \(formatter.string(from: range.end))")
+        }
+    }
+    
 }
 

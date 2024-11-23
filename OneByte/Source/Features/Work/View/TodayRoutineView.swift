@@ -123,6 +123,7 @@ struct TodayRoutineCell: View {
                 viewModel.toggleAchievement(for: detailGoal, in: mainGoal, context: modelContext)
                 print("⚠️[DEBUG] 오늘의 루틴 성취 완료 체크 후 : \(detailGoal.isAchievedToday)")
                 print("⚠️[DEBUG] MainGoal의 CloverState : \(mainGoal.cloverState)")
+                print("⚠️[DEBUG] 현재 Week/Month 정보 : \(viewModel.calculateCurrentWeekAndMonthWeek())")
             } label: {
                 Image(detailGoal.isAchievedToday ? "Day1_Clover1" : "RoutineCheck")
                     .resizable()

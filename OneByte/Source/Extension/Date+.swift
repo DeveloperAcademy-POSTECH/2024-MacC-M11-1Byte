@@ -49,4 +49,31 @@ extension Date {
         return (weekday + 5) % 7
     }
     
+    // MARK: 현재 날짜 기준의 주차에 Clover데이터에 현재 MainGoal CloverState를 Update하기 위한 주차 계산
+    static func calculateISOWeekAndMonthWeek(for date: Date) -> (year: Int, weekOfYear: Int, weekOfMonth: Int) {
+           let calendar = Calendar(identifier: .iso8601)
+           let year = calendar.component(.yearForWeekOfYear, from: date) // 주차의 연도
+           let weekOfYear = calendar.component(.weekOfYear, from: date) // ISO 기준 주차
+           
+           // 주 시작일 계산 (ISO 기준 주 시작일은 월요일)
+           if let weekRange = Date.weekDateRange(for: date) {
+               // 목요일 기준으로 월차 계산
+               let thursday = calendar.date(byAdding: .day, value: 3, to: weekRange.start)!
+               let weekOfMonth = calendar.component(.weekOfMonth, from: thursday) // 월 기준 주차
+               return (year, weekOfYear, weekOfMonth)
+           }
+           
+           // 기본 값 반환 (계산 실패 시)
+           return (year, weekOfYear, 0)
+       }
+
+       static func weekDateRange(for date: Date) -> (start: Date, end: Date)? {
+           let calendar = Calendar(identifier: .iso8601)
+           if let startOfWeek = calendar.dateInterval(of: .weekOfYear, for: date)?.start {
+               let endOfWeek = calendar.date(byAdding: .day, value: 6, to: startOfWeek)!
+               return (startOfWeek, endOfWeek)
+           }
+           return nil
+       }
+    
 }
