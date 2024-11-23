@@ -31,6 +31,11 @@ struct MandalartView: View {
         .fullScreenCover(isPresented: $FirstOnboarding) {
             OnboardingStartView()
         }
+        .onChange(of: FirstOnboarding) { old, newValue in
+                   if !newValue {
+                       requestNotificationPermission()
+                   }
+               }
     }
 }
 
@@ -123,6 +128,7 @@ struct OuterGridView: View {
                 capturedImage = captureView().padding().padding(.top, -30).snapshot()
             }
         }
+        
         .padding(.horizontal, 20/393 * UIScreen.main.bounds.width)
     }
 }
@@ -138,9 +144,17 @@ extension OuterGridView {
                     mainIsPresented = true
                 }){
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("나의 다짐")
-                            .foregroundStyle(Color.myD5F3D1)
-                            .font(.Pretendard.Medium.size14)
+                        HStack(spacing: 0) {
+                            Text("나의 다짐")
+                                .foregroundStyle(Color.myD5F3D1)
+                                .font(.Pretendard.Medium.size14)
+                            Spacer()
+                            Image(systemName: "ellipsis")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 22)
+                                .foregroundStyle(Color.myD5F3D1)
+                        }
                         
                         Text(mainGoal?.title ?? "")
                             .foregroundStyle(.white)

@@ -58,6 +58,6 @@ func colorForGoal(achieveGoal: Int, achieveCount: Int) -> Color {
         default: return Color.my428142
         }
     default:
-        return Color("LightGreen") // 기본 색상
+        return Color.myD6F3D4 // 기본 색상
     }
 }
