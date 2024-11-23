@@ -15,25 +15,25 @@ struct StatisticView: View {
     
     var body: some View {
         NavigationStack{
-            ScrollView {
-                VStack(spacing: 0){
-                    HStack {
-                        Text("통계")
-                            .font(.Pretendard.Bold.size22)
-                            .foregroundStyle(Color.myB4A99D)
-                        
-                        Spacer()
-                        
-                        NavigationLink {
-                            SettingView()
-                        } label: {
-                            Image(systemName: "gear")
-                                .resizable()
-                                .frame(width: 24, height: 24)
-                                .foregroundStyle(Color.my566956)
-                        }
-                    }
+            VStack(spacing: 0){
+                HStack {
+                    Text("통계")
+                        .font(.Pretendard.Bold.size22)
+                        .foregroundStyle(Color.myB4A99D)
                     
+                    Spacer()
+                    
+                    NavigationLink {
+                        SettingView()
+                    } label: {
+                        Image(systemName: "gear")
+                            .resizable()
+                            .frame(width: 24, height: 24)
+                            .foregroundStyle(Color.my566956)
+                    }
+                    .padding(.vertical)
+                }
+                ScrollView {
                     thisMonthCloverInfoView()
                         .padding(.top, 52)
                     thisYearCloverInfoView()
@@ -43,8 +43,8 @@ struct StatisticView: View {
                     
                     Spacer()
                 }
-                .padding(.horizontal, 20)
             }
+            .padding(.horizontal, 20)
             .background(Color.myFFFAF4)
         }
     }
@@ -106,7 +106,7 @@ struct StatisticView: View {
                 .padding(.trailing, 10)
                 .padding(.top, -12)
                 Spacer()
-
+                
             }
             
             VStack(alignment: .leading, spacing: 16) {
