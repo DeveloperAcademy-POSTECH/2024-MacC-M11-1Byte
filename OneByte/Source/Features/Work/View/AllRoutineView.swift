@@ -205,7 +205,7 @@ struct WeekAchieveCell: View {
                                         .scaledToFit()
                                 } else {
                                     if isAchieved(for: index) { // 성취 판단
-                                        cloverImage(for: detailGoal.achieveGoal, achieveCount: detailGoal.achieveCount)
+                                        Image("Day7_Clover1")  // 성취한 경우
                                         .resizable()
                                         .scaledToFit()
                                     } else {
@@ -269,12 +269,12 @@ struct WeekAchieveCell: View {
         }
     }
     
+    // 루틴이 주당 횟수당/현재 성추횟수당 클로버 이미지 적용값 계산
     func cloverImage(for achieveGoal: Int, achieveCount: Int) -> Image {
         // 주당 목표 횟수는 1 ~ 7로 가정
         guard achieveGoal >= 1 && achieveGoal <= 7 else {
             return Image("DefaultClover") // 기본 이미지 반환
         }
-        
         // 달성 횟수는 목표 횟수(achieveGoal)를 초과하지 않도록 제한
         let validAchieveCount = max(1, min(achieveCount, achieveGoal)) // 최소값 1로 보정
         

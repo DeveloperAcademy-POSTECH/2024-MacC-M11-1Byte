@@ -130,7 +130,7 @@ struct TodayRoutineCell: View {
                 print("⚠️[DEBUG] MainGoal의 CloverState : \(mainGoal.cloverState)")
                 viewModel.calculateCurrentWeekAndMonthWeek(mainGoal: mainGoal, clovers: clovers, context: modelContext)
             } label: {
-                Image(detailGoal.isAchievedToday ? "Day1_Clover1" : "RoutineCheck")
+                Image(detailGoal.isAchievedToday ? "Day7_Clover1" : "RoutineCheck")
                     .resizable()
             }
             .frame(width: 32, height: 32)
