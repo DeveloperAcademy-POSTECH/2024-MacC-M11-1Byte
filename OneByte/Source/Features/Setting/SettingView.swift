@@ -15,6 +15,8 @@ struct SettingView: View {
     @Bindable var viewModel = SettingViewModel()
     @Binding var isTabBarMainVisible: Bool
     
+    @State private var nickname: String = UserDefaults.loadNickname()
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -130,9 +132,15 @@ struct SettingView: View {
             
             VStack(spacing: 5) {
                 HStack {
-                    Text(viewModel.nicknameDisplay)
-                        .font(.Pretendard.Bold.size18)
-                        .lineLimit(1)
+                    let nickname = UserDefaults.loadNickname()
+                                   if !nickname.isEmpty {
+                                       Text("\(nickname)님")
+                                           .font(.Pretendard.Bold.size18)
+                                           .lineLimit(1)
+                                   } else {
+                                       Text("닉네임 설정")
+                                           .font(.Pretendard.Bold.size18)
+                                   }
                     
                     Image(systemName: "chevron.right")
                         .font(.Pretendard.Medium.size16)
@@ -153,6 +161,20 @@ struct SettingView: View {
             }
         }
         .padding(.vertical, 5)
+    }
+}
+
+extension UserDefaults {
+    private static let nicknameKey = "nicknameKey"
+
+    // 닉네임 저장
+    static func saveNickname(_ nickname: String) {
+        UserDefaults.standard.set(nickname, forKey: nicknameKey)
+    }
+
+    // 닉네임 불러오기
+    static func loadNickname() -> String {
+        return UserDefaults.standard.string(forKey: nicknameKey) ?? "닉네임 없음"
     }
 }
 

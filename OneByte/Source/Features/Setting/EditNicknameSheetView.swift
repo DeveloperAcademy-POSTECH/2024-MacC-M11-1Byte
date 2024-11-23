@@ -77,7 +77,8 @@ struct EditNicknameSheetView: View {
                 
                 Button {
                     viewModel.isEditNicknameSheet = false
-                    viewModel.updateNewNickname(modelContext: modelContext)
+                    UserDefaults.saveNickname(viewModel.newNickname)
+                    //                    viewModel.updateNewNickname(modelContext: modelContext)
                     print("Button Tapped : 닉네임 변경 저장")
                 } label: {
                     Text("저장")
@@ -93,6 +94,10 @@ struct EditNicknameSheetView: View {
         .padding(.horizontal)
         .padding(.vertical, 20)
         .background(Color.myF1F1F1)
+        .onAppear {
+            // 닉네임 로드 (필요 시)
+            viewModel.newNickname = UserDefaults.loadNickname()
+        }
     }
 }
 
