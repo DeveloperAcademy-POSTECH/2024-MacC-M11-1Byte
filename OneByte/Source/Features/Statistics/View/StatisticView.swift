@@ -10,30 +10,31 @@ import SwiftData
 
 struct StatisticView: View {
     @Environment(\.modelContext) private var modelContext
-    
-    @StateObject var viewModel = StatisticViewModel()
+    @Query var clovers: [Clover]
+    @Query var profile: [Profile]
+    @State var viewModel = StatisticViewModel()
     
     var body: some View {
         NavigationStack{
-            ScrollView {
-                VStack(spacing: 0){
-                    HStack {
-                        Text("통계")
-                            .font(.Pretendard.Bold.size22)
-                            .foregroundStyle(Color.myB4A99D)
-                        
-                        Spacer()
-                        
-                        NavigationLink {
-                            SettingView()
-                        } label: {
-                            Image(systemName: "gear")
-                                .resizable()
-                                .frame(width: 24, height: 24)
-                                .foregroundStyle(Color.my566956)
-                        }
-                    }
+            VStack(spacing: 0){
+                HStack {
+                    Text("통계")
+                        .font(.Pretendard.Bold.size22)
+                        .foregroundStyle(Color.myB4A99D)
                     
+                    Spacer()
+                    
+                    NavigationLink {
+                        SettingView()
+                    } label: {
+                        Image(systemName: "gear")
+                            .resizable()
+                            .frame(width: 24, height: 24)
+                            .foregroundStyle(Color.my566956)
+                    }
+                    .padding(.vertical)
+                }
+                ScrollView {
                     thisMonthCloverInfoView()
                         .padding(.top, 52)
                     thisYearCloverInfoView()
@@ -43,9 +44,13 @@ struct StatisticView: View {
                     
                     Spacer()
                 }
-                .padding(.horizontal, 20)
             }
+            .padding(.horizontal, 20)
             .background(Color.myFFFAF4)
+            .onAppear {
+                viewModel.setClovers(clovers)
+                viewModel.setProfile(profile)
+            }
         }
     }
     
@@ -106,11 +111,11 @@ struct StatisticView: View {
                 .padding(.trailing, 10)
                 .padding(.top, -12)
                 Spacer()
-
+                
             }
             
             VStack(alignment: .leading, spacing: 16) {
-                Text("\(viewModel.profileNickName)님! \n이번 달 클로버를 \(viewModel.currentMonthClovers.count)번 획득했어요")
+                Text("\(viewModel.profileNickName)님! \n이번 달 클로버를 \(viewModel.currentMonthClovers.count)개 획득했어요")
                     .font(.Pretendard.Bold.size20)
                     .foregroundStyle(.white)
                 
@@ -202,7 +207,8 @@ struct StatisticView: View {
         ZStack(alignment: .top) {
             Rectangle()
                 .foregroundStyle(.white)
-                .frame(width: .infinity, height: viewModel.weeklyCloverInfoHeight)
+                .frame(maxWidth: .infinity)
+                .frame(height: viewModel.weeklyCloverInfoHeight)
                 .cornerRadius(13)
                 .overlay(
                     RoundedRectangle(cornerRadius: 13)
@@ -234,7 +240,7 @@ struct StatisticView: View {
                     .padding(.bottom, 9)
                     
                     ForEach(Array(stride(from: viewModel.currentMonth, through: range.min, by: -1)), id: \.self) { month in // 내림차순
-                        let cloversForMonth = viewModel.filterCloversByMonth(clovers: viewModel.clovers, month: month)
+                        let cloversForMonth = viewModel.filterCloversByMonth(clovers: viewModel.currentYearClovers, month: month)
                         VStack(spacing: 9) {
                             HStack(spacing: 20) {
                                 Text("\(month)월")
@@ -275,9 +281,11 @@ struct StatisticView: View {
                                     }
                                 }
                             }
+                            if viewModel.weeklyCloverInfoHeight > 100 {
+                                Divider()
+                                    .padding(.horizontal, 12)
+                            }
                             
-                            Divider()
-                                .padding(.horizontal, 12)
                         }
                     }
                 } else {
