@@ -125,12 +125,22 @@ class TodayRoutineViewModel {
     }
     
     // MainGoal CloverState 변경시킬때,Clover객체에서 현재 날짜에 맞는 주차찾아 CloverState 업데이트 시키기 위해 날짜 찾음
-    func calculateCurrentWeekAndMonthWeek() {
+    func calculateCurrentWeekAndMonthWeek(mainGoal: MainGoal, clovers: [Clover], context: ModelContext) {
         let today = Date()
+        let calendar = Calendar(identifier: .iso8601)
         
         // 주차 및 월차 계산
         let result = Date.calculateISOWeekAndMonthWeek(for: today)
-        print("연도: \(result.year), 주차: \(result.weekOfYear), 월차: \(result.weekOfMonth)")
+        let currentYear: Int = result.year
+        let currentWeekOfYear: Int = result.weekOfYear
+        let currentWeekOfMonth: Int = result.weekOfMonth
+        let currentMonth: Int = calendar.component(.month, from: today)
+        
+        print("클로버 데이터 개수: \(clovers.count)")
+        print("현재 계산된 값: 연도 \(currentYear), 월 \(currentMonth), 월차 \(currentWeekOfMonth), 주차 \(currentWeekOfYear)")
+        for clover in clovers {
+            print("Clover 데이터: ID \(clover.id), 연도 \(clover.cloverYear), 월 \(clover.cloverMonth), 월차 \(clover.cloverWeekOfMonth), 주차 \(clover.cloverWeekOfYear)")
+        }
         
         // 주 시작일과 종료일 계산
         if let range = Date.weekDateRange(for: today) {
@@ -140,7 +150,29 @@ class TodayRoutineViewModel {
             print("주 시작일: \(formatter.string(from: range.start))")
             print("주 종료일: \(formatter.string(from: range.end))")
         }
+        
+        // 현재 주차와 월차에 해당하는 Clover 객체를 찾음
+        if let matchingClover = clovers.first(where: {
+            $0.cloverYear == currentYear &&
+            $0.cloverMonth == currentMonth &&
+            $0.cloverWeekOfMonth == currentWeekOfMonth &&
+            $0.cloverWeekOfYear == currentWeekOfYear
+        }) {
+            print("🍀 Found matching Clover ID: \(matchingClover.id)")
+            
+            // CloverState 업데이트
+            matchingClover.cloverState = mainGoal.cloverState
+            
+            // 저장
+            do {
+                try context.save()
+                print("✅ CloverState successfully updated for Clover ID: \(matchingClover.id)")
+            } catch {
+                print("❌ Failed to save updated Clover: \(error)")
+            }
+        } else {
+            print("⚠️ No matching Clover found for 연도: \(currentYear), 월: \(currentMonth), 월차: \(currentWeekOfMonth), 주차: \(currentWeekOfYear)")
+        }
     }
-    
 }
 
