@@ -11,7 +11,7 @@ import SwiftData
 struct WeeklyResetManager {
     
     private static let lastResetDateKey = "lastResetDate"
-
+    
     func needsReset() -> Bool {
         let calendar = Calendar.current
         let today = Date()
@@ -30,7 +30,7 @@ struct WeeklyResetManager {
         
         return false // 월요일이 아닌 경우 초기화 필요 없음
     }
-
+    
     func resetGoals(goals: [MainGoal], modelContext: ModelContext) {
         guard needsReset() else {
             print("⚠️ No reset needed. Skipping...")
@@ -38,6 +38,9 @@ struct WeeklyResetManager {
         }
         
         for mainGoal in goals {
+            // MainGoal의 CloverState를 1로 업데이트
+            print("🔄 Resetting MainGoal ID: \(mainGoal.id), Title: \(mainGoal.title)")
+            mainGoal.cloverState = 1
             for subGoal in mainGoal.subGoals {
                 for detailGoal in subGoal.detailGoals {
                     print("🔄 Resetting DetailGoal ID: \(detailGoal.id), Title: \(detailGoal.title)")
