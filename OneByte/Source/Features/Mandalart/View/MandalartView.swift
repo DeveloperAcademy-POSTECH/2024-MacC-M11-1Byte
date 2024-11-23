@@ -13,11 +13,12 @@ struct MandalartView: View {
     @Query private var mainGoals: [MainGoal]
     @State var isPresented = false
     @State private var mainGoal: MainGoal?
+    @Binding var isTabBarMainVisible: Bool
     
     var body: some View {
         NavigationStack() {
             if let firstMainGoal = mainGoals.first {
-                OuterGridView(mainGoal: $mainGoal)
+                OuterGridView(mainGoal: $mainGoal, isTabBarMainVisible: $isTabBarMainVisible)
                     .environment(\.modelContext, modelContext)
                     .onAppear {
                         mainGoal = firstMainGoal
@@ -27,6 +28,9 @@ struct MandalartView: View {
                     .foregroundStyle(.gray)
                     .padding()
             }
+        }
+        .onAppear {
+            isTabBarMainVisible = true
         }
         .fullScreenCover(isPresented: $FirstOnboarding) {
             OnboardingStartView()
@@ -46,6 +50,7 @@ struct OuterGridView: View {
     
     @Binding var mainGoal: MainGoal?
     @State var mainIsPresented: Bool = false
+    @Binding var isTabBarMainVisible: Bool
     
     private let dateManager = DateManager()
     private let currentDate = Date()
@@ -88,14 +93,13 @@ struct OuterGridView: View {
                 }
                 .padding(.trailing, 10)
                 
-                Button(action: {
-                    print("gear")
-                }){
+                NavigationLink {
+                    SettingView(isTabBarMainVisible: $isTabBarMainVisible)
+                } label: {
                     Image(systemName: "gear")
                         .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 25)
-                        .foregroundStyle(Color.my566956)
+                        .frame(width: 24, height: 24)
+                        .foregroundStyle(.my566956)
                 }
             }
             .padding(.vertical)
@@ -124,6 +128,7 @@ struct OuterGridView: View {
             Spacer()
         }
         .onAppear {
+            isTabBarMainVisible = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 capturedImage = captureView().padding().padding(.top, -30).snapshot()
             }
@@ -183,7 +188,7 @@ extension OuterGridView {
                     LazyVGrid(columns: outerColumns, spacing: 32/393 * UIScreen.main.bounds.width) {
                         let sortedSubGoals = selectedMainGoal.subGoals.sorted(by: { $0.id < $1.id }) // 정렬된 SubGoals 배열
                         ForEach(sortedSubGoals, id: \.id) { subGoal in
-                            SubGoalCell(selectedSubGoal: .constant(subGoal))
+                            SubGoalCell(selectedSubGoal: .constant(subGoal), isTabBarMainVisible: $isTabBarMainVisible)
                         }
                     }
                 } else {

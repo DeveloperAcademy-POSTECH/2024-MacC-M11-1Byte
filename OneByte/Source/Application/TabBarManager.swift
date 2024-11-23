@@ -13,26 +13,27 @@ struct TabBarManager: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var mainGoals: [MainGoal]
     @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding: Bool = false
+    @State private var isTabBarMainVisible: Bool = true
     @State private var selectedTab: Int = 0
     
     var body: some View {
         ZStack {
             TabView(selection: $selectedTab) {
-                RoutineMainView()
+                RoutineMainView(isTabBarMainVisible: $isTabBarMainVisible)
                     .tabItem {
                         Image(systemName: "list.bullet.rectangle.fill")
                         Text("루틴")
                     }
                     .tag(0)
                 
-                MandalartView()
+                MandalartView(isTabBarMainVisible: $isTabBarMainVisible)
                     .tabItem {
                         Image(systemName: "star.fill")
                             .hidden()
                     }
                     .tag(1)
                 
-                StatisticView()
+                StatisticView(isTabBarMainVisible: $isTabBarMainVisible)
                     .tabItem {
                         Image(systemName: "chart.bar.xaxis.ascending.badge.clock")
                         Text("통계")
@@ -50,22 +51,23 @@ struct TabBarManager: View {
                 }
             }
             
-            // 중앙탭 버튼
-            VStack {
-                Spacer()
-                ZStack {
-                    Circle()
-                        .foregroundStyle(selectedTab == 1 ? .my6FB56F : .my999999)
-                        .frame(width: 62, height: 62)
-                    Image("TabbarMain")
+            if isTabBarMainVisible { // 중앙탭 버튼
+                VStack {
+                    Spacer()
+                    ZStack {
+                        Circle()
+                            .foregroundStyle(selectedTab == 1 ? .my6FB56F : .my999999)
+                            .frame(width: 62, height: 62)
+                        Image("TabbarMain")
+                    }
+                    .padding(.bottom, 36)
+                    .onTapGesture {
+                        selectedTab = 1 // 중앙 버튼 선택 시 루틴 뷰로 이동
+                    }
+                    
                 }
-                .padding(.bottom, 36)
-                .onTapGesture {
-                    selectedTab = 1 // 중앙 버튼 선택 시 루틴 뷰로 이동
-                }
-                
+                .ignoresSafeArea()
             }
-            .ignoresSafeArea()
         }
         .onAppear {
             let resetManager = WeeklyResetManager()
@@ -73,6 +75,7 @@ struct TabBarManager: View {
         }
     }
 }
+
 
 #Preview {
     TabBarManager()

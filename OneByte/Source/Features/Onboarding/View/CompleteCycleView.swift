@@ -195,9 +195,6 @@ struct DaysCycleCell: View {
                         .stroke(isSelected ? .white : Color.my95D895, lineWidth: 1)
                 )
         }
-        .onTapGesture {
-            isSelected.toggle()
-        }
     }
 }
 

@@ -16,6 +16,7 @@ struct SubGoalDetailGridView: View {
     @State var subSheetIsPresented: Bool = false
     @Binding var subGoal: SubGoal?
     @Binding var tabBarVisible: Bool
+    @Binding var isTabBarMainVisible: Bool
     
     private let viewModel = MandalartViewModel(
         createService: CreateService(),
@@ -101,14 +102,13 @@ struct SubGoalDetailGridView: View {
             }
         } // VStack 끝
         .padding(.horizontal, 20/393 * UIScreen.main.bounds.width)
-        
 //        .navigationBarBackButtonHidden()
-//        .backButtonToolbar { dismiss() }
         .background(Color.myFFFAF4)
         .navigationTitle(subGoal?.title ?? "")
         .toolbar(tabBarVisible ? .visible : .hidden, for: .tabBar)
         .onAppear{
             tabBarVisible = false
+            isTabBarMainVisible = false
         }
     }
 }

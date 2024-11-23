@@ -13,6 +13,7 @@ struct StatisticView: View {
     @Query var clovers: [Clover]
     @Query var profile: [Profile]
     @State var viewModel = StatisticViewModel()
+    @Binding var isTabBarMainVisible: Bool
     
     var body: some View {
         NavigationStack{
@@ -25,7 +26,7 @@ struct StatisticView: View {
                     Spacer()
                     
                     NavigationLink {
-                        SettingView()
+                        SettingView(isTabBarMainVisible: $isTabBarMainVisible)
                     } label: {
                         Image(systemName: "gear")
                             .resizable()
@@ -48,6 +49,7 @@ struct StatisticView: View {
             .padding(.horizontal, 20)
             .background(Color.myFFFAF4)
             .onAppear {
+                isTabBarMainVisible = true
                 viewModel.setClovers(clovers)
                 viewModel.setProfile(profile)
             }
@@ -115,9 +117,19 @@ struct StatisticView: View {
             }
             
             VStack(alignment: .leading, spacing: 16) {
-                Text("\(viewModel.profileNickName)님! \n이번 달 클로버를 \(viewModel.currentMonthClovers.count)개 획득했어요")
-                    .font(.Pretendard.Bold.size20)
-                    .foregroundStyle(.white)
+                let nickname = UserDefaults.loadNickname()
+                if !nickname.isEmpty {
+                    Text("\(nickname)님! \n이번 달 클로버를 \(viewModel.currentMonthClovers.count)개 획득했어요")
+                        .font(.Pretendard.Bold.size20)
+                        .foregroundStyle(.white)
+                } else {
+                    Text("다라님!\n이번 달 클로버를 \(viewModel.currentMonthClovers.count)개 획득했어요")
+                        .font(.Pretendard.Bold.size20)
+                        .foregroundStyle(.white)
+                }
+//                Text("\(viewModel.profileNickName)님! \n이번 달 클로버를 \(viewModel.currentMonthClovers.count)개 획득했어요")
+//                    .font(.Pretendard.Bold.size20)
+//                    .foregroundStyle(.white)
                 
                 Text("모든 성장은 작은 시도에서 시작된답니다.\n다음 목표부터 하나씩 도전해볼까요?")
                     .font(.Pretendard.SemiBold.size14)
@@ -299,6 +311,6 @@ struct StatisticView: View {
 }
 
 #Preview {
-    StatisticView()
+    StatisticView(isTabBarMainVisible: .constant(true))
 }
 

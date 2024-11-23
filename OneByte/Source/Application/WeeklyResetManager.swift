@@ -21,7 +21,7 @@ struct WeeklyResetManager {
         let lastResetDate = UserDefaults.standard.object(forKey: WeeklyResetManager.lastResetDateKey) as? Date
         
         // 월요일이고, 마지막 초기화 날짜가 월요일이 아닌 경우
-        if weekday == 2 { // 월요일
+        if weekday >= 2 && weekday <= 7 { // 월요일
             if let lastDate = lastResetDate {
                 return !calendar.isDate(lastDate, inSameDayAs: today)
             }

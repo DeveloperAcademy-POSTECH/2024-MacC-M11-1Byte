@@ -31,7 +31,6 @@
 		1F599E382CE664B100788D07 /* TermsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F599E372CE664B100788D07 /* TermsRow.swift */; };
 		1F599E3A2CE66AA300788D07 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F599E392CE66AA300788D07 /* SettingViewModel.swift */; };
 		1F62B8F12CF18AE4004A3F0B /* WeeklyResetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F62B8F02CF18AE4004A3F0B /* WeeklyResetManager.swift */; };
-		1F62B8F92CF18CB1004A3F0B /* ResetWeekTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F62B8F82CF18CB1004A3F0B /* ResetWeekTest.swift */; };
 		1F79EDCE2CC0A25D0079088B /* OneByteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F79EDCD2CC0A25D0079088B /* OneByteApp.swift */; };
 		1F79EDD22CC0A25E0079088B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F79EDD12CC0A25E0079088B /* Assets.xcassets */; };
 		1F79EDD52CC0A25E0079088B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F79EDD42CC0A25E0079088B /* Preview Assets.xcassets */; };
@@ -87,16 +86,6 @@
 		61FA4DF52CE7803600256B57 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FA4DF42CE7803600256B57 /* View+.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		1F62B8FA2CF18CB1004A3F0B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1F79EDC22CC0A25D0079088B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1F79EDC92CC0A25D0079088B;
-			remoteInfo = OneByte;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		1F18DD852CEA3869000F0E3E /* Clover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clover.swift; sourceTree = "<group>"; };
 		1F42BE752CDF826C00A59703 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
@@ -123,8 +112,6 @@
 		1F599E372CE664B100788D07 /* TermsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsRow.swift; sourceTree = "<group>"; };
 		1F599E392CE66AA300788D07 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		1F62B8F02CF18AE4004A3F0B /* WeeklyResetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyResetManager.swift; sourceTree = "<group>"; };
-		1F62B8F62CF18CB1004A3F0B /* ResetWeekTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ResetWeekTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1F62B8F82CF18CB1004A3F0B /* ResetWeekTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetWeekTest.swift; sourceTree = "<group>"; };
 		1F79EDCA2CC0A25D0079088B /* OneByte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneByte.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F79EDCD2CC0A25D0079088B /* OneByteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneByteApp.swift; sourceTree = "<group>"; };
 		1F79EDD12CC0A25E0079088B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -182,13 +169,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		1F62B8F32CF18CB1004A3F0B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		1F79EDC72CC0A25D0079088B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -247,20 +227,11 @@
 			path = Setting;
 			sourceTree = "<group>";
 		};
-		1F62B8F72CF18CB1004A3F0B /* ResetWeekTest */ = {
-			isa = PBXGroup;
-			children = (
-				1F62B8F82CF18CB1004A3F0B /* ResetWeekTest.swift */,
-			);
-			path = ResetWeekTest;
-			sourceTree = "<group>";
-		};
 		1F79EDC12CC0A25D0079088B = {
 			isa = PBXGroup;
 			children = (
 				1F8591172CC0A68500253B38 /* .gitignore */,
 				1F79EDCC2CC0A25D0079088B /* OneByte */,
-				1F62B8F72CF18CB1004A3F0B /* ResetWeekTest */,
 				1F79EDCB2CC0A25D0079088B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -269,7 +240,6 @@
 			isa = PBXGroup;
 			children = (
 				1F79EDCA2CC0A25D0079088B /* OneByte.app */,
-				1F62B8F62CF18CB1004A3F0B /* ResetWeekTest.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -537,24 +507,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1F62B8F52CF18CB1004A3F0B /* ResetWeekTest */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1F62B8FC2CF18CB1004A3F0B /* Build configuration list for PBXNativeTarget "ResetWeekTest" */;
-			buildPhases = (
-				1F62B8F22CF18CB1004A3F0B /* Sources */,
-				1F62B8F32CF18CB1004A3F0B /* Frameworks */,
-				1F62B8F42CF18CB1004A3F0B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				1F62B8FB2CF18CB1004A3F0B /* PBXTargetDependency */,
-			);
-			name = ResetWeekTest;
-			productName = ResetWeekTest;
-			productReference = 1F62B8F62CF18CB1004A3F0B /* ResetWeekTest.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		1F79EDC92CC0A25D0079088B /* OneByte */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1F79EDD82CC0A25E0079088B /* Build configuration list for PBXNativeTarget "OneByte" */;
@@ -582,10 +534,6 @@
 				LastSwiftUpdateCheck = 1540;
 				LastUpgradeCheck = 1540;
 				TargetAttributes = {
-					1F62B8F52CF18CB1004A3F0B = {
-						CreatedOnToolsVersion = 15.4;
-						TestTargetID = 1F79EDC92CC0A25D0079088B;
-					};
 					1F79EDC92CC0A25D0079088B = {
 						CreatedOnToolsVersion = 15.4;
 					};
@@ -605,19 +553,11 @@
 			projectRoot = "";
 			targets = (
 				1F79EDC92CC0A25D0079088B /* OneByte */,
-				1F62B8F52CF18CB1004A3F0B /* ResetWeekTest */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		1F62B8F42CF18CB1004A3F0B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		1F79EDC82CC0A25D0079088B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -640,14 +580,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		1F62B8F22CF18CB1004A3F0B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1F62B8F92CF18CB1004A3F0B /* ResetWeekTest.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		1F79EDC62CC0A25D0079088B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -722,51 +654,7 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		1F62B8FB2CF18CB1004A3F0B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1F79EDC92CC0A25D0079088B /* OneByte */;
-			targetProxy = 1F62B8FA2CF18CB1004A3F0B /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
-		1F62B8FD2CF18CB1004A3F0B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = WTK65UP9RZ;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.san.ResetWeekTest;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OneByte.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/OneByte";
-			};
-			name = Debug;
-		};
-		1F62B8FE2CF18CB1004A3F0B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = WTK65UP9RZ;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.san.ResetWeekTest;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OneByte.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/OneByte";
-			};
-			name = Release;
-		};
 		1F79EDD62CC0A25E0079088B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -895,7 +783,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"OneByte/Preview Content\"";
-				DEVELOPMENT_TEAM = TA9TKWGKS3;
+				DEVELOPMENT_TEAM = WTK65UP9RZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OneByte/Info.plist;
@@ -932,7 +820,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"OneByte/Preview Content\"";
-				DEVELOPMENT_TEAM = TA9TKWGKS3;
+				DEVELOPMENT_TEAM = WTK65UP9RZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OneByte/Info.plist;
@@ -963,15 +851,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1F62B8FC2CF18CB1004A3F0B /* Build configuration list for PBXNativeTarget "ResetWeekTest" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1F62B8FD2CF18CB1004A3F0B /* Debug */,
-				1F62B8FE2CF18CB1004A3F0B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		1F79EDC52CC0A25D0079088B /* Build configuration list for PBXProject "OneByte" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
