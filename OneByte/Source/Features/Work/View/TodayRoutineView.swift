@@ -21,11 +21,11 @@ struct TodayRoutineView: View {
                 let todayGoals = viewModel.filterTodayGoals(from: mainGoals)
                 
                 // 오전 루틴 섹션
-                if !viewModel.morningGoals(from: todayGoals).isEmpty {
+                if !viewModel.filterMorningGoals(from: todayGoals).isEmpty {
                     TodayRoutineTypeHeaderView(routineimage: "sun.max.fill", routineTimeType: "오전 루틴")
                     
                     if let mainGoal = mainGoals.first { // MainGoal 가져오기
-                        ForEach(viewModel.morningGoals(from: todayGoals), id: \.id) { detailGoal in
+                        ForEach(viewModel.filterMorningGoals(from: todayGoals), id: \.id) { detailGoal in
                             if let subGoal = mainGoal.subGoals.first(where: { $0.detailGoals.contains(detailGoal) }) {
                                 TodayRoutineCell(
                                     mainGoal: mainGoal,
@@ -40,12 +40,12 @@ struct TodayRoutineView: View {
                 }
                 
                 // 오후 루틴 섹션
-                if !viewModel.afternoonGoals(from: todayGoals).isEmpty {
+                if !viewModel.filterAfternoonGoals(from: todayGoals).isEmpty {
                     TodayRoutineTypeHeaderView(routineimage: "moon.fill", routineTimeType: "오후 루틴")
                         .padding(.top)
                     
                     if let mainGoal = mainGoals.first { // MainGoal 가져오기
-                        ForEach(viewModel.afternoonGoals(from: todayGoals), id: \.id) { detailGoal in
+                        ForEach(viewModel.filterAfternoonGoals(from: todayGoals), id: \.id) { detailGoal in
                             if let subGoal = mainGoal.subGoals.first(where: { $0.detailGoals.contains(detailGoal) }) {
                                 TodayRoutineCell(
                                     mainGoal: mainGoal,
@@ -60,12 +60,12 @@ struct TodayRoutineView: View {
                 }
                 
                 // 자유 루틴 섹션
-                if !viewModel.freeGoals(from: todayGoals).isEmpty {
+                if !viewModel.filterFreeGoals(from: todayGoals).isEmpty {
                     TodayRoutineTypeHeaderView(routineimage: "star.fill", routineTimeType: "자유 루틴")
                         .padding(.top)
                     
                     if let mainGoal = mainGoals.first { // MainGoal 가져오기
-                        ForEach(viewModel.freeGoals(from: todayGoals), id: \.id) { detailGoal in
+                        ForEach(viewModel.filterFreeGoals(from: todayGoals), id: \.id) { detailGoal in
                             if let subGoal = mainGoal.subGoals.first(where: { $0.detailGoals.contains(detailGoal) }) {
                                 TodayRoutineCell(
                                     mainGoal: mainGoal,

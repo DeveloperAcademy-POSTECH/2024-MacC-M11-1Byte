@@ -10,43 +10,61 @@ import SwiftUI
 struct OnboardingFinishView: View {
     
     @Environment(NavigationManager.self) var navigationManager
-    @AppStorage("FirstOnboarding") private var FirstOnboarding: Bool? // 온보딩 첫 동작시에만
+    @AppStorage("FirstOnboarding") private var FirstOnboarding: Bool?
     
     var nowOnboard: Onboarding = .finish
     
     var body: some View {
-        VStack {
-            Spacer()
-            // 상단 캐릭터 이미지 & 텍스트
-            Image("Turtle_4")
-                .resizable()
-                .scaledToFit()
-                .frame(height: 200)
+        VStack(spacing: 0) {
+            // Back Button & 프로그레스 바
+            HStack {
+                Button {
+                    navigationManager.pop()
+                } label: {
+                    HStack {
+                        Image(systemName: "chevron.left")
+                            .tint(.black)
+                            .bold()
+                    }
+                }
+                OnboardingProgressBar(value: 5/5)
+                    .frame(height: 10)
+                    .padding()
+                    .padding(.trailing)
+            }
+            .padding(.horizontal)
             
             VStack(spacing: 10) {
                 Text(nowOnboard.onboardingTitle)
                     .font(.Pretendard.Bold.size26)
                     .multilineTextAlignment(.center)
-                
+                    .lineSpacing(3.6)
                 Text(nowOnboard.onboardingSubTitle)
-                    .font(.system(size: 17, weight: .medium))
-                    .foregroundStyle(Color.my919191)
+                    .font(.Pretendard.Regular.size16)
+                    .foregroundStyle(.my5A5A5A)
+                    .multilineTextAlignment(.center)
+                    .lineSpacing(2.4)
             }
-            .padding()
+            .padding(.top, 31)
             
             Spacer()
+            Image("OnboardingTurtle3")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 243, height: 187)
             
+            Spacer()
             // 하단 Button
             HStack {
                 GoButton {
-                    // 온보딩끝내고 메인화면으로
-                    FirstOnboarding = false
+                    FirstOnboarding = false  // 온보딩 종료
                 } label: {
                     Text("이어서 작성하기")
                 }
             }
             .padding()
         }
+        .background(.myFFFAF4)
     }
 }
 
