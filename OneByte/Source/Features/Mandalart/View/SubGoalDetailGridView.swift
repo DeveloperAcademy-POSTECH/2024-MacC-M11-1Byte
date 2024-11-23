@@ -10,7 +10,7 @@ import SwiftData
 
 // MARK: 두번째 화면 - 클릭된 셀의 SubGoal 및 관련된 DetailGoals만 3x3 그리드로 표시하는 뷰
 struct SubGoalDetailGridView: View {
-    @Environment(\.dismiss) private var dismiss
+//    @Environment(\.dismiss) private var dismiss
     @State var navigation: Bool = false
     @State private var selectedDetailGoal: DetailGoal?
     @State var subSheetIsPresented: Bool = false
@@ -102,17 +102,7 @@ struct SubGoalDetailGridView: View {
             }
         } // VStack 끝
         .padding(.horizontal, 20/393 * UIScreen.main.bounds.width)
-        .navigationBarBackButtonHidden()
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: {
-                    dismiss()
-                }) {
-                    Image(systemName: "chevron.left")
-                        .tint(Color.myB4A99D)
-                }
-            }
-        }
+//        .navigationBarBackButtonHidden()
         .background(Color.myFFFAF4)
         .navigationTitle(subGoal?.title ?? "")
         .toolbar(tabBarVisible ? .visible : .hidden, for: .tabBar)
