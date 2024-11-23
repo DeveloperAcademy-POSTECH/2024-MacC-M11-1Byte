@@ -46,6 +46,10 @@ struct RoutineMainView: View {
                     .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
                 }
             }
+            .onAppear {
+                // 일주일 지났는지 계산 후, 초기화하는 로직
+//                viewModel.resetGoals(goals: mainGoals, modelContext: modelContext)
+            }
         }
     }
     

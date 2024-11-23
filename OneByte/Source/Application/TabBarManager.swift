@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct TabBarManager: View {
     
+    @Environment(\.modelContext) private var modelContext
+    @Query private var mainGoals: [MainGoal]
     @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding: Bool = false
     @State private var selectedTab: Int = 0
     
@@ -63,6 +66,10 @@ struct TabBarManager: View {
                 
             }
             .ignoresSafeArea()
+        }
+        .onAppear {
+            let resetManager = WeeklyResetManager()
+            resetManager.resetGoals(goals: mainGoals, modelContext: modelContext) // 초기화 수행
         }
     }
 }

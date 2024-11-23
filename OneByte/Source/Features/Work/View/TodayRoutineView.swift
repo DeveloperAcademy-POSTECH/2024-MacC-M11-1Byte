@@ -124,7 +124,7 @@ struct TodayRoutineCell: View {
                 print("⚠️[DEBUG] 오늘의 루틴 성취 완료 체크 후 : \(detailGoal.isAchievedToday)")
                 print("⚠️[DEBUG] MainGoal의 CloverState : \(mainGoal.cloverState)")
             } label: {
-                Image(detailGoal.isAchievedToday ? "AchieveClover1" : "RoutineCheck")
+                Image(detailGoal.isAchievedToday ? "Day1_Clover1" : "RoutineCheck")
                     .resizable()
             }
             .frame(width: 32, height: 32)
