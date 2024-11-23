@@ -1,19 +1,21 @@
 //
-//  OnboardingExplainPageView.swift
+//  QuestionView.swift
 //  OneByte
 //
 //  Created by 이상도 on 11/9/24.
 //
-
 import SwiftUI
 
-struct OnboardingExplainPageView: View {
+struct ReadyCycleView: View {
     
-    var nowOnboard: OnboardingExplain
+    @Environment(NavigationManager.self) var navigationManager
+    @Environment(\.dismiss) private var dismiss
+    
+    var nowOnboard: Onboarding = .ready
     
     var body: some View {
         VStack(spacing: 0) {
-            // 상단 온보딩 설명 텍스트
+            // 상단 텍스트
             VStack(spacing: 12) {
                 Text(nowOnboard.onboardingTitle)
                     .font(.Pretendard.Bold.size26)
@@ -28,19 +30,33 @@ struct OnboardingExplainPageView: View {
             .padding(.top, 80)
             
             Spacer()
-            // 하단 온보딩 설명 이미지
+            
+            // 중앙 캐릭터 이미지
             HStack {
-                nowOnboard.explainImage
+                Image("OnboardingTurtle2")
                     .resizable()
                     .scaledToFit()
+                    .frame(height: 200)
             }
-            .padding(.horizontal)
+            
             Spacer()
+            
+            // 하단 Button
+            HStack {
+                GoButton {
+                    navigationManager.push(to: .onboardSubgoal)
+                } label: {
+                    Text("시작하기")
+                }
+            }
+            .padding()
         }
         .background(.myFFFAF4)
+        .navigationBarBackButtonHidden()
     }
 }
 
 #Preview {
-    OnboardingExplainPageView(nowOnboard: .fifth)
+    ReadyCycleView()
+        .environment(NavigationManager())
 }

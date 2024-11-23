@@ -14,18 +14,18 @@ struct TurtleMessageView: View {
     var body: some View {
         Text(message)
             .font(.Pretendard.Medium.size14)
-            .foregroundStyle(Color.my3C3C3C)
+            .foregroundStyle(.my3C3C3C)
             .frame(maxWidth: .infinity)
             .frame(height: 55)
             .padding(.horizontal)
-            .background(Color.myD4E5CC)
+            .background(.myD4E5CC)
             .clipShape(RoundedRectangle(cornerRadius: 50.0, style: .continuous))
             .overlay(alignment: .bottomTrailing) {
                 Image(systemName: "arrowtriangle.down.fill")
                     .font(.title)
                     .rotationEffect(.degrees(-45))
                     .offset(x: 5, y: 10)
-                    .foregroundStyle(Color.myD4E5CC)
+                    .foregroundStyle(.myD4E5CC)
             }
     }
 }

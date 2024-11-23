@@ -24,7 +24,7 @@ struct OnboardingProgressBar: View {
                 Rectangle()
                     .frame(width: min(CGFloat(value) * geometry.size.width, geometry.size.width),
                            height: geometry.size.height)
-                    .foregroundStyle(Color.my538F53)
+                    .foregroundStyle(.my538F53)
                     .animation(.linear, value: value)
                     .frame(height: 10)
             }
