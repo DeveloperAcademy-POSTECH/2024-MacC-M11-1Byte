@@ -174,7 +174,7 @@ extension UserDefaults {
 
     // 닉네임 불러오기
     static func loadNickname() -> String {
-        return UserDefaults.standard.string(forKey: nicknameKey) ?? "닉네임 없음"
+        return UserDefaults.standard.string(forKey: nicknameKey) ?? ""
     }
 }
 
