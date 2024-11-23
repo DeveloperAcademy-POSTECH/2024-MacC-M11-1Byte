@@ -202,7 +202,8 @@ struct StatisticView: View {
         ZStack(alignment: .top) {
             Rectangle()
                 .foregroundStyle(.white)
-                .frame(width: .infinity, height: viewModel.weeklyCloverInfoHeight)
+                .frame(maxWidth: .infinity)
+                .frame(height: viewModel.weeklyCloverInfoHeight)
                 .cornerRadius(13)
                 .overlay(
                     RoundedRectangle(cornerRadius: 13)
