@@ -72,6 +72,7 @@ struct DetailGoalView: View {
                 Spacer()
             }
         }
+        .scrollIndicators(.hidden)
         .contentShape(Rectangle())
         .onTapGesture {
             UIApplication.shared.endEditing()
