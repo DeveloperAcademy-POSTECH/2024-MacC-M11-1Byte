@@ -12,6 +12,7 @@ struct TodayRoutineView: View {
     
     @Environment(\.modelContext) private var modelContext
     @Query var mainGoals: [MainGoal] // 모든 MainGoal 데이터를 쿼리
+    @Query var clovers: [Clover]
     @State var viewModel = TodayRoutineViewModel()
     
     var body: some View {
@@ -32,7 +33,8 @@ struct TodayRoutineView: View {
                                     detailGoal: detailGoal,
                                     subGoalTitle: subGoal.title,
                                     viewModel: viewModel,
-                                    modelContext: modelContext
+                                    modelContext: modelContext,
+                                    clovers: clovers
                                 )
                             }
                         }
@@ -52,7 +54,8 @@ struct TodayRoutineView: View {
                                     detailGoal: detailGoal,
                                     subGoalTitle: subGoal.title,
                                     viewModel: viewModel,
-                                    modelContext: modelContext
+                                    modelContext: modelContext,
+                                    clovers: clovers
                                 )
                             }
                         }
@@ -72,7 +75,8 @@ struct TodayRoutineView: View {
                                     detailGoal: detailGoal,
                                     subGoalTitle: subGoal.title,
                                     viewModel: viewModel,
-                                    modelContext: modelContext
+                                    modelContext: modelContext,
+                                    clovers: clovers
                                 )
                             }
                         }
@@ -92,6 +96,7 @@ struct TodayRoutineCell: View {
     let subGoalTitle: String
     let viewModel: TodayRoutineViewModel
     let modelContext: ModelContext
+    let clovers: [Clover]
     
     var body: some View {
         HStack(spacing: 15) {
@@ -123,8 +128,9 @@ struct TodayRoutineCell: View {
                 viewModel.toggleAchievement(for: detailGoal, in: mainGoal, context: modelContext)
                 print("⚠️[DEBUG] 오늘의 루틴 성취 완료 체크 후 : \(detailGoal.isAchievedToday)")
                 print("⚠️[DEBUG] MainGoal의 CloverState : \(mainGoal.cloverState)")
+                viewModel.calculateCurrentWeekAndMonthWeek(mainGoal: mainGoal, clovers: clovers, context: modelContext)
             } label: {
-                Image(detailGoal.isAchievedToday ? "AchieveClover1" : "RoutineCheck")
+                Image(detailGoal.isAchievedToday ? "Day7_Clover1" : "RoutineCheck")
                     .resizable()
             }
             .frame(width: 32, height: 32)
