@@ -88,14 +88,13 @@ struct OuterGridView: View {
                 }
                 .padding(.trailing, 10)
                 
-                Button(action: {
-                    print("gear")
-                }){
+                NavigationLink {
+                    SettingView()
+                } label: {
                     Image(systemName: "gear")
                         .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 25)
-                        .foregroundStyle(Color.my566956)
+                        .frame(width: 24, height: 24)
+                        .foregroundStyle(.my566956)
                 }
             }
             .padding(.vertical)
