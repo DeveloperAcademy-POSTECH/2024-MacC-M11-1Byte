@@ -11,7 +11,7 @@ import SwiftData
 struct OnboardingStartView: View {
     
     @Environment(\.modelContext) private var modelContext
-    @ObservedObject var viewModel = OnboardingViewModel(
+    @State var viewModel = OnboardingViewModel(
         createService: CreateService(),
         updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: [])
     )

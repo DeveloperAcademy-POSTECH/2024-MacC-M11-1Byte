@@ -8,15 +8,16 @@
 import SwiftUI
 import SwiftData
 
-class OnboardingViewModel: ObservableObject {
+@Observable
+class OnboardingViewModel {
     
-    @Environment(\.modelContext) private var modelContext
+//    @Environment(\.modelContext) private var modelContext
     
 //    @Query var mainGoals: [MainGoal]
 //    @Query var subGoals: [SubGoal]
 //    @Query var detailGoals: [DetailGoal]
-    @Published var navigationManager = NavigationManager()
-    @Published var nowOnboard: OnboardingExplain = .first
+    var navigationManager = NavigationManager()
+    var nowOnboard: OnboardingExplain = .first
     private let createService: CreateGoalUseCase
     private let updateService: UpdateGoalUseCase
     
