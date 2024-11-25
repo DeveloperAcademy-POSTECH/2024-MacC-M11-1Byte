@@ -285,8 +285,8 @@ struct StatisticView: View {
                                                 .frame(width: 38, height: 38)
                                         }
                                     } else {
-                                        Image("Clover_Empty")
-                                            .resizable()
+                                        Rectangle()
+                                            .fill(.clear)
                                             .frame(width: 38, height: 38)
                                     }
                                 }

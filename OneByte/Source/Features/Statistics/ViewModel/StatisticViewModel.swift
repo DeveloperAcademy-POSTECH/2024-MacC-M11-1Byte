@@ -18,7 +18,7 @@ class StatisticViewModel: ObservableObject  {
     
     var currentMonthClovers: [Clover] {
         filterCloversByMonth(clovers: currentYearClovers, month: currentMonth)
-            .filter { $0.cloverState > 0 }
+            .filter { $0.cloverState > 1 }
     }
     
     var currentYearClovers: [Clover] {
