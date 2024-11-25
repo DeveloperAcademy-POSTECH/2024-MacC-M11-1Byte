@@ -225,7 +225,7 @@ struct StatisticView: View {
                         .stroke(Color.myF0E8DF, lineWidth: 1)
                 )
             
-            VStack(spacing: 11) {
+            VStack(spacing: 0) {
                 if let range = viewModel.currentYearCloverMonthRange {
                     HStack(spacing: 30) {
                         Spacer()
@@ -246,12 +246,12 @@ struct StatisticView: View {
                             .font(Font.Pretendard.SemiBold.size12)
                             .foregroundStyle(.my9C9C9C)
                     }
-                    .padding(.top, 18)
-                    .padding(.bottom, 9)
+                    .padding(.top, 16)
+                    .padding(.bottom, 30)
                     
                     ForEach(Array(stride(from: viewModel.currentMonth, through: range.min, by: -1)), id: \.self) { month in // 내림차순
                         let cloversForMonth = viewModel.filterCloversByMonth(clovers: viewModel.currentYearClovers, month: month)
-                        VStack(spacing: 9) {
+                        VStack(spacing: 0) {
                             HStack(spacing: 20) {
                                 Text("\(month)월")
                                     .font(Font.Pretendard.Bold.size14)
@@ -291,9 +291,9 @@ struct StatisticView: View {
                                     }
                                 }
                             }
-                            if viewModel.weeklyCloverInfoHeight > 100 {
+                            if viewModel.weeklyCloverInfoHeight > 100 && month != range.min {
                                 Divider()
-                                    .padding(.horizontal, 12)
+                                    .padding(12)
                             }
                             
                         }

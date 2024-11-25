@@ -36,7 +36,7 @@ class StatisticViewModel: ObservableObject  {
     var weeklyCloverInfoHeight: CGFloat {
         if let range = currentYearCloverMonthRange {
             let monthCount = currentMonth - range.min + 1
-            return CGFloat(monthCount) * 60 + 40
+            return CGFloat(monthCount) * 62 + 48
         } else {
             return 44
         }
@@ -56,7 +56,7 @@ class StatisticViewModel: ObservableObject  {
     
     func setClovers(_ newClovers: [Clover]) {
         
-        self.clovers = newClovers
+        self.clovers =  newClovers
     }
     
     func setProfile(_ newProfile: [Profile]) {
