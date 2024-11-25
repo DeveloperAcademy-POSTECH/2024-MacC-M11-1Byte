@@ -25,7 +25,8 @@ struct OnboardingStartView: View {
                 TabView(selection: $nowOnboard) {
                     ForEach(OnboardingExplain.allCases, id: \.self) { onboarding in
                         OnboardingExplainPageView(
-                            nowOnboard: nowOnboard
+                            nowOnboard: onboarding,
+                            selectedOnboarding: nowOnboard
                         )
                         .tag(onboarding)
                     }
