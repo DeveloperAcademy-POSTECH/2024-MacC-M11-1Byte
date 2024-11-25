@@ -12,11 +12,11 @@ struct StatisticView: View {
     @Environment(\.modelContext) private var modelContext
     @Query var clovers: [Clover]
     @Query var profile: [Profile]
-    @State var viewModel = StatisticViewModel()
+    @StateObject var viewModel = StatisticViewModel()
     @Binding var isTabBarMainVisible: Bool
     
     var body: some View {
-        NavigationStack{
+        NavigationStack {
             VStack(spacing: 0){
                 HStack {
                     Text("통계")
