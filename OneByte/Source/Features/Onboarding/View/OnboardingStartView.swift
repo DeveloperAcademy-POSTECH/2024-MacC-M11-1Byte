@@ -13,7 +13,6 @@ struct OnboardingStartView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var navigationManager = NavigationManager()
     
-    @Query var clovers: [Clover]
     @State var viewModel = OnboardingViewModel(createService: CreateService(), updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     
     @State private var nowOnboard: OnboardingExplain = .first

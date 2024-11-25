@@ -12,9 +12,9 @@ class OnboardingViewModel: ObservableObject {
     
     @Environment(\.modelContext) private var modelContext
     
-    @Query var mainGoals: [MainGoal]
-    @Query var subGoals: [SubGoal]
-    @Query var detailGoals: [DetailGoal]
+//    @Query var mainGoals: [MainGoal]
+//    @Query var subGoals: [SubGoal]
+//    @Query var detailGoals: [DetailGoal]
     
     private let createService: CreateGoalUseCase
     private let updateService: UpdateGoalUseCase
