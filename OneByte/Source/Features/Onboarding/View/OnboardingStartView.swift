@@ -13,19 +13,20 @@ struct OnboardingStartView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var navigationManager = NavigationManager()
     
-    @State var viewModel = OnboardingViewModel(createService: CreateService(), updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
-    
-    @State private var nowOnboard: OnboardingExplain = .first
+    @ObservedObject var viewModel = OnboardingViewModel(
+        createService: CreateService(),
+        updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: [])
+    )
     
     var body: some View {
         NavigationStack(path: $navigationManager.path) {
             VStack {
                 // 만다라트 설명 5페이지뷰 탭뷰
-                TabView(selection: $nowOnboard) {
+                TabView(selection: $viewModel.nowOnboard) {
                     ForEach(OnboardingExplain.allCases, id: \.self) { onboarding in
                         OnboardingExplainPageView(
                             nowOnboard: onboarding,
-                            selectedOnboarding: nowOnboard
+                            selectedOnboarding: viewModel.nowOnboard
                         )
                         .tag(onboarding)
                     }
@@ -38,14 +39,14 @@ struct OnboardingStartView: View {
                         ForEach(OnboardingExplain.allCases, id: \.self) { onboarding in
                             Circle()
                                 .frame(width: 8, height: 8)
-                                .foregroundStyle(nowOnboard == onboarding ? .my636363 : .my919191)
+                                .foregroundStyle(viewModel.nowOnboard == onboarding ? .my636363 : .my919191)
                         }
                     }
                 }
                 .padding(.bottom)
                 
                 GoButton {
-                    handleNextButtonTap()
+                    viewModel.moveToNextPage(navigationManager: navigationManager)
                 } label: {
                     Text("다음")
                 }
@@ -61,20 +62,6 @@ struct OnboardingStartView: View {
             }
         }
         .environment(navigationManager)
-    }
-    
-    private func handleNextButtonTap() {
-        // 마지막 온보딩 페이지인지 확인
-        if nowOnboard == OnboardingExplain.allCases.last {
-            // 네비게이션으로 이동
-            navigationManager.push(to: .onboardReady)
-        } else {
-            // 다음 페이지로 이동
-            if let currentIndex = OnboardingExplain.allCases.firstIndex(of: nowOnboard),
-               currentIndex + 1 < OnboardingExplain.allCases.count {
-                nowOnboard = OnboardingExplain.allCases[currentIndex + 1]
-            }
-        }
     }
 }
 
