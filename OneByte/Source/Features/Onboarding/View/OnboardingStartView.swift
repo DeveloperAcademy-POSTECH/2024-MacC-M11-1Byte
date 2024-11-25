@@ -11,15 +11,13 @@ import SwiftData
 struct OnboardingStartView: View {
     
     @Environment(\.modelContext) private var modelContext
-    @State private var navigationManager = NavigationManager()
-    
     @ObservedObject var viewModel = OnboardingViewModel(
         createService: CreateService(),
         updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: [])
     )
     
     var body: some View {
-        NavigationStack(path: $navigationManager.path) {
+        NavigationStack(path: $viewModel.navigationManager.path) {
             VStack {
                 // 만다라트 설명 5페이지뷰 탭뷰
                 TabView(selection: $viewModel.nowOnboard) {
@@ -46,7 +44,7 @@ struct OnboardingStartView: View {
                 .padding(.bottom)
                 
                 GoButton {
-                    viewModel.moveToNextPage(navigationManager: navigationManager)
+                    viewModel.moveToNextPage()
                 } label: {
                     Text("다음")
                 }
@@ -61,7 +59,7 @@ struct OnboardingStartView: View {
                 viewModel.createAllCloverData(modelContext: modelContext) // 온보딩 등장시 클로버 데이터 생성
             }
         }
-        .environment(navigationManager)
+        .environment(viewModel.navigationManager)
     }
 }
 

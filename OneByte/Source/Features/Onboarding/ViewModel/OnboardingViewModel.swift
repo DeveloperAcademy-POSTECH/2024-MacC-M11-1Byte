@@ -15,6 +15,7 @@ class OnboardingViewModel: ObservableObject {
 //    @Query var mainGoals: [MainGoal]
 //    @Query var subGoals: [SubGoal]
 //    @Query var detailGoals: [DetailGoal]
+    @Published var navigationManager = NavigationManager()
     @Published var nowOnboard: OnboardingExplain = .first
     private let createService: CreateGoalUseCase
     private let updateService: UpdateGoalUseCase
@@ -117,7 +118,7 @@ class OnboardingViewModel: ObservableObject {
     }
     
     // OnboardingExplainPage에서 버튼으로 탭 이동
-    func moveToNextPage(navigationManager: NavigationManager) {
+    func moveToNextPage() {
         // 마지막 온보딩 페이지인지 확인
         if nowOnboard == OnboardingExplain.allCases.last {
             // 네비게이션으로 이동
