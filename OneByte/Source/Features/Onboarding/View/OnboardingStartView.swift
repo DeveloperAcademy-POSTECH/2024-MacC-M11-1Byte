@@ -57,6 +57,7 @@ struct OnboardingStartView: View {
             .onAppear {
                 viewModel.createGoals(modelContext: modelContext) // 온보딩 등장시 루틴 데이터 생성
                 viewModel.createAllCloverData(modelContext: modelContext) // 온보딩 등장시 클로버 데이터 생성
+                viewModel.setInstallDate() // 앱 설치일 저장
             }
         }
         .environment(viewModel.navigationManager)
