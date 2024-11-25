@@ -42,7 +42,7 @@ struct StatisticView: View {
                         .padding(.top, 40)
                     weeklyCloverInfoView()
                         .padding(.top, 10)
-                    
+            
                     Spacer()
                 }
             }
@@ -53,6 +53,7 @@ struct StatisticView: View {
                 viewModel.setClovers(clovers)
                 viewModel.setProfile(profile)
             }
+            .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
         }
     }
     
@@ -127,9 +128,6 @@ struct StatisticView: View {
                         .font(.Pretendard.Bold.size20)
                         .foregroundStyle(.white)
                 }
-//                Text("\(viewModel.profileNickName)님! \n이번 달 클로버를 \(viewModel.currentMonthClovers.count)개 획득했어요")
-//                    .font(.Pretendard.Bold.size20)
-//                    .foregroundStyle(.white)
                 
                 Text("모든 성장은 작은 시도에서 시작된답니다.\n다음 목표부터 하나씩 도전해볼까요?")
                     .font(.Pretendard.SemiBold.size14)
