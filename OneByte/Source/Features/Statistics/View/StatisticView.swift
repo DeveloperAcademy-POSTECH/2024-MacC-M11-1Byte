@@ -17,43 +17,47 @@ struct StatisticView: View {
     
     var body: some View {
         NavigationStack {
-            VStack(spacing: 0){
-                HStack {
-                    Text("통계")
-                        .font(.Pretendard.Bold.size22)
-                        .foregroundStyle(Color.myB4A99D)
-                    
-                    Spacer()
-                    
-                    NavigationLink {
-                        SettingView(isTabBarMainVisible: $isTabBarMainVisible)
-                    } label: {
-                        Image(systemName: "gear")
-                            .resizable()
-                            .frame(width: 24, height: 24)
-                            .foregroundStyle(Color.my566956)
+            ZStack {
+                Color.myFFFAF4
+                    .ignoresSafeArea(edges: .top)
+                VStack(spacing: 0){
+                    HStack {
+                        Text("통계")
+                            .font(.Pretendard.Bold.size22)
+                            .foregroundStyle(Color.myB4A99D)
+                        
+                        Spacer()
+                        
+                        NavigationLink {
+                            SettingView(isTabBarMainVisible: $isTabBarMainVisible)
+                        } label: {
+                            Image(systemName: "gear")
+                                .resizable()
+                                .frame(width: 24, height: 24)
+                                .foregroundStyle(Color.my566956)
+                        }
+                        .padding(.vertical)
                     }
-                    .padding(.vertical)
+                    ScrollView {
+                        thisMonthCloverInfoView()
+                            .padding(.top, 52)
+                        thisYearCloverInfoView()
+                            .padding(.top, 40)
+                        weeklyCloverInfoView()
+                            .padding(.top, 10)
+                        
+                        Spacer()
+                    }
                 }
-                ScrollView {
-                    thisMonthCloverInfoView()
-                        .padding(.top, 52)
-                    thisYearCloverInfoView()
-                        .padding(.top, 40)
-                    weeklyCloverInfoView()
-                        .padding(.top, 10)
-            
-                    Spacer()
+                .padding(.horizontal, 20)
+                .background(Color.myFFFAF4)
+                .onAppear {
+                    isTabBarMainVisible = true
+                    viewModel.setClovers(clovers)
+                    viewModel.setProfile(profile)
                 }
+                .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
             }
-            .padding(.horizontal, 20)
-            .background(Color.myFFFAF4)
-            .onAppear {
-                isTabBarMainVisible = true
-                viewModel.setClovers(clovers)
-                viewModel.setProfile(profile)
-            }
-            .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
         }
     }
     
