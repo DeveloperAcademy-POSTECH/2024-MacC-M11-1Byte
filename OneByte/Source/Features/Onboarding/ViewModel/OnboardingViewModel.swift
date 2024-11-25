@@ -112,7 +112,7 @@ class OnboardingViewModel {
         
         do {
             try modelContext.save() // 데이터 save
-            print("✅ Clover 데이터가 성공적으로 생성되었습니다.")
+            print("✅ Clover 데이터가 성공적으로 생성되었습니다. \(Date()) \(#function) \(#line)")
         } catch {
             print("❌ SwiftData 저장 중 오류 발생: \(error)")
         }
@@ -140,7 +140,7 @@ class OnboardingViewModel {
         UserDefaults.standard.set(koreanTimeString, forKey: userInstallDateKey)
         
         if let savedDate = UserDefaults.standard.string(forKey: userInstallDateKey) {
-            print("✅ 앱 설치일 저장됨 (한국시간): \(savedDate)")
+            print("✅ 앱 설치일 저장됨 (한국시간): \(savedDate)  \(Date()) \(#function) \(#line)")
         } else {
             print("❌ 앱 설치일 저장 실패")
         }

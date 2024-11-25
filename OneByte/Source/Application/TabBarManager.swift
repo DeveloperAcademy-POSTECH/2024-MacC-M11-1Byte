@@ -45,6 +45,9 @@ struct TabBarManager: View {
                         .tag(2)
                 }
                 .accentColor(.my6FB56F)
+                .onChange(of: selectedTab) { oldValue, newValue in
+                    triggerHaptic()
+                }
                 .onAppear {
                     // 온보딩 완료 여부에 따라 기본 탭 설정
                     if !hasSeenOnboarding {
@@ -78,6 +81,12 @@ struct TabBarManager: View {
             let resetManager = WeeklyResetManager()
             resetManager.resetGoals(goals: mainGoals, modelContext: modelContext) // 초기화 수행
         }
+    }
+    
+    // 햅틱
+    private func triggerHaptic() {
+        let generator = UIImpactFeedbackGenerator(style: .light)
+        generator.impactOccurred()
     }
 }
 
