@@ -17,16 +17,16 @@ struct MandalartView: View {
     
     var body: some View {
         NavigationStack() {
-            if let firstMainGoal = mainGoals.first {
-                OuterGridView(mainGoal: $mainGoal, isTabBarMainVisible: $isTabBarMainVisible)
-                    .environment(\.modelContext, modelContext)
-                    .onAppear {
-                        mainGoal = firstMainGoal
-                    }
-            } else {
-                Text("MainGoal 데이터를 찾을 수 없습니다.")
-                    .foregroundStyle(.gray)
-                    .padding()
+            ZStack {
+                Color.myFFFAF4
+                    .ignoresSafeArea(edges: .top)
+                if let firstMainGoal = mainGoals.first {
+                    OuterGridView(mainGoal: $mainGoal, isTabBarMainVisible: $isTabBarMainVisible)
+                        .environment(\.modelContext, modelContext)
+                        .onAppear {
+                            mainGoal = firstMainGoal
+                        }
+                }
             }
         }
         .onAppear {
@@ -49,7 +49,7 @@ struct OuterGridView: View {
     
     private let dateManager = DateManager()
     private let currentDate = Date()
-    private let outerColumns = [GridItem(.adaptive(minimum: 160/393 * UIScreen.main.bounds.width), spacing: 20)]
+    private let outerColumns = [GridItem(.adaptive(minimum: 160/393 * UIScreen.main.bounds.width), spacing: 32/393 * UIScreen.main.bounds.width)]
     private let viewModel = MandalartViewModel(
         createService: CreateService(),
         updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []),
@@ -82,7 +82,7 @@ struct OuterGridView: View {
                                 .aspectRatio(contentMode: .fit)
                                 .foregroundStyle(Color.my566956)
                                 .font(.system(size: 20, weight: .medium))
-                                // 이부분은 프리텐다드로 하면 적용이 안됨!
+                            // 이부분은 프리텐다드로 하면 적용이 안됨!
                         }
                     }
                 }
@@ -98,9 +98,9 @@ struct OuterGridView: View {
                 }
             }
             .padding(.vertical)
-           
-                // 목표 & 만다라트 그리드
-                captureView()
+            
+            // 목표 & 만다라트 그리드
+            captureView()
             Spacer()
             
             // 다라 & comment
@@ -125,11 +125,14 @@ struct OuterGridView: View {
         .onAppear {
             isTabBarMainVisible = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                capturedImage = captureView().padding().padding(.top, -30).snapshot()
+                capturedImage = captureView()
+                    .padding()
+                    .padding(.top, -30)
+                    .snapshot()
             }
         }
-        
         .padding(.horizontal, 20/393 * UIScreen.main.bounds.width)
+        .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
     }
 }
 
@@ -138,40 +141,38 @@ extension OuterGridView {
     func captureView() -> some View {
         VStack {
             // 목표
-            HStack {
+            HStack(spacing: 0) {
                 // 목표 시트 버튼
-                Button(action: {
-                    mainIsPresented = true
-                }){
-                    VStack(alignment: .leading, spacing: 4) {
-                        HStack(spacing: 0) {
-                            Text("나의 다짐")
-                                .foregroundStyle(Color.myD5F3D1)
-                                .font(.Pretendard.Medium.size14)
-                            Spacer()
+                VStack(alignment: .leading, spacing: 4) {
+                    HStack(spacing: 0) {
+                        Text("나의 다짐")
+                            .foregroundStyle(Color.myD5F3D1)
+                            .font(.Pretendard.Medium.size14)
+                        Spacer()
+                        Button(action: {
+                            mainIsPresented = true
+                        }, label: {
                             Image(systemName: "ellipsis")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 22)
                                 .foregroundStyle(Color.myD5F3D1)
+                        })
+                        .sheet(isPresented: $mainIsPresented) {
+                            MainGoalsheetView(mainGoal: $mainGoal, isPresented: $mainIsPresented)
+                                .presentationDragIndicator(.visible)
+                                .presentationDetents([.height(244/852 * UIScreen.main.bounds.height)])
                         }
-                        
-                        Text(mainGoal?.title ?? "")
-                            .foregroundStyle(.white)
-                            .font(.Pretendard.Bold.size16)
-                            .kerning(-0.32) // 자간
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading) // 전체 너비에서 왼쪽 정렬
-                    .padding(.horizontal)
-                    .padding(.vertical)
-                    .background(Color.my538F53)
-                    .cornerRadius(12)
+                    Text(mainGoal?.title ?? "")
+                        .foregroundStyle(.white)
+                        .font(.Pretendard.Bold.size16)
+                        .kerning(-0.32) // 자간
                 }
-                .sheet(isPresented: $mainIsPresented) {
-                    MainGoalsheetView(mainGoal: $mainGoal, isPresented: $mainIsPresented)
-                        .presentationDragIndicator(.visible)
-                        .presentationDetents([.height(244/852 * UIScreen.main.bounds.height)])
-                }
+                .frame(maxWidth: .infinity, alignment: .leading) // 전체 너비에서 왼쪽 정렬
+                .padding()
+                .background(Color.my538F53)
+                .cornerRadius(12)
             }
             .frame(height: 76/852 * UIScreen.main.bounds.height)
             .padding(.bottom, 30/852 * UIScreen.main.bounds.height)
@@ -203,7 +204,7 @@ struct Photo: Transferable {
     static var transferRepresentation: some TransferRepresentation {
         ProxyRepresentation(exporting: \.image)
     }
-
+    
     public var image: Image
     public var caption: String
 }

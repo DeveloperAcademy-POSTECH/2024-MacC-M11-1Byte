@@ -42,6 +42,8 @@ struct DetailGoalView: View {
     @State private var achieveSun: Bool = false
     
     @State private var showAlert = false
+    @State private var isModified: Bool = false
+    @State private var showBackAlert: Bool = false
     
     private let titleLimit = 20 // 제목 글자수 제한
     private let memoLimit = 100 // 메모 글자수 제한
@@ -65,6 +67,7 @@ struct DetailGoalView: View {
                     
                     // 삭제 버튼
                     deleteButton()
+                        .padding(.bottom, 53/852 * UIScreen.main.bounds.height)
                 } else {
                     // 저장되었을 때 보여주는 화면
                     saved()
@@ -78,10 +81,25 @@ struct DetailGoalView: View {
             UIApplication.shared.endEditing()
         }
         .navigationBarBackButtonHidden()
-        .backButtonToolbar { dismiss() }
+        .backButtonToolbar {
+            if isModified {
+                showBackAlert = true
+            } else {
+                dismiss()
+            }
+        }
+        .alert("작업을 중단하시겠습니까?", isPresented: $showBackAlert) {
+            Button("나가기", role: .destructive) {
+                dismiss() // 화면 닫기
+            }
+            Button("계속하기", role: .cancel) {}
+        } message: {
+            Text("작성한 내용이 저장되지 않아요.")
+        }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing, content: {
                 Button(action: {
+                    isModified = false
                     isEditing.toggle()
                     if !isEditing, let detailGoal = detailGoal{
                         // 요일 갯수 계산
@@ -213,6 +231,9 @@ extension DetailGoalView {
                         .stroke(Color.myF0E8DF, lineWidth: 1)
                 )
                 .onChange(of: newTitle) { oldValue, newValue in
+                    if newValue != detailGoal?.title {
+                            isModified = true
+                        }
                     if newValue.count > titleLimit {
                         newTitle = String(newValue.prefix(titleLimit))
                     }
@@ -265,6 +286,9 @@ extension DetailGoalView {
                     .scrollContentBackground(.hidden)
                     .padding()
                     .onChange(of: newMemo) { oldValue, newValue in
+                        if newValue != detailGoal?.memo {
+                                isModified = true
+                            }
                         if newValue.count > memoLimit {
                             newMemo = String(newValue.prefix(memoLimit))
                         }
@@ -303,12 +327,14 @@ extension DetailGoalView {
     func selectDays() -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("요일 선택")
-                .font(.Pretendard.Medium.size14)
+                .font(.Pretendard.SemiBold.size16)
+                .padding(.leading, 4)
                 .foregroundStyle(Color.my675542)
             
             Text("루틴을 실행할 요일을 선택해주세요.")
                 .font(.Pretendard.Medium.size14)
                 .foregroundStyle(Color.myB4A99D)
+                .padding(.leading, 4)
         }
         .padding(.leading, 4)
         //실제 요일 선택
@@ -341,10 +367,14 @@ extension DetailGoalView {
     func remind() -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("리마인드 알림")
-                .font(.Pretendard.Medium.size14)
+                .font(.Pretendard.SemiBold.size16)
+                .padding(.leading, 4)
+                .foregroundStyle(Color.my675542)
             
             Text("루틴을 시작할 때 받을 알림을 설정해주세요.")
+                .font(.Pretendard.Medium.size14)
                 .foregroundStyle(Color.myB4A99D)
+                .padding(.leading, 4)
         }
         .padding(.leading, 4)
         Section {
@@ -358,6 +388,11 @@ extension DetailGoalView {
                     
                     Toggle("", isOn: $isRemind)
                         .toggleStyle(SwitchToggleStyle(tint: Color.my538F53)) // 초록색 토글
+                        .onChange(of: isRemind) { old, new in
+                            if new != detailGoal?.isRemind {
+                                isModified = true
+                            }
+                        }
                 }
                 
                 if isRemind {
@@ -383,6 +418,11 @@ extension DetailGoalView {
                             displayedComponents: .hourAndMinute
                         )
                         .labelsHidden() // 라벨 숨기기
+                        .onChange(of: remindTime) { old, new in
+                            if new != detailGoal?.remindTime {
+                                isModified = true
+                            }
+                        }
                     }
                 }
             }
