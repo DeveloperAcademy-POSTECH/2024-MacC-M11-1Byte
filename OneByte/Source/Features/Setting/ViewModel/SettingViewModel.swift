@@ -22,7 +22,7 @@ class SettingViewModel{
     
     init() {
         self.isAppearAchieved = UserDefaults.standard.bool(forKey: "isAppearAchieved")
-        calculateDaysSinceInstall()
+        getDaysSinceInstall()
     }
     
     var isAppearAchieved: Bool {
@@ -32,21 +32,26 @@ class SettingViewModel{
         }
     }
     
-    // 앱 설치한지 디데이 계산
-    func calculateDaysSinceInstall() {
-        let userDefaults = UserDefaults.standard
-        let installDateKey = "installDate"
+    // 앱 설치 UserDefaults데이터와 current를 비교하여 디데이 계산
+    func getDaysSinceInstall() {
+        let userInstallDateKey = "userInstallDate"
         
-        // 앱 설치일을 처음 실행할 때 저장
-        if userDefaults.object(forKey: installDateKey) == nil {
-            userDefaults.set(Date(), forKey: installDateKey)
-        }
-        
-        // 저장된 설치일과 현재 날짜의 차이 계산
-        if let installDate = userDefaults.object(forKey: installDateKey) as? Date {
-            let calendar = Calendar.current
-            let components = calendar.dateComponents([.day], from: installDate, to: Date())
-            daysSinceInstall = components.day ?? 0
+        if let savedDateString = UserDefaults.standard.string(forKey: userInstallDateKey) {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            formatter.timeZone = TimeZone(identifier: "Asia/Seoul")
+            
+            if let installDate = formatter.date(from: savedDateString) {
+                var calendar = Calendar(identifier: .gregorian)
+                calendar.timeZone = TimeZone(identifier: "Asia/Seoul")!
+                
+                let installDateStartOfDay = calendar.startOfDay(for: installDate)
+                let now = Date()
+                let nowStartOfDay = calendar.startOfDay(for: now)
+                
+                let components = calendar.dateComponents([.day], from: installDateStartOfDay, to: nowStartOfDay)
+                daysSinceInstall = components.day ?? 0
+            }
         }
     }
     
