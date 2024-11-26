@@ -40,6 +40,8 @@ struct SubGoalDetailGridView: View {
                                 subSheetIsPresented = true
                             }, label: {
                                 Text(selectedSubGoal.title)
+                                    .padding(.horizontal, 10)
+                                    .padding(.vertical, 15)
                                     .font(.Pretendard.SemiBold.size18)
                                     .modifier(NextMandalartButtonModifier())
                                     .background(Color.my95D895)
@@ -69,7 +71,8 @@ struct SubGoalDetailGridView: View {
                                     navigation = true
                                 }) {
                                     Text(detailGoal.title)
-                                        .font(.Pretendard.Medium.size18)
+                                        .padding(.horizontal, 10)
+                                        .padding(.vertical, 15)
                                         .modifier(NextMandalartButtonModifier())
                                         .background(Color.myBFEBBB)
                                 }

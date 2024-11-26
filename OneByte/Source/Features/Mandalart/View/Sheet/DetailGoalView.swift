@@ -99,6 +99,7 @@ struct DetailGoalView: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing, content: {
                 Button(action: {
+                    isModified = false
                     isEditing.toggle()
                     if !isEditing, let detailGoal = detailGoal{
                         // 요일 갯수 계산
