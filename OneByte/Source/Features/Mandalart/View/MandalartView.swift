@@ -26,10 +26,6 @@ struct MandalartView: View {
                         .onAppear {
                             mainGoal = firstMainGoal
                         }
-                } else {
-                    Text("MainGoal 데이터를 찾을 수 없습니다.")
-                        .foregroundStyle(.gray)
-                        .padding()
                 }
             }
         }
@@ -129,7 +125,10 @@ struct OuterGridView: View {
         .onAppear {
             isTabBarMainVisible = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                capturedImage = captureView().padding().padding(.top, -30).snapshot()
+                capturedImage = captureView()
+                    .padding()
+                    .padding(.top, -30)
+                    .snapshot()
             }
         }
         .padding(.horizontal, 20/393 * UIScreen.main.bounds.width)
@@ -171,8 +170,7 @@ extension OuterGridView {
                         .kerning(-0.32) // 자간
                 }
                 .frame(maxWidth: .infinity, alignment: .leading) // 전체 너비에서 왼쪽 정렬
-                .padding(.horizontal)
-                .padding(.vertical)
+                .padding()
                 .background(Color.my538F53)
                 .cornerRadius(12)
             }
