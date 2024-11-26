@@ -16,42 +16,47 @@ struct StatisticView: View {
     @Binding var isTabBarMainVisible: Bool
     
     var body: some View {
-        NavigationStack{
-            VStack(spacing: 0){
-                HStack {
-                    Text("통계")
-                        .font(.Pretendard.Bold.size22)
-                        .foregroundStyle(Color.myB4A99D)
-                    
-                    Spacer()
-                    
-                    NavigationLink {
-                        SettingView(isTabBarMainVisible: $isTabBarMainVisible)
-                    } label: {
-                        Image(systemName: "gear")
-                            .resizable()
-                            .frame(width: 24, height: 24)
-                            .foregroundStyle(Color.my566956)
+        NavigationStack {
+            ZStack {
+                Color.myFFFAF4
+                    .ignoresSafeArea(edges: .top)
+                VStack(spacing: 0){
+                    HStack {
+                        Text("통계")
+                            .font(.Pretendard.Bold.size22)
+                            .foregroundStyle(Color.myB4A99D)
+                        
+                        Spacer()
+                        
+                        NavigationLink {
+                            SettingView(isTabBarMainVisible: $isTabBarMainVisible)
+                        } label: {
+                            Image(systemName: "gear")
+                                .resizable()
+                                .frame(width: 24, height: 24)
+                                .foregroundStyle(Color.my566956)
+                        }
+                        .padding(.vertical)
                     }
-                    .padding(.vertical)
+                    ScrollView {
+                        thisMonthCloverInfoView()
+                            .padding(.top, 52)
+                        thisYearCloverInfoView()
+                            .padding(.top, 40)
+                        weeklyCloverInfoView()
+                            .padding(.top, 10)
+                        
+                        Spacer()
+                    }
                 }
-                ScrollView {
-                    thisMonthCloverInfoView()
-                        .padding(.top, 52)
-                    thisYearCloverInfoView()
-                        .padding(.top, 40)
-                    weeklyCloverInfoView()
-                        .padding(.top, 10)
-                    
-                    Spacer()
+                .padding(.horizontal, 20)
+                .background(Color.myFFFAF4)
+                .onAppear {
+                    isTabBarMainVisible = true
+                    viewModel.setClovers(clovers)
+                    viewModel.setProfile(profile)
                 }
-            }
-            .padding(.horizontal, 20)
-            .background(Color.myFFFAF4)
-            .onAppear {
-                isTabBarMainVisible = true
-                viewModel.setClovers(clovers)
-                viewModel.setProfile(profile)
+                .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
             }
         }
     }
@@ -127,9 +132,6 @@ struct StatisticView: View {
                         .font(.Pretendard.Bold.size20)
                         .foregroundStyle(.white)
                 }
-//                Text("\(viewModel.profileNickName)님! \n이번 달 클로버를 \(viewModel.currentMonthClovers.count)개 획득했어요")
-//                    .font(.Pretendard.Bold.size20)
-//                    .foregroundStyle(.white)
                 
                 Text("모든 성장은 작은 시도에서 시작된답니다.\n다음 목표부터 하나씩 도전해볼까요?")
                     .font(.Pretendard.SemiBold.size14)
@@ -227,7 +229,7 @@ struct StatisticView: View {
                         .stroke(Color.myF0E8DF, lineWidth: 1)
                 )
             
-            VStack(spacing: 11) {
+            VStack(spacing: 0) {
                 if let range = viewModel.currentYearCloverMonthRange {
                     HStack(spacing: 30) {
                         Spacer()
@@ -248,12 +250,12 @@ struct StatisticView: View {
                             .font(Font.Pretendard.SemiBold.size12)
                             .foregroundStyle(.my9C9C9C)
                     }
-                    .padding(.top, 18)
-                    .padding(.bottom, 9)
+                    .padding(.top, 16)
+                    .padding(.bottom, 30)
                     
                     ForEach(Array(stride(from: viewModel.currentMonth, through: range.min, by: -1)), id: \.self) { month in // 내림차순
                         let cloversForMonth = viewModel.filterCloversByMonth(clovers: viewModel.currentYearClovers, month: month)
-                        VStack(spacing: 9) {
+                        VStack(spacing: 0) {
                             HStack(spacing: 20) {
                                 Text("\(month)월")
                                     .font(Font.Pretendard.Bold.size14)
@@ -287,15 +289,15 @@ struct StatisticView: View {
                                                 .frame(width: 38, height: 38)
                                         }
                                     } else {
-                                        Image("Clover_Empty")
-                                            .resizable()
+                                        Rectangle()
+                                            .fill(.clear)
                                             .frame(width: 38, height: 38)
                                     }
                                 }
                             }
-                            if viewModel.weeklyCloverInfoHeight > 100 {
+                            if viewModel.weeklyCloverInfoHeight > 100 && month != range.min {
                                 Divider()
-                                    .padding(.horizontal, 12)
+                                    .padding(12)
                             }
                             
                         }
