@@ -9,7 +9,9 @@ import SwiftUI
 
 struct OnboardingExplainPageView: View {
     
+    @State private var opacity = 0.0
     var nowOnboard: OnboardingExplain
+    var selectedOnboarding: OnboardingExplain
     
     var body: some View {
         VStack(spacing: 0) {
@@ -38,9 +40,16 @@ struct OnboardingExplainPageView: View {
             Spacer()
         }
         .background(.myFFFAF4)
+        .onAppear {
+            if selectedOnboarding == nowOnboard {
+                withAnimation(.easeInOut(duration: 0.5)) {
+                    opacity = 1.0
+                }
+            }
+        }
     }
 }
 
 #Preview {
-    OnboardingExplainPageView(nowOnboard: .fifth)
+    OnboardingExplainPageView(nowOnboard: .fifth, selectedOnboarding: .fifth)
 }

@@ -61,7 +61,7 @@ struct RoutineMainView: View {
                     .font(.Pretendard.Bold.size22)
                     .foregroundStyle(.white)
                 
-                Text(viewModel.mainDateManager.koreanMonthAndWeek(for: viewModel.todayDate))
+                Text(viewModel.getTodayWeekofMonth())
                     .font(.Pretendard.SemiBold.size14)
                     .foregroundStyle(Color.myB0E4B0)
             }

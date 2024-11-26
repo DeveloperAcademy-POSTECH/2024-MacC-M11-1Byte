@@ -215,14 +215,9 @@
 		1F599E2E2CE6634B00788D07 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				1F599E392CE66AA300788D07 /* SettingViewModel.swift */,
-				1F599E252CE5DEBE00788D07 /* SettingView.swift */,
-				1F599E272CE5F29500788D07 /* EditNicknameSheetView.swift */,
-				1F599E2F2CE6640500788D07 /* AchievedRow.swift */,
-				1F599E312CE6642900788D07 /* NotificationRow.swift */,
-				1F599E332CE6643B00788D07 /* FontRow.swift */,
-				1F599E352CE6648B00788D07 /* PrivacyPolicyRow.swift */,
-				1F599E372CE664B100788D07 /* TermsRow.swift */,
+				1FC686312CF4F349008F399F /* View */,
+				1FC686322CF4F34F008F399F /* ViewModel */,
+				1FC686332CF4F365008F399F /* Cell */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -465,6 +460,35 @@
 				1FB10A3F2CDF7F4B00D54EC5 /* OnboardingViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		1FC686312CF4F349008F399F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1F599E252CE5DEBE00788D07 /* SettingView.swift */,
+				1F599E272CE5F29500788D07 /* EditNicknameSheetView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1FC686322CF4F34F008F399F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				1F599E392CE66AA300788D07 /* SettingViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		1FC686332CF4F365008F399F /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				1F599E2F2CE6640500788D07 /* AchievedRow.swift */,
+				1F599E312CE6642900788D07 /* NotificationRow.swift */,
+				1F599E332CE6643B00788D07 /* FontRow.swift */,
+				1F599E352CE6648B00788D07 /* PrivacyPolicyRow.swift */,
+				1F599E372CE664B100788D07 /* TermsRow.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		1FD405282CECBF9400403A19 /* Model */ = {
@@ -783,7 +807,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"OneByte/Preview Content\"";
-				DEVELOPMENT_TEAM = WTK65UP9RZ;
+				DEVELOPMENT_TEAM = TA9TKWGKS3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OneByte/Info.plist;
@@ -799,7 +823,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.san.OneByte;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -820,7 +844,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"OneByte/Preview Content\"";
-				DEVELOPMENT_TEAM = WTK65UP9RZ;
+				DEVELOPMENT_TEAM = TA9TKWGKS3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OneByte/Info.plist;
@@ -836,7 +860,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.san.OneByte;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

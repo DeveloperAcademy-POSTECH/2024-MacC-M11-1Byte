@@ -11,21 +11,21 @@ import SwiftData
 struct OnboardingStartView: View {
     
     @Environment(\.modelContext) private var modelContext
-    @State private var navigationManager = NavigationManager()
-    
-    @Query var clovers: [Clover]
-    @State var viewModel = OnboardingViewModel(createService: CreateService(), updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
-    
-    @State private var nowOnboard: OnboardingExplain = .first
+    @AppStorage("FirstOnboarding") private var FirstOnboarding: Bool = true
+    @State var viewModel = OnboardingViewModel(
+        createService: CreateService(),
+        updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: [])
+    )
     
     var body: some View {
-        NavigationStack(path: $navigationManager.path) {
+        NavigationStack(path: $viewModel.navigationManager.path) {
             VStack {
                 // 만다라트 설명 5페이지뷰 탭뷰
-                TabView(selection: $nowOnboard) {
+                TabView(selection: $viewModel.nowOnboard) {
                     ForEach(OnboardingExplain.allCases, id: \.self) { onboarding in
                         OnboardingExplainPageView(
-                            nowOnboard: nowOnboard
+                            nowOnboard: onboarding,
+                            selectedOnboarding: viewModel.nowOnboard
                         )
                         .tag(onboarding)
                     }
@@ -38,14 +38,14 @@ struct OnboardingStartView: View {
                         ForEach(OnboardingExplain.allCases, id: \.self) { onboarding in
                             Circle()
                                 .frame(width: 8, height: 8)
-                                .foregroundStyle(nowOnboard == onboarding ? .my636363 : .my919191)
+                                .foregroundStyle(viewModel.nowOnboard == onboarding ? .my636363 : .my919191)
                         }
                     }
                 }
                 .padding(.bottom)
                 
                 GoButton {
-                    handleNextButtonTap()
+                    viewModel.moveToNextPage()
                 } label: {
                     Text("다음")
                 }
@@ -56,25 +56,14 @@ struct OnboardingStartView: View {
                 pathType.NavigatingView()
             }
             .onAppear {
-                viewModel.createGoals(modelContext: modelContext) // 온보딩 등장시 루틴 데이터 생성
-                viewModel.createAllCloverData(modelContext: modelContext) // 온보딩 등장시 클로버 데이터 생성
+                if FirstOnboarding {
+                    viewModel.createGoals(modelContext: modelContext) // 온보딩 등장시 루틴 데이터 생성
+                    viewModel.createAllCloverData(modelContext: modelContext) // 온보딩 등장시 클로버 데이터 생성
+                    viewModel.setInstallDate() // 앱 설치일 저장
+                }
             }
         }
-        .environment(navigationManager)
-    }
-    
-    private func handleNextButtonTap() {
-        // 마지막 온보딩 페이지인지 확인
-        if nowOnboard == OnboardingExplain.allCases.last {
-            // 네비게이션으로 이동
-            navigationManager.push(to: .onboardReady)
-        } else {
-            // 다음 페이지로 이동
-            if let currentIndex = OnboardingExplain.allCases.firstIndex(of: nowOnboard),
-               currentIndex + 1 < OnboardingExplain.allCases.count {
-                nowOnboard = OnboardingExplain.allCases[currentIndex + 1]
-            }
-        }
+        .environment(viewModel.navigationManager)
     }
 }
 

@@ -90,6 +90,7 @@ struct AllRoutineView: View {
                 }
                 .onTapGesture {
                     viewModel.allRoutineTapPicker(to: item)
+                    viewModel.triggerHaptic()
                 }
             }
         }

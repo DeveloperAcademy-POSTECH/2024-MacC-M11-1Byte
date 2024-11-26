@@ -27,12 +27,12 @@ struct MainGoalsheetView: View {
     
     var body: some View {
         VStack {
-            Text("나의 목표")
+            Text("나의 다짐")
                 .font(.Pretendard.SemiBold.size17)
             
             // 핵심 목표 제목 입력란
             ZStack {
-                TextField("나의 목표를 입력해주세요", text: $newTitle)
+                TextField("나의 다짐을 입력해주세요", text: $newTitle)
                     .padding()
                     .background(.white)
                     .font(.Pretendard.Medium.size16)

@@ -63,4 +63,10 @@ class AllRoutineViewModel {
     func isSubGoalEmpty(_ subGoal: SubGoal) -> Bool {
         return subGoal.title.isEmpty && subGoal.detailGoals.allSatisfy { $0.title.isEmpty }
     }
+    
+    // 전체루틴 5개 탭 햅틱
+    func triggerHaptic() {
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
+    }
 }
