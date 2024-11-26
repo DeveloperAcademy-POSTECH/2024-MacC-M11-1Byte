@@ -9,7 +9,7 @@ import SwiftData
 
 struct MandalartView: View {
     @Environment(\.modelContext) private var modelContext
-    @AppStorage("FirstOnboarding") var FirstOnboarding: Bool = true
+    @State private var requestNotification: Bool = true
     @Query private var mainGoals: [MainGoal]
     @State var isPresented = false
     @State private var mainGoal: MainGoal?
@@ -17,31 +17,22 @@ struct MandalartView: View {
     
     var body: some View {
         NavigationStack() {
-            ZStack {
-                Color.myFFFAF4
-                    .ignoresSafeArea(edges: .top)
-                if let firstMainGoal = mainGoals.first {
-                    OuterGridView(mainGoal: $mainGoal, isTabBarMainVisible: $isTabBarMainVisible)
-                        .environment(\.modelContext, modelContext)
-                        .onAppear {
-                            mainGoal = firstMainGoal
-                        }
-                } else {
-                    Text("MainGoal 데이터를 찾을 수 없습니다.")
-                        .foregroundStyle(.gray)
-                        .padding()
-                }
+            if let firstMainGoal = mainGoals.first {
+                OuterGridView(mainGoal: $mainGoal, isTabBarMainVisible: $isTabBarMainVisible)
+                    .environment(\.modelContext, modelContext)
+                    .onAppear {
+                        mainGoal = firstMainGoal
+                    }
+            } else {
+                Text("MainGoal 데이터를 찾을 수 없습니다.")
+                    .foregroundStyle(.gray)
+                    .padding()
             }
-            .onAppear {
-                isTabBarMainVisible = true
-            }
-            .fullScreenCover(isPresented: $FirstOnboarding) {
-                OnboardingStartView()
-            }
-            .onChange(of: FirstOnboarding) { old, newValue in
-                if !newValue {
-                    requestNotificationPermission()
-                }
+        }
+        .onAppear {
+            isTabBarMainVisible = true
+            if requestNotification {
+                requestNotificationPermission()
             }
         }
     }

@@ -56,6 +56,14 @@ extension Date {
         return (weekday + 5) % 7
     }
     
+    // 앱 설치일 - D-Day 계산 ( 한국시간 기준 )
+    var userInstallSeoulTime: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.timeZone = TimeZone(identifier: "Asia/Seoul")
+        return formatter.string(from: self)
+    }
+    
     // MARK: 현재 날짜 기준의 주차에 Clover데이터에 현재 MainGoal CloverState를 Update하기 위한 주차 계산
     static func calculateISOWeekAndMonthWeek(for date: Date) -> (year: Int, weekOfYear: Int, weekOfMonth: Int) {
         let calendar = Calendar(identifier: .iso8601)

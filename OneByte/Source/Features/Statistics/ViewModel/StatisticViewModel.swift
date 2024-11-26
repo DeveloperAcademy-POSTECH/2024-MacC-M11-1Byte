@@ -8,17 +8,18 @@
 import SwiftUI
 import SwiftData
 
-class StatisticViewModel: ObservableObject  {
+@Observable
+class StatisticViewModel {
     
-    @Published var clovers: [Clover] = []
-    @Published var profile: [Profile] = []
+    var clovers: [Clover] = []
+    var profile: [Profile] = []
     
     let currentMonth = Calendar.current.component(.month, from: Date())
     let currentYear = Calendar.current.component(.year, from: Date())
     
     var currentMonthClovers: [Clover] {
         filterCloversByMonth(clovers: currentYearClovers, month: currentMonth)
-            .filter { $0.cloverState > 0 }
+            .filter { $0.cloverState > 1 }
     }
     
     var currentYearClovers: [Clover] {
@@ -36,7 +37,7 @@ class StatisticViewModel: ObservableObject  {
     var weeklyCloverInfoHeight: CGFloat {
         if let range = currentYearCloverMonthRange {
             let monthCount = currentMonth - range.min + 1
-            return CGFloat(monthCount) * 60 + 40
+            return CGFloat(monthCount) * 62 + 48
         } else {
             return 44
         }
@@ -56,7 +57,7 @@ class StatisticViewModel: ObservableObject  {
     
     func setClovers(_ newClovers: [Clover]) {
         
-        self.clovers = newClovers
+        self.clovers =  newClovers
     }
     
     func setProfile(_ newProfile: [Profile]) {
