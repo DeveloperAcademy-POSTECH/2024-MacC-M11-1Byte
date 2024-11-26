@@ -127,7 +127,8 @@ struct DaysCycleView: View {
                         achieveThu: targetDetailGoal.achieveThu,
                         achieveFri: targetDetailGoal.achieveFri,
                         achieveSat: targetDetailGoal.achieveSat,
-                        achieveSun: targetDetailGoal.achieveSun
+                        achieveSun: targetDetailGoal.achieveSun, 
+                        timePeriod: targetDetailGoal.timePeriod
                     )
                     navigationManager.push(to: .onboardComplete)
                 } label: {

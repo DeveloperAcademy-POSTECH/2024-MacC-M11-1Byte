@@ -40,6 +40,7 @@ struct DetailGoalView: View {
     @State private var achieveFri: Bool = false
     @State private var achieveSat: Bool = false
     @State private var achieveSun: Bool = false
+    @State private var timePeriod: String = "설정 안 함"
     
     @State private var showAlert = false
     @State private var isModified: Bool = false
@@ -133,7 +134,7 @@ struct DetailGoalView: View {
                             achieveThu: achieveThu,
                             achieveFri: achieveFri,
                             achieveSat: achieveSat,
-                            achieveSun: achieveSun
+                            achieveSun: achieveSun, timePeriod: timePeriod
                         )
                         // 알림 설정 호출
                         if isRemind {
@@ -192,6 +193,7 @@ struct DetailGoalView: View {
                 achieveFri = detailGoal.achieveFri
                 achieveSat = detailGoal.achieveSat
                 achieveSun = detailGoal.achieveSun
+                timePeriod = detailGoal.timePeriod
             } else { print("실패")}
             
         }
@@ -533,7 +535,7 @@ extension DetailGoalView {
             Button("삭제하기", role: .destructive) {
                 if let detailGoal = detailGoal {
                     viewModel.deleteDetailGoal(
-                        detailGoal: detailGoal, newTitle: "", newMemo: "", achieveCount: 0, achieveGoal: 0, alertMon: false, alertTue: false, alertWed: false, alertThu: false, alertFri: false, alertSat: false, alertSun: false, isRemind: false, remindTime: nil, achieveMon: false, achieveTue: false, achieveWed: false, achieveThu: false, achieveFri: false, achieveSat: false, achieveSun: false
+                        detailGoal: detailGoal, newTitle: "", newMemo: "", achieveCount: 0, achieveGoal: 0, alertMon: false, alertTue: false, alertWed: false, alertThu: false, alertFri: false, alertSat: false, alertSun: false, isRemind: false, remindTime: nil, achieveMon: false, achieveTue: false, achieveWed: false, achieveThu: false, achieveFri: false, achieveSat: false, achieveSun: false, timePeriod: "설정 안 함"
                     )
                 }
                 isEditing = false

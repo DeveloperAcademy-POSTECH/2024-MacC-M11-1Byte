@@ -29,7 +29,7 @@ class UpdateService: UpdateGoalUseCase {
         subGoal.leafState = leafState
     }
     
-    func updateDetailGoal(detailGoal: DetailGoal,title: String, memo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool) {
+    func updateDetailGoal(detailGoal: DetailGoal,title: String, memo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool, timePeriod: String) {
         
         detailGoal.title = title
         detailGoal.memo = memo
@@ -51,6 +51,6 @@ class UpdateService: UpdateGoalUseCase {
         detailGoal.achieveFri = achieveFri
         detailGoal.achieveSat = achieveSat
         detailGoal.achieveSun = achieveSun
-        
+        detailGoal.timePeriod = timePeriod
     }
 }

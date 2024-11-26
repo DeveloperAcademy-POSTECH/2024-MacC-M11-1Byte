@@ -30,7 +30,7 @@ class DeleteService: DeleteGoalUseCase {
         subGoal.leafState = 0
     }
     
-    func deleteDetailGoal(detailGoal: DetailGoal, title: String, memo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool) {
+    func deleteDetailGoal(detailGoal: DetailGoal, title: String, memo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool, timePeriod: String) {
         detailGoal.title = ""
         detailGoal.memo = ""
         detailGoal.achieveCount = 0
@@ -51,6 +51,7 @@ class DeleteService: DeleteGoalUseCase {
         detailGoal.achieveFri = false
         detailGoal.achieveSat = false
         detailGoal.achieveSun = false
+        detailGoal.timePeriod = "설정 안 함"
     }
     
     func resetAllData(modelContext: ModelContext, mainGoal: MainGoal) {
@@ -74,7 +75,7 @@ class DeleteService: DeleteGoalUseCase {
                 detailGoal.alertFri = false
                 detailGoal.alertSat = false
                 detailGoal.alertSun = false
-                
+                detailGoal.timePeriod = "설정 안 함"
             }
         }
     }

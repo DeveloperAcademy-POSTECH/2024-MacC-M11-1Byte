@@ -34,7 +34,7 @@ class MandalartViewModel: ObservableObject {
         updateService.updateSubGoal(subGoal:subGoal,newTitle: newTitle, leafState: leafState)
     }
     
-    func updateDetailGoal(detailGoal: DetailGoal, newTitle: String, newMemo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool) {
+    func updateDetailGoal(detailGoal: DetailGoal, newTitle: String, newMemo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool, timePeriod: String) {
         updateService.updateDetailGoal(
             detailGoal: detailGoal,
             title: newTitle,
@@ -56,7 +56,8 @@ class MandalartViewModel: ObservableObject {
             achieveThu: achieveThu,
             achieveFri: achieveFri,
             achieveSat: achieveSat,
-            achieveSun: achieveSun
+            achieveSun: achieveSun,
+            timePeriod: timePeriod
         )
     }
     
@@ -68,7 +69,7 @@ class MandalartViewModel: ObservableObject {
         deleteService.deleteSubGoal(subGoal: subGoal, newTitle: newTitle, leafState: leafState)
     }
     
-    func deleteDetailGoal(detailGoal: DetailGoal,newTitle: String, newMemo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool) {
+    func deleteDetailGoal(detailGoal: DetailGoal,newTitle: String, newMemo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool, timePeriod: String) {
         deleteService.deleteDetailGoal(
             detailGoal: detailGoal,
             title: newTitle, memo: newMemo,
@@ -85,11 +86,12 @@ class MandalartViewModel: ObservableObject {
             remindTime: remindTime,
             achieveMon: achieveMon,
             achieveTue: achieveTue,
-            achieveWed: achieveWed
-            , achieveThu: achieveThu,
+            achieveWed: achieveWed,
+            achieveThu: achieveThu,
             achieveFri: achieveFri,
             achieveSat: achieveSat,
-            achieveSun: achieveSun
+            achieveSun: achieveSun,
+            timePeriod: timePeriod
         )
     }
     
