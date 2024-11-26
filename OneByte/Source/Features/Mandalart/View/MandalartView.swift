@@ -17,29 +17,33 @@ struct MandalartView: View {
     
     var body: some View {
         NavigationStack() {
-            if let firstMainGoal = mainGoals.first {
-                OuterGridView(mainGoal: $mainGoal, isTabBarMainVisible: $isTabBarMainVisible)
-                    .environment(\.modelContext, modelContext)
-                    .onAppear {
-                        mainGoal = firstMainGoal
-                    }
-            } else {
-                Text("MainGoal 데이터를 찾을 수 없습니다.")
-                    .foregroundStyle(.gray)
-                    .padding()
+            ZStack {
+                Color.myFFFAF4
+                    .ignoresSafeArea(edges: .top)
+                if let firstMainGoal = mainGoals.first {
+                    OuterGridView(mainGoal: $mainGoal, isTabBarMainVisible: $isTabBarMainVisible)
+                        .environment(\.modelContext, modelContext)
+                        .onAppear {
+                            mainGoal = firstMainGoal
+                        }
+                } else {
+                    Text("MainGoal 데이터를 찾을 수 없습니다.")
+                        .foregroundStyle(.gray)
+                        .padding()
+                }
+            }
+            .onAppear {
+                isTabBarMainVisible = true
+            }
+            .fullScreenCover(isPresented: $FirstOnboarding) {
+                OnboardingStartView()
+            }
+            .onChange(of: FirstOnboarding) { old, newValue in
+                if !newValue {
+                    requestNotificationPermission()
+                }
             }
         }
-        .onAppear {
-            isTabBarMainVisible = true
-        }
-        .fullScreenCover(isPresented: $FirstOnboarding) {
-            OnboardingStartView()
-        }
-        .onChange(of: FirstOnboarding) { old, newValue in
-                   if !newValue {
-                       requestNotificationPermission()
-                   }
-               }
     }
 }
 
@@ -54,7 +58,7 @@ struct OuterGridView: View {
     
     private let dateManager = DateManager()
     private let currentDate = Date()
-    private let outerColumns = [GridItem(.adaptive(minimum: 160/393 * UIScreen.main.bounds.width), spacing: 20)]
+    private let outerColumns = [GridItem(.adaptive(minimum: 160/393 * UIScreen.main.bounds.width), spacing: 32/393 * UIScreen.main.bounds.width)]
     private let viewModel = MandalartViewModel(
         createService: CreateService(),
         updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []),
@@ -87,7 +91,7 @@ struct OuterGridView: View {
                                 .aspectRatio(contentMode: .fit)
                                 .foregroundStyle(Color.my566956)
                                 .font(.system(size: 20, weight: .medium))
-                                // 이부분은 프리텐다드로 하면 적용이 안됨!
+                            // 이부분은 프리텐다드로 하면 적용이 안됨!
                         }
                     }
                 }
@@ -103,9 +107,9 @@ struct OuterGridView: View {
                 }
             }
             .padding(.vertical)
-           
-                // 목표 & 만다라트 그리드
-                captureView()
+            
+            // 목표 & 만다라트 그리드
+            captureView()
             Spacer()
             
             // 다라 & comment
@@ -133,8 +137,9 @@ struct OuterGridView: View {
                 capturedImage = captureView().padding().padding(.top, -30).snapshot()
             }
         }
-        
         .padding(.horizontal, 20/393 * UIScreen.main.bounds.width)
+        .background(Color.myFFFAF4)
+        .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
     }
 }
 
@@ -143,7 +148,7 @@ extension OuterGridView {
     func captureView() -> some View {
         VStack {
             // 목표
-            HStack {
+            HStack(spacing: 0) {
                 // 목표 시트 버튼
                 Button(action: {
                     mainIsPresented = true
@@ -208,7 +213,7 @@ struct Photo: Transferable {
     static var transferRepresentation: some TransferRepresentation {
         ProxyRepresentation(exporting: \.image)
     }
-
+    
     public var image: Image
     public var caption: String
 }

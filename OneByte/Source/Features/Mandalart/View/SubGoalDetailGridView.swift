@@ -73,6 +73,7 @@ struct SubGoalDetailGridView: View {
                                         .modifier(NextMandalartButtonModifier())
                                         .background(Color.myBFEBBB)
                                 }
+                                .cornerRadius(18)
                                 .cornerRadius(cornerRadius, corners: cornerStyle, defaultRadius: 18)
                                 .contextMenu {
                                     Button(role: .destructive) {

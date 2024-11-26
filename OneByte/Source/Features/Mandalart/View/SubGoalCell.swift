@@ -16,10 +16,10 @@ struct SubGoalCell: View {
     @State var tabBarVisible: Bool = true
     //    @State private var isHidden = true
     @Binding var isTabBarMainVisible: Bool
-    private let innerColumns = Array(repeating: GridItem(.fixed(78/852 * UIScreen.main.bounds.height)), count: 2)
+    private let innerColumns = Array(repeating: GridItem(.fixed(74/852 * UIScreen.main.bounds.height)), count: 2)
     
     var body: some View {
-        VStack(alignment: .center) {
+        VStack(alignment: .center, spacing: 0) {
             if let selectedSubGoal = selectedSubGoal {
                 // 디테일골을 id에 따라 정렬
                 let detailGoalsSorted = selectedSubGoal.detailGoals.sorted(by: { $0.id < $1.id })
