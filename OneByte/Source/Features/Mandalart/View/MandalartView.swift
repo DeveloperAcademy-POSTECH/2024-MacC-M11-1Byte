@@ -17,16 +17,20 @@ struct MandalartView: View {
     
     var body: some View {
         NavigationStack() {
-            if let firstMainGoal = mainGoals.first {
-                OuterGridView(mainGoal: $mainGoal, isTabBarMainVisible: $isTabBarMainVisible)
-                    .environment(\.modelContext, modelContext)
-                    .onAppear {
-                        mainGoal = firstMainGoal
-                    }
-            } else {
-                Text("MainGoal 데이터를 찾을 수 없습니다.")
-                    .foregroundStyle(.gray)
-                    .padding()
+            ZStack {
+                Color.myFFFAF4
+                    .ignoresSafeArea(edges: .top)
+                if let firstMainGoal = mainGoals.first {
+                    OuterGridView(mainGoal: $mainGoal, isTabBarMainVisible: $isTabBarMainVisible)
+                        .environment(\.modelContext, modelContext)
+                        .onAppear {
+                            mainGoal = firstMainGoal
+                        }
+                } else {
+                    Text("MainGoal 데이터를 찾을 수 없습니다.")
+                        .foregroundStyle(.gray)
+                        .padding()
+                }
             }
         }
         .onAppear {
@@ -129,7 +133,6 @@ struct OuterGridView: View {
             }
         }
         .padding(.horizontal, 20/393 * UIScreen.main.bounds.width)
-        .background(Color.myFFFAF4)
         .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
     }
 }
