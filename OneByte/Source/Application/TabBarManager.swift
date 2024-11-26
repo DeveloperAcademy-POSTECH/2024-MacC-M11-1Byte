@@ -85,7 +85,7 @@ struct TabBarManager: View {
     
     // 햅틱
     private func triggerHaptic() {
-        let generator = UIImpactFeedbackGenerator(style: .light)
+        let generator = UIImpactFeedbackGenerator(style: .medium)
         generator.impactOccurred()
     }
 }
