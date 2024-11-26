@@ -144,38 +144,37 @@ extension OuterGridView {
             // 목표
             HStack(spacing: 0) {
                 // 목표 시트 버튼
-                Button(action: {
-                    mainIsPresented = true
-                }){
-                    VStack(alignment: .leading, spacing: 4) {
-                        HStack(spacing: 0) {
-                            Text("나의 다짐")
-                                .foregroundStyle(Color.myD5F3D1)
-                                .font(.Pretendard.Medium.size14)
-                            Spacer()
+                VStack(alignment: .leading, spacing: 4) {
+                    HStack(spacing: 0) {
+                        Text("나의 다짐")
+                            .foregroundStyle(Color.myD5F3D1)
+                            .font(.Pretendard.Medium.size14)
+                        Spacer()
+                        Button(action: {
+                            mainIsPresented = true
+                        }, label: {
                             Image(systemName: "ellipsis")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 22)
                                 .foregroundStyle(Color.myD5F3D1)
+                        })
+                        .sheet(isPresented: $mainIsPresented) {
+                            MainGoalsheetView(mainGoal: $mainGoal, isPresented: $mainIsPresented)
+                                .presentationDragIndicator(.visible)
+                                .presentationDetents([.height(244/852 * UIScreen.main.bounds.height)])
                         }
-                        
-                        Text(mainGoal?.title ?? "")
-                            .foregroundStyle(.white)
-                            .font(.Pretendard.Bold.size16)
-                            .kerning(-0.32) // 자간
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading) // 전체 너비에서 왼쪽 정렬
-                    .padding(.horizontal)
-                    .padding(.vertical)
-                    .background(Color.my538F53)
-                    .cornerRadius(12)
+                    Text(mainGoal?.title ?? "")
+                        .foregroundStyle(.white)
+                        .font(.Pretendard.Bold.size16)
+                        .kerning(-0.32) // 자간
                 }
-                .sheet(isPresented: $mainIsPresented) {
-                    MainGoalsheetView(mainGoal: $mainGoal, isPresented: $mainIsPresented)
-                        .presentationDragIndicator(.visible)
-                        .presentationDetents([.height(244/852 * UIScreen.main.bounds.height)])
-                }
+                .frame(maxWidth: .infinity, alignment: .leading) // 전체 너비에서 왼쪽 정렬
+                .padding(.horizontal)
+                .padding(.vertical)
+                .background(Color.my538F53)
+                .cornerRadius(12)
             }
             .frame(height: 76/852 * UIScreen.main.bounds.height)
             .padding(.bottom, 30/852 * UIScreen.main.bounds.height)
