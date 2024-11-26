@@ -8,10 +8,11 @@
 import SwiftUI
 import SwiftData
 
-class StatisticViewModel: ObservableObject  {
+@Observable
+class StatisticViewModel {
     
-    @Published var clovers: [Clover] = []
-    @Published var profile: [Profile] = []
+    var clovers: [Clover] = []
+    var profile: [Profile] = []
     
     let currentMonth = Calendar.current.component(.month, from: Date())
     let currentYear = Calendar.current.component(.year, from: Date())

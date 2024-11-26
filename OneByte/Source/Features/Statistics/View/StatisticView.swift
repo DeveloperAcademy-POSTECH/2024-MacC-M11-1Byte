@@ -12,7 +12,7 @@ struct StatisticView: View {
     @Environment(\.modelContext) private var modelContext
     @Query var clovers: [Clover]
     @Query var profile: [Profile]
-    @StateObject var viewModel = StatisticViewModel()
+    @State var viewModel = StatisticViewModel()
     @Binding var isTabBarMainVisible: Bool
     
     var body: some View {
