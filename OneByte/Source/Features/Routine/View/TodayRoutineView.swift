@@ -33,23 +33,28 @@ struct TodayRoutineView: View {
                                 .font(.Pretendard.SemiBold.size16)
                                 .kerning(0.02)
                                 .padding(.top, 16)
-                            
                             Text("나의 목표에서 루틴을 추가해보세요.")
                                 .font(.Pretendard.Medium.size14)
                                 .foregroundStyle(.my878787)
                                 .padding(.top, 1)
                         }
                         .padding(.top, 114)
-                    } else {
-                        VStack(spacing: 1) {
+                    } else { // 오늘의 루틴만 없을때
+                        VStack(spacing: 0) {
+                            Image("Turtle_Empty2")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 122, height: 120)
                             Text("오늘 수행할 루틴이 없어요")
                                 .font(.Pretendard.SemiBold.size16)
+                                .padding(.top,19)
                                 .kerning(0.02)
-                            Text("만다라트에서 루틴을 추가해보세요.")
+                            Text("나의 목표에서 루틴을 추가해보세요.")
                                 .font(.Pretendard.Medium.size14)
                                 .foregroundStyle(.my878787)
+                                .padding(.top, 1)
                         }
-                        .padding(.top, 263) // 291-28
+                        .padding(.top, 125)
                     }
                 } else { // 오늘의 루틴이 있을때
                     // 오전 루틴 섹션

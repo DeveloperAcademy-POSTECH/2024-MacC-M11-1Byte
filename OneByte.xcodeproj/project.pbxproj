@@ -314,14 +314,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		1F7C9C162CD0736700BAC358 /* Work */ = {
+		1F7C9C162CD0736700BAC358 /* Routine */ = {
 			isa = PBXGroup;
 			children = (
 				1FD405282CECBF9400403A19 /* Model */,
 				1FD4052E2CECC02900403A19 /* VM */,
 				1F7C9C172CD0737800BAC358 /* View */,
 			);
-			path = Work;
+			path = Routine;
 			sourceTree = "<group>";
 		};
 		1F7C9C172CD0737800BAC358 /* View */ = {
@@ -340,7 +340,7 @@
 			children = (
 				1F4D8BEE2CDF4F9200A0B5CC /* Onboarding */,
 				1F7C9C132CD0731F00BAC358 /* Mandalart */,
-				1F7C9C162CD0736700BAC358 /* Work */,
+				1F7C9C162CD0736700BAC358 /* Routine */,
 				1F7C9C102CD072D700BAC358 /* Statistics */,
 				1F599E2E2CE6634B00788D07 /* Setting */,
 			);
