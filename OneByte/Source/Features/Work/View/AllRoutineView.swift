@@ -58,7 +58,7 @@ struct AllRoutineView: View {
                             Image("Turtle_Empty")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 101, height: 149)
+                                .frame(width: 101, height: 133)
                                 .padding(.top, 45)
                             Text("아직 루틴이 없어요!")
                                 .font(.Pretendard.SemiBold.size18)
