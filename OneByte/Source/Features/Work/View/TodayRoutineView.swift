@@ -17,13 +17,13 @@ struct TodayRoutineView: View {
     
     var body: some View {
         ScrollView {
-            VStack(spacing: 15) {
+            VStack(spacing: 12) {
                 // 데이터 업데이트
                 let todayGoals = viewModel.filterTodayGoals(from: mainGoals)
                 
                 // 오전 루틴 섹션
                 if !viewModel.filterMorningGoals(from: todayGoals).isEmpty {
-                    TodayRoutineTypeHeaderView(routineimage: "sun.max.fill", routineTimeType: "오전 루틴")
+                    TodayRoutineTypeHeaderView(routineimage: "sun.max.fill", routineTimeType: "아침 루틴")
                     
                     if let mainGoal = mainGoals.first { // MainGoal 가져오기
                         ForEach(viewModel.filterMorningGoals(from: todayGoals), id: \.id) { detailGoal in
@@ -39,6 +39,7 @@ struct TodayRoutineView: View {
                             }
                         }
                     }
+                
                 }
                 
                 // 오후 루틴 섹션
@@ -83,7 +84,9 @@ struct TodayRoutineView: View {
                     }
                 }
             }
-            .padding()
+            .padding(.top, 28)
+            .padding(.horizontal, 16)
+            .padding(.bottom, 32)
         }
         .background(Color.myFFFAF4)
     }
@@ -99,11 +102,11 @@ struct TodayRoutineCell: View {
     let clovers: [Clover]
     
     var body: some View {
-        HStack(spacing: 15) {
+        HStack(spacing: 16) {
             // 알림 시간 있으면 표시
             if let remindTime = detailGoal.remindTime {
                 Text(remindTime.timeString)
-                    .font(.Pretendard.Medium.size14)
+                    .font(.Pretendard.SemiBold.size14)
                     .foregroundStyle(detailGoal.isAchievedToday ? Color.my727272.opacity(0.6) : Color.my727272)
                     .padding(.bottom)
             }
@@ -135,7 +138,7 @@ struct TodayRoutineCell: View {
             }
             .frame(width: 32, height: 32)
         }
-        .frame(height: 69)
+        .frame(height: 64)
         .padding(.horizontal)
         .background(.white)
         .cornerRadius(12)
