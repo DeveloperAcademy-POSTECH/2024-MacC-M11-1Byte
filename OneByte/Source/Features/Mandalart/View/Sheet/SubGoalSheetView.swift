@@ -14,7 +14,6 @@ struct SubGoalsheetView: View {
     private let titleLimit = 20 // 제목 글자수 제한
     
     @State private var newTitle: String = ""
-    @State private var leafState: Int = 0
     private let viewModel = MandalartViewModel(
         createService: CreateService(),
         updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []),
@@ -103,7 +102,6 @@ struct SubGoalsheetView: View {
                         viewModel.updateSubGoal(
                             subGoal: subGoal,
                             newTitle: newTitle,
-                            leafState: leafState,
                             category: selectedCategory)
                     }
                     isPresented = false

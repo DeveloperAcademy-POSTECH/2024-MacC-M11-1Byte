@@ -117,7 +117,7 @@ extension SubGoalDetailGridView {
             })
             .contextMenu {
                 Button(role: .destructive){
-                    viewModel.deleteSubGoal(subGoal: selectedSubGoal, id: selectedSubGoal.id, newTitle: "", leafState: 0, category: "")
+                    viewModel.deleteSubGoal(subGoal: selectedSubGoal, id: selectedSubGoal.id, newTitle: "", category: "")
                 } label: {
                     Label("Delete", systemImage: "trash")
                 }

@@ -25,9 +25,8 @@ class DeleteService: DeleteGoalUseCase {
         mainGoal.cloverState = 0
     }
     
-    func deleteSubGoal(subGoal: SubGoal, newTitle: String, leafState: Int, category: String) {
+    func deleteSubGoal(subGoal: SubGoal, newTitle: String,category: String) {
         subGoal.title = ""
-        subGoal.leafState = 0
         subGoal.category = ""
     }
     
@@ -65,7 +64,6 @@ class DeleteService: DeleteGoalUseCase {
         // 모든 SubGoal 초기화
         for subGoal in mainGoal.subGoals {
             subGoal.title = ""
-            subGoal.leafState = 0
             
             // 각 SubGoal에 연결된 DetailGoal 초기화
             for detailGoal in subGoal.detailGoals {

@@ -26,14 +26,12 @@ class MainGoal {
 class SubGoal {
     var id: Int
     var title: String
-    var leafState: Int
     var detailGoals: [DetailGoal]
     var category: String // 카테고리 추가
     
-    init(id: Int, title: String, leafState: Int, detailGoals: [DetailGoal], category: String) {
+    init(id: Int, title: String, detailGoals: [DetailGoal], category: String) {
         self.id = id
         self.title = title
-        self.leafState = leafState
         self.detailGoals = detailGoals
         self.category = category
     }

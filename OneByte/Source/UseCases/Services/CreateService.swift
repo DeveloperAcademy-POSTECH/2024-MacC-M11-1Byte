@@ -30,7 +30,6 @@ class CreateService: CreateGoalUseCase {
                let newSubGoal = SubGoal(
                    id: subGoalCounter,
                    title: "",
-                   leafState: 0,
                    detailGoals: [],
                    category: ""
                )

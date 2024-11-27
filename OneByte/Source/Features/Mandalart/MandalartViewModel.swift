@@ -30,8 +30,8 @@ class MandalartViewModel: ObservableObject {
         updateService.updateMainGoal(mainGoal: mainGoal, id: id, newTitle: newTitle, cloverState: cloverState)
     }
     
-    func updateSubGoal(subGoal: SubGoal, newTitle: String, leafState: Int ,category: String) {
-        updateService.updateSubGoal(subGoal:subGoal,newTitle: newTitle, leafState: leafState, category: category)
+    func updateSubGoal(subGoal: SubGoal, newTitle: String, category: String) {
+        updateService.updateSubGoal(subGoal:subGoal,newTitle: newTitle, category: category)
     }
     
     func updateDetailGoal(detailGoal: DetailGoal, newTitle: String, newMemo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool, isMorning: Bool, isAfternoon: Bool, isEvening: Bool, isNight: Bool, isFree: Bool) {
@@ -69,8 +69,8 @@ class MandalartViewModel: ObservableObject {
         deleteService.deleteMainGoal(mainGoal: mainGoal, modelContext: modelContext, id: id, newTitle: newTitle, cloverState: cloverState)
     }
     
-    func deleteSubGoal(subGoal: SubGoal, id: Int, newTitle: String, leafState: Int, category: String) {
-        deleteService.deleteSubGoal(subGoal: subGoal, newTitle: newTitle, leafState: leafState, category: category)
+    func deleteSubGoal(subGoal: SubGoal, id: Int, newTitle: String, category: String) {
+        deleteService.deleteSubGoal(subGoal: subGoal, newTitle: newTitle, category: category)
     }
     
     func deleteDetailGoal(detailGoal: DetailGoal,newTitle: String, newMemo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool, isMorning: Bool, isAfternoon: Bool, isEvening: Bool, isNight: Bool, isFree: Bool) {
@@ -119,6 +119,7 @@ class MandalartViewModel: ObservableObject {
         
         return (category, isCustomCategoryActive)
     }
+    
     // MARK: - Time Period Management
     func setTimePeriod(detailGoal: DetailGoal, selectedPeriod: String) {
         // 초기화: 모든 시간대는 false로 설정

@@ -24,9 +24,8 @@ class UpdateService: UpdateGoalUseCase {
         mainGoal.cloverState = cloverState
     }
 
-    func updateSubGoal(subGoal: SubGoal, newTitle: String, leafState: Int, category: String) {
+    func updateSubGoal(subGoal: SubGoal, newTitle: String, category: String) {
         subGoal.title = newTitle
-        subGoal.leafState = leafState
         subGoal.category = category
     }
     
