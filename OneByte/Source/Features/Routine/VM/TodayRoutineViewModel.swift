@@ -49,23 +49,25 @@ class TodayRoutineViewModel {
             .filter { isTodayRoutine($0, for: today) }
     }
     
-    // MARK: 오전 루틴 필터링
-    func filterMorningGoals(from todayGoals: [DetailGoal]) -> [DetailGoal] {
-        return todayGoals
-            .filter { $0.isRemind && ($0.remindTime?.hour ?? 0) < 12 } // 오전 오후 구분
-            .sorted(by: { ($0.remindTime ?? Date.distantPast) < ($1.remindTime ?? Date.distantPast) }) // 시간순 정렬
+    // MARK: 아침/점심/저녁/자기전/자율 루틴 필터링
+    func filterMorning(from todayGoals: [DetailGoal]) -> [DetailGoal] {
+        return todayGoals.filter{ $0.isMorning }
     }
     
-    // MARK: 오후 루틴 필터링
-    func filterAfternoonGoals(from todayGoals: [DetailGoal]) -> [DetailGoal] {
-        return todayGoals
-            .filter { $0.isRemind && ($0.remindTime?.hour ?? 0) >= 12 } // 오전 오후 구분
-            .sorted(by: { ($0.remindTime ?? Date.distantPast) < ($1.remindTime ?? Date.distantPast) }) // 시간순 정렬
+    func filterAfternoon(from todayGoals: [DetailGoal]) -> [DetailGoal] {
+        return todayGoals.filter{ $0.isAfternoon }
     }
     
-    // MARK: 자유 루틴 필터링
-    func filterFreeGoals(from todayGoals: [DetailGoal]) -> [DetailGoal] {
-        todayGoals.filter { !$0.isRemind }
+    func filterEvening(from todayGoals: [DetailGoal]) -> [DetailGoal] {
+        return todayGoals.filter{ $0.isEvening }
+    }
+    
+    func filterNight(from todayGoals: [DetailGoal]) -> [DetailGoal] {
+        return todayGoals.filter{ $0.isNight }
+    }
+    
+    func filterFree(from todayGoals: [DetailGoal]) -> [DetailGoal] {
+        return todayGoals.filter{ $0.isFree }
     }
     
     // MARK: 오늘의 루틴 목록 중에서 완료/미완료 여부에 따라 achieveMon 데이터 변경
