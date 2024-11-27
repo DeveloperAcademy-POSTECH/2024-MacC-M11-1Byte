@@ -51,7 +51,7 @@ class DeleteService: DeleteGoalUseCase {
         detailGoal.achieveFri = false
         detailGoal.achieveSat = false
         detailGoal.achieveSun = false
-        detailGoal.timePeriod = "설정 안 함"
+        detailGoal.timePeriod = ""
     }
     
     func resetAllData(modelContext: ModelContext, mainGoal: MainGoal) {
@@ -75,7 +75,7 @@ class DeleteService: DeleteGoalUseCase {
                 detailGoal.alertFri = false
                 detailGoal.alertSat = false
                 detailGoal.alertSun = false
-                detailGoal.timePeriod = "설정 안 함"
+                detailGoal.timePeriod = ""
             }
         }
     }

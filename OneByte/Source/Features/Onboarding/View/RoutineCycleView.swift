@@ -133,7 +133,7 @@ struct RoutineCycleView: View {
                             achieveFri: false,
                             achieveSat: false,
                             achieveSun: false, 
-                            timePeriod: "설정 안 함꾸고"
+                            timePeriod: ""
                         )
                         navigationManager.push(to: .onboardDays)
                     } else {

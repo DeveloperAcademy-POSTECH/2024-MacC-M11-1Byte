@@ -59,7 +59,7 @@ class CreateService: CreateGoalUseCase {
                        achieveFri: false,
                        achieveSat: false,
                        achieveSun: false,
-                       timePeriod: "설정 안 함"
+                       timePeriod: ""
                    )
                    detailGoalCounter += 1 // DetailGoal ID 증가
                    
