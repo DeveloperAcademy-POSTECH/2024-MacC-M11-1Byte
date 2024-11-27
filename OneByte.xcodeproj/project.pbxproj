@@ -82,6 +82,7 @@
 		61CC00FD2CF0276B0009D063 /* DetailGoalColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CC00FC2CF0276B0009D063 /* DetailGoalColor.swift */; };
 		61CC00FF2CF1742B0009D063 /* DetailGoalColorFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CC00FE2CF1742B0009D063 /* DetailGoalColorFunc.swift */; };
 		61CC01012CF6CBD00009D063 /* DayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CC01002CF6CBD00009D063 /* DayButton.swift */; };
+		61CC01052CF74D190009D063 /* SubGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CC01042CF74D190009D063 /* SubGoalView.swift */; };
 		61E28B822CEE01FE000F77FB /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E28B812CEE01FE000F77FB /* Notification.swift */; };
 		61FA4DF32CE77EDD00256B57 /* BackButtonToolbarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FA4DF22CE77EDD00256B57 /* BackButtonToolbarModifier.swift */; };
 		61FA4DF52CE7803600256B57 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FA4DF42CE7803600256B57 /* View+.swift */; };
@@ -165,6 +166,7 @@
 		61CC00FC2CF0276B0009D063 /* DetailGoalColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoalColor.swift; sourceTree = "<group>"; };
 		61CC00FE2CF1742B0009D063 /* DetailGoalColorFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoalColorFunc.swift; sourceTree = "<group>"; };
 		61CC01002CF6CBD00009D063 /* DayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayButton.swift; sourceTree = "<group>"; };
+		61CC01042CF74D190009D063 /* SubGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubGoalView.swift; sourceTree = "<group>"; };
 		61E28B812CEE01FE000F77FB /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		61FA4DF22CE77EDD00256B57 /* BackButtonToolbarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButtonToolbarModifier.swift; sourceTree = "<group>"; };
 		61FA4DF42CE7803600256B57 /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
@@ -525,6 +527,7 @@
 			isa = PBXGroup;
 			children = (
 				610595D32CE21505005ED7B4 /* MainGoalSheetView.swift */,
+				61CC01042CF74D190009D063 /* SubGoalView.swift */,
 				610595DA2CE2EA54005ED7B4 /* SubGoalSheetView.swift */,
 				610595DC2CE2EA6C005ED7B4 /* DetailGoalView.swift */,
 			);
@@ -666,6 +669,7 @@
 				1FE2B8D62CDFAF8600781E20 /* Int+GridExtensions.swift in Sources */,
 				610595CE2CE2140D005ED7B4 /* SubGoalCell.swift in Sources */,
 				618FD0762CDF11410003450D /* UpdateService.swift in Sources */,
+				61CC01052CF74D190009D063 /* SubGoalView.swift in Sources */,
 				1FD4053C2CED987700403A19 /* TurtleMessageView.swift in Sources */,
 				1FB10A292CDF515300D54EC5 /* ReadyCycleView.swift in Sources */,
 				1F4D8BF22CDF4FC300A0B5CC /* Onboarding.swift in Sources */,
