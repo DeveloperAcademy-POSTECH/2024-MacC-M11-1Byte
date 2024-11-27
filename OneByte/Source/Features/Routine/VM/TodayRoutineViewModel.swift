@@ -32,6 +32,13 @@ class TodayRoutineViewModel {
         default: return false
         }
     }
+    // MARK: 사용자가 모든 DetailGoal을 삭제해서, 모든 루틴의 title의 ""일때 필터링
+    func isAllDetailGoalTitlesEmpty(from mainGoals: [MainGoal]) -> Bool {
+        return mainGoals
+            .flatMap { $0.subGoals }
+            .flatMap { $0.detailGoals }
+            .allSatisfy { $0.title.isEmpty }
+    }
     
     // MARK: 오늘의 루틴 필터링
     func filterTodayGoals(from mainGoals: [MainGoal]) -> [DetailGoal] {

@@ -16,7 +16,7 @@ struct TodayRoutineTypeHeaderView: View {
     var body: some View {
         HStack {
             Image(systemName: routineimage)
-                .frame(width: 22, height: 22)
+                .frame(width: 24, height: 24)
                 .foregroundStyle(Color.my566956)
             
             Text(routineTimeType)

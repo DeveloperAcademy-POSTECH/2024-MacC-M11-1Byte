@@ -76,13 +76,14 @@ struct RoutineMainView: View {
                     .foregroundStyle(Color.myCEEDCE)
             }
         }
-        .padding()
+        .padding(.leading, 20)
+        .padding(.trailing, 24)
     }
     
     // MARK: 동기부여 메시지 뷰
     private func motivationMessageView() -> some View {
         HStack(spacing: 0) {
-            TurtleMessageView(message: viewModel.message)
+            TurtleMessageView(message: viewModel.currentMessage)
                 .padding(.bottom, 30)
             
             Image("Turtle_Main")
@@ -90,18 +91,21 @@ struct RoutineMainView: View {
                 .scaledToFit()
                 .frame(width: 105, height: 85)
                 .onTapGesture {
-                    if clovers.isEmpty {
-                        print("⚠️ Clover 데이터가 비어 있습니다.")
-                    } else {
-                        let sortedClovers = clovers.sorted(by: { $0.id < $1.id }) // ID 기준으로 정렬
-                        for clover in sortedClovers {
-                            print("🍀 ID: \(clover.id), Year: \(clover.cloverYear), Month: \(clover.cloverMonth), WeekOfMonth: \(clover.cloverWeekOfMonth), WeekOfYear: \(clover.cloverWeekOfYear), CloverState: \(clover.cloverState)")
-                        }
-                    }
+                    viewModel.updateRandomMessage()
+//                    if clovers.isEmpty {
+//                        print("⚠️ Clover 데이터가 비어 있습니다.")
+//                    } else {
+//                        let sortedClovers = clovers.sorted(by: { $0.id < $1.id }) // ID 기준으로 정렬
+//                        for clover in sortedClovers {
+//                            print("🍀 ID: \(clover.id), Year: \(clover.cloverYear), Month: \(clover.cloverMonth), WeekOfMonth: \(clover.cloverWeekOfMonth), WeekOfYear: \(clover.cloverWeekOfYear), CloverState: \(clover.cloverState)")
+//                        }
+//                    }
                 }
         }
-        .frame(maxWidth: .infinity)
-        .padding()
+        .padding(.leading, 16)
+        .padding(.trailing, 13)
+        .padding(.top, 28)
+        .padding(.bottom, 8)
     }
     
     // MARK: Tabbar Picker 뷰
