@@ -101,8 +101,10 @@ struct RoutineMainView: View {
                     }
                 }
         }
-        .frame(maxWidth: .infinity)
-        .padding()
+        .padding(.leading, 16)
+        .padding(.trailing, 13)
+        .padding(.top, 28)
+        .padding(.bottom, 8)
     }
     
     // MARK: Tabbar Picker 뷰
