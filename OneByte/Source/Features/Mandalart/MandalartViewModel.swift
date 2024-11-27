@@ -8,6 +8,8 @@
 // CUTestViewModel.swift
 import SwiftUI
 import SwiftData
+import NaturalLanguage
+import CoremL
 
 class MandalartViewModel: ObservableObject {
     @Published var mainGoal: MainGoal?
@@ -95,5 +97,48 @@ class MandalartViewModel: ObservableObject {
     
     func resetAllData(modelContext: ModelContext, mainGoal: MainGoal) {
         deleteService.resetAllData(modelContext: modelContext, mainGoal: mainGoal)
+    }
+    
+    func wordTagger() {
+        let text = inputText
+        
+        guard !text.isEmpty else {
+            return
+        }
+        
+        do {
+            let mlModel = try SpecificTagger3194(configuration: MLModelConfiguration())
+            
+            let tokenizer = NLTokenizer(unit: .word)
+            tokenizer.string = text
+            var tokens: [String] = []
+            tokenizer.enumerateTokens(in: text.startIndex..<text.endIndex) { tokenRange, _ in
+                let word = String(text[tokenRange])
+                print("\(tokenRange)")
+                tokens.append(word)
+                return true
+            }
+            
+            var results: [TaggedWord] = []
+            for word in tokens {
+                let input = SpecificTagger3194Input(text: word)
+                let output = try mlModel.prediction(input: input)
+                let tag = output.labels
+                let taggedWord = TaggedWord(id: UUID(), word: word, tag: tag.first ?? "")
+                results.append(taggedWord)
+            }
+            
+            DispatchQueue.main.async {
+                self.taggedWords = results
+            }
+        } catch {
+            print("Error loading model or making prediction: \(error)")
+        }
+    }
+    
+    struct TaggedWord: Identifiable {
+        let id: UUID
+        let word: String
+        let tag: String
     }
 }
