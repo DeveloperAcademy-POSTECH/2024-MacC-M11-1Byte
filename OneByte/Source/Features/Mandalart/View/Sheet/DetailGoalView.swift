@@ -284,7 +284,7 @@ extension DetailGoalView {
             }
         }
         .padding(.top, -20)
-
+        
         if isEditing {
             // 글자수 부분
             HStack(spacing: 0) {
@@ -356,15 +356,36 @@ extension DetailGoalView {
         .padding(.top, -44)
         .padding(.leading, 8)
         
-        ZStack {
-            HStack(alignment: .center, spacing: 4) {
-                Text("체크사항을 참고해서 루틴을 더 잘 작성해보세요")
-                    .font(.Pretendard.Medium.si)
+        if isQuestionMarkClicked {
+            ZStack {
+                Image("Polygon")
+                    .resizable()
+                    .frame(width: 26, height: 18)
+                    .padding(.top, -22)
+                    .padding(.leading, 120)
+                HStack(spacing: 4) {
+                    Text("체크항목을 참고해서 루틴을 더 구체적으로 작성해보세요")
+                        .font(.Pretendard.Medium.size13)
+                        .foregroundStyle(.myB4A99D)
+                    Button(action: {
+                        isQuestionMarkClicked = false
+                    }, label: {
+                        Image(systemName: "xmark")
+                            .resizable()
+                            .frame(width: 9, height: 9)
+                            .foregroundStyle(.myB4A99D)
+                    })
+                    
+                }
+                .padding(.horizontal, 10)
+                .padding(.vertical, 8)
+                .background(Color.myF0E8DF)
+                .cornerRadius(8)
+                .padding(.leading, 4)
+                
+                
             }
-            .padding(.horizontal, 10)
-            .padding(.vertical, 8)
-            .background(Color(red: 0.94, green: 0.91, blue: 0.87))
-            .cornerRadius(8)
+            .padding(.top, -44)
         }
     }
     
