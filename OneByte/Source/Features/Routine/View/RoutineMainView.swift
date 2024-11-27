@@ -70,9 +70,9 @@ struct RoutineMainView: View {
             NavigationLink {
                 SettingView(isTabBarMainVisible: $isTabBarMainVisible)
             } label: {
-                Image(systemName: "gear")
+                Image("Setting")
                     .resizable()
-                    .frame(width: 24, height: 24)
+                    .frame(width: 28, height: 28)
                     .foregroundStyle(Color.myCEEDCE)
             }
         }
