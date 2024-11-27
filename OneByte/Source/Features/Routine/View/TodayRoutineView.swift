@@ -68,7 +68,7 @@ struct TodayRoutineView: View {
                                     TodayRoutineCell(
                                         mainGoal: mainGoal,
                                         detailGoal: detailGoal,
-                                        subGoalTitle: subGoal.title,
+                                        subGoalCategory: subGoal.category,
                                         viewModel: viewModel,
                                         modelContext: modelContext,
                                         clovers: clovers
@@ -88,7 +88,7 @@ struct TodayRoutineView: View {
                                     TodayRoutineCell(
                                         mainGoal: mainGoal,
                                         detailGoal: detailGoal,
-                                        subGoalTitle: subGoal.title,
+                                        subGoalCategory: subGoal.category,
                                         viewModel: viewModel,
                                         modelContext: modelContext,
                                         clovers: clovers
@@ -109,7 +109,7 @@ struct TodayRoutineView: View {
                                     TodayRoutineCell(
                                         mainGoal: mainGoal,
                                         detailGoal: detailGoal,
-                                        subGoalTitle: subGoal.title,
+                                        subGoalCategory: subGoal.category,
                                         viewModel: viewModel,
                                         modelContext: modelContext,
                                         clovers: clovers
@@ -130,7 +130,7 @@ struct TodayRoutineView: View {
                                     TodayRoutineCell(
                                         mainGoal: mainGoal,
                                         detailGoal: detailGoal,
-                                        subGoalTitle: subGoal.title,
+                                        subGoalCategory: subGoal.category,
                                         viewModel: viewModel,
                                         modelContext: modelContext,
                                         clovers: clovers
@@ -151,7 +151,7 @@ struct TodayRoutineView: View {
                                     TodayRoutineCell(
                                         mainGoal: mainGoal,
                                         detailGoal: detailGoal,
-                                        subGoalTitle: subGoal.title,
+                                        subGoalCategory: subGoal.category,
                                         viewModel: viewModel,
                                         modelContext: modelContext,
                                         clovers: clovers
@@ -174,7 +174,7 @@ struct TodayRoutineCell: View {
     
     let mainGoal: MainGoal
     let detailGoal: DetailGoal
-    let subGoalTitle: String
+    let subGoalCategory: String
     let viewModel: TodayRoutineViewModel
     let modelContext: ModelContext
     let clovers: [Clover]
@@ -195,7 +195,7 @@ struct TodayRoutineCell: View {
                     .foregroundStyle(detailGoal.isAchievedToday ? Color.my2B2B2B.opacity(0.7) : Color.my2B2B2B)
                     .strikethrough(detailGoal.isAchievedToday)
                 
-                Text(subGoalTitle) // 🚧🚧🚧 Subgoal을 입력해야만 DetailGoal이 입력가능한 위계가 생기면, detailGoal에 해당하는 Subgoal title 띄워지게
+                Text(subGoalCategory)
                     .font(.Pretendard.Medium.size14)
                     .foregroundStyle(detailGoal.isAchievedToday ? Color.my428142.opacity(0.7) : Color.my428142)
                     .foregroundStyle(Color.my428142)
