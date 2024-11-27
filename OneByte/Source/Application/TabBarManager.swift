@@ -25,22 +25,18 @@ struct TabBarManager: View {
                 TabView(selection: $selectedTab) {
                     RoutineMainView(isTabBarMainVisible: $isTabBarMainVisible)
                         .tabItem {
-                            Image(systemName: "list.bullet.rectangle.fill")
+                            (selectedTab == 0 ? Image("Tab_Routine_Selected") : Image("Tab_Routine_Default"))
                             Text("루틴")
                         }
                         .tag(0)
                     
                     MandalartView(isTabBarMainVisible: $isTabBarMainVisible)
-                        .tabItem {
-                            Image(systemName: "star.fill")
-                                .hidden()
-                        }
                         .tag(1)
                     
                     StatisticView(isTabBarMainVisible: $isTabBarMainVisible)
                         .tabItem {
-                            Image(systemName: "chart.bar.xaxis.ascending.badge.clock")
-                            Text("통계")
+                            (selectedTab == 2 ? Image("Tab_Myclover_Selected") : Image("Tab_Myclover_Default"))
+                            Text("나의 클로버")
                         }
                         .tag(2)
                 }
@@ -61,17 +57,11 @@ struct TabBarManager: View {
                 if isTabBarMainVisible { // 중앙탭 버튼
                     VStack {
                         Spacer()
-                        ZStack {
-                            Circle()
-                                .foregroundStyle(selectedTab == 1 ? .my6FB56F : .my999999)
-                                .frame(width: 62, height: 62)
-                            Image("TabbarMain")
-                        }
-                        .padding(.bottom, 36)
-                        .onTapGesture {
-                            selectedTab = 1 // 중앙 버튼 선택 시 루틴 뷰로 이동
-                        }
-                        
+                        (selectedTab == 1 ? Image("Tab_Myplan_Selected") : Image("Tab_Myplan_Default"))
+                            .padding(.bottom, 34)
+                            .onTapGesture {
+                                selectedTab = 1 // 중앙 버튼 선택 시 나의계획 뷰로 이동
+                            }
                     }
                     .ignoresSafeArea()
                 }

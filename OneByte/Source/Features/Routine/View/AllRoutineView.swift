@@ -22,10 +22,10 @@ struct AllRoutineView: View {
             if viewModel.selectedPicker == .all {
                 if let mainGoal = mainGoals.first {
                     ScrollView {
-                        VStack(spacing: 16) {
+                        VStack(spacing: 28) {
                             // ViewModel에서 SubGoal 필터링 및 정렬
                             ForEach(viewModel.filteredSubGoals(from: mainGoal), id: \.id) { subGoal in
-                                VStack(alignment: .leading, spacing: 13) {
+                                VStack(alignment: .leading, spacing: 10) {
                                     HStack {
                                         Image(viewModel.colorClover(for: subGoal.id))
                                             .resizable()
@@ -33,7 +33,7 @@ struct AllRoutineView: View {
                                             .clipShape(Circle())
                                         
                                         Text(subGoal.title.isEmpty ? "서브목표가 비어있어요." : subGoal.title)
-                                            .font(.Pretendard.Bold.size22)
+                                            .font(.Pretendard.Bold.size18)
                                             .foregroundStyle(Color.my2B2B2B)
                                         Spacer()
                                     }
@@ -45,8 +45,8 @@ struct AllRoutineView: View {
                                 }
                             }
                         }
-                        .padding(.horizontal)
-                        .padding(.bottom)
+                        .padding(.horizontal, 16)
+                        .padding(.bottom, 32)
                     }
                 }
             } else { // 모든 루틴(.all)보는게 아닐경우, 각 탭마다 Subgoal ID를 찾아서 View
@@ -58,7 +58,7 @@ struct AllRoutineView: View {
                             Image("Turtle_Empty")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 101, height: 149)
+                                .frame(width: 101, height: 133)
                                 .padding(.top, 45)
                             Text("아직 루틴이 없어요!")
                                 .font(.Pretendard.SemiBold.size18)
@@ -94,8 +94,8 @@ struct AllRoutineView: View {
                 }
             }
         }
-        .padding(.vertical, 25)
-        .padding(5)
+        .padding(.top, 20)
+        .padding(.bottom, 24)
     }
 }
 
@@ -114,13 +114,13 @@ struct WeekRoutineView : View {
                         .clipShape(Circle())
                     
                     Text(subGoal.title == "" ? "서브목표가 비어있어요." : subGoal.title)
-                        .font(.Pretendard.Bold.size22)
+                        .font(.Pretendard.Bold.size18)
                         .foregroundStyle(Color.my2B2B2B)
                     Spacer()
                 }
                 .padding(.horizontal)
                 
-                VStack(spacing: 20) {
+                VStack(spacing: 10) { // cell 사이 간격
                     // 빈 제목이 아닌 DetailGoal만 표시
                     ForEach(subGoal.detailGoals.filter { !$0.title.isEmpty }, id: \.id) { detailGoal in
                         WeekAchieveCell(detailGoal: detailGoal)
@@ -140,7 +140,8 @@ struct WeekRoutineView : View {
                     }
                 }
                 .frame(maxWidth: .infinity)
-                .padding(.horizontal)
+                .padding(.horizontal, 16)
+                .padding(.bottom, 32)
             }
         }
         .frame(maxWidth: .infinity)
@@ -153,8 +154,8 @@ struct WeekAchieveCell: View {
     let days: [String] = ["월","화","수","목","금","토","일"]
     
     var body: some View {
-        VStack(spacing: 15) {
-            VStack(spacing: 5) {
+        VStack(spacing: 12) {
+            VStack(spacing: 4) {
                 HStack {
                     Text(detailGoal.title)
                         .font(.Pretendard.Bold.size16)
@@ -177,14 +178,15 @@ struct WeekAchieveCell: View {
                     Spacer()
                 }
             }
+            .padding(.top, 16)
+            
             HStack {
                 ForEach(0..<days.count, id: \.self) { index in
                     VStack(spacing: 4) {
                         Text(days[index])
                             .font(.Pretendard.Medium.size11)
                             .frame(width: 18, height: 18)
-                            .foregroundStyle(Date().currentDay == days[index] ? .white : isAlertActive(for: index) ? Color.my7D7D7D : Color.myDBDBDC)
-                            .background(Date().currentDay == days[index] ? Color.my6FB56F : .clear)
+                            .foregroundStyle(.my7D7D7D)
                             .clipShape(Circle())
                         
                         ZStack {
@@ -223,12 +225,13 @@ struct WeekAchieveCell: View {
                         }
                     }
                     .frame(maxWidth: .infinity)
+                    .padding(.bottom, 18)
                 }
             }
             .frame(maxWidth: .infinity)
         }
-        .padding()
-        .background(Color.white)
+        .padding(.horizontal, 18.5)
+        .background(.white)
         .cornerRadius(12)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
