@@ -45,7 +45,7 @@ struct DetailGoalView: View {
     @State private var isModified: Bool = false
     @State private var showBackAlert: Bool = false
     
-    @State private var wwh: [Int] = [] // Where What HOW-MUCH 포함 여부 리스트
+    @State private var wwh: [Bool] = [] // Where What HOW-MUCH 포함 여부 리스트
     
     private let titleLimit = 20 // 제목 글자수 제한
     private let memoLimit = 100 // 메모 글자수 제한
@@ -264,6 +264,16 @@ extension DetailGoalView {
             .padding(.top, -20)
             
             HStack {
+                if wwh[0] {
+                    Image("Routine_Check_Green")
+                    Text("어디에")
+                }
+                else {
+                    Image("Routine_Check")
+                    Text("어디에")
+                        .font(.Pretendard.SemiBold.size14)
+                }
+                
                 
             }
         }

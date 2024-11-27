@@ -17,7 +17,7 @@ class MandalartViewModel: ObservableObject {
     var taggedWords: [TaggedWord] = []
     var text: String = ""
     
-    var wwh: [Int] {
+    var wwh: [Bool] {
         wordTagger()
     }
     
@@ -106,7 +106,7 @@ class MandalartViewModel: ObservableObject {
         deleteService.resetAllData(modelContext: modelContext, mainGoal: mainGoal)
     }
 
-    func wordTagger() -> [Int] {
+    func wordTagger() -> [Bool] {
         let text = text
         
         guard !text.isEmpty else {
@@ -148,21 +148,21 @@ class MandalartViewModel: ObservableObject {
         
     }
     
-    func convertToWWH(taggedWords: [TaggedWord]) -> [Int] {
-        var wwh: [Int] = [0,0,0]
+    func convertToWWH(taggedWords: [TaggedWord]) -> [Bool] {
+        var wwh: [Bool] = [false,false,false]
         
         for word in taggedWords{
             if word.tag == "WHERE" {
                 print("WHERE: \(word.word)")
-                wwh[0] = 1
+                wwh[0] = true
             }
             if word.tag == "WHAT" {
                 print("WHAT: \(word.word)")
-                wwh[1] = 1
+                wwh[1] = true
             }
             if word.tag == "HOW-MUCH" {
                 print("HOW-MUCH: \(word.word)")
-                wwh[2] = 1
+                wwh[2] = true
             }
             else {
                 continue
