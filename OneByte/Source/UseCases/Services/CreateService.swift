@@ -32,8 +32,7 @@ class CreateService: CreateGoalUseCase {
                    title: "",
                    leafState: 0,
                    detailGoals: [],
-                   category: "",
-                   isCustomCategory: false
+                   category: ""
                )
                subGoalCounter += 1 // SubGoal ID 증가
                
@@ -61,7 +60,11 @@ class CreateService: CreateGoalUseCase {
                        achieveFri: false,
                        achieveSat: false,
                        achieveSun: false,
-                       timePeriod: ""
+                       isMorning: true,
+                       isAfternoon: false,
+                       isEvening: false,
+                       isNight: false,
+                       isFree: false
                    )
                    detailGoalCounter += 1 // DetailGoal ID 증가
                    

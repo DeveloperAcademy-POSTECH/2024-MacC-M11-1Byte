@@ -29,15 +29,13 @@ class SubGoal {
     var leafState: Int
     var detailGoals: [DetailGoal]
     var category: String // 카테고리 추가
-    var isCustomCategory: Bool // "기타" 선택 여부
     
-    init(id: Int, title: String, leafState: Int, detailGoals: [DetailGoal], category: String, isCustomCategory: Bool) {
+    init(id: Int, title: String, leafState: Int, detailGoals: [DetailGoal], category: String) {
         self.id = id
         self.title = title
         self.leafState = leafState
         self.detailGoals = detailGoals
         self.category = category
-        self.isCustomCategory = isCustomCategory
     }
 }
 
@@ -64,9 +62,14 @@ class DetailGoal {
     var achieveFri: Bool
     var achieveSat: Bool
     var achieveSun: Bool
-    var timePeriod: String
+    // 아침, 점심, 저녁, 자기전, 자율 시간 설정
+    var isMorning: Bool
+    var isAfternoon: Bool
+    var isEvening: Bool
+    var isNight: Bool
+    var isFree: Bool
 
-    init(id: Int, title: String, memo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date? = nil, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool, timePeriod: String = "") {
+    init(id: Int, title: String, memo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date? = nil, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool, isMorning: Bool, isAfternoon: Bool, isEvening: Bool, isNight: Bool, isFree: Bool) {
         self.id = id
         self.title = title
         self.memo = memo
@@ -88,6 +91,10 @@ class DetailGoal {
         self.achieveFri = achieveFri
         self.achieveSat = achieveSat
         self.achieveSun = achieveSun
-        self.timePeriod = timePeriod
+        self.isMorning = isMorning
+        self.isAfternoon = isAfternoon
+        self.isEvening = isEvening
+        self.isNight = isNight
+        self.isFree = isFree
     }
 }

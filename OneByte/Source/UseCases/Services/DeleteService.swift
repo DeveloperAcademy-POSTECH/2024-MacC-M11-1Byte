@@ -25,14 +25,13 @@ class DeleteService: DeleteGoalUseCase {
         mainGoal.cloverState = 0
     }
     
-    func deleteSubGoal(subGoal: SubGoal, newTitle: String, leafState: Int, category: String, isCustomCategory: Bool) {
+    func deleteSubGoal(subGoal: SubGoal, newTitle: String, leafState: Int, category: String) {
         subGoal.title = ""
         subGoal.leafState = 0
         subGoal.category = ""
-        subGoal.isCustomCategory = false
     }
     
-    func deleteDetailGoal(detailGoal: DetailGoal, title: String, memo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool, timePeriod: String) {
+    func deleteDetailGoal(detailGoal: DetailGoal, title: String, memo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool, isMorning: Bool, isAfternoon: Bool, isEvening: Bool, isNight: Bool, isFree: Bool) {
         detailGoal.title = ""
         detailGoal.memo = ""
         detailGoal.achieveCount = 0
@@ -53,7 +52,11 @@ class DeleteService: DeleteGoalUseCase {
         detailGoal.achieveFri = false
         detailGoal.achieveSat = false
         detailGoal.achieveSun = false
-        detailGoal.timePeriod = ""
+        detailGoal.isMorning = true
+        detailGoal.isAfternoon = false
+        detailGoal.isEvening = false
+        detailGoal.isNight = false
+        detailGoal.isFree = false
     }
     
     func resetAllData(modelContext: ModelContext, mainGoal: MainGoal) {
@@ -77,7 +80,11 @@ class DeleteService: DeleteGoalUseCase {
                 detailGoal.alertFri = false
                 detailGoal.alertSat = false
                 detailGoal.alertSun = false
-                detailGoal.timePeriod = ""
+                detailGoal.isMorning = true
+                detailGoal.isAfternoon = false
+                detailGoal.isEvening = false
+                detailGoal.isNight = false
+                detailGoal.isFree = false
             }
         }
     }

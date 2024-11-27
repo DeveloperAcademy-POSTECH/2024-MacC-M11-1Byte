@@ -17,8 +17,6 @@ struct SubGoalDetailGridView: View {
     @Binding var subGoal: SubGoal?
     @Binding var tabBarVisible: Bool
     @Binding var isTabBarMainVisible: Bool
-//    @Binding var category: String
-//    @Binding var isCustomCategory: Bool
     private let viewModel = MandalartViewModel(
         createService: CreateService(),
         updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []),
@@ -59,7 +57,7 @@ struct SubGoalDetailGridView: View {
                                 .contextMenu {
                                     Button(role: .destructive) {
                                         viewModel.deleteDetailGoal(
-                                            detailGoal: detailGoal, newTitle: "", newMemo: "", achieveCount: 0, achieveGoal: 0, alertMon: false, alertTue: false, alertWed: false, alertThu: false, alertFri: false, alertSat: false, alertSun: false, isRemind: false, remindTime: nil, achieveMon: false, achieveTue: false, achieveWed: false, achieveThu: false, achieveFri: false, achieveSat: false, achieveSun: false, timePeriod: ""
+                                            detailGoal: detailGoal, newTitle: "", newMemo: "", achieveCount: 0, achieveGoal: 0, alertMon: false, alertTue: false, alertWed: false, alertThu: false, alertFri: false, alertSat: false, alertSun: false, isRemind: false, remindTime: nil, achieveMon: false, achieveTue: false, achieveWed: false, achieveThu: false, achieveFri: false, achieveSat: false, achieveSun: false, isMorning: true, isAfternoon: false, isEvening: false, isNight: false, isFree: false
                                         )
                                     } label: {
                                         Label("Delete", systemImage: "trash")
@@ -119,7 +117,7 @@ extension SubGoalDetailGridView {
             })
             .contextMenu {
                 Button(role: .destructive){
-                    viewModel.deleteSubGoal(subGoal: selectedSubGoal, id: selectedSubGoal.id, newTitle: "", leafState: 0, category: "", isCustomCategory: false)
+                    viewModel.deleteSubGoal(subGoal: selectedSubGoal, id: selectedSubGoal.id, newTitle: "", leafState: 0, category: "")
                 } label: {
                     Label("Delete", systemImage: "trash")
                 }

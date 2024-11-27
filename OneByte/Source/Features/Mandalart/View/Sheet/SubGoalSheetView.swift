@@ -1,10 +1,3 @@
-//
-//  SubGoalSheetView.swift
-//  OneByte
-//
-//  Created by 트루디 on 11/12/24.
-//
-
 import SwiftUI
 
 struct SubGoalsheetView: View {
@@ -14,9 +7,9 @@ struct SubGoalsheetView: View {
     @Binding var isPresented: Bool
     
     @State private var selectedCategory: String = "" // 기본값
-    @State var isCustomCategory: Bool = false
+    @State private var isCustomCategoryActive: Bool = false // "기타" 상태 관리
     
-    let categories = ["건강", "학업", "여행", "저축", "자기계발", "취미 생활", "가족", "새로운 도전", "기타"]
+    let categories = ["건강", "학업", "여행", "저축", "자기계발", "취미 생활", "가족", "새로운 도전"]
     
     private let titleLimit = 20 // 제목 글자수 제한
     
@@ -34,17 +27,16 @@ struct SubGoalsheetView: View {
             categorySelectionGrid(
                 categories: categories,
                 selectedCategory: $selectedCategory,
-                isCustomCategory: $isCustomCategory
+                isCustomCategoryActive: $isCustomCategoryActive
             )
             
             // "기타" 선택 시 텍스트 필드 표시
-            if isCustomCategory {
-                TextField("카테고리를 입력하세요", text: $selectedCategory) // 선택된 카테고리에 값 저장
+            if isCustomCategoryActive {
+                TextField("카테고리를 입력하세요", text: $selectedCategory)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.vertical, 10)
             }
             
-           
             Text("하위 목표")
                 .font(.Pretendard.SemiBold.size17)
                 .padding(.top, 22/852 * UIScreen.main.bounds.height)
@@ -112,9 +104,7 @@ struct SubGoalsheetView: View {
                             subGoal: subGoal,
                             newTitle: newTitle,
                             leafState: leafState,
-                            category: selectedCategory,
-                            isCustomCategory: isCustomCategory
-                        )
+                            category: selectedCategory)
                     }
                     isPresented = false
                 }) {
@@ -132,10 +122,14 @@ struct SubGoalsheetView: View {
         .padding(.horizontal)
         .background(Color.myF1F1F1)
         .onAppear {
-            if let subGoal = subGoal {
+            if let subGoal = subGoal{
+                let result = viewModel.initializeSubGoal(
+                    subGoal: subGoal,
+                    categories: categories
+                )
+                selectedCategory = result.0
+                isCustomCategoryActive = result.1
                 newTitle = subGoal.title
-                selectedCategory = subGoal.category
-                isCustomCategory = subGoal.isCustomCategory
             }
         }
     }
@@ -146,7 +140,7 @@ extension SubGoalsheetView {
     func categorySelectionGrid(
         categories: [String],
         selectedCategory: Binding<String>,
-        isCustomCategory: Binding<Bool>
+        isCustomCategoryActive: Binding<Bool>
     ) -> some View {
         LazyVGrid(
             columns: [GridItem(.adaptive(minimum: 80), spacing: 10)],
@@ -154,33 +148,37 @@ extension SubGoalsheetView {
         ) {
             ForEach(categories, id: \.self) { category in
                 Button(action: {
-                    if category == "기타" {
-                        // "기타"를 선택하면 텍스트 필드는 비우고 상태만 설정
-                        isCustomCategory.wrappedValue = true
-                        selectedCategory.wrappedValue = ""
-                    } else {
-                        // 다른 카테고리를 선택하면 "기타" 상태 해제
-                        isCustomCategory.wrappedValue = false
-                        selectedCategory.wrappedValue = category
-                    }
+                    isCustomCategoryActive.wrappedValue = false
+                    selectedCategory.wrappedValue = category
                 }) {
                     Text(category)
                         .padding(.vertical, 8)
                         .padding(.horizontal, 16)
                         .background(
-                            (category == "기타" && isCustomCategory.wrappedValue) ||
-                            (selectedCategory.wrappedValue == category && category != "기타")
+                            selectedCategory.wrappedValue == category
                             ? Color.green
                             : Color.gray.opacity(0.2)
                         )
                         .foregroundColor(
-                            (category == "기타" && isCustomCategory.wrappedValue) ||
-                            (selectedCategory.wrappedValue == category && category != "기타")
+                            selectedCategory.wrappedValue == category
                             ? .white
                             : .black
                         )
                         .cornerRadius(16)
                 }
+            }
+            
+            // "기타" 버튼
+            Button(action: {
+                isCustomCategoryActive.wrappedValue = true
+                selectedCategory.wrappedValue = "" // 선택된 카테고리를 초기화
+            }) {
+                Text("기타")
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 16)
+                    .background(isCustomCategoryActive.wrappedValue ? Color.green : Color.gray.opacity(0.2))
+                    .foregroundColor(isCustomCategoryActive.wrappedValue ? .white : .black)
+                    .cornerRadius(16)
             }
         }
     }
