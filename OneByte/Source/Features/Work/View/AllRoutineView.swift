@@ -94,8 +94,8 @@ struct AllRoutineView: View {
                 }
             }
         }
-        .padding(.vertical, 25)
-        .padding(5)
+        .padding(.top, 20)
+        .padding(.bottom, 24)
     }
 }
 
