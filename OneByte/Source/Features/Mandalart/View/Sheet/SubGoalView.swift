@@ -62,6 +62,10 @@ struct SubGoalView: View {
             deleteButton()
                 .padding(.bottom)
         }
+        .navigationBarBackButtonHidden()
+        .backButtonToolbar {
+            subNavigation = false
+        }
         .padding()
         .background(.myFFFAF4)
         .onAppear {

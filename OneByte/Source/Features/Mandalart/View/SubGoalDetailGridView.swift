@@ -10,7 +10,6 @@ import SwiftData
 
 // MARK: 두번째 화면 - 클릭된 셀의 SubGoal 및 관련된 DetailGoals만 3x3 그리드로 표시하는 뷰
 struct SubGoalDetailGridView: View {
-//    @Environment(\.dismiss) private var dismiss
     @State var detailNavigation: Bool = false
     @State var subNavigation: Bool = false
     @State private var selectedDetailGoal: DetailGoal?
@@ -18,6 +17,8 @@ struct SubGoalDetailGridView: View {
     @Binding var subGoal: SubGoal?
     @Binding var tabBarVisible: Bool
     @Binding var isTabBarMainVisible: Bool
+    @Binding var isSubNavigation: Bool
+    
     private let viewModel = MandalartViewModel(
         createService: CreateService(),
         updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []),
@@ -86,7 +87,10 @@ struct SubGoalDetailGridView: View {
             }
         } // VStack 끝
         .padding(.horizontal, 20/393 * UIScreen.main.bounds.width)
-//        .navigationBarBackButtonHidden()
+        .navigationBarBackButtonHidden()
+        .backButtonToolbar {
+            isSubNavigation = false
+        }
         .background(Color.myFFFAF4)
         .navigationTitle(subGoal?.title ?? "")
         .toolbar(tabBarVisible ? .visible : .hidden, for: .tabBar)
