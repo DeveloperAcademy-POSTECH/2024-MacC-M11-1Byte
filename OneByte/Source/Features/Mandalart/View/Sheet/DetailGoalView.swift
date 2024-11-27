@@ -45,7 +45,7 @@ struct DetailGoalView: View {
     @State private var isModified: Bool = false
     @State private var showBackAlert: Bool = false
     
-    @State private var wwh: [Bool] = [] // Where What HOW-MUCH 포함 여부 리스트
+    @State private var wwh: [Bool] = [false, false, false] // Where What HOW-MUCH 포함 여부 리스트
     
     private let titleLimit = 20 // 제목 글자수 제한
     private let memoLimit = 100 // 메모 글자수 제한
@@ -223,7 +223,7 @@ extension DetailGoalView {
             .foregroundStyle(Color.my675542)
         
         // 할 일 제목 입력란
-        VStack {
+        VStack(spacing: 15) {
             ZStack {
                 TextField("루틴을 입력해주세요.", text: $newTitle)
                     .padding()
@@ -263,18 +263,50 @@ extension DetailGoalView {
             }
             .padding(.top, -20)
             
-            HStack {
+            HStack(spacing: 4) {
                 if wwh[0] {
                     Image("Routine_Check_Green")
-                    Text("어디에")
+                    Text("어디서")
+                        .font(.Pretendard.SemiBold.size14)
+                        .foregroundStyle(.my6FB56F)
+                        .padding(.trailing, 8)
                 }
                 else {
                     Image("Routine_Check")
-                    Text("어디에")
+                    Text("어디서")
                         .font(.Pretendard.SemiBold.size14)
+                        .foregroundStyle(.myC8B7A3)
+                        .padding(.trailing, 8)
                 }
-                
-                
+                if wwh[1] {
+                    Image("Routine_Check_Green")
+                    Text("무엇을")
+                        .font(.Pretendard.SemiBold.size14)
+                        .foregroundStyle(.my6FB56F)
+                        .padding(.trailing, 8)
+                }
+                else {
+                    Image("Routine_Check")
+                    Text("무엇을")
+                        .font(.Pretendard.SemiBold.size14)
+                        .foregroundStyle(.myC8B7A3)
+                        .padding(.trailing, 8)
+                }
+                if wwh[2] {
+                    Image("Routine_Check_Green")
+                    Text("얼마나")
+                        .font(.Pretendard.SemiBold.size14)
+                        .foregroundStyle(.my6FB56F)
+                        .padding(.trailing, 8)
+                }
+                else {
+                    Image("Routine_Check")
+                    Text("얼마나")
+                        .font(.Pretendard.SemiBold.size14)
+                        .foregroundStyle(.myC8B7A3)
+                        .padding(.trailing, 8)
+                }
+                Spacer()
             }
         }
         

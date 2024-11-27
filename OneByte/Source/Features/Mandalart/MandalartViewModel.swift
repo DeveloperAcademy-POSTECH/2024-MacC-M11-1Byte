@@ -110,7 +110,7 @@ class MandalartViewModel: ObservableObject {
         let text = text
         
         guard !text.isEmpty else {
-            return []
+            return [false,false,false]
         }
         
         do {
@@ -144,7 +144,7 @@ class MandalartViewModel: ObservableObject {
         } catch {
             print("Error loading model or making prediction: \(error)")
         }
-        return []
+        return [false,false,false]
         
     }
     
