@@ -132,7 +132,12 @@ struct RoutineCycleView: View {
                             achieveThu: false,
                             achieveFri: false,
                             achieveSat: false,
-                            achieveSun: false
+                            achieveSun: false, 
+                            isMorning: true,
+                            isAfternoon: false,
+                            isEvening: false,
+                            isNight: false,
+                            isFree: false
                         )
                         navigationManager.push(to: .onboardDays)
                     } else {

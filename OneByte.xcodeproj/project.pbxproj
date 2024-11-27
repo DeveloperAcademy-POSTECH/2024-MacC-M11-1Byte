@@ -81,6 +81,7 @@
 		618FD0782CDF11760003450D /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618FD0772CDF11760003450D /* Protocol.swift */; };
 		61CC00FD2CF0276B0009D063 /* DetailGoalColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CC00FC2CF0276B0009D063 /* DetailGoalColor.swift */; };
 		61CC00FF2CF1742B0009D063 /* DetailGoalColorFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CC00FE2CF1742B0009D063 /* DetailGoalColorFunc.swift */; };
+		61CC01012CF6CBD00009D063 /* DayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CC01002CF6CBD00009D063 /* DayButton.swift */; };
 		61E28B822CEE01FE000F77FB /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E28B812CEE01FE000F77FB /* Notification.swift */; };
 		61FA4DF32CE77EDD00256B57 /* BackButtonToolbarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FA4DF22CE77EDD00256B57 /* BackButtonToolbarModifier.swift */; };
 		61FA4DF52CE7803600256B57 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FA4DF42CE7803600256B57 /* View+.swift */; };
@@ -164,6 +165,7 @@
 		618FD0772CDF11760003450D /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		61CC00FC2CF0276B0009D063 /* DetailGoalColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoalColor.swift; sourceTree = "<group>"; };
 		61CC00FE2CF1742B0009D063 /* DetailGoalColorFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoalColorFunc.swift; sourceTree = "<group>"; };
+		61CC01002CF6CBD00009D063 /* DayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayButton.swift; sourceTree = "<group>"; };
 		61E28B812CEE01FE000F77FB /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		61FA4DF22CE77EDD00256B57 /* BackButtonToolbarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButtonToolbarModifier.swift; sourceTree = "<group>"; };
 		61FA4DF42CE7803600256B57 /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
@@ -516,6 +518,7 @@
 			isa = PBXGroup;
 			children = (
 				618FD06F2CDF0ED20003450D /* MandalartButtonModifier.swift */,
+				61CC01002CF6CBD00009D063 /* DayButton.swift */,
 				610595D82CE2584D005ED7B4 /* MadalartShape.swift */,
 			);
 			path = Mandalart;
@@ -676,6 +679,7 @@
 				A1F29D202CF6B48200084C06 /* SpecificTagger3496.mlmodel in Sources */,
 				610595D22CE214CE005ED7B4 /* SubGoalDetailGridView.swift in Sources */,
 				61E28B822CEE01FE000F77FB /* Notification.swift in Sources */,
+				61CC01012CF6CBD00009D063 /* DayButton.swift in Sources */,
 				610595D42CE21505005ED7B4 /* MainGoalSheetView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
