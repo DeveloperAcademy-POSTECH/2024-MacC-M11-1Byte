@@ -76,6 +76,7 @@ struct RoutineMainView: View {
                     .foregroundStyle(Color.myCEEDCE)
             }
         }
+        .padding(.vertical, 8)
         .padding(.leading, 20)
         .padding(.trailing, 24)
     }

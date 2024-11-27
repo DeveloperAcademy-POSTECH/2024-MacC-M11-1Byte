@@ -40,7 +40,7 @@ class TodayRoutineViewModel {
             .allSatisfy { $0.title.isEmpty }
     }
     
-    // MARK: 오늘의 루틴 필터링
+    // MARK: 오늘의 루틴인것만 필터링
     func filterTodayGoals(from mainGoals: [MainGoal]) -> [DetailGoal] {
         let today = currentDay()
         return mainGoals
