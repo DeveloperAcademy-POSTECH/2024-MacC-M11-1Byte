@@ -10,7 +10,7 @@ import Foundation
 // MARK: 루틴 탭 상위 Tab
 enum routineTapInfo : String, CaseIterable {
     case today = "오늘의 루틴"
-    case all = "전체 루틴"
+    case all = "루틴 진행도"
 }
 
 // MARK: 루틴 탭/전체 루틴 Tab
