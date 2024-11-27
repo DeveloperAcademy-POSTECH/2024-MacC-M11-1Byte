@@ -164,7 +164,7 @@ class MandalartViewModel: ObservableObject {
         }
         
         do {
-            let mlModel = try SpecificTagger3496(configuration: MLModelConfiguration())
+            let mlModel = try SpecificTagger3942(configuration: MLModelConfiguration())
             
             let tokenizer = NLTokenizer(unit: .word)
             tokenizer.string = text
@@ -178,7 +178,7 @@ class MandalartViewModel: ObservableObject {
             
             var results: [TaggedWord] = []
             for word in tokens {
-                let input = SpecificTagger3496Input(text: word)
+                let input = SpecificTagger3942Input(text: word)
                 let output = try mlModel.prediction(input: input)
                 let tag = output.labels
                 let taggedWord = TaggedWord(word: word, tag: tag.first ?? "")
