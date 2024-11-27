@@ -101,7 +101,7 @@ struct TodayRoutineView: View {
                     // 저녁 루틴 섹션
                     if !viewModel.filterEvening(from: todayGoals).isEmpty {
                         TodayRoutineTypeHeaderView(routineimage: "Routine_Evening", routineTimeType: "저녁 루틴")
-                        .padding(.top, 12)
+                            .padding(.top, 12)
                         
                         if let mainGoal = mainGoals.first {
                             ForEach(viewModel.filterEvening(from: todayGoals), id: \.id) { detailGoal in
@@ -181,25 +181,29 @@ struct TodayRoutineCell: View {
     
     var body: some View {
         HStack(spacing: 16) {
-            // 알림 시간 있으면 표시
             if let remindTime = detailGoal.remindTime {
-                Text(remindTime.timeString)
-                    .font(.Pretendard.SemiBold.size14)
-                    .foregroundStyle(detailGoal.isAchievedToday ? Color.my727272.opacity(0.6) : Color.my727272)
-                    .padding(.bottom)
+                VStack {
+                    Text(remindTime.timeString)
+                        .font(.Pretendard.SemiBold.size14)
+                        .foregroundStyle(detailGoal.isAchievedToday ? .my727272.opacity(0.6) : Color.my727272)
+                    Spacer()
+                }
+                .padding(.top, 12)
             }
             
             VStack(alignment: .leading, spacing: 4) {
                 Text(detailGoal.title)
                     .font(.Pretendard.SemiBold.size16)
-                    .foregroundStyle(detailGoal.isAchievedToday ? Color.my2B2B2B.opacity(0.7) : Color.my2B2B2B)
+                    .foregroundStyle(detailGoal.isAchievedToday ? .my2B2B2B.opacity(0.7) : .my2B2B2B)
                     .strikethrough(detailGoal.isAchievedToday)
                 
                 Text(subGoalCategory)
                     .font(.Pretendard.Medium.size14)
-                    .foregroundStyle(detailGoal.isAchievedToday ? Color.my428142.opacity(0.7) : Color.my428142)
+                    .foregroundStyle(detailGoal.isAchievedToday ? .my428142.opacity(0.7) : .my428142)
                     .foregroundStyle(Color.my428142)
+                Spacer()
             }
+            .padding(.top, 12)
             Spacer()
             
             Button {
