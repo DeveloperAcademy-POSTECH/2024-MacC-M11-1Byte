@@ -17,7 +17,6 @@ struct SubGoalDetailGridView: View {
     @Binding var subGoal: SubGoal?
     @Binding var tabBarVisible: Bool
     @Binding var isTabBarMainVisible: Bool
-    
     private let viewModel = MandalartViewModel(
         createService: CreateService(),
         updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []),
@@ -35,30 +34,7 @@ struct SubGoalDetailGridView: View {
                         let cornerStyle = cornerStyle(for: index) // cornerStyle 함수 사용
                         
                         if index == (4 - selectedSubGoal.id) {
-                            // 네 번째 셀에 서브골 제목 표시
-                            Button(action: {
-                                subSheetIsPresented = true
-                            }, label: {
-                                Text(selectedSubGoal.title)
-                                    .padding(.horizontal, 10)
-                                    .padding(.vertical, 15)
-                                    .font(.Pretendard.SemiBold.size18)
-                                    .modifier(NextMandalartButtonModifier())
-                                    .background(Color.my95D895)
-                            })
-                            .cornerRadius(18)
-                            .sheet(isPresented: $subSheetIsPresented, content: {
-                                SubGoalsheetView(subGoal: $subGoal, isPresented: $subSheetIsPresented)
-                                    .presentationDragIndicator(.visible)
-                                    .presentationDetents([.height(244/852 * UIScreen.main.bounds.height)])
-                            })
-                            .contextMenu {
-                                Button(role: .destructive){
-                                    viewModel.deleteSubGoal(subGoal: selectedSubGoal, id: selectedSubGoal.id, newTitle: "", leafState: 0)
-                                } label: {
-                                    Label("Delete", systemImage: "trash")
-                                }
-                            }
+                            subGoalContent()
                         } else {
                             // 나머지 셀에 디테일골 제목 표시
                             let detailGoalIndex = index < (4 - selectedSubGoal.id) ? index : index - 1
@@ -81,7 +57,7 @@ struct SubGoalDetailGridView: View {
                                 .contextMenu {
                                     Button(role: .destructive) {
                                         viewModel.deleteDetailGoal(
-                                            detailGoal: detailGoal, newTitle: "", newMemo: "", achieveCount: 0, achieveGoal: 0, alertMon: false, alertTue: false, alertWed: false, alertThu: false, alertFri: false, alertSat: false, alertSun: false, isRemind: false, remindTime: nil, achieveMon: false, achieveTue: false, achieveWed: false, achieveThu: false, achieveFri: false, achieveSat: false, achieveSun: false
+                                            detailGoal: detailGoal, newTitle: "", newMemo: "", achieveCount: 0, achieveGoal: 0, alertMon: false, alertTue: false, alertWed: false, alertThu: false, alertFri: false, alertSat: false, alertSun: false, isRemind: false, remindTime: nil, achieveMon: false, achieveTue: false, achieveWed: false, achieveThu: false, achieveFri: false, achieveSat: false, achieveSun: false, isMorning: true, isAfternoon: false, isEvening: false, isNight: false, isFree: false
                                         )
                                     } label: {
                                         Label("Delete", systemImage: "trash")
@@ -118,6 +94,36 @@ struct SubGoalDetailGridView: View {
 }
 
 extension SubGoalDetailGridView {
+    @ViewBuilder
+    func subGoalContent() -> some View {
+        if let selectedSubGoal = subGoal {
+            let sortedDetailGoals = selectedSubGoal.detailGoals.sorted(by: { $0.id < $1.id })
+            // 네 번째 셀에 서브골 제목 표시
+            Button(action: {
+                subSheetIsPresented = true
+            }, label: {
+                Text(selectedSubGoal.title)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 15)
+                    .font(.Pretendard.SemiBold.size18)
+                    .modifier(NextMandalartButtonModifier())
+                    .background(Color.my95D895)
+            })
+            .cornerRadius(18)
+            .sheet(isPresented: $subSheetIsPresented, content: {
+                SubGoalsheetView(subGoal: $subGoal, isPresented: $subSheetIsPresented)
+                    .presentationDragIndicator(.visible)
+//                    .presentationDetents([.height(244/852 * UIScreen.main.bounds.height)])
+            })
+            .contextMenu {
+                Button(role: .destructive){
+                    viewModel.deleteSubGoal(subGoal: selectedSubGoal, id: selectedSubGoal.id, newTitle: "", category: "")
+                } label: {
+                    Label("Delete", systemImage: "trash")
+                }
+            }
+        }
+    }
     @ViewBuilder
     func memoes() -> some View {
         // 메모 모아보기 리스트

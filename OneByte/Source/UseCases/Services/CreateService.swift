@@ -30,8 +30,8 @@ class CreateService: CreateGoalUseCase {
                let newSubGoal = SubGoal(
                    id: subGoalCounter,
                    title: "",
-                   leafState: 0,
-                   detailGoals: []
+                   detailGoals: [],
+                   category: ""
                )
                subGoalCounter += 1 // SubGoal ID 증가
                
@@ -58,7 +58,12 @@ class CreateService: CreateGoalUseCase {
                        achieveThu: false,
                        achieveFri: false,
                        achieveSat: false,
-                       achieveSun: false
+                       achieveSun: false,
+                       isMorning: true,
+                       isAfternoon: false,
+                       isEvening: false,
+                       isNight: false,
+                       isFree: false
                    )
                    detailGoalCounter += 1 // DetailGoal ID 증가
                    
