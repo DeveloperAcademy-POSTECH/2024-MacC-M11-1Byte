@@ -9,10 +9,17 @@
 import SwiftUI
 import SwiftData
 import NaturalLanguage
-import CoremL
+import CoreML
 
 class MandalartViewModel: ObservableObject {
     @Published var mainGoal: MainGoal?
+    
+    var taggedWords: [TaggedWord] = []
+    var text: String = ""
+    
+    var wwh: [Int] {
+        wordTagger()
+    }
     
     private let createService: CreateGoalUseCase
     private let updateService: UpdateGoalUseCase
@@ -98,16 +105,16 @@ class MandalartViewModel: ObservableObject {
     func resetAllData(modelContext: ModelContext, mainGoal: MainGoal) {
         deleteService.resetAllData(modelContext: modelContext, mainGoal: mainGoal)
     }
-    
-    func wordTagger() {
-        let text = inputText
+
+    func wordTagger() -> [Int] {
+        let text = text
         
         guard !text.isEmpty else {
-            return
+            return []
         }
         
         do {
-            let mlModel = try SpecificTagger3194(configuration: MLModelConfiguration())
+            let mlModel = try SpecificTagger3496(configuration: MLModelConfiguration())
             
             let tokenizer = NLTokenizer(unit: .word)
             tokenizer.string = text
@@ -121,24 +128,52 @@ class MandalartViewModel: ObservableObject {
             
             var results: [TaggedWord] = []
             for word in tokens {
-                let input = SpecificTagger3194Input(text: word)
+                let input = SpecificTagger3496Input(text: word)
                 let output = try mlModel.prediction(input: input)
                 let tag = output.labels
-                let taggedWord = TaggedWord(id: UUID(), word: word, tag: tag.first ?? "")
+                let taggedWord = TaggedWord(word: word, tag: tag.first ?? "")
                 results.append(taggedWord)
             }
             
             DispatchQueue.main.async {
                 self.taggedWords = results
             }
+            
+            return convertToWWH(taggedWords: taggedWords)
+        
         } catch {
             print("Error loading model or making prediction: \(error)")
         }
+        return []
+        
     }
     
-    struct TaggedWord: Identifiable {
-        let id: UUID
-        let word: String
-        let tag: String
+    func convertToWWH(taggedWords: [TaggedWord]) -> [Int] {
+        var wwh: [Int] = [0,0,0]
+        
+        for word in taggedWords{
+            if word.tag == "WHERE" {
+                print("WHERE: \(word.word)")
+                wwh[0] = 1
+            }
+            if word.tag == "WHAT" {
+                print("WHAT: \(word.word)")
+                wwh[1] = 1
+            }
+            if word.tag == "HOW-MUCH" {
+                print("HOW-MUCH: \(word.word)")
+                wwh[2] = 1
+            }
+            else {
+                continue
+            }
+        }
+        return wwh
     }
 }
+
+struct TaggedWord {
+    let word: String
+    let tag: String
+}
+

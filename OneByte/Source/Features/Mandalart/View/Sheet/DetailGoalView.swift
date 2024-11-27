@@ -45,6 +45,8 @@ struct DetailGoalView: View {
     @State private var isModified: Bool = false
     @State private var showBackAlert: Bool = false
     
+    @State private var wwh: [Int] = [] // Where What HOW-MUCH 포함 여부 리스트
+    
     private let titleLimit = 20 // 제목 글자수 제한
     private let memoLimit = 100 // 메모 글자수 제한
     
@@ -231,6 +233,10 @@ extension DetailGoalView {
                         .stroke(Color.myF0E8DF, lineWidth: 1)
                 )
                 .onChange(of: newTitle) { oldValue, newValue in
+                    viewModel.text = newValue
+                    wwh = viewModel.wwh
+                    print(wwh)
+                    
                     if newValue != detailGoal?.title {
                             isModified = true
                         }
@@ -566,3 +572,7 @@ struct DayButton: View {
         .buttonStyle(PlainButtonStyle()) // 기본 효과 제거
     }
 }
+
+//#Preview {
+//    DetailGoalView(detailGoal: DetailGoal(id: 1, title: "String", memo: "String", achieveCount: 0, achieveGoal: 0, alertMon: false, alertTue: false, alertWed: false, alertThu: false, alertFri: false, alertSat: false, alertSun: false, isRemind: false, remindTime: Date?, achieveMon: false, achieveTue: false, achieveWed: false, achieveThu: false, achieveFri: false, achieveSat: false, achieveSun: false), tabBarVisible: .constant(true))
+//}
