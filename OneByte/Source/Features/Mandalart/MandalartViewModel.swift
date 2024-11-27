@@ -94,8 +94,8 @@ class MandalartViewModel: ObservableObject {
             remindTime: remindTime,
             achieveMon: achieveMon,
             achieveTue: achieveTue,
-            achieveWed: achieveWed
-            , achieveThu: achieveThu,
+            achieveWed: achieveWed,
+            achieveThu: achieveThu,
             achieveFri: achieveFri,
             achieveSat: achieveSat,
             achieveSun: achieveSun

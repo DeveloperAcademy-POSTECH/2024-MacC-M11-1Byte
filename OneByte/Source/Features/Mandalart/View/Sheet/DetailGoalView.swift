@@ -223,44 +223,50 @@ extension DetailGoalView {
             .foregroundStyle(Color.my675542)
         
         // 할 일 제목 입력란
-        ZStack {
-            TextField("루틴을 입력해주세요.", text: $newTitle)
-                .padding()
-                .background(.white)
-                .cornerRadius(12)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.myF0E8DF, lineWidth: 1)
-                )
-                .onChange(of: newTitle) { oldValue, newValue in
-                    viewModel.text = newValue
-                    wwh = viewModel.wwh
-                    print(wwh)
-                    
-                    if newValue != detailGoal?.title {
+        VStack {
+            ZStack {
+                TextField("루틴을 입력해주세요.", text: $newTitle)
+                    .padding()
+                    .background(.white)
+                    .cornerRadius(12)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.myF0E8DF, lineWidth: 1)
+                    )
+                    .onChange(of: newTitle) { oldValue, newValue in
+                        viewModel.text = newValue
+                        wwh = viewModel.wwh
+                        print(wwh)
+                        
+                        if newValue != detailGoal?.title {
                             isModified = true
                         }
-                    if newValue.count > titleLimit {
-                        newTitle = String(newValue.prefix(titleLimit))
+                        if newValue.count > titleLimit {
+                            newTitle = String(newValue.prefix(titleLimit))
+                        }
+                    }
+                
+                HStack {
+                    Spacer()
+                    if newTitle != "" {
+                        Button(action: {
+                            newTitle = ""
+                        }, label: {
+                            Image(systemName: "xmark.circle.fill")
+                                .resizable()
+                                .frame(width: 23, height: 23)
+                                .foregroundStyle(Color.myB9B9B9)
+                        })
+                        .padding(.trailing)
                     }
                 }
+            }
+            .padding(.top, -20)
             
             HStack {
-                Spacer()
-                if newTitle != "" {
-                    Button(action: {
-                        newTitle = ""
-                    }, label: {
-                        Image(systemName: "xmark.circle.fill")
-                            .resizable()
-                            .frame(width: 23, height: 23)
-                            .foregroundStyle(Color.myB9B9B9)
-                    })
-                    .padding(.trailing)
-                }
+                
             }
         }
-        .padding(.top, -20)
         
         if isEditing {
             // 글자수 부분
