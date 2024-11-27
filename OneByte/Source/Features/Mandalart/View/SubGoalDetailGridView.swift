@@ -11,7 +11,8 @@ import SwiftData
 // MARK: 두번째 화면 - 클릭된 셀의 SubGoal 및 관련된 DetailGoals만 3x3 그리드로 표시하는 뷰
 struct SubGoalDetailGridView: View {
 //    @Environment(\.dismiss) private var dismiss
-    @State var navigation: Bool = false
+    @State var detailNavigation: Bool = false
+    @State var subNavigation: Bool = false
     @State private var selectedDetailGoal: DetailGoal?
     @State var subSheetIsPresented: Bool = false
     @Binding var subGoal: SubGoal?
@@ -44,7 +45,7 @@ struct SubGoalDetailGridView: View {
                                 Button(action: {
                                     let detailGoal = sortedDetailGoals[detailGoalIndex]
                                     selectedDetailGoal = detailGoal
-                                    navigation = true
+                                    detailNavigation = true
                                 }) {
                                     Text(detailGoal.title)
                                         .padding(.horizontal, 10)
@@ -67,10 +68,13 @@ struct SubGoalDetailGridView: View {
                         }
                     }
                 }
-                .navigationDestination(isPresented: $navigation) {
+                .navigationDestination(isPresented: $detailNavigation) {
                     let detailGoal = selectedDetailGoal
                         DetailGoalView(detailGoal: .constant(detailGoal), tabBarVisible: $tabBarVisible)
-//                    }
+                }
+                .navigationDestination(isPresented: $subNavigation) {
+                    let subGoal = selectedSubGoal
+                    SubGoalView(subGoal: .constant(subGoal), tabBarVisible: $tabBarVisible, subNavigation: $subNavigation)
                 }
                 .padding(.top, 55)
                 // 메모 모아보기
@@ -100,7 +104,7 @@ extension SubGoalDetailGridView {
             let sortedDetailGoals = selectedSubGoal.detailGoals.sorted(by: { $0.id < $1.id })
             // 네 번째 셀에 서브골 제목 표시
             Button(action: {
-                subSheetIsPresented = true
+                subNavigation = true
             }, label: {
                 Text(selectedSubGoal.title)
                     .padding(.horizontal, 10)
@@ -110,11 +114,6 @@ extension SubGoalDetailGridView {
                     .background(Color.my95D895)
             })
             .cornerRadius(18)
-            .sheet(isPresented: $subSheetIsPresented, content: {
-                SubGoalsheetView(subGoal: $subGoal, isPresented: $subSheetIsPresented)
-                    .presentationDragIndicator(.visible)
-//                    .presentationDetents([.height(244/852 * UIScreen.main.bounds.height)])
-            })
             .contextMenu {
                 Button(role: .destructive){
                     viewModel.deleteSubGoal(subGoal: selectedSubGoal, id: selectedSubGoal.id, newTitle: "", category: "")

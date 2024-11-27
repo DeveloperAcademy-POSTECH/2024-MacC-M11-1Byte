@@ -9,127 +9,73 @@ import SwiftUI
 import SwiftUI
 
 struct SubGoalView: View {
+    @Binding var subGoal: SubGoal?
+    @Binding var tabBarVisible: Bool
+    @Binding var subNavigation: Bool
     @State private var selectedCategory: String = ""
     @State private var isCustomCategoryActive: Bool = false
     @State private var customCategory: String = ""
-    @State private var subGoalTitle: String = ""
+    @State private var newTitle: String = ""
+    @State private var showAlert: Bool = false
     private let titleLimit = 20
     private let categories = ["건강", "학업", "여행", "저축", "자기계발", "취미 생활", "가족", "새로운 도전"]
     private let customCategoryLimit = 6
-
+    
+    private let viewModel = MandalartViewModel(
+        createService: CreateService(),
+        updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []),
+        deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: [])
+    )
     var body: some View {
-        VStack(spacing: 20) {
-            // 제목
-            Text("작은 목표 추가하기")
-                .font(.system(size: 20, weight: .semibold))
-                .padding(.top)
-
-            // 카테고리 선택
-            VStack(alignment: .leading, spacing: 10) {
-                Text("카테고리")
-                    .font(.system(size: 16, weight: .medium))
-                categorySelectionGrid()
-            }
+        VStack(alignment: .leading, spacing: 10) {
+            // 카테고리 선택란
+            categorySelectionGrid()
             
             // "기타" 선택 시 입력란
             if isCustomCategoryActive {
-                VStack(alignment: .leading, spacing: 5) {
-                    TextField("진로, 관계, 감정 등", text: $customCategory)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .onChange(of: customCategory) { old, newValue in
-                            if newValue.count > customCategoryLimit {
-                                customCategory = String(newValue.prefix(customCategoryLimit))
-                            }
-                        }
-                    Text("\(customCategory.count)/\(customCategoryLimit)")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                }
+                customCategoryView()
             }
-            Text("루틴 이름")
-                .font(.Pretendard.SemiBold.size16)
-                .padding(.leading, 4)
-                .foregroundStyle(Color.my675542)
+            // 작은 목표 입력란
+            WritingObject()
             
-            // 할 일 제목 입력란
-            ZStack {
-                TextField("진로, 관계, 감정 등", text: $customCategory)
-                    .padding()
-                    .background(.white)
-                    .cornerRadius(12)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.myF0E8DF, lineWidth: 1)
-                    )
-                    .onChange(of: customCategory) { oldValue, newValue in
-//                        if newValue != detailGoal?.title {
-//                                isModified = true
-//                            }
-                        if newValue.count > titleLimit {
-                            customCategory = String(newValue.prefix(titleLimit))
-                        }
-                    }
-                
-                HStack {
-                    Spacer()
-                    if customCategory != "" {
-                        Button(action: {
-                            customCategory = ""
-                        }, label: {
-                            Image(systemName: "xmark.circle.fill")
-                                .resizable()
-                                .frame(width: 23, height: 23)
-                                .foregroundStyle(Color.myB9B9B9)
-                        })
-                        .padding(.trailing)
-                    }
-                }
-            }
-            // 작은 목표 이름
-            VStack(alignment: .leading, spacing: 10) {
-                Text("작은 목표 이름")
-                    .font(.system(size: 16, weight: .medium))
-                ZStack {
-                    TextField("2kg 감량하기, 규칙적인 수면패턴 갖기 등.", text: $subGoalTitle)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding(.trailing, 30)
-                        .onChange(of: subGoalTitle) { old, newValue in
-                            if newValue.count > titleLimit {
-                                subGoalTitle = String(newValue.prefix(titleLimit))
-                            }
-                        }
-                    HStack {
-                        Spacer()
-                        if !subGoalTitle.isEmpty {
-                            Button(action: { subGoalTitle = "" }) {
-                                Image(systemName: "xmark.circle.fill")
-                                    .foregroundColor(.gray)
-                                    .padding(.trailing, 10)
-                            }
-                        }
-                    }
-                }
-                Text("\(subGoalTitle.count)/\(titleLimit)")
-                    .font(.caption)
-                    .foregroundColor(.gray)
-            }
-
             Spacer()
-            
-            // 삭제 버튼
             Button(action: {
-                print("목표 삭제하기")
-            }) {
-                HStack {
-                    Image(systemName: "trash")
-                    Text("목표 삭제하기")
+                if let subGoal = subGoal {
+                    viewModel.updateSubGoal(
+                        subGoal: subGoal,
+                        newTitle: newTitle,
+                        category: selectedCategory
+                    )
+                    subNavigation = false
                 }
-                .foregroundColor(.red)
+            }) {
+                Text("저장")
+                    .frame(maxWidth: .infinity)
+                    .font(.Pretendard.Medium.size16)
+                    .padding()
+                    .background(newTitle == "" ? Color.my538F53.opacity(0.7) : Color.my538F53)
+                    .foregroundStyle(newTitle == "" ? .white.opacity(0.7) : .white)
+                    .cornerRadius(12)
             }
-            .padding(.bottom, 20)
+            .disabled(newTitle == "")
+            // 삭제 버튼
+            deleteButton()
+                .padding(.bottom)
         }
         .padding()
-        .background(Color(UIColor.systemGroupedBackground))
+        .background(.myFFFAF4)
+        .onAppear {
+            if let subGoal = subGoal{
+                let result = viewModel.initializeSubGoal(
+                    subGoal: subGoal,
+                    categories: categories
+                )
+                selectedCategory = result.0
+                isCustomCategoryActive = result.1
+                newTitle = subGoal.title
+            }
+        }
+        
     }
 }
 
@@ -137,6 +83,11 @@ extension SubGoalView {
     @ViewBuilder
     func categorySelectionGrid() -> some View {
         VStack(alignment: .leading, spacing: 9) {
+            Text("카테고리")
+                .font(.Pretendard.SemiBold.size16)
+                .padding(.leading, 4)
+                .foregroundStyle(Color.my675542)
+                .padding(.top)
             // 첫 번째 줄
             HStack(spacing: 8) {
                 ForEach(categories[0..<5], id: \.self) { category in
@@ -189,8 +140,120 @@ extension SubGoalView {
                 .cornerRadius(22)
         }
     }
-}
-
-#Preview {
-    SubGoalView()
+    
+    @ViewBuilder
+    func customCategoryView() -> some View {
+        ZStack {
+            TextField("진로, 관계, 감정 등", text: $customCategory)
+                .padding(.horizontal)
+                .padding(.vertical, 12)
+                .background(.white)
+                .cornerRadius(12)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.myF0E8DF, lineWidth: 1)
+                )
+                .onChange(of: customCategory) { oldValue, newValue in
+                    //                        if newValue != detailGoal?.title {
+                    //                                isModified = true
+                    //                            }
+                    if newValue.count > titleLimit {
+                        customCategory = String(newValue.prefix(titleLimit))
+                    }
+                }
+            
+            HStack {
+                Spacer()
+                if customCategory != "" {
+                    Button(action: {
+                        customCategory = ""
+                    }, label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .resizable()
+                            .frame(width: 23, height: 23)
+                            .foregroundStyle(Color.myB9B9B9)
+                    })
+                    .padding(.trailing)
+                }
+            }
+        }
+        .padding(.top, 6)
+    }
+    
+    @ViewBuilder
+    func WritingObject() -> some View {
+        Text("작은 목표 이름")
+            .font(.Pretendard.SemiBold.size16)
+            .padding(.leading, 4)
+            .foregroundStyle(Color.my675542)
+            .padding(.top, 18)
+        
+        // 작은 목표 이름 입력란
+        ZStack {
+            TextField("2kg 감량하기, 규칙적인 수면패턴 갖기 등", text: $newTitle)
+                .padding(.horizontal)
+                .padding(.vertical, 12)
+                .background(.white)
+                .cornerRadius(12)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.myF0E8DF, lineWidth: 1)
+                )
+                .onChange(of: newTitle) { oldValue, newValue in
+                    //                        if newValue != detailGoal?.title {
+                    //                                isModified = true
+                    //                            }
+                    if newValue.count > titleLimit {
+                        newTitle = String(newValue.prefix(titleLimit))
+                    }
+                }
+            
+            HStack {
+                Spacer()
+                if newTitle != "" {
+                    Button(action: {
+                        newTitle = ""
+                    }, label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .resizable()
+                            .frame(width: 23, height: 23)
+                            .foregroundStyle(Color.myB9B9B9)
+                    })
+                    .padding(.trailing)
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    func deleteButton() -> some View {
+        Button(action: {
+            showAlert = true
+        }, label: {
+            HStack(spacing: 8) {
+                Image(systemName: "trash")
+                    .font(.system(size: 16))
+                    .foregroundStyle(.red)
+                Text("목표 삭제하기")
+                    .font(.Pretendard.Medium.size16)
+                    .foregroundStyle(.red)
+            }
+            .padding(.vertical, 14.5)
+            .frame(maxWidth: .infinity)
+            .background(Color.myF0E8DF)
+            .cornerRadius(12)
+        })
+        .alert("루틴을 삭제하시겠습니까?", isPresented: $showAlert) {
+            Button("삭제하기", role: .destructive) {
+                //                if let detailGoal = detailGoal {
+                //
+                //                }
+                //                dismiss()
+            }
+            Button("계속하기", role: .cancel) {}
+        } message: {
+            Text("삭제한 루틴은 복구할 수 없어요.")
+        }
+    }
+    
 }
