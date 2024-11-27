@@ -81,12 +81,14 @@ struct AllRoutineView: View {
     private func SubgoalTabView() -> some View {
         HStack(spacing: 0) {
             ForEach(tapInfo.allCases, id: \.self) { item in
-                HStack {
+                VStack {
                     Image(viewModel.selectedPicker == item ? item.colorClover : item.grayClover)
                         .resizable()
                         .scaledToFit()
                         .frame(maxWidth: .infinity / 5)
                         .frame(height: 55)
+                    Text(viewModel.tabTitle(for: item, mainGoals: mainGoals))
+                        .font(.Pretendard.SemiBold.size12)
                 }
                 .onTapGesture {
                     viewModel.allRoutineTapPicker(to: item)
