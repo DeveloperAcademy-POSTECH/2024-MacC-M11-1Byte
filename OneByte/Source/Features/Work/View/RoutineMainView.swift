@@ -76,7 +76,8 @@ struct RoutineMainView: View {
                     .foregroundStyle(Color.myCEEDCE)
             }
         }
-        .padding()
+        .padding(.leading, 20)
+        .padding(.trailing, 24)
     }
     
     // MARK: 동기부여 메시지 뷰
