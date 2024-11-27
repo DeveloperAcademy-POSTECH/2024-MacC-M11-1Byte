@@ -53,7 +53,7 @@ struct DetailGoalView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 28/852 * UIScreen.main.bounds.height) {
-                Spacer()
+                //Spacer()
                 if isEditing {
                     // 타이틀 입력란
                     detailGaolTitle()
@@ -223,93 +223,46 @@ extension DetailGoalView {
             .foregroundStyle(Color.my675542)
         
         // 할 일 제목 입력란
-        VStack(spacing: 15) {
-            ZStack {
-                TextField("루틴을 입력해주세요.", text: $newTitle)
-                    .padding()
-                    .background(.white)
-                    .cornerRadius(12)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.myF0E8DF, lineWidth: 1)
-                    )
-                    .onChange(of: newTitle) { oldValue, newValue in
-                        viewModel.text = newValue
-                        wwh = viewModel.wwh
-                        print(wwh)
-                        
-                        if newValue != detailGoal?.title {
-                            isModified = true
-                        }
-                        if newValue.count > titleLimit {
-                            newTitle = String(newValue.prefix(titleLimit))
-                        }
+        
+        ZStack {
+            TextField("루틴을 입력해주세요.", text: $newTitle)
+                .padding()
+                .background(.white)
+                .cornerRadius(12)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.myF0E8DF, lineWidth: 1)
+                )
+                .onChange(of: newTitle) { oldValue, newValue in
+                    viewModel.text = newValue
+                    wwh = viewModel.wwh
+                    print(wwh)
+                    
+                    if newValue != detailGoal?.title {
+                        isModified = true
                     }
-                
-                HStack {
-                    Spacer()
-                    if newTitle != "" {
-                        Button(action: {
-                            newTitle = ""
-                        }, label: {
-                            Image(systemName: "xmark.circle.fill")
-                                .resizable()
-                                .frame(width: 23, height: 23)
-                                .foregroundStyle(Color.myB9B9B9)
-                        })
-                        .padding(.trailing)
+                    if newValue.count > titleLimit {
+                        newTitle = String(newValue.prefix(titleLimit))
                     }
                 }
-            }
-            .padding(.top, -20)
             
-            HStack(spacing: 4) {
-                if wwh[0] {
-                    Image("Routine_Check_Green")
-                    Text("어디서")
-                        .font(.Pretendard.SemiBold.size14)
-                        .foregroundStyle(.my6FB56F)
-                        .padding(.trailing, 8)
-                }
-                else {
-                    Image("Routine_Check")
-                    Text("어디서")
-                        .font(.Pretendard.SemiBold.size14)
-                        .foregroundStyle(.myC8B7A3)
-                        .padding(.trailing, 8)
-                }
-                if wwh[1] {
-                    Image("Routine_Check_Green")
-                    Text("무엇을")
-                        .font(.Pretendard.SemiBold.size14)
-                        .foregroundStyle(.my6FB56F)
-                        .padding(.trailing, 8)
-                }
-                else {
-                    Image("Routine_Check")
-                    Text("무엇을")
-                        .font(.Pretendard.SemiBold.size14)
-                        .foregroundStyle(.myC8B7A3)
-                        .padding(.trailing, 8)
-                }
-                if wwh[2] {
-                    Image("Routine_Check_Green")
-                    Text("얼마나")
-                        .font(.Pretendard.SemiBold.size14)
-                        .foregroundStyle(.my6FB56F)
-                        .padding(.trailing, 8)
-                }
-                else {
-                    Image("Routine_Check")
-                    Text("얼마나")
-                        .font(.Pretendard.SemiBold.size14)
-                        .foregroundStyle(.myC8B7A3)
-                        .padding(.trailing, 8)
-                }
+            HStack {
                 Spacer()
+                if newTitle != "" {
+                    Button(action: {
+                        newTitle = ""
+                    }, label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .resizable()
+                            .frame(width: 23, height: 23)
+                            .foregroundStyle(Color.myB9B9B9)
+                    })
+                    .padding(.trailing)
+                }
             }
         }
-        
+        .padding(.top, -20)
+
         if isEditing {
             // 글자수 부분
             HStack(spacing: 0) {
@@ -324,6 +277,52 @@ extension DetailGoalView {
             .padding(.trailing, 10)
             .padding(.top, -20)
         }
+        
+        HStack(spacing: 4) {
+            if wwh[0] {
+                Image("Routine_Check_Green")
+                Text("어디서")
+                    .font(.Pretendard.SemiBold.size14)
+                    .foregroundStyle(.my6FB56F)
+                    .padding(.trailing, 8)
+            }
+            else {
+                Image("Routine_Check")
+                Text("어디서")
+                    .font(.Pretendard.SemiBold.size14)
+                    .foregroundStyle(.myC8B7A3)
+                    .padding(.trailing, 8)
+            }
+            if wwh[1] {
+                Image("Routine_Check_Green")
+                Text("무엇을")
+                    .font(.Pretendard.SemiBold.size14)
+                    .foregroundStyle(.my6FB56F)
+                    .padding(.trailing, 8)
+            }
+            else {
+                Image("Routine_Check")
+                Text("무엇을")
+                    .font(.Pretendard.SemiBold.size14)
+                    .foregroundStyle(.myC8B7A3)
+                    .padding(.trailing, 8)
+            }
+            if wwh[2] {
+                Image("Routine_Check_Green")
+                Text("얼마나")
+                    .font(.Pretendard.SemiBold.size14)
+                    .foregroundStyle(.my6FB56F)
+                    .padding(.trailing, 8)
+            }
+            else {
+                Image("Routine_Check")
+                Text("얼마나")
+                    .font(.Pretendard.SemiBold.size14)
+                    .foregroundStyle(.myC8B7A3)
+                    .padding(.trailing, 8)
+            }
+            Spacer()
+        }.padding(.top, -40)
     }
     
     @ViewBuilder
@@ -341,8 +340,8 @@ extension DetailGoalView {
                     .padding()
                     .onChange(of: newMemo) { oldValue, newValue in
                         if newValue != detailGoal?.memo {
-                                isModified = true
-                            }
+                            isModified = true
+                        }
                         if newValue.count > memoLimit {
                             newMemo = String(newValue.prefix(memoLimit))
                         }
