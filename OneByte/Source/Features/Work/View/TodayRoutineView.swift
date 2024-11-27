@@ -115,7 +115,7 @@ struct TodayRoutineCell: View {
                     .strikethrough(detailGoal.isAchievedToday)
                 
                 Text(subGoalTitle) // 🚧🚧🚧 Subgoal을 입력해야만 DetailGoal이 입력가능한 위계가 생기면, detailGoal에 해당하는 Subgoal title 띄워지게
-                    .font(.Pretendard.SemiBold.size12)
+                    .font(.Pretendard.Medium.size14)
                     .foregroundStyle(detailGoal.isAchievedToday ? Color.my428142.opacity(0.7) : Color.my428142)
                     .foregroundStyle(Color.my428142)
             }
