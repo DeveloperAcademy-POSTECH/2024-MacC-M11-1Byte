@@ -28,12 +28,16 @@ class SubGoal {
     var title: String
     var leafState: Int
     var detailGoals: [DetailGoal]
+    var category: String // 카테고리 추가
+    var isCustomCategory: Bool // "기타" 선택 여부
     
-    init(id: Int, title: String, leafState: Int, detailGoals: [DetailGoal]) {
+    init(id: Int, title: String, leafState: Int, detailGoals: [DetailGoal], category: String, isCustomCategory: Bool) {
         self.id = id
         self.title = title
         self.leafState = leafState
         self.detailGoals = detailGoals
+        self.category = category
+        self.isCustomCategory = isCustomCategory
     }
 }
 

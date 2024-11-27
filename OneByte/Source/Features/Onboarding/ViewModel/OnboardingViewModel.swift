@@ -47,11 +47,13 @@ class OnboardingViewModel {
     }
     
     // SubGoal 업데이트
-    func updateSubGoal(subGoal: SubGoal, newTitle: String, leafState: Int) {
+    func updateSubGoal(subGoal: SubGoal, newTitle: String, leafState: Int, category: String, isCustomCategory: Bool) {
         updateService.updateSubGoal(
             subGoal: subGoal,
             newTitle: newTitle,
-            leafState: leafState
+            leafState: leafState,
+            category: category,
+            isCustomCategory: isCustomCategory
         )
     }
     

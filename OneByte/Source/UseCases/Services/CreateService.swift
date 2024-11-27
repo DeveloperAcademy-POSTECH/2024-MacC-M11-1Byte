@@ -31,7 +31,9 @@ class CreateService: CreateGoalUseCase {
                    id: subGoalCounter,
                    title: "",
                    leafState: 0,
-                   detailGoals: []
+                   detailGoals: [],
+                   category: "",
+                   isCustomCategory: false
                )
                subGoalCounter += 1 // SubGoal ID 증가
                

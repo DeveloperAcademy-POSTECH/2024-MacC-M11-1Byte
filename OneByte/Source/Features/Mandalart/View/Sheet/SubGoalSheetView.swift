@@ -8,10 +8,16 @@
 import SwiftUI
 
 struct SubGoalsheetView: View {
-    @Environment(\.modelContext) private var modelContext  // SwiftData 컨텍스트
+    @Environment(\.modelContext) private var modelContext
     @Environment(\.managedObjectContext) private var context
-    @Binding var subGoal: SubGoal? // 옵셔널로 변경
+    @Binding var subGoal: SubGoal?
     @Binding var isPresented: Bool
+    
+    @State private var selectedCategory: String = "" // 기본값
+    @State var isCustomCategory: Bool = false
+    
+    let categories = ["건강", "학업", "여행", "저축", "자기계발", "취미 생활", "가족", "새로운 도전", "기타"]
+    
     private let titleLimit = 20 // 제목 글자수 제한
     
     @State private var newTitle: String = ""
@@ -24,6 +30,21 @@ struct SubGoalsheetView: View {
     
     var body: some View {
         VStack {
+            // 카테고리 선택 버튼 (FlowLayout 대신)
+            categorySelectionGrid(
+                categories: categories,
+                selectedCategory: $selectedCategory,
+                isCustomCategory: $isCustomCategory
+            )
+            
+            // "기타" 선택 시 텍스트 필드 표시
+            if isCustomCategory {
+                TextField("카테고리를 입력하세요", text: $selectedCategory) // 선택된 카테고리에 값 저장
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding(.vertical, 10)
+            }
+            
+           
             Text("하위 목표")
                 .font(.Pretendard.SemiBold.size17)
                 .padding(.top, 22/852 * UIScreen.main.bounds.height)
@@ -90,7 +111,9 @@ struct SubGoalsheetView: View {
                         viewModel.updateSubGoal(
                             subGoal: subGoal,
                             newTitle: newTitle,
-                            leafState: leafState
+                            leafState: leafState,
+                            category: selectedCategory,
+                            isCustomCategory: isCustomCategory
                         )
                     }
                     isPresented = false
@@ -111,6 +134,53 @@ struct SubGoalsheetView: View {
         .onAppear {
             if let subGoal = subGoal {
                 newTitle = subGoal.title
+                selectedCategory = subGoal.category
+                isCustomCategory = subGoal.isCustomCategory
+            }
+        }
+    }
+}
+
+extension SubGoalsheetView {
+    @ViewBuilder
+    func categorySelectionGrid(
+        categories: [String],
+        selectedCategory: Binding<String>,
+        isCustomCategory: Binding<Bool>
+    ) -> some View {
+        LazyVGrid(
+            columns: [GridItem(.adaptive(minimum: 80), spacing: 10)],
+            spacing: 10
+        ) {
+            ForEach(categories, id: \.self) { category in
+                Button(action: {
+                    if category == "기타" {
+                        // "기타"를 선택하면 텍스트 필드는 비우고 상태만 설정
+                        isCustomCategory.wrappedValue = true
+                        selectedCategory.wrappedValue = ""
+                    } else {
+                        // 다른 카테고리를 선택하면 "기타" 상태 해제
+                        isCustomCategory.wrappedValue = false
+                        selectedCategory.wrappedValue = category
+                    }
+                }) {
+                    Text(category)
+                        .padding(.vertical, 8)
+                        .padding(.horizontal, 16)
+                        .background(
+                            (category == "기타" && isCustomCategory.wrappedValue) ||
+                            (selectedCategory.wrappedValue == category && category != "기타")
+                            ? Color.green
+                            : Color.gray.opacity(0.2)
+                        )
+                        .foregroundColor(
+                            (category == "기타" && isCustomCategory.wrappedValue) ||
+                            (selectedCategory.wrappedValue == category && category != "기타")
+                            ? .white
+                            : .black
+                        )
+                        .cornerRadius(16)
+                }
             }
         }
     }

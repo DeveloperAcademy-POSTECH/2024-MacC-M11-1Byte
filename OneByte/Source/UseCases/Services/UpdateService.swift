@@ -24,9 +24,11 @@ class UpdateService: UpdateGoalUseCase {
         mainGoal.cloverState = cloverState
     }
 
-    func updateSubGoal(subGoal: SubGoal, newTitle: String, leafState: Int) {
+    func updateSubGoal(subGoal: SubGoal, newTitle: String, leafState: Int, category: String, isCustomCategory: Bool) {
         subGoal.title = newTitle
         subGoal.leafState = leafState
+        subGoal.category = category
+        subGoal.isCustomCategory = isCustomCategory
     }
     
     func updateDetailGoal(detailGoal: DetailGoal,title: String, memo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool, timePeriod: String) {

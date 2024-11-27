@@ -25,9 +25,11 @@ class DeleteService: DeleteGoalUseCase {
         mainGoal.cloverState = 0
     }
     
-    func deleteSubGoal(subGoal: SubGoal, newTitle: String, leafState: Int) {
+    func deleteSubGoal(subGoal: SubGoal, newTitle: String, leafState: Int, category: String, isCustomCategory: Bool) {
         subGoal.title = ""
         subGoal.leafState = 0
+        subGoal.category = ""
+        subGoal.isCustomCategory = false
     }
     
     func deleteDetailGoal(detailGoal: DetailGoal, title: String, memo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool, timePeriod: String) {

@@ -165,6 +165,7 @@ struct DetailGoalView: View {
                 }, label: {
                     Text(isEditing ? "저장" : "수정")
                         .foregroundStyle((isEditing && newTitle == "") ? Color.my538F53.opacity(0.5) : Color.my538F53)
+                        .fontWeight(isEditing ? .bold : .regular)
                 })
                 .disabled(newTitle == "" && isEditing == true)
             })
