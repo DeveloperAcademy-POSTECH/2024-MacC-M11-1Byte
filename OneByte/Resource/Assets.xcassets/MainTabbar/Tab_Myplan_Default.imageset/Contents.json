@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "TabbarMain.png",
+      "filename" : "Tab_Myplan_Default.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "TabbarMain@2x.png",
+      "filename" : "Tab_Myplan_Default@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "TabbarMain@3x.png",
+      "filename" : "Tab_Myplan_Default@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
