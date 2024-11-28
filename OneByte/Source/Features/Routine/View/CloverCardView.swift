@@ -10,6 +10,7 @@ import SwiftUI
 struct CloverCardView: View {
     
     @Environment(\.dismiss) private var dismiss
+    @State var viewModel = CloverCardViewModel()
     
     @State private var isCheckAchievement = false
     @State private var rotationAngle: Double = 0 // 회전 각도 상태 추가
@@ -53,7 +54,7 @@ struct CloverCardView: View {
                     
                     VStack {
                         VStack(spacing: 2) {
-                            Text("12월 4주차") // 저번주차 데이터
+                            Text(viewModel.getLastWeekWeekofMonth()) // 저번주차 데이터
                                 .font(.Pretendard.Bold.size18)
                                 .foregroundStyle(.myFFF6D3)
                             Text("황금 클로버")
