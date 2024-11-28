@@ -49,7 +49,7 @@ struct CloverCardView: View {
                 .padding(.top, 32)
                 
                 ZStack {
-                    Image("GoldCloverBackground")
+                    Image(cloverCardType.cloverCardBackground) // 카드 배경
                         .resizable()
                         .scaledToFit()
                         .frame(width: 279, height: 360)
@@ -65,11 +65,10 @@ struct CloverCardView: View {
                         }
                         .padding(.top, 46)
                         
-                        Image("GoldClover")
+                        Image(cloverCardType.cloverCardClover) // 클로버 아이콘
                             .rotation3DEffect(
-                                .degrees(rotationAngle), // 상태에 따른 회전 각도
-                                axis: (x: 0, y: 1, z: 0) // Y축 기준 회전
-                                
+                                .degrees(rotationAngle),
+                                axis: (x: 0, y: 1, z: 0)
                             )
                             .onAppear {
                                 startRotationAnimation() // 애니메이션 시작
