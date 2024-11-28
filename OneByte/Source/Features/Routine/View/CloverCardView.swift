@@ -10,6 +10,7 @@ import SwiftUI
 struct CloverCardView: View {
     
     @State private var isCheckAchievement = false
+    @State private var rotationAngle: Double = 0 // 회전 각도 상태 추가
     
     var body: some View {
         VStack(spacing: 0) {
@@ -29,7 +30,7 @@ struct CloverCardView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 279, height: 360)
-
+                    
                     VStack {
                         VStack(spacing: 2) {
                             Text("12월 4주차") // 저번주차 데이터
@@ -40,10 +41,18 @@ struct CloverCardView: View {
                                 .foregroundStyle(.white)
                         }
                         .padding(.top, 46)
-
+                        
                         Image("GoldClover")
+                            .rotation3DEffect(
+                                .degrees(rotationAngle), // 상태에 따른 회전 각도
+                                axis: (x: 0, y: 1, z: 0) // Y축 기준 회전
+                                
+                            )
+                            .onAppear {
+                                startRotationAnimation() // 애니메이션 시작
+                            }
                             .padding(.top, 30)
-
+                        
                         Spacer()
                     }
                 }
@@ -103,31 +112,41 @@ struct CloverCardView: View {
     }
     
     @ViewBuilder
-      private func completionRateView() -> some View {
-          VStack(spacing: 12) {
-              Text("12월 4주차의 루틴 완수율") // 저번주 날짜 데이터 넣기
-                  .font(.Pretendard.Bold.size17)
-                  .foregroundStyle(.my575656)
-                  .padding(.vertical, 10)
-              
-              ForEach(0..<4) { _ in
-                  HStack {
-                      Text("키워드1")
-                          .font(.Pretendard.Bold.size12)
-                          .foregroundStyle(.my505050)
-                          .frame(width: 62, alignment: .leading)
-                      CloverCardProgressBar(value: 0.7)
-                          .progressViewStyle(LinearProgressViewStyle(tint: .myFFA64A))
-                  }
-                  .padding(.horizontal, 33)
-              }
-          }
-          .padding()
-          .background(.myF2EAD0)
-          .cornerRadius(16)
-          .padding(.horizontal, 17)
-          .padding(.top, 2)
-      }
+    private func completionRateView() -> some View {
+        VStack(spacing: 12) {
+            Text("12월 4주차의 루틴 완수율") // 저번주 날짜 데이터 넣기
+                .font(.Pretendard.Bold.size17)
+                .foregroundStyle(.my575656)
+                .padding(.vertical, 10)
+            
+            ForEach(0..<4) { _ in
+                HStack {
+                    Text("키워드1")
+                        .font(.Pretendard.Bold.size12)
+                        .foregroundStyle(.my505050)
+                        .frame(width: 62, alignment: .leading)
+                    CloverCardProgressBar(value: 0.7)
+                        .progressViewStyle(LinearProgressViewStyle(tint: .myFFA64A))
+                }
+                .padding(.horizontal, 33)
+            }
+        }
+        .padding()
+        .background(.myF2EAD0)
+        .cornerRadius(16)
+        .padding(.horizontal, 17)
+        .padding(.top, 2)
+    }
+    
+    // 회전 애니메이션 함수
+    private func startRotationAnimation() {
+        withAnimation(
+            Animation.linear(duration: 2.0) // 애니메이션 지속 시간
+                .repeatForever(autoreverses: false) // 무한 반복
+        ) {
+            rotationAngle = 360 // Y축 기준으로 한 바퀴 회전
+        }
+    }
 }
 
 #Preview {
