@@ -53,6 +53,8 @@
 		1FB10A402CDF7F4B00D54EC5 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A3F2CDF7F4B00D54EC5 /* OnboardingViewModel.swift */; };
 		1FC686362CF78276008F399F /* TodayRoutineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC686352CF78276008F399F /* TodayRoutineCell.swift */; };
 		1FC686382CF782FB008F399F /* WeekAchieveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC686372CF782FB008F399F /* WeekAchieveCell.swift */; };
+		1FC6863A2CF8ABC1008F399F /* CloverCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC686392CF8ABC1008F399F /* CloverCardView.swift */; };
+		1FC6863C2CF8BCFD008F399F /* CloverCardProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC6863B2CF8BCFD008F399F /* CloverCardProgressBar.swift */; };
 		1FD405232CEC74E800403A19 /* AllRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD405222CEC74E800403A19 /* AllRoutineView.swift */; };
 		1FD405252CEC79DD00403A19 /* TodayRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD405242CEC79DD00403A19 /* TodayRoutineView.swift */; };
 		1FD4052A2CECBFCB00403A19 /* RoutineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD405292CECBFCB00403A19 /* RoutineModel.swift */; };
@@ -139,6 +141,8 @@
 		1FB10A3F2CDF7F4B00D54EC5 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		1FC686352CF78276008F399F /* TodayRoutineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutineCell.swift; sourceTree = "<group>"; };
 		1FC686372CF782FB008F399F /* WeekAchieveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekAchieveCell.swift; sourceTree = "<group>"; };
+		1FC686392CF8ABC1008F399F /* CloverCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloverCardView.swift; sourceTree = "<group>"; };
+		1FC6863B2CF8BCFD008F399F /* CloverCardProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloverCardProgressBar.swift; sourceTree = "<group>"; };
 		1FD405222CEC74E800403A19 /* AllRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRoutineView.swift; sourceTree = "<group>"; };
 		1FD405242CEC79DD00403A19 /* TodayRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutineView.swift; sourceTree = "<group>"; };
 		1FD405292CECBFCB00403A19 /* RoutineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineModel.swift; sourceTree = "<group>"; };
@@ -340,6 +344,7 @@
 				1FD405242CEC79DD00403A19 /* TodayRoutineView.swift */,
 				1FD405222CEC74E800403A19 /* AllRoutineView.swift */,
 				1FD405352CECE6F800403A19 /* TodayRouitneTypeHeaderView.swift */,
+				1FC686392CF8ABC1008F399F /* CloverCardView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -442,6 +447,7 @@
 			isa = PBXGroup;
 			children = (
 				1FB10A2B2CDF52E600D54EC5 /* OnboardingProgressBar.swift */,
+				1FC6863B2CF8BCFD008F399F /* CloverCardProgressBar.swift */,
 				1FD4053B2CED987700403A19 /* TurtleMessageView.swift */,
 				61CC00FC2CF0276B0009D063 /* DetailGoalColor.swift */,
 			);
@@ -669,6 +675,7 @@
 				1F79EDCE2CC0A25D0079088B /* OneByteApp.swift in Sources */,
 				61FA4DF52CE7803600256B57 /* View+.swift in Sources */,
 				613904EA2CD21A0B008E591D /* MandalartViewModel.swift in Sources */,
+				1FC6863C2CF8BCFD008F399F /* CloverCardProgressBar.swift in Sources */,
 				1F88AB392CD607F90009730D /* NavigationManager.swift in Sources */,
 				615A0A0D2CC0AE8700908531 /* RoutineMainView.swift in Sources */,
 				1FD4052A2CECBFCB00403A19 /* RoutineModel.swift in Sources */,
@@ -679,6 +686,7 @@
 				61FA4DF32CE77EDD00256B57 /* BackButtonToolbarModifier.swift in Sources */,
 				1FB10A2E2CDF54B400D54EC5 /* EnterMaingoalView.swift in Sources */,
 				615A0A112CC0AEB800908531 /* StatisticView.swift in Sources */,
+				1FC6863A2CF8ABC1008F399F /* CloverCardView.swift in Sources */,
 				1F599E382CE664B100788D07 /* TermsRow.swift in Sources */,
 				618FD0742CDF11210003450D /* CreateService.swift in Sources */,
 				1FD405232CEC74E800403A19 /* AllRoutineView.swift in Sources */,
@@ -831,7 +839,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"OneByte/Preview Content\"";
-				DEVELOPMENT_TEAM = 2N746Z29Q5;
+				DEVELOPMENT_TEAM = WTK65UP9RZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OneByte/Info.plist;
@@ -868,7 +876,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"OneByte/Preview Content\"";
-				DEVELOPMENT_TEAM = 2N746Z29Q5;
+				DEVELOPMENT_TEAM = WTK65UP9RZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OneByte/Info.plist;
