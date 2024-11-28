@@ -157,7 +157,7 @@ class TodayRoutineViewModel {
             detailGoal.achieveCount -= 1// 미완료로 변경된 경우
         }
         updateCloverState(for: mainGoal) // MainGoal의 cloverState 업데이트 함수 호출
-        
+    
         // 변경 사항 저장
         do {
             try context.save()
@@ -191,6 +191,8 @@ class TodayRoutineViewModel {
             mainGoal.cloverState = 2
             return
         }
+        
+        print("성취완료 체크버튼 탭(update된 mainGoal의 cloverState : \(mainGoal.cloverState)")
     }
     
     // MainGoal CloverState 변경시킬때,Clover객체에서 현재 날짜에 맞는 주차찾아 CloverState 업데이트 시키기 위해 날짜 찾음
