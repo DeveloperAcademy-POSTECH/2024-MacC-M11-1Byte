@@ -16,7 +16,7 @@ struct CloverCardView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            ScrollView {
+            ScrollView(.vertical, showsIndicators: false) {
                 VStack(spacing: 3) {
                     Text("황금클로버를 획득했어요!") // clvosrState에 따라 다르게
                         .font(.Pretendard.Bold.size24)
