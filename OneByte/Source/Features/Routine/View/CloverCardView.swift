@@ -9,6 +9,8 @@ import SwiftUI
 
 struct CloverCardView: View {
     
+    @Environment(\.dismiss) private var dismiss
+    
     @State private var isCheckAchievement = false
     @State private var rotationAngle: Double = 0 // 회전 각도 상태 추가
     
@@ -16,6 +18,22 @@ struct CloverCardView: View {
     
     var body: some View {
         VStack(spacing: 0) {
+            HStack {
+                Button {
+                    dismiss()
+                } label: {
+                    HStack {
+                        Image(systemName: "chevron.left")
+                            .tint(.white)
+                            .frame(width: 17, height: 22)
+                            .bold()
+                    }
+                }
+                Spacer()
+            }
+            .padding(.leading, 16)
+            .padding(.bottom, 11)
+            
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(spacing: 3) {
                     Text("황금클로버를 획득했어요!") // clvosrState에 따라 다르게
