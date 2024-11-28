@@ -19,7 +19,7 @@ struct CloverCardView: View {
                     Text("황금클로버를 획득했어요!") // clvosrState에 따라 다르게
                         .font(.Pretendard.Bold.size24)
                         .foregroundStyle(.white)
-                    Text("잘하고 있어요! 앞으로도 지금처럼만 노력해봐요")
+                    Text("잘하고 있어요! 앞으로도 지금처럼만 노력해봐요") // clvosrState에 따라 다르게
                         .font(.Pretendard.Medium.size16)
                         .foregroundStyle(.white)
                 }
