@@ -17,6 +17,9 @@ struct TabBarManager: View {
     @State private var isTabBarMainVisible: Bool = true
     @State private var selectedTab: Int = 0
     
+    @State private var currentCloverState: Int? = nil // 이전 CloverState 값 저장
+    @State private var showCloverCardView: Bool = false  // 클로버 카드뷰 제어
+    
     var body: some View {
         ZStack {
             if FirstOnboarding {
@@ -69,7 +72,13 @@ struct TabBarManager: View {
         }
         .onAppear {
             let resetManager = WeeklyResetManager()
-            resetManager.resetGoals(goals: mainGoals, modelContext: modelContext) // 초기화 수행
+            if let previousState = resetManager.resetGoals(goals: mainGoals, modelContext: modelContext) {
+                currentCloverState = previousState
+                showCloverCardView = true // 클로버 카드 뷰 표시
+            }
+        }
+        .fullScreenCover(isPresented: $showCloverCardView) {
+            CloverCardView(cloverState: currentCloverState)
         }
     }
     

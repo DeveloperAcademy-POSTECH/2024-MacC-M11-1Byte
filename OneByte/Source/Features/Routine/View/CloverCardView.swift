@@ -12,6 +12,8 @@ struct CloverCardView: View {
     @State private var isCheckAchievement = false
     @State private var rotationAngle: Double = 0 // 회전 각도 상태 추가
     
+    let cloverState: Int?
+    
     var body: some View {
         VStack(spacing: 0) {
             ScrollView {
@@ -150,5 +152,5 @@ struct CloverCardView: View {
 }
 
 #Preview {
-    CloverCardView()
+    CloverCardView(cloverState: 1)
 }
