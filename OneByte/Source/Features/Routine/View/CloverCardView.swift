@@ -120,7 +120,7 @@ struct CloverCardView: View {
             } label: {
                 Text("클로버 모아보기")
                     .font(.Pretendard.SemiBold.size17)
-                    .foregroundStyle(.myFBAC08)
+                    .foregroundStyle(cloverCardType.buttonColor)
                     .frame(maxWidth: .infinity)
                     .frame(height: 54)
                     .background(.myFFFAF4)

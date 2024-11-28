@@ -45,6 +45,7 @@ enum CloverCardType : String, CaseIterable {
         }
     }
     
+    // 클로버 카드 배경 이미지
     var cloverCardBackground: String {
         switch self {
         case .basicClover:
@@ -56,6 +57,7 @@ enum CloverCardType : String, CaseIterable {
         }
     }
     
+    // 회전 클로버 아이콘 이미지
     var cloverCardClover: String {
         switch self {
         case .basicClover:
@@ -67,9 +69,22 @@ enum CloverCardType : String, CaseIterable {
         }
     }
     
-    var gradient: LinearGradient {
+    // 클로버 모아보기 버튼 색상
+    var buttonColor: Color {
         switch self {
         case .basicClover:
+            return Color.myFBAC08 // ⚠️ 디자인 생기면 수정
+        case .greenClover:
+            return Color.my538F53
+        case .goldClover:
+            return Color.myFBAC08
+        }
+    }
+    
+    // 배경 그라데이션 컬러
+    var gradient: LinearGradient {
+        switch self {
+        case .basicClover: // ⚠️ 디자인 생기면 수정
             return LinearGradient(
                 gradient: Gradient(colors: [Color.gray, Color.gray]),
                 startPoint: .bottom,
