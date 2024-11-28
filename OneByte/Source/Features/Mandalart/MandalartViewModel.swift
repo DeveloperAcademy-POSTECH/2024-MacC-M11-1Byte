@@ -209,6 +209,11 @@ class MandalartViewModel: ObservableObject {
         }
         return wwh
     }
+    
+    func triggerHapticOn() {
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
+    }
 }
 
 struct TaggedWord {

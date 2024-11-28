@@ -39,8 +39,7 @@ struct SubGoalCell: View {
                                 let detailGoal = detailGoalsSorted[detailGoalIndex]
                                 // 디테일 골 제목
                                 Text(detailGoal.title)
-                                    .padding(.horizontal, 10)
-                                    .padding(.vertical, 15)
+                                    .padding(.all, 10)
                                     .modifier(MandalartButtonModifier())
                                     .font(.Pretendard.Medium.size12)
                                     .background(colorForGoal(achieveGoal: detailGoal.achieveGoal, achieveCount: detailGoal.achieveCount))

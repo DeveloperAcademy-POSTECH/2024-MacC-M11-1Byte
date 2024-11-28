@@ -49,8 +49,11 @@ struct SubGoalDetailGridView: View {
                                     detailNavigation = true
                                 }) {
                                     Text(detailGoal.title)
-                                        .padding(.horizontal, 10)
-                                        .padding(.vertical, 15)
+                                        .padding(.all, 14)
+                                        .padding(.top, detailGoalIndex == 0 || detailGoalIndex == 1 ? 4 : 0)
+                                        .padding(.leading, detailGoalIndex == 0 || detailGoalIndex == 3 ? 4 : 0)
+                                        .padding(.trailing, detailGoalIndex == 1 || detailGoalIndex == 3 ? 4 : 0)
+                                        .padding(.bottom, detailGoalIndex == 2 || detailGoalIndex == 3 ? 4 : 0)
                                         .modifier(NextMandalartButtonModifier())
                                         .background(Color.myBFEBBB)
                                 }
@@ -85,18 +88,18 @@ struct SubGoalDetailGridView: View {
                 ProgressView("loading..")
             }
         } // VStack 끝
-        .padding(.horizontal, 20/393 * UIScreen.main.bounds.width)
+        .padding(.horizontal)
         .navigationBarBackButtonHidden()
         .backButtonToolbar {
             isSubNavigation = false
         }
         .background(Color.myFFFAF4)
-        .toolbar {
-            ToolbarItem(placement: .principal, content: {
-                Text(subGoal?.title ?? "")
-                    .font(.Pretendard.Bold.size18)
-            })
-        }
+//        .toolbar {
+//            ToolbarItem(placement: .principal, content: {
+//                Text(subGoal?.title ?? "")
+//                    .font(.Pretendard.Bold.size18)
+//            })
+//        }
         .toolbar(tabBarVisible ? .visible : .hidden, for: .tabBar)
         .onAppear{
             tabBarVisible = false
@@ -114,8 +117,7 @@ extension SubGoalDetailGridView {
                 subNavigation = true
             }, label: {
                 Text(selectedSubGoal.title)
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 15)
+                    .padding()
                     .font(.Pretendard.SemiBold.size18)
                     .modifier(NextMandalartButtonModifier())
                     .background(Color.my95D895)
@@ -138,14 +140,13 @@ extension SubGoalDetailGridView {
             let filteredMemos = sortedDetailGoals.filter { !$0.memo.isEmpty }
             
             if !filteredMemos.isEmpty {
-                VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: 12) {
                     Text("메모 모아보기")
                         .font(.Pretendard.SemiBold.size18)
-                        .padding(.leading, 4)
                         .padding(.top, 47)
                     
                     ScrollView {
-                        VStack(spacing: 12) {
+                        VStack(spacing: 8) {
                             ForEach(filteredMemos, id: \.id) { detailGoal in
                                 HStack(spacing: 14) {
                                     let randomFace = ["Face1", "Face2", "Face3"].randomElement() ?? "Face1"
@@ -164,11 +165,9 @@ extension SubGoalDetailGridView {
                                     }
                                     Spacer()
                                 }
-                                .padding()
-                                .background(
-                                    RoundedRectangle(cornerRadius: 12)
-                                        .fill(.white)
-                                )
+                                .padding(.all, 20)
+                                .background(.white)
+                                .cornerRadius(12)
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 12)
                                         .stroke(Color.myF0E8DF, lineWidth: 1)
@@ -181,8 +180,7 @@ extension SubGoalDetailGridView {
                 HStack(){
                     Text("메모 모아보기")
                         .font(.Pretendard.SemiBold.size18)
-                        .padding(.leading, 20)
-                        .padding(.top, 63)
+                        .padding(.top, 47)
                     Spacer()
                 }
                 Image("Turtle_Empty")

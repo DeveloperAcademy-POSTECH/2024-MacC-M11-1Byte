@@ -42,14 +42,15 @@ struct MandalartView: View {
 
 // MARK: 첫화면 -  전체 81개짜리
 struct OuterGridView: View {
+    @Binding var mainGoal: MainGoal?
+    @Binding var isTabBarMainVisible: Bool
+
     @State private var capturedImage: UIImage? = nil
     @State var mainIsPresented: Bool = false
     @State private var selectedSubGoal: SubGoal? // 선택된 SubGoal을 관리
     @State private var isSubNavigationActive: Bool = false // 네비게이션 활성화 상태
     @State var tabBarVisible: Bool = true
     
-    @Binding var mainGoal: MainGoal?
-    @Binding var isTabBarMainVisible: Bool
     
     private let dateManager = DateManager()
     private let currentDate = Date()
@@ -60,15 +61,27 @@ struct OuterGridView: View {
         deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: [])
     )
     
+    @State private var currentMessage: String = ""
+       private let messages: [String] = [
+           "완벽하지 않아도 괜찮아요. 중요한 것은 꾸준히 다시 시작하는 거예요!",
+           "한 걸음씩 가다 보면 어느새 큰 변화를 느낄 거예요!",
+           "같이 좀만 더 힘내봐요! 조금만 힘내면 금새 습관이 될거예요.",
+           "누가 그랬는데 탁월함은 행동이 아니라 습관에서 온대요.",
+           "오늘 조금 못해도 괜찮아요, 내일은 더 잘할 수 있을거예요.",
+           "느려도 괜찮아요. 꾸준함이 우리를 목표로 데려다줄 거예요.",
+           "중단했더라도 괜찮아요. 중요한 건 포기하지 않는 마음이에요."
+       ]
+    
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             // 날짜 및 공유, 설정 버튼
-            HStack(alignment: .center ,spacing: 8) {
+            HStack(alignment: .center ,spacing: 0) {
                 // 한국 날짜 형식으로 오늘 날짜 표시
-                Text("나의 계획")
+                Text("클로버 심기")
                     .font(.Pretendard.Bold.size22)
                     .foregroundStyle(Color.myB4A99D)
+                    .padding(.leading, -6)
                 
                 Spacer()
                 
@@ -90,18 +103,18 @@ struct OuterGridView: View {
                         }
                     }
                 }
-                .padding(.trailing, 10)
+                .padding(.trailing, 14)
                 
                 NavigationLink {
                     SettingView(isTabBarMainVisible: $isTabBarMainVisible)
                 } label: {
-                    Image(systemName: "gear")
+                    Image("SettingDark")
                         .resizable()
                         .frame(width: 24, height: 24)
-                        .foregroundStyle(.my566956)
                 }
             }
-            .padding(.vertical)
+            .padding(.horizontal, 10)
+            .padding(.top, 8)
             
             // 목표 & 만다라트 그리드
             captureView()
@@ -109,17 +122,22 @@ struct OuterGridView: View {
             
             // 다라 & comment
             HStack() {
-                Image("Turtle_5")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 73/393 * UIScreen.main.bounds.width)
+                Button(action: {
+                    viewModel.triggerHapticOn()
+                    currentMessage = messages.randomElement() ?? currentMessage
+                }, label: {
+                    Image("Turtle_5")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 73/393 * UIScreen.main.bounds.width)
+                })
                 
                 ZStack{
                     Image("comment")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(height: 55)
-                    Text("한 걸음씩 가다 보면\n어느새 큰 변화를 느낄 거예요!")
+                    Text(currentMessage)
                         .font(.Pretendard.Medium.size14)
                 }
             }
@@ -127,6 +145,7 @@ struct OuterGridView: View {
             Spacer()
         }
         .onAppear {
+            currentMessage = messages.randomElement() ?? ""
             isTabBarMainVisible = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 capturedImage = captureView()
@@ -135,7 +154,7 @@ struct OuterGridView: View {
                     .snapshot()
             }
         }
-        .padding(.horizontal, 20/393 * UIScreen.main.bounds.width)
+        .padding(.horizontal)
         .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
     }
 }
@@ -156,11 +175,11 @@ extension OuterGridView {
                         Button(action: {
                             mainIsPresented = true
                         }, label: {
-                            Image(systemName: "ellipsis")
+                            Image(systemName: "pencil.line")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 22)
-                                .foregroundStyle(Color.myD5F3D1)
+                                .frame(width: 28)
+                                .foregroundStyle(mainGoal?.title == "" ? .myCEEDCE : .white)
                         })
                         .sheet(isPresented: $mainIsPresented) {
                             MainGoalsheetView(mainGoal: $mainGoal, isPresented: $mainIsPresented)
@@ -168,10 +187,15 @@ extension OuterGridView {
                                 .presentationDetents([.height(244/852 * UIScreen.main.bounds.height)])
                         }
                     }
-                    Text(mainGoal?.title ?? "")
-                        .foregroundStyle(.white)
-                        .font(.Pretendard.Bold.size16)
-                        .kerning(-0.32) // 자간
+                    if mainGoal?.title == "" {
+                        Text("아직 나의 다짐을 작성하지 않았어요.")
+                            .foregroundStyle(.white.opacity(0.5))
+                            .font(.Pretendard.SemiBold.size16)
+                    } else {
+                        Text(mainGoal?.title ?? "")
+                            .foregroundStyle(.white)
+                            .font(.Pretendard.Bold.size16)
+                    }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading) // 전체 너비에서 왼쪽 정렬
                 .padding()
@@ -180,7 +204,7 @@ extension OuterGridView {
             }
             .frame(height: 76/852 * UIScreen.main.bounds.height)
             .padding(.bottom, 30/852 * UIScreen.main.bounds.height)
-            .padding(.top, 10/852 * UIScreen.main.bounds.height)
+            .padding(.top, 39/852 * UIScreen.main.bounds.height)
             
             // 만다라트 그리드
             ZStack {

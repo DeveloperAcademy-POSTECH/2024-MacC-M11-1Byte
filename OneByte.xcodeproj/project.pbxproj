@@ -70,6 +70,7 @@
 		610595D62CE23653005ED7B4 /* DeleteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595D52CE23653005ED7B4 /* DeleteService.swift */; };
 		610595D92CE2584D005ED7B4 /* MadalartShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595D82CE2584D005ED7B4 /* MadalartShape.swift */; };
 		610595DD2CE2EA6C005ED7B4 /* DetailGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595DC2CE2EA6C005ED7B4 /* DetailGoalView.swift */; };
+		6107A3CB2CF88E11001189FA /* SpecificTagger3942.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 6107A3CA2CF88E11001189FA /* SpecificTagger3942.mlmodel */; };
 		613904E82CD20457008E591D /* MandalartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E72CD20457008E591D /* MandalartView.swift */; };
 		613904EA2CD21A0B008E591D /* MandalartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E92CD21A0B008E591D /* MandalartViewModel.swift */; };
 		615A0A0B2CC0ADA800908531 /* TabBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A0A2CC0ADA800908531 /* TabBarManager.swift */; };
@@ -155,6 +156,7 @@
 		610595D52CE23653005ED7B4 /* DeleteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteService.swift; sourceTree = "<group>"; };
 		610595D82CE2584D005ED7B4 /* MadalartShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadalartShape.swift; sourceTree = "<group>"; };
 		610595DC2CE2EA6C005ED7B4 /* DetailGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoalView.swift; sourceTree = "<group>"; };
+		6107A3CA2CF88E11001189FA /* SpecificTagger3942.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = SpecificTagger3942.mlmodel; path = Font/SpecificTagger3942.mlmodel; sourceTree = "<group>"; };
 		613904E72CD20457008E591D /* MandalartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalartView.swift; sourceTree = "<group>"; };
 		613904E92CD21A0B008E591D /* MandalartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalartViewModel.swift; sourceTree = "<group>"; };
 		615A0A0A2CC0ADA800908531 /* TabBarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarManager.swift; sourceTree = "<group>"; };
@@ -367,6 +369,7 @@
 		1FA4208B2CC0DBD3001CB92D /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				6107A3CA2CF88E11001189FA /* SpecificTagger3942.mlmodel */,
 				1F79EDD12CC0A25E0079088B /* Assets.xcassets */,
 				1F42BE742CDF824D00A59703 /* Font */,
 			);
@@ -652,7 +655,6 @@
 				1F599E2D2CE6430D00788D07 /* StatisticViewModel.swift in Sources */,
 				1FB10A302CDF55AA00D54EC5 /* SubgoalCycleView.swift in Sources */,
 				1F7C9C282CD083CC00BAC358 /* GoalModels.swift in Sources */,
-				A14A18DE2CF7791A0013050F /* SpecificTagger3942.mlmodel in Sources */,
 				618FD0782CDF11760003450D /* Protocol.swift in Sources */,
 				618FD0702CDF0ED20003450D /* MandalartButtonModifier.swift in Sources */,
 				613904E82CD20457008E591D /* MandalartView.swift in Sources */,
@@ -665,6 +667,7 @@
 				1F79EDCE2CC0A25D0079088B /* OneByteApp.swift in Sources */,
 				61FA4DF52CE7803600256B57 /* View+.swift in Sources */,
 				613904EA2CD21A0B008E591D /* MandalartViewModel.swift in Sources */,
+				6107A3CB2CF88E11001189FA /* SpecificTagger3942.mlmodel in Sources */,
 				1F88AB392CD607F90009730D /* NavigationManager.swift in Sources */,
 				615A0A0D2CC0AE8700908531 /* RoutineMainView.swift in Sources */,
 				1FD4052A2CECBFCB00403A19 /* RoutineModel.swift in Sources */,
