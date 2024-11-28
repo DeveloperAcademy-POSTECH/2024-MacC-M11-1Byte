@@ -60,26 +60,28 @@ struct DetailGoalView: View {
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 28/852 * UIScreen.main.bounds.height) {
+            VStack(alignment: .leading, spacing: 0) {
                 //Spacer()
                 if isEditing {
                     // 타이틀 입력란
                     detailGaolTitle()
+                        .padding(.top, 28)
                     
                     // 메모 입력란
                     DetailGoalMemo()
-                    
+                        .padding(.top, -4)
                     // 요일 선택
                     selectDays()
-                    
+                        .padding(.top, 28)
                     // 시간대 선택
                     selectTime()
-                    
+                        .padding(.top, 28)
                     // 리마인드 알림
                     remind()
-                    
+                        .padding(.top, 28)
                     // 삭제 버튼
                     deleteButton()
+                        .padding(.top, 28)
                         .padding(.bottom, 53/852 * UIScreen.main.bounds.height)
                 } else {
                     // 저장되었을 때 보여주는 화면
@@ -256,6 +258,7 @@ extension DetailGoalView {
                         .stroke(Color.myF0E8DF, lineWidth: 1)
                 )
                 .onChange(of: newTitle) { oldValue, newValue in
+                    print(newValue)
                     viewModel.text = newValue
                     wwh = viewModel.wwh
                     print(wwh)
@@ -301,50 +304,33 @@ extension DetailGoalView {
         }
         
         HStack(spacing: 4) {
-            if wwh[0] {
-                Image("Routine_Check_Green")
-                Text("어디서")
-                    .font(.Pretendard.SemiBold.size14)
-                    .foregroundStyle(.my6FB56F)
-                    .padding(.trailing, 8)
-            }
-            else {
-                Image("Routine_Check")
-                Text("어디서")
-                    .font(.Pretendard.SemiBold.size14)
-                    .foregroundStyle(.myC8B7A3)
-                    .padding(.trailing, 8)
-            }
-            if wwh[1] {
-                Image("Routine_Check_Green")
-                Text("무엇을")
-                    .font(.Pretendard.SemiBold.size14)
-                    .foregroundStyle(.my6FB56F)
-                    .padding(.trailing, 8)
-            }
-            else {
-                Image("Routine_Check")
-                Text("무엇을")
-                    .font(.Pretendard.SemiBold.size14)
-                    .foregroundStyle(.myC8B7A3)
-                    .padding(.trailing, 8)
-            }
-            if wwh[2] {
-                Image("Routine_Check_Green")
-                Text("얼마나")
-                    .font(.Pretendard.SemiBold.size14)
-                    .foregroundStyle(.my6FB56F)
-                    .padding(.trailing, 8)
-            }
-            else {
-                Image("Routine_Check")
-                Text("얼마나")
-                    .font(.Pretendard.SemiBold.size14)
-                    .foregroundStyle(.myC8B7A3)
-                    .padding(.trailing, 8)
-            }
+            Image(wwh[0] ? "Routine_Check_Green" : "Routine_Check" )
+                .resizable()
+                .frame(width: 16, height: 16)
+            Text("어디서")
+                .font(.Pretendard.SemiBold.size14)
+                .foregroundStyle(wwh[0] ? .my6FB56F : .myC8B7A3)
+                .padding(.trailing, 8)
+            
+            Image(wwh[1] ? "Routine_Check_Green" : "Routine_Check" )
+                .resizable()
+                .frame(width: 16, height: 16)
+            Text("무엇을")
+                .font(.Pretendard.SemiBold.size14)
+                .foregroundStyle(wwh[1] ? .my6FB56F : .myC8B7A3)
+                .padding(.trailing, 8)
+            
+            Image(wwh[2] ? "Routine_Check_Green" : "Routine_Check" )
+                .resizable()
+                .frame(width: 16, height: 16)
+            Text("얼마나")
+                .font(.Pretendard.SemiBold.size14)
+                .foregroundStyle(wwh[2] ? .my6FB56F : .myC8B7A3)
+                .padding(.trailing, 8)
+            
             Button(action: {
-                isQuestionMarkClicked = true
+                if isQuestionMarkClicked { isQuestionMarkClicked = false }
+                else { isQuestionMarkClicked = true }
             }, label: {
                 Image(systemName: "questionmark.circle")
                     .resizable()
@@ -353,40 +339,38 @@ extension DetailGoalView {
             })
             Spacer()
         }
-        .padding(.top, -44)
+        .padding(.top, -41)
         .padding(.leading, 8)
         
-        if isQuestionMarkClicked {
-            ZStack {
-                Image("Polygon")
-                    .resizable()
-                    .frame(width: 26, height: 18)
-                    .padding(.top, -22)
-                    .padding(.leading, 120)
-                HStack(spacing: 4) {
-                    Text("체크항목을 참고해서 루틴을 더 구체적으로 작성해보세요")
-                        .font(.Pretendard.Medium.size13)
+        ZStack {
+            Image("Polygon")
+                .resizable()
+                .frame(width: 26, height: 18)
+                .padding(.top, -22)
+                .padding(.leading, 120)
+            HStack(spacing: 4) {
+                Text("체크항목을 참고해서 루틴을 더 구체적으로 작성해보세요")
+                    .font(.Pretendard.Medium.size13)
+                    .foregroundStyle(.myB4A99D)
+                Button(action: {
+                    isQuestionMarkClicked = false
+                }, label: {
+                    Image(systemName: "xmark")
+                        .resizable()
+                        .frame(width: 9, height: 9)
                         .foregroundStyle(.myB4A99D)
-                    Button(action: {
-                        isQuestionMarkClicked = false
-                    }, label: {
-                        Image(systemName: "xmark")
-                            .resizable()
-                            .frame(width: 9, height: 9)
-                            .foregroundStyle(.myB4A99D)
-                    })
-                    
-                }
-                .padding(.horizontal, 10)
-                .padding(.vertical, 8)
-                .background(Color.myF0E8DF)
-                .cornerRadius(8)
-                .padding(.leading, 4)
-                
+                })
                 
             }
-            .padding(.top, -44)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 8)
+            .background(Color.myF0E8DF)
+            .cornerRadius(8)
+            .padding(.leading, 4)
+            
         }
+        .padding(.top, -44)
+        .opacity(isQuestionMarkClicked ? 1.0 : 0.0)
     }
     
     @ViewBuilder
@@ -394,7 +378,6 @@ extension DetailGoalView {
         Text("메모")
             .font(.Pretendard.SemiBold.size16)
             .padding(.leading, 4)
-            .padding(.top, -10)
             .foregroundStyle(Color.my675542)
         
         ZStack {
@@ -437,7 +420,7 @@ extension DetailGoalView {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color.myF0E8DF, lineWidth: 1)
         )
-        .padding(.top, -20)
+        .padding(.top, 10)
     }
     
     @ViewBuilder
