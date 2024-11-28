@@ -23,6 +23,19 @@ class AllRoutineViewModel {
         }
     }
     
+    // Subgoal id별로 탭 title을 category로
+    func tabTitle(for item: tapInfo, mainGoals: [MainGoal]) -> String {
+        if item == .all {
+            return "전체"
+        }
+        guard let subGoalId = subGoalId(for: item),
+              let mainGoal = mainGoals.first,
+              let subGoal = mainGoal.subGoals.first(where: { $0.id == subGoalId }) else {
+            return "목표 없음"
+        }
+        return subGoal.category
+    }
+    
     // subGoalId에 따라 클로버 이미지를 종류별로 반환하는 메서드
     func colorClover(for subGoalId: Int) -> String {
         switch subGoalId {
