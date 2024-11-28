@@ -40,7 +40,7 @@ class TodayRoutineViewModel {
             .allSatisfy { $0.title.isEmpty }
     }
     
-    // MARK: 오늘의 루틴 필터링
+    // MARK: 오늘의 루틴인것만 필터링
     func filterTodayGoals(from mainGoals: [MainGoal]) -> [DetailGoal] {
         let today = currentDay()
         return mainGoals
@@ -49,23 +49,85 @@ class TodayRoutineViewModel {
             .filter { isTodayRoutine($0, for: today) }
     }
     
-    // MARK: 오전 루틴 필터링
-    func filterMorningGoals(from todayGoals: [DetailGoal]) -> [DetailGoal] {
+    // MARK: 아침/점심/저녁/자기전/자율 루틴 필터링 및 시간순 정렬
+    func filterMorning(from todayGoals: [DetailGoal]) -> [DetailGoal] {
         return todayGoals
-            .filter { $0.isRemind && ($0.remindTime?.hour ?? 0) < 12 } // 오전 오후 구분
-            .sorted(by: { ($0.remindTime ?? Date.distantPast) < ($1.remindTime ?? Date.distantPast) }) // 시간순 정렬
+            .sorted {
+                if $0.isRemind && $1.isRemind {
+                    return ($0.remindTime ?? Date.distantPast) < ($1.remindTime ?? Date.distantPast)
+                } else if $0.isRemind {
+                    return true
+                } else if $1.isRemind {
+                    return false
+                } else {
+                    return false
+                }
+            }
+            .filter { $0.isMorning }
     }
     
-    // MARK: 오후 루틴 필터링
-    func filterAfternoonGoals(from todayGoals: [DetailGoal]) -> [DetailGoal] {
+    func filterAfternoon(from todayGoals: [DetailGoal]) -> [DetailGoal] {
         return todayGoals
-            .filter { $0.isRemind && ($0.remindTime?.hour ?? 0) >= 12 } // 오전 오후 구분
-            .sorted(by: { ($0.remindTime ?? Date.distantPast) < ($1.remindTime ?? Date.distantPast) }) // 시간순 정렬
+            .sorted {
+                if $0.isRemind && $1.isRemind {
+                    return ($0.remindTime ?? Date.distantPast) < ($1.remindTime ?? Date.distantPast)
+                } else if $0.isRemind {
+                    return true
+                } else if $1.isRemind {
+                    return false
+                } else {
+                    return false
+                }
+            }
+            .filter { $0.isAfternoon }
     }
     
-    // MARK: 자유 루틴 필터링
-    func filterFreeGoals(from todayGoals: [DetailGoal]) -> [DetailGoal] {
-        todayGoals.filter { !$0.isRemind }
+    func filterEvening(from todayGoals: [DetailGoal]) -> [DetailGoal] {
+        return todayGoals
+            .sorted {
+                if $0.isRemind && $1.isRemind {
+                    return ($0.remindTime ?? Date.distantPast) < ($1.remindTime ?? Date.distantPast)
+                } else if $0.isRemind {
+                    return true
+                } else if $1.isRemind {
+                    return false
+                } else {
+                    return false
+                }
+            }
+            .filter { $0.isEvening }
+    }
+    
+    func filterNight(from todayGoals: [DetailGoal]) -> [DetailGoal] {
+        return todayGoals
+            .sorted {
+                if $0.isRemind && $1.isRemind {
+                    return ($0.remindTime ?? Date.distantPast) < ($1.remindTime ?? Date.distantPast)
+                } else if $0.isRemind {
+                    return true
+                } else if $1.isRemind {
+                    return false
+                } else {
+                    return false
+                }
+            }
+            .filter { $0.isNight }
+    }
+    
+    func filterFree(from todayGoals: [DetailGoal]) -> [DetailGoal] {
+        return todayGoals
+            .sorted {
+                if $0.isRemind && $1.isRemind {
+                    return ($0.remindTime ?? Date.distantPast) < ($1.remindTime ?? Date.distantPast)
+                } else if $0.isRemind {
+                    return true
+                } else if $1.isRemind {
+                    return false
+                } else {
+                    return false
+                }
+            }
+            .filter { $0.isFree }
     }
     
     // MARK: 오늘의 루틴 목록 중에서 완료/미완료 여부에 따라 achieveMon 데이터 변경
@@ -143,12 +205,12 @@ class TodayRoutineViewModel {
         let currentWeekOfMonth: Int = result.weekOfMonth
         let currentMonth: Int = calendar.component(.month, from: today)
         
-//        print("클로버 데이터 개수: \(clovers.count)")
-//        print("현재 계산된 값: 연도 \(currentYear), 월 \(currentMonth), 월차 \(currentWeekOfMonth), 주차 \(currentWeekOfYear)")
-//        
-//        for clover in clovers {
-//            print("Clover 데이터: ID \(clover.id), 연도 \(clover.cloverYear), 월 \(clover.cloverMonth), 월차 \(clover.cloverWeekOfMonth), 주차 \(clover.cloverWeekOfYear)")
-//        }
+        //        print("클로버 데이터 개수: \(clovers.count)")
+        //        print("현재 계산된 값: 연도 \(currentYear), 월 \(currentMonth), 월차 \(currentWeekOfMonth), 주차 \(currentWeekOfYear)")
+        //
+        //        for clover in clovers {
+        //            print("Clover 데이터: ID \(clover.id), 연도 \(clover.cloverYear), 월 \(clover.cloverMonth), 월차 \(clover.cloverWeekOfMonth), 주차 \(clover.cloverWeekOfYear)")
+        //        }
         
         // 주 시작일과 종료일 계산
         if let range = Date.weekDateRange(for: today) {
