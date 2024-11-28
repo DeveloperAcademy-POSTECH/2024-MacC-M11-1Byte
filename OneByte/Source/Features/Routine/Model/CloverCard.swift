@@ -11,6 +11,17 @@ enum CloverCardType : String, CaseIterable {
     
     case basicClover, greenClover, goldClover
     
+    var cloverType: String {
+        switch self {
+        case.basicClover:
+            return "클로버 획득 실패"
+        case .greenClover:
+            return "초록 클로버"
+        case .goldClover:
+            return "황금 클로버"
+        }
+    }
+    
     var cloverCardTitle: String {
         switch self {
         case.basicClover:

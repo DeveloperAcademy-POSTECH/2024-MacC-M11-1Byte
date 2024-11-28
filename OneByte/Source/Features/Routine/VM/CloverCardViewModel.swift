@@ -11,7 +11,17 @@ import SwiftUI
 class CloverCardViewModel {
     
     
-    // 저번주의 월/월차 
+    // 이전주차 cloverState값에 따라서 클로버 타입 반환
+    func getCloverCardType(for cloverState: Int?) -> CloverCardType {
+            switch cloverState {
+            case 0: return .basicClover
+            case 1: return .greenClover
+            case 2: return .goldClover
+            default: return .basicClover
+            }
+        }
+    
+    // 저번주의 (월/월차)
     func getLastWeekWeekofMonth() -> String {
         let today = Date()
         let calendar = Calendar(identifier: .iso8601)

@@ -18,6 +18,8 @@ struct CloverCardView: View {
     let cloverState: Int?
     
     var body: some View {
+        let cloverCardType = viewModel.getCloverCardType(for: cloverState)
+        
         VStack(spacing: 0) {
             HStack {
                 Button {
@@ -37,10 +39,10 @@ struct CloverCardView: View {
             
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(spacing: 3) {
-                    Text("황금클로버를 획득했어요!") // clvosrState에 따라 다르게
+                    Text(cloverCardType.cloverCardTitle) // 클로버 종류
                         .font(.Pretendard.Bold.size24)
                         .foregroundStyle(.white)
-                    Text("잘하고 있어요! 앞으로도 지금처럼만 노력해봐요") // clvosrState에 따라 다르게
+                    Text(cloverCardType.cloverCardMessage) // 메세지
                         .font(.Pretendard.Medium.size16)
                         .foregroundStyle(.white)
                 }
@@ -54,10 +56,10 @@ struct CloverCardView: View {
                     
                     VStack {
                         VStack(spacing: 2) {
-                            Text(viewModel.getLastWeekWeekofMonth()) // 저번주차 데이터
+                            Text(viewModel.getLastWeekWeekofMonth()) // 이전 주차
                                 .font(.Pretendard.Bold.size18)
                                 .foregroundStyle(.myFFF6D3)
-                            Text("황금 클로버")
+                            Text(cloverCardType.cloverType)
                                 .font(.Pretendard.ExtraBold.size24)
                                 .foregroundStyle(.white)
                         }
