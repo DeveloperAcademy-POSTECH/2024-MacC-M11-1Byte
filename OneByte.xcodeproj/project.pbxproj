@@ -652,6 +652,7 @@
 				1F599E2D2CE6430D00788D07 /* StatisticViewModel.swift in Sources */,
 				1FB10A302CDF55AA00D54EC5 /* SubgoalCycleView.swift in Sources */,
 				1F7C9C282CD083CC00BAC358 /* GoalModels.swift in Sources */,
+				A14A18DE2CF7791A0013050F /* SpecificTagger3942.mlmodel in Sources */,
 				618FD0782CDF11760003450D /* Protocol.swift in Sources */,
 				618FD0702CDF0ED20003450D /* MandalartButtonModifier.swift in Sources */,
 				613904E82CD20457008E591D /* MandalartView.swift in Sources */,

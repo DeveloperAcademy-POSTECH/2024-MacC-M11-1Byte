@@ -51,31 +51,36 @@ struct DetailGoalView: View {
     @State private var isModified: Bool = false
     @State private var showBackAlert: Bool = false
     
+    @State private var wwh: [Bool] = [false, false, false] // Where What HOW-MUCH 포함 여부 리스트
+    @State private var isQuestionMarkClicked = false
+    
     private let titleLimit = 20 // 제목 글자수 제한
     private let memoLimit = 100 // 메모 글자수 제한
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 28/852 * UIScreen.main.bounds.height) {
-                Spacer()
+            VStack(alignment: .leading, spacing: 0) {
+                //Spacer()
                 if isEditing {
                     // 타이틀 입력란
                     detailGaolTitle()
+                        .padding(.top, 28)
                     
                     // 메모 입력란
                     DetailGoalMemo()
-                    
+                        .padding(.top, -4)
                     // 요일 선택
                     selectDays()
-                    
+                        .padding(.top, 28)
                     // 시간대 선택
                     selectTime()
-                    
+                        .padding(.top, 28)
                     // 리마인드 알림
                     remind()
-                    
+                        .padding(.top, 28)
                     // 삭제 버튼
                     deleteButton()
+                        .padding(.top, 28)
                         .padding(.bottom, 53/852 * UIScreen.main.bounds.height)
                 } else {
                     // 저장되었을 때 보여주는 화면
@@ -183,7 +188,7 @@ struct DetailGoalView: View {
                 .disabled(newTitle == "" && isEditing == true)
             })
         }
-        .padding(.horizontal, 20)
+        .padding(.horizontal, 16)
         .onAppear {
             tabBarVisible = false
             if let detailGoal = detailGoal {
@@ -241,6 +246,7 @@ extension DetailGoalView {
             .foregroundStyle(Color.my675542)
         
         // 할 일 제목 입력란
+        
         ZStack {
             TextField("루틴을 입력해주세요.", text: $newTitle)
                 .padding()
@@ -251,9 +257,14 @@ extension DetailGoalView {
                         .stroke(Color.myF0E8DF, lineWidth: 1)
                 )
                 .onChange(of: newTitle) { oldValue, newValue in
+                    print(newValue)
+                    viewModel.text = newValue
+                    wwh = viewModel.wwh
+                    print(wwh)
+                    
                     if newValue != detailGoal?.title {
-                            isModified = true
-                        }
+                        isModified = true
+                    }
                     if newValue.count > titleLimit {
                         newTitle = String(newValue.prefix(titleLimit))
                     }
@@ -290,6 +301,75 @@ extension DetailGoalView {
             .padding(.trailing, 10)
             .padding(.top, -20)
         }
+        
+        HStack(spacing: 4) {
+            Image(wwh[0] ? "Routine_Check_Green" : "Routine_Check" )
+                .resizable()
+                .frame(width: 16, height: 16)
+            Text("어디서")
+                .font(.Pretendard.SemiBold.size14)
+                .foregroundStyle(wwh[0] ? .my6FB56F : .myC8B7A3)
+                .padding(.trailing, 8)
+            
+            Image(wwh[1] ? "Routine_Check_Green" : "Routine_Check" )
+                .resizable()
+                .frame(width: 16, height: 16)
+            Text("무엇을")
+                .font(.Pretendard.SemiBold.size14)
+                .foregroundStyle(wwh[1] ? .my6FB56F : .myC8B7A3)
+                .padding(.trailing, 8)
+            
+            Image(wwh[2] ? "Routine_Check_Green" : "Routine_Check" )
+                .resizable()
+                .frame(width: 16, height: 16)
+            Text("얼마나")
+                .font(.Pretendard.SemiBold.size14)
+                .foregroundStyle(wwh[2] ? .my6FB56F : .myC8B7A3)
+                .padding(.trailing, 8)
+            
+            Button(action: {
+                if isQuestionMarkClicked { isQuestionMarkClicked = false }
+                else { isQuestionMarkClicked = true }
+            }, label: {
+                Image(systemName: "questionmark.circle")
+                    .resizable()
+                    .frame(width: 16, height: 16)
+                    .foregroundStyle(.my8E8E8E)
+            })
+            Spacer()
+        }
+        .padding(.top, -41)
+        .padding(.leading, 8)
+        
+        ZStack {
+            Image("Polygon")
+                .resizable()
+                .frame(width: 26, height: 18)
+                .padding(.top, -22)
+                .padding(.leading, 120)
+            HStack(spacing: 4) {
+                Text("체크항목을 참고해서 루틴을 더 구체적으로 작성해보세요")
+                    .font(.Pretendard.Medium.size13)
+                    .foregroundStyle(.myB4A99D)
+                Button(action: {
+                    isQuestionMarkClicked = false
+                }, label: {
+                    Image(systemName: "xmark")
+                        .resizable()
+                        .frame(width: 9, height: 9)
+                        .foregroundStyle(.myB4A99D)
+                })
+                
+            }
+            .padding(.horizontal, 10)
+            .padding(.vertical, 8)
+            .background(Color.myF0E8DF)
+            .cornerRadius(8)
+            .padding(.leading, 4)
+            
+        }
+        .padding(.top, -44)
+        .opacity(isQuestionMarkClicked ? 1.0 : 0.0)
     }
     
     @ViewBuilder
@@ -297,7 +377,6 @@ extension DetailGoalView {
         Text("메모")
             .font(.Pretendard.SemiBold.size16)
             .padding(.leading, 4)
-            .padding(.top, -10)
             .foregroundStyle(Color.my675542)
         
         ZStack {
@@ -307,8 +386,8 @@ extension DetailGoalView {
                     .padding()
                     .onChange(of: newMemo) { oldValue, newValue in
                         if newValue != detailGoal?.memo {
-                                isModified = true
-                            }
+                            isModified = true
+                        }
                         if newValue.count > memoLimit {
                             newMemo = String(newValue.prefix(memoLimit))
                         }
@@ -340,7 +419,7 @@ extension DetailGoalView {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color.myF0E8DF, lineWidth: 1)
         )
-        .padding(.top, -20)
+        .padding(.top, 10)
     }
     
     @ViewBuilder
