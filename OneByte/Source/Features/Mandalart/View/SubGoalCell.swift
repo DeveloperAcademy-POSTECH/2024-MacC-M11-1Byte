@@ -29,9 +29,9 @@ struct SubGoalCell: View {
                         let cornerStyle = cornerStyle(for: index)
                         if index == (4 - selectedSubGoal.id) {
                             // 서브골 제목 버튼
-                            Button(action: {
-                                isSubNavigation = true // 네비게이션 활성화
-                            }) {
+//                            Button(action: {
+//                                isSubNavigation = true // 네비게이션 활성화
+//                            }) {
                                 Text(selectedSubGoal.title)
                                     .padding(.horizontal, 10)
                                     .padding(.vertical, 15)
@@ -39,14 +39,14 @@ struct SubGoalCell: View {
                                     .background(Color.my95D895)
                                     .font(.Pretendard.Bold.size14)
                                     .cornerRadius(11)
-                            }
+//                            }
                         } else {
                             let detailGoalIndex = index < (4 - selectedSubGoal.id) ? index : index - 1
                             if detailGoalIndex < detailGoalsSorted.count {
                                 let detailGoal = detailGoalsSorted[detailGoalIndex]
-                                Button(action: {
-                                    isSubNavigation = true // 네비게이션 활성화
-                                }) {
+//                                Button(action: {
+//                                    isSubNavigation = true // 네비게이션 활성화
+//                                }) {
                                     Text(detailGoal.title)
                                         .padding(.horizontal, 10)
                                         .padding(.vertical, 15)
@@ -56,18 +56,18 @@ struct SubGoalCell: View {
                                         .cornerRadius(cornerRadius, corners: cornerStyle, defaultRadius: 11)
                                         .cornerRadius(11)
                                 }
-                            }
+//                            }
                         }
                     }
                 }
-                .navigationDestination(isPresented: $isSubNavigation) {
-                    let selectedSubGoal = selectedSubGoal
-               SubGoalDetailGridView(
-                    subGoal: $selectedSubGoal,
-                    tabBarVisible: $tabBarVisible,
-                    isTabBarMainVisible: $isTabBarMainVisible,
-                    isSubNavigation: $isSubNavigation
-                )}
+//                .navigationDestination(isPresented: $isSubNavigation) {
+//                    let selectedSubGoal = selectedSubGoal
+//               SubGoalDetailGridView(
+//                    subGoal: $selectedSubGoal,
+//                    tabBarVisible: $tabBarVisible,
+//                    isTabBarMainVisible: $isTabBarMainVisible,
+//                    isSubNavigation: $isSubNavigation
+//                )}
             }
         }
         .onAppear {

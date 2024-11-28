@@ -40,13 +40,14 @@ struct MandalartView: View {
 
 // MARK: 첫화면 -  전체 81개짜리
 struct OuterGridView: View {
-    @Environment(\.modelContext) private var modelContext  // SwiftData 컨텍스트
-    @Environment(\.managedObjectContext) private var context
     
     @Binding var mainGoal: MainGoal?
     @State var mainIsPresented: Bool = false
     @Binding var isTabBarMainVisible: Bool
     
+    @State private var selectedSubGoal: SubGoal? // 선택된 SubGoal을 관리
+    @State private var isSubNavigationActive: Bool = false // 네비게이션 활성화 상태
+    @State var tabBarVisible: Bool = true
     private let dateManager = DateManager()
     private let currentDate = Date()
     private let outerColumns = [GridItem(.adaptive(minimum: 160/393 * UIScreen.main.bounds.width), spacing: 32/393 * UIScreen.main.bounds.width)]
@@ -184,13 +185,24 @@ extension OuterGridView {
                     LazyVGrid(columns: outerColumns, spacing: 32/393 * UIScreen.main.bounds.width) {
                         let sortedSubGoals = selectedMainGoal.subGoals.sorted(by: { $0.id < $1.id }) // 정렬된 SubGoals 배열
                         ForEach(sortedSubGoals, id: \.id) { subGoal in
-                            SubGoalCell(selectedSubGoal: .constant(subGoal), isTabBarMainVisible: $isTabBarMainVisible)
+                            Button(action: {
+                                isSubNavigationActive = true
+                                selectedSubGoal = subGoal
+                            }, label: {
+                                SubGoalCell(selectedSubGoal: .constant(subGoal), isTabBarMainVisible: $isTabBarMainVisible)
+                            })
+                            
                         }
                     }
-                } else {
-                    Text("찾을 수 없습니다.")
+                    .navigationDestination(isPresented: $isSubNavigationActive) {
+                        let selectedSubGoal = selectedSubGoal
+                        SubGoalDetailGridView(
+                            subGoal: $selectedSubGoal,
+                            tabBarVisible: $tabBarVisible,
+                            isTabBarMainVisible: $isTabBarMainVisible,
+                            isSubNavigation: $isSubNavigationActive
+                        )}
                 }
-                
                 // 메인골 자리
                 RoundedRectangle(cornerSize: CGSize(width: 30, height: 30))
                     .fill(Color.my538F53)
