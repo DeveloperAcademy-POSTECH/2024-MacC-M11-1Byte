@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum CloverCardType : String, CaseIterable {
     
@@ -63,6 +64,36 @@ enum CloverCardType : String, CaseIterable {
             return "GreenClover"
         case .goldClover:
             return "GoldClover"
+        }
+    }
+    
+    var gradient: LinearGradient {
+        switch self {
+        case .basicClover:
+            return LinearGradient(
+                gradient: Gradient(colors: [Color.gray, Color.gray]),
+                startPoint: .bottom,
+                endPoint: .top
+            )
+        case .greenClover:
+            return LinearGradient(
+                gradient: Gradient(stops: [
+                    Gradient.Stop(color: .my3A933A, location: 1.0),
+                    Gradient.Stop(color: .my95D895, location: 1.0),
+                ]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        case .goldClover:
+            return  LinearGradient(
+                gradient: Gradient(stops: [
+                    Gradient.Stop(color: .myC58300, location: 0.0),
+                    Gradient.Stop(color: .myDAA728, location: 0.36),
+                    Gradient.Stop(color: .myFFE46D, location: 1.0)
+                ]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
         }
     }
 }

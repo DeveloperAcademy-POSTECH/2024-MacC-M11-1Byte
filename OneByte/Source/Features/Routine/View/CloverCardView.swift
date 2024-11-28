@@ -130,7 +130,7 @@ struct CloverCardView: View {
             .padding(.vertical)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.blue)
+        .background(cloverCardType.gradient.ignoresSafeArea(edges: .all))
     }
     
     @ViewBuilder
