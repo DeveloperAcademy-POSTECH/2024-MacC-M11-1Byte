@@ -38,9 +38,9 @@ struct WeeklyResetManager {
         }
         
         for mainGoal in goals {
-            // MainGoal의 CloverState를 1로 업데이트
+            // MainGoal의 CloverState를 0으로 업데이트
             print("🔄 Resetting MainGoal ID: \(mainGoal.id), Title: \(mainGoal.title)")
-            mainGoal.cloverState = 1
+            mainGoal.cloverState = 0
             for subGoal in mainGoal.subGoals {
                 for detailGoal in subGoal.detailGoals {
                     print("🔄 Resetting DetailGoal ID: \(detailGoal.id), Title: \(detailGoal.title)")
