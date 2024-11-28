@@ -57,17 +57,18 @@ struct TodayRoutineView: View {
                         .padding(.top, 125)
                     }
                 } else { // 오늘의 루틴이 있을때
-                    // 오전 루틴 섹션
-                    if !viewModel.filterMorningGoals(from: todayGoals).isEmpty {
-                        TodayRoutineTypeHeaderView(routineimage: "sun.max.fill", routineTimeType: "아침 루틴")
+                    // 아침 루틴 섹션
+                    if !viewModel.filterMorning(from: todayGoals).isEmpty {
+                        TodayRoutineTypeHeaderView(routineimage: "Routine_Morning", routineTimeType: "아침 루틴")
+                            .padding(.top, 12)
                         
-                        if let mainGoal = mainGoals.first { // MainGoal 가져오기
-                            ForEach(viewModel.filterMorningGoals(from: todayGoals), id: \.id) { detailGoal in
+                        if let mainGoal = mainGoals.first {
+                            ForEach(viewModel.filterMorning(from: todayGoals), id: \.id) { detailGoal in
                                 if let subGoal = mainGoal.subGoals.first(where: { $0.detailGoals.contains(detailGoal) }) {
                                     TodayRoutineCell(
                                         mainGoal: mainGoal,
                                         detailGoal: detailGoal,
-                                        subGoalTitle: subGoal.title,
+                                        subGoalCategory: subGoal.category,
                                         viewModel: viewModel,
                                         modelContext: modelContext,
                                         clovers: clovers
@@ -76,18 +77,18 @@ struct TodayRoutineView: View {
                             }
                         }
                     }
-                    // 오후 루틴 섹션
-                    if !viewModel.filterAfternoonGoals(from: todayGoals).isEmpty {
-                        TodayRoutineTypeHeaderView(routineimage: "moon.fill", routineTimeType: "오후 루틴")
-                            .padding(.top)
+                    // 점심 루틴 섹션
+                    if !viewModel.filterAfternoon(from: todayGoals).isEmpty {
+                        TodayRoutineTypeHeaderView(routineimage: "Routine_Afternoon", routineTimeType: "점심 루틴")
+                            .padding(.top, 12)
                         
-                        if let mainGoal = mainGoals.first { // MainGoal 가져오기
-                            ForEach(viewModel.filterAfternoonGoals(from: todayGoals), id: \.id) { detailGoal in
+                        if let mainGoal = mainGoals.first {
+                            ForEach(viewModel.filterAfternoon(from: todayGoals), id: \.id) { detailGoal in
                                 if let subGoal = mainGoal.subGoals.first(where: { $0.detailGoals.contains(detailGoal) }) {
                                     TodayRoutineCell(
                                         mainGoal: mainGoal,
                                         detailGoal: detailGoal,
-                                        subGoalTitle: subGoal.title,
+                                        subGoalCategory: subGoal.category,
                                         viewModel: viewModel,
                                         modelContext: modelContext,
                                         clovers: clovers
@@ -96,18 +97,61 @@ struct TodayRoutineView: View {
                             }
                         }
                     }
+                    
+                    // 저녁 루틴 섹션
+                    if !viewModel.filterEvening(from: todayGoals).isEmpty {
+                        TodayRoutineTypeHeaderView(routineimage: "Routine_Evening", routineTimeType: "저녁 루틴")
+                            .padding(.top, 12)
+                        
+                        if let mainGoal = mainGoals.first {
+                            ForEach(viewModel.filterEvening(from: todayGoals), id: \.id) { detailGoal in
+                                if let subGoal = mainGoal.subGoals.first(where: { $0.detailGoals.contains(detailGoal) }) {
+                                    TodayRoutineCell(
+                                        mainGoal: mainGoal,
+                                        detailGoal: detailGoal,
+                                        subGoalCategory: subGoal.category,
+                                        viewModel: viewModel,
+                                        modelContext: modelContext,
+                                        clovers: clovers
+                                    )
+                                }
+                            }
+                        }
+                    }
+                    
+                    // 밤 루틴 섹션
+                    if !viewModel.filterNight(from: todayGoals).isEmpty {
+                        TodayRoutineTypeHeaderView(routineimage: "Routine_Night", routineTimeType: "자기 전 루틴")
+                            .padding(.top, 12)
+                        
+                        if let mainGoal = mainGoals.first {
+                            ForEach(viewModel.filterNight(from: todayGoals), id: \.id) { detailGoal in
+                                if let subGoal = mainGoal.subGoals.first(where: { $0.detailGoals.contains(detailGoal) }) {
+                                    TodayRoutineCell(
+                                        mainGoal: mainGoal,
+                                        detailGoal: detailGoal,
+                                        subGoalCategory: subGoal.category,
+                                        viewModel: viewModel,
+                                        modelContext: modelContext,
+                                        clovers: clovers
+                                    )
+                                }
+                            }
+                        }
+                    }
+                    
                     // 자유 루틴 섹션
-                    if !viewModel.filterFreeGoals(from: todayGoals).isEmpty {
-                        TodayRoutineTypeHeaderView(routineimage: "star.fill", routineTimeType: "자유 루틴")
-                            .padding(.top)
+                    if !viewModel.filterFree(from: todayGoals).isEmpty {
+                        TodayRoutineTypeHeaderView(routineimage: "Routine_Free", routineTimeType: "자율 루틴")
+                            .padding(.top, 12)
                         
-                        if let mainGoal = mainGoals.first { // MainGoal 가져오기
-                            ForEach(viewModel.filterFreeGoals(from: todayGoals), id: \.id) { detailGoal in
+                        if let mainGoal = mainGoals.first {
+                            ForEach(viewModel.filterFree(from: todayGoals), id: \.id) { detailGoal in
                                 if let subGoal = mainGoal.subGoals.first(where: { $0.detailGoals.contains(detailGoal) }) {
                                     TodayRoutineCell(
                                         mainGoal: mainGoal,
                                         detailGoal: detailGoal,
-                                        subGoalTitle: subGoal.title,
+                                        subGoalCategory: subGoal.category,
                                         viewModel: viewModel,
                                         modelContext: modelContext,
                                         clovers: clovers
@@ -123,79 +167,5 @@ struct TodayRoutineView: View {
             .padding(.bottom, 32)
         }
         .background(Color.myFFFAF4)
-    }
-}
-
-struct TodayRoutineCell: View {
-    
-    let mainGoal: MainGoal
-    let detailGoal: DetailGoal
-    let subGoalTitle: String
-    let viewModel: TodayRoutineViewModel
-    let modelContext: ModelContext
-    let clovers: [Clover]
-    
-    var body: some View {
-        HStack(spacing: 16) {
-            // 알림 시간 있으면 표시
-            if let remindTime = detailGoal.remindTime {
-                Text(remindTime.timeString)
-                    .font(.Pretendard.SemiBold.size14)
-                    .foregroundStyle(detailGoal.isAchievedToday ? Color.my727272.opacity(0.6) : Color.my727272)
-                    .padding(.bottom)
-            }
-            
-            VStack(alignment: .leading, spacing: 4) {
-                Text(detailGoal.title)
-                    .font(.Pretendard.SemiBold.size16)
-                    .foregroundStyle(detailGoal.isAchievedToday ? Color.my2B2B2B.opacity(0.7) : Color.my2B2B2B)
-                    .strikethrough(detailGoal.isAchievedToday)
-                
-                Text(subGoalTitle) // 🚧🚧🚧 Subgoal을 입력해야만 DetailGoal이 입력가능한 위계가 생기면, detailGoal에 해당하는 Subgoal title 띄워지게
-                    .font(.Pretendard.Medium.size14)
-                    .foregroundStyle(detailGoal.isAchievedToday ? Color.my428142.opacity(0.7) : Color.my428142)
-                    .foregroundStyle(Color.my428142)
-            }
-            Spacer()
-            
-            Button {
-                print("⚠️[DEBUG] 현재 완료 체크하는 id : \(detailGoal.id)")
-                print("⚠️[DEBUG] 현재 완료 체크하는 Title : \(detailGoal.title)")
-                print("⚠️[DEBUG] 오늘의 루틴 성취 완료 체크 전 : \(detailGoal.isAchievedToday)")
-                viewModel.toggleAchievement(for: detailGoal, in: mainGoal, context: modelContext)
-                print("⚠️[DEBUG] 오늘의 루틴 성취 완료 체크 후 : \(detailGoal.isAchievedToday)")
-                print("⚠️[DEBUG] MainGoal의 CloverState : \(mainGoal.cloverState)")
-                viewModel.calculateCurrentWeekAndMonthWeek(mainGoal: mainGoal, clovers: clovers, context: modelContext)
-            } label: {
-                Image(detailGoal.isAchievedToday ? "Day7_Clover1" : "RoutineCheck")
-                    .resizable()
-            }
-            .frame(width: 32, height: 32)
-        }
-        .frame(height: 64)
-        .padding(.horizontal)
-        .background(.white)
-        .cornerRadius(12)
-        .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(Color(hex: "F0E8DF"), lineWidth: 1)
-        )
-    }
-}
-
-extension DetailGoal {
-    //  오늘의 루틴 완료 여부를 확인 및 UI 업데이트
-    var isAchievedToday: Bool {
-        let todayIndex = Date().mondayBasedIndex()
-        switch todayIndex {
-        case 0: return achieveMon
-        case 1: return achieveTue
-        case 2: return achieveWed
-        case 3: return achieveThu
-        case 4: return achieveFri
-        case 5: return achieveSat
-        case 6: return achieveSun
-        default: return false
-        }
     }
 }
