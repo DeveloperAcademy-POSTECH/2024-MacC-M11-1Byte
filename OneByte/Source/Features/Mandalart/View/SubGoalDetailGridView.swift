@@ -80,7 +80,6 @@ struct SubGoalDetailGridView: View {
                 .padding(.top, 55)
                 // 메모 모아보기
                 memoes()
-                    .navigationTitle(selectedSubGoal.title)
                 
             } else {
                 ProgressView("loading..")
@@ -92,7 +91,12 @@ struct SubGoalDetailGridView: View {
             isSubNavigation = false
         }
         .background(Color.myFFFAF4)
-        .navigationTitle(subGoal?.title ?? "")
+        .toolbar {
+            ToolbarItem(placement: .principal, content: {
+                Text(subGoal?.title ?? "")
+                    .font(.Pretendard.Bold.size18)
+            })
+        }
         .toolbar(tabBarVisible ? .visible : .hidden, for: .tabBar)
         .onAppear{
             tabBarVisible = false
@@ -105,7 +109,6 @@ extension SubGoalDetailGridView {
     @ViewBuilder
     func subGoalContent() -> some View {
         if let selectedSubGoal = subGoal {
-            let sortedDetailGoals = selectedSubGoal.detailGoals.sorted(by: { $0.id < $1.id })
             // 네 번째 셀에 서브골 제목 표시
             Button(action: {
                 subNavigation = true
