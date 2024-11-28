@@ -10,10 +10,12 @@ import SwiftData
 struct MandalartView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var requestNotification: Bool = true
-    @Query private var mainGoals: [MainGoal]
     @State var isPresented = false
     @State private var mainGoal: MainGoal?
+   
     @Binding var isTabBarMainVisible: Bool
+    
+    @Query private var mainGoals: [MainGoal]
     
     var body: some View {
         NavigationStack() {
@@ -40,14 +42,15 @@ struct MandalartView: View {
 
 // MARK: 첫화면 -  전체 81개짜리
 struct OuterGridView: View {
-    
-    @Binding var mainGoal: MainGoal?
+    @State private var capturedImage: UIImage? = nil
     @State var mainIsPresented: Bool = false
-    @Binding var isTabBarMainVisible: Bool
-    
     @State private var selectedSubGoal: SubGoal? // 선택된 SubGoal을 관리
     @State private var isSubNavigationActive: Bool = false // 네비게이션 활성화 상태
     @State var tabBarVisible: Bool = true
+    
+    @Binding var mainGoal: MainGoal?
+    @Binding var isTabBarMainVisible: Bool
+    
     private let dateManager = DateManager()
     private let currentDate = Date()
     private let outerColumns = [GridItem(.adaptive(minimum: 160/393 * UIScreen.main.bounds.width), spacing: 32/393 * UIScreen.main.bounds.width)]
@@ -56,7 +59,7 @@ struct OuterGridView: View {
         updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []),
         deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: [])
     )
-    @State private var capturedImage: UIImage? = nil
+    
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -187,21 +190,21 @@ extension OuterGridView {
                         ForEach(sortedSubGoals, id: \.id) { subGoal in
                             Button(action: {
                                 isSubNavigationActive = true
-                                selectedSubGoal = subGoal
+                                selectedSubGoal = subGoal // 할당이 안되면 SubGoalDetailGridView에 전달이 안됨!
                             }, label: {
-                                SubGoalCell(selectedSubGoal: .constant(subGoal), isTabBarMainVisible: $isTabBarMainVisible)
+                                SubGoalCell(selectedSubGoal: .constant(subGoal))
                             })
                             
                         }
                     }
                     .navigationDestination(isPresented: $isSubNavigationActive) {
-                        let selectedSubGoal = selectedSubGoal
                         SubGoalDetailGridView(
                             subGoal: $selectedSubGoal,
                             tabBarVisible: $tabBarVisible,
                             isTabBarMainVisible: $isTabBarMainVisible,
                             isSubNavigation: $isSubNavigationActive
-                        )}
+                        )
+                    }
                 }
                 // 메인골 자리
                 RoundedRectangle(cornerSize: CGSize(width: 30, height: 30))
