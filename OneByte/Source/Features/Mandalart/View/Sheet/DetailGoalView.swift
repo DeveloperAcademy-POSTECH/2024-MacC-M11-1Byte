@@ -52,7 +52,6 @@ struct DetailGoalView: View {
     @State private var showBackAlert: Bool = false
     
     @State private var wwh: [Bool] = [false, false, false] // Where What HOW-MUCH 포함 여부 리스트
-    
     @State private var isQuestionMarkClicked = false
     
     private let titleLimit = 20 // 제목 글자수 제한

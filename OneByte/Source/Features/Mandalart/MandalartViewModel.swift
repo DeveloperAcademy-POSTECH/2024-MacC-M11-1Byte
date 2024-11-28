@@ -154,9 +154,7 @@ class MandalartViewModel: ObservableObject {
         }
     }
 
-
     func wordTagger() -> [Bool] {
-        
         guard !text.isEmpty else {
             return [false,false,false]
         }
@@ -182,14 +180,11 @@ class MandalartViewModel: ObservableObject {
                 let taggedWord = TaggedWord(word: word, tag: tag.first ?? "")
                 results.append(taggedWord)
             }
-            
             return convertToWWH(taggedWords: results)
-        
         } catch {
             print("Error loading model or making prediction: \(error)")
         }
         return [false,false,false]
-        
     }
     
     func convertToWWH(taggedWords: [TaggedWord]) -> [Bool] {
