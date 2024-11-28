@@ -14,7 +14,6 @@ import CoreML
 class MandalartViewModel: ObservableObject {
     @Published var mainGoal: MainGoal?
     
-    var taggedWords: [TaggedWord] = []
     var text: String = ""
     
     var wwh: [Bool] {
@@ -157,7 +156,6 @@ class MandalartViewModel: ObservableObject {
 
 
     func wordTagger() -> [Bool] {
-        let text = text
         
         guard !text.isEmpty else {
             return [false,false,false]
@@ -168,13 +166,11 @@ class MandalartViewModel: ObservableObject {
             
             let tokenizer = NLTokenizer(unit: .word)
             tokenizer.string = text
-            print("Text: \(text)")
             var tokens: [String] = []
             tokenizer.enumerateTokens(in: text.startIndex..<text.endIndex) { tokenRange, _ in
                 let word = String(text[tokenRange])
                 print("\(tokenRange)")
                 tokens.append(word)
-                print("토큰:\(tokens)")
                 return true
             }
             
@@ -182,16 +178,10 @@ class MandalartViewModel: ObservableObject {
             for word in tokens {
                 let input = SpecificTagger3942Input(text: word)
                 let output = try mlModel.prediction(input: input)
-                print("아웃풋: \(output.tokens)")
                 let tag = output.labels
                 let taggedWord = TaggedWord(word: word, tag: tag.first ?? "")
                 results.append(taggedWord)
             }
-            
-//            DispatchQueue.main.async() {
-//                self.taggedWords = results
-//                print(results)
-//            }
             
             return convertToWWH(taggedWords: results)
         
