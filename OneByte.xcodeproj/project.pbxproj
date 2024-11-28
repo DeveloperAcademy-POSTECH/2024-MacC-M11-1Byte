@@ -55,6 +55,8 @@
 		1FC686382CF782FB008F399F /* WeekAchieveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC686372CF782FB008F399F /* WeekAchieveCell.swift */; };
 		1FC6863A2CF8ABC1008F399F /* CloverCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC686392CF8ABC1008F399F /* CloverCardView.swift */; };
 		1FC6863C2CF8BCFD008F399F /* CloverCardProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC6863B2CF8BCFD008F399F /* CloverCardProgressBar.swift */; };
+		1FC6863E2CF8CED3008F399F /* CloverCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC6863D2CF8CED2008F399F /* CloverCardViewModel.swift */; };
+		1FC686402CF8CF5A008F399F /* CloverCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC6863F2CF8CF5A008F399F /* CloverCard.swift */; };
 		1FD405232CEC74E800403A19 /* AllRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD405222CEC74E800403A19 /* AllRoutineView.swift */; };
 		1FD405252CEC79DD00403A19 /* TodayRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD405242CEC79DD00403A19 /* TodayRoutineView.swift */; };
 		1FD4052A2CECBFCB00403A19 /* RoutineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD405292CECBFCB00403A19 /* RoutineModel.swift */; };
@@ -143,6 +145,8 @@
 		1FC686372CF782FB008F399F /* WeekAchieveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekAchieveCell.swift; sourceTree = "<group>"; };
 		1FC686392CF8ABC1008F399F /* CloverCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloverCardView.swift; sourceTree = "<group>"; };
 		1FC6863B2CF8BCFD008F399F /* CloverCardProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloverCardProgressBar.swift; sourceTree = "<group>"; };
+		1FC6863D2CF8CED2008F399F /* CloverCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloverCardViewModel.swift; sourceTree = "<group>"; };
+		1FC6863F2CF8CF5A008F399F /* CloverCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloverCard.swift; sourceTree = "<group>"; };
 		1FD405222CEC74E800403A19 /* AllRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRoutineView.swift; sourceTree = "<group>"; };
 		1FD405242CEC79DD00403A19 /* TodayRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutineView.swift; sourceTree = "<group>"; };
 		1FD405292CECBFCB00403A19 /* RoutineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineModel.swift; sourceTree = "<group>"; };
@@ -520,6 +524,7 @@
 			isa = PBXGroup;
 			children = (
 				1FD405292CECBFCB00403A19 /* RoutineModel.swift */,
+				1FC6863F2CF8CF5A008F399F /* CloverCard.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -530,6 +535,7 @@
 				1FD4052B2CECBFF900403A19 /* RoutineMainViewModel.swift */,
 				1FD405372CECE7B400403A19 /* TodayRoutineViewModel.swift */,
 				1FD4052F2CECC42500403A19 /* AllRoutineViewModel.swift */,
+				1FC6863D2CF8CED2008F399F /* CloverCardViewModel.swift */,
 			);
 			path = VM;
 			sourceTree = "<group>";
@@ -641,6 +647,7 @@
 				1FD405362CECE6F800403A19 /* TodayRouitneTypeHeaderView.swift in Sources */,
 				61CC00FD2CF0276B0009D063 /* DetailGoalColor.swift in Sources */,
 				1FB10A252CDF511600D54EC5 /* GoButton.swift in Sources */,
+				1FC686402CF8CF5A008F399F /* CloverCard.swift in Sources */,
 				1FE27C752CF0C8AF00A4C6BE /* CompleteCycleView.swift in Sources */,
 				1F62B8F12CF18AE4004A3F0B /* WeeklyResetManager.swift in Sources */,
 				1F599E362CE6648B00788D07 /* PrivacyPolicyRow.swift in Sources */,
@@ -655,6 +662,7 @@
 				610595D62CE23653005ED7B4 /* DeleteService.swift in Sources */,
 				1F88AB412CD6101C0009730D /* Date+.swift in Sources */,
 				1FB10A322CDF56E200D54EC5 /* RoutineCycleView.swift in Sources */,
+				1FC6863E2CF8CED3008F399F /* CloverCardViewModel.swift in Sources */,
 				615A0A0B2CC0ADA800908531 /* TabBarManager.swift in Sources */,
 				61CC00FF2CF1742B0009D063 /* DetailGoalColorFunc.swift in Sources */,
 				1FB10A402CDF7F4B00D54EC5 /* OnboardingViewModel.swift in Sources */,
