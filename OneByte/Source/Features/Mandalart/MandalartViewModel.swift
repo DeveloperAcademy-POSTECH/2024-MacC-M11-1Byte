@@ -8,9 +8,17 @@
 // CUTestViewModel.swift
 import SwiftUI
 import SwiftData
+import NaturalLanguage
+import CoreML
 
 class MandalartViewModel: ObservableObject {
     @Published var mainGoal: MainGoal?
+    
+    var text: String = ""
+    
+    var wwh: [Bool] {
+        wordTagger()
+    }
     
     private let createService: CreateGoalUseCase
     private let updateService: UpdateGoalUseCase
@@ -145,4 +153,66 @@ class MandalartViewModel: ObservableObject {
             break
         }
     }
+
+    func wordTagger() -> [Bool] {
+        guard !text.isEmpty else {
+            return [false,false,false]
+        }
+        
+        do {
+            let mlModel = try SpecificTagger3942(configuration: MLModelConfiguration())
+            
+            let tokenizer = NLTokenizer(unit: .word)
+            tokenizer.string = text
+            var tokens: [String] = []
+            tokenizer.enumerateTokens(in: text.startIndex..<text.endIndex) { tokenRange, _ in
+                let word = String(text[tokenRange])
+                print("\(tokenRange)")
+                tokens.append(word)
+                return true
+            }
+            
+            var results: [TaggedWord] = []
+            for word in tokens {
+                let input = SpecificTagger3942Input(text: word)
+                let output = try mlModel.prediction(input: input)
+                let tag = output.labels
+                let taggedWord = TaggedWord(word: word, tag: tag.first ?? "")
+                results.append(taggedWord)
+            }
+            return convertToWWH(taggedWords: results)
+        } catch {
+            print("Error loading model or making prediction: \(error)")
+        }
+        return [false,false,false]
+    }
+    
+    func convertToWWH(taggedWords: [TaggedWord]) -> [Bool] {
+        var wwh: [Bool] = [false,false,false]
+        
+        for word in taggedWords{
+            if word.tag == "WHERE" {
+                print("WHERE: \(word.word)")
+                wwh[0] = true
+            }
+            if word.tag == "WHAT" {
+                print("WHAT: \(word.word)")
+                wwh[1] = true
+            }
+            if word.tag == "HOW-MUCH" {
+                print("HOW-MUCH: \(word.word)")
+                wwh[2] = true
+            }
+            else {
+                continue
+            }
+        }
+        return wwh
+    }
 }
+
+struct TaggedWord {
+    let word: String
+    let tag: String
+}
+
