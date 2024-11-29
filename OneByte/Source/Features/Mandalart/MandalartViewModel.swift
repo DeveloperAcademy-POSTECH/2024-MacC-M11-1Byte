@@ -162,7 +162,6 @@ class MandalartViewModel: ObservableObject {
     func manageWordTagger() {
         $text
             .debounce(for: .seconds(0.32), scheduler: RunLoop.main)
-            .removeDuplicates()
             .sink { [weak self] newText in
                 self?.wordTagger()
             }
