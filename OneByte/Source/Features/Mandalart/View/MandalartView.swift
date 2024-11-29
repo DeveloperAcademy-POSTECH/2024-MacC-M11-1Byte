@@ -50,7 +50,8 @@ struct OuterGridView: View {
     @State private var selectedSubGoal: SubGoal? // 선택된 SubGoal을 관리
     @State private var isSubNavigationActive: Bool = false // 네비게이션 활성화 상태
     @State var tabBarVisible: Bool = true
-    
+    @State private var showAlert = false 
+    @State private var isEdited = false
     
     private let dateManager = DateManager()
     private let currentDate = Date()
@@ -156,6 +157,14 @@ struct OuterGridView: View {
         }
         .padding(.horizontal)
         .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
+        .alert("작업을 중단하시겠습니까?", isPresented: $showAlert) {
+            Button("나가기", role: .destructive) {
+                mainIsPresented = false  // 시트 닫기
+            }
+            Button("계속하기", role: .cancel) {}
+        } message: {
+            Text("작성한 내용이 저장되지 않아요.")
+        }
     }
 }
 
@@ -182,7 +191,7 @@ extension OuterGridView {
                                 .foregroundStyle(mainGoal?.title == "" ? .myCEEDCE : .white)
                         })
                         .sheet(isPresented: $mainIsPresented) {
-                            MainGoalsheetView(mainGoal: $mainGoal, isPresented: $mainIsPresented)
+                            MainGoalsheetView(mainGoal: $mainGoal, isPresented: $mainIsPresented, isEdited: $isEdited)
                                 .presentationDragIndicator(.visible)
                                 .presentationDetents([.height(244/852 * UIScreen.main.bounds.height)])
                         }
