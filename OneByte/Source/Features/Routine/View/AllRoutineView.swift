@@ -136,19 +136,6 @@ struct WeekRoutineView : View {
                         // 빈 제목이 아닌 DetailGoal만 표시
                         ForEach(subGoal.detailGoals.filter { !$0.title.isEmpty }, id: \.id) { detailGoal in
                             WeekAchieveCell(detailGoal: detailGoal)
-                                .onTapGesture {
-                                    print("❌[DEBUG] title : \(detailGoal.title) 데이터 출력")
-                                    print("❌[DEBUG] id : \(detailGoal.id)")
-                                    print("❌[DEBUG] memo : \(detailGoal.memo)")
-                                    print("❌[DEBUG] achieveCount : \(detailGoal.achieveCount)")
-                                    print("❌[DEBUG] achieveGoal : \(detailGoal.achieveGoal)")
-                                    print("❌[DEBUG] alertDays : \(detailGoal.alertMon), \(detailGoal.alertTue), \(detailGoal.alertWed), \(detailGoal.alertThu), \(detailGoal.alertFri), \(detailGoal.alertSat), \(detailGoal.alertSun)")
-                                    print("❌[DEBUG] achieveDays : \(detailGoal.achieveMon), \(detailGoal.achieveTue), \(detailGoal.achieveWed), \(detailGoal.achieveThu), \(detailGoal.achieveFri), \(detailGoal.achieveSat), \(detailGoal.achieveSun)")
-                                    print("❌[DEBUG] 알림설정 : \(detailGoal.isRemind ? "설정됨" : "설정 안됨")")
-                                    if let time = detailGoal.remindTime {
-                                        print("❌[DEBUG] 알림시간 : \(time)")
-                                    }
-                                }
                         }
                     }
                     .frame(maxWidth: .infinity)
@@ -158,6 +145,7 @@ struct WeekRoutineView : View {
             }
             .frame(maxWidth: .infinity)
             
+            // 팝업뷰
             if isInfoVisible {
                 Image("CloverPopup")
                     .resizable()

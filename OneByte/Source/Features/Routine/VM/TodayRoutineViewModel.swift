@@ -204,13 +204,6 @@ class TodayRoutineViewModel {
         let currentWeekOfMonth: Int = result.weekOfMonth
         let currentMonth: Int = calendar.component(.month, from: today)
         
-        //        print("클로버 데이터 개수: \(clovers.count)")
-        //        print("현재 계산된 값: 연도 \(currentYear), 월 \(currentMonth), 월차 \(currentWeekOfMonth), 주차 \(currentWeekOfYear)")
-        //
-        //        for clover in clovers {
-        //            print("Clover 데이터: ID \(clover.id), 연도 \(clover.cloverYear), 월 \(clover.cloverMonth), 월차 \(clover.cloverWeekOfMonth), 주차 \(clover.cloverWeekOfYear)")
-        //        }
-        
         // 주 시작일과 종료일 계산
         if let range = Date.weekDateRange(for: today) {
             let formatter = DateFormatter()

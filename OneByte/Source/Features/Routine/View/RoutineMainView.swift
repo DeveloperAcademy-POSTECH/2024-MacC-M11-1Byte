@@ -93,14 +93,6 @@ struct RoutineMainView: View {
                 .frame(width: 105, height: 85)
                 .onTapGesture {
                     viewModel.updateRandomMessage()
-//                    if clovers.isEmpty {
-//                        print("⚠️ Clover 데이터가 비어 있습니다.")
-//                    } else {
-//                        let sortedClovers = clovers.sorted(by: { $0.id < $1.id }) // ID 기준으로 정렬
-//                        for clover in sortedClovers {
-//                            print("🍀 ID: \(clover.id), Year: \(clover.cloverYear), Month: \(clover.cloverMonth), WeekOfMonth: \(clover.cloverWeekOfMonth), WeekOfYear: \(clover.cloverWeekOfYear), CloverState: \(clover.cloverState)")
-//                        }
-//                    }
                 }
         }
         .padding(.leading, 16)
