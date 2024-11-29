@@ -47,17 +47,17 @@ struct WeeklyResetManager {
             return true // 초기화 날짜가 없으면 초기화 필요
         }
     
-    func resetGoals(goals: [MainGoal], modelContext: ModelContext) -> Int?{
+    func resetGoals(goals: [MainGoal], modelContext: ModelContext) {
         guard needsReset() else {
             print("⚠️ No reset needed. Skipping...")
-            return nil
+            return
         }
         
-        var lastWeekCloverState: Int? = nil
+//        var lastWeekCloverState: Int? = nil
         
         for mainGoal in goals {
             print("🔄 Resetting MainGoal ID: \(mainGoal.id), Title: \(mainGoal.title)")
-            lastWeekCloverState = mainGoal.cloverState // 초기화 전 저번주의 cloverState를 담음
+//            lastWeekCloverState = mainGoal.cloverState  초기화 전 저번주의 cloverState를 담음
             mainGoal.cloverState = 0 // MainGoal의 CloverState를 0으로 업데이트
             for subGoal in mainGoal.subGoals {
                 for detailGoal in subGoal.detailGoals {
@@ -84,6 +84,6 @@ struct WeeklyResetManager {
             print("❌ Failed to save modelContext: \(error)")
         }
         
-        return lastWeekCloverState
+//        return lastWeekCloverState
     }
 }

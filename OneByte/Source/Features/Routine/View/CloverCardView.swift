@@ -6,19 +6,24 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CloverCardView: View {
     
     @Environment(\.dismiss) private var dismiss
+    @Query var mainGoals: [MainGoal]
+    @Query var clovers: [Clover]
+    @Environment(\.modelContext) private var modelContext
+    
     @State var viewModel = CloverCardViewModel()
     
     @State private var isCheckAchievement = false
     @State private var rotationAngle: Double = 0 // 회전 각도 상태 추가
     
-    let cloverState: Int?
+    @State var lastWeekCloverState: Int?
     
     var body: some View {
-        let cloverCardType = viewModel.getCloverCardType(for: cloverState)
+        let cloverCardType = viewModel.getCloverCardType(for: lastWeekCloverState)
         
         VStack(spacing: 0) {
             HStack {
@@ -131,6 +136,10 @@ struct CloverCardView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(cloverCardType.gradient.ignoresSafeArea(edges: .all))
+        .onAppear {
+            lastWeekCloverState = viewModel.getLastWeekCloverState(clovers: clovers)
+            print("(지난 주 클로버 상태: \(lastWeekCloverState)")
+        }
     }
     
     @ViewBuilder
@@ -172,5 +181,5 @@ struct CloverCardView: View {
 }
 
 #Preview {
-    CloverCardView(cloverState: 1)
+    CloverCardView()
 }
