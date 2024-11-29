@@ -17,10 +17,11 @@ struct CloverCardView: View {
     
     @State var viewModel = CloverCardViewModel()
     
-    @State private var isCheckAchievement = false
-    @State private var rotationAngle: Double = 0 // 회전 각도 상태 추가
+    @State private var isCheckAchievement = false // 완수율 확인하기
+    @State private var rotationAngle: Double = 0 // 회전 각도
+    @State private var isTapped: Bool = false  // 애니메이션 자동회전/탭회전 구분
     
-    @State var lastWeekCloverState: Int?
+    @State var lastWeekCloverState: Int? // 지난주의 cloverState 값
     
     var body: some View {
         let cloverCardType = viewModel.getCloverCardType(for: lastWeekCloverState)
@@ -76,7 +77,10 @@ struct CloverCardView: View {
                                 axis: (x: 0, y: 1, z: 0)
                             )
                             .onAppear {
-                                startRotationAnimation() // 애니메이션 시작
+                                startRotationAnimation() // 자동 회전
+                            }
+                            .onTapGesture {
+                                tapRotationAnimation() // 탭 회전
                             }
                             .padding(.top, 30)
                         
@@ -169,17 +173,55 @@ struct CloverCardView: View {
         .padding(.top, 2)
     }
     
-    // 회전 애니메이션 함수
+    // 클로버 자동 회전
     private func startRotationAnimation() {
+        guard !isTapped else { return } // 탭 회전 중이면 무시
         withAnimation(
-            Animation.linear(duration: 2.0) // 애니메이션 지속 시간
+            Animation.linear(duration: 2.5) // 애니메이션 지속 시간
                 .repeatForever(autoreverses: false) // 무한 반복
         ) {
-            rotationAngle = 360 // Y축 기준으로 한 바퀴 회전
+            rotationAngle += 360 // Y축 기준으로 한 바퀴 회전
+        }
+    }
+
+    // 클로버 탭 회전
+    private func tapRotationAnimation() {
+        guard !isTapped else { return } // 이미 빠른 회전 중이면 무시
+        isTapped = true
+
+        // 탭 회전 시작
+        withAnimation(
+            Animation.linear(duration: 1.0)
+        ) {
+            rotationAngle += 90
+        }
+        
+        withAnimation(
+            Animation.linear(duration: 1.4)
+        ) {
+            rotationAngle += 90
+        }
+
+        withAnimation(
+            Animation.linear(duration: 1.8)
+        ) {
+            rotationAngle += 90
+        }
+        
+        withAnimation(
+            Animation.linear(duration: 2.2)
+        ) {
+            rotationAngle += 90
+        }
+        
+        // 자동 회전으로 복귀
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            isTapped = false
+            startRotationAnimation()
         }
     }
 }
 
 #Preview {
-    CloverCardView()
+    CloverCardView(lastWeekCloverState: 2)
 }
