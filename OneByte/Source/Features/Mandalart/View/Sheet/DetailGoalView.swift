@@ -10,7 +10,7 @@ import SwiftUI
 struct DetailGoalView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var context
-    private let viewModel = MandalartViewModel(
+    @StateObject private var viewModel = MandalartViewModel(
         createService: CreateService(),
         updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []),
         deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: [])
@@ -50,7 +50,6 @@ struct DetailGoalView: View {
     @State private var isModified: Bool = false
     @State private var showBackAlert: Bool = false
     
-    @State private var wwh: [Bool] = [false, false, false] // Where What HOW-MUCH 포함 여부 리스트
     @State private var isQuestionMarkClicked = false
     @State private var selectedTime: String = "아침"
     
@@ -271,8 +270,6 @@ extension DetailGoalView {
                 .onChange(of: newTitle) { oldValue, newValue in
                     print(newValue)
                     viewModel.text = newValue
-                    wwh = viewModel.wwh
-                    print(wwh)
                     
                     if newValue != detailGoal?.title {
                         isModified = true
@@ -313,28 +310,28 @@ extension DetailGoalView {
         .padding(.top, -20)
         
         HStack(spacing: 4) {
-            Image(wwh[0] ? "Routine_Check_Green" : "Routine_Check" )
+            Image(viewModel.wwh[0] ? "Routine_Check_Green" : "Routine_Check" )
                 .resizable()
                 .frame(width: 16, height: 16)
             Text("어디서")
                 .font(.Pretendard.SemiBold.size14)
-                .foregroundStyle(wwh[0] ? .my6FB56F : .myC8B7A3)
+                .foregroundStyle(viewModel.wwh[0] ? .my6FB56F : .myC8B7A3)
                 .padding(.trailing, 8)
             
-            Image(wwh[1] ? "Routine_Check_Green" : "Routine_Check" )
+            Image(viewModel.wwh[1] ? "Routine_Check_Green" : "Routine_Check" )
                 .resizable()
                 .frame(width: 16, height: 16)
             Text("무엇을")
                 .font(.Pretendard.SemiBold.size14)
-                .foregroundStyle(wwh[1] ? .my6FB56F : .myC8B7A3)
+                .foregroundStyle(viewModel.wwh[1] ? .my6FB56F : .myC8B7A3)
                 .padding(.trailing, 8)
             
-            Image(wwh[2] ? "Routine_Check_Green" : "Routine_Check" )
+            Image(viewModel.wwh[2] ? "Routine_Check_Green" : "Routine_Check" )
                 .resizable()
                 .frame(width: 16, height: 16)
             Text("얼마나")
                 .font(.Pretendard.SemiBold.size14)
-                .foregroundStyle(wwh[2] ? .my6FB56F : .myC8B7A3)
+                .foregroundStyle(viewModel.wwh[2] ? .my6FB56F : .myC8B7A3)
                 .padding(.trailing, 8)
             
             Button(action: {
@@ -369,7 +366,6 @@ extension DetailGoalView {
                         .frame(width: 9, height: 9)
                         .foregroundStyle(.myB4A99D)
                 })
-                
             }
             .padding(.horizontal, 10)
             .padding(.vertical, 8)
