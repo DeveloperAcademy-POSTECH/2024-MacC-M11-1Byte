@@ -174,7 +174,6 @@ class MandalartViewModel: ObservableObject {
             wwh = [false,false,false]
             return
         }
-        
         do {
             let tokenizer = NLTokenizer(unit: .word)
             tokenizer.string = text
