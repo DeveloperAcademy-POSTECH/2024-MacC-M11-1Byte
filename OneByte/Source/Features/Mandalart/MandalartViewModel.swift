@@ -10,15 +10,18 @@ import SwiftUI
 import SwiftData
 import NaturalLanguage
 import CoreML
+import Combine
+
 
 class MandalartViewModel: ObservableObject {
     @Published var mainGoal: MainGoal?
     
-    var text: String = ""
+    @Published var text: String = ""
+    private var cancellables = Set<AnyCancellable>()
     
-    var wwh: [Bool] {
-        wordTagger()
-    }
+    private let mlModel: SpecificTagger3942
+    
+    @Published var wwh: [Bool] = [false, false, false] // Where What HOW-MUCH 포함 여부 리스트
     
     private let createService: CreateGoalUseCase
     private let updateService: UpdateGoalUseCase
@@ -28,6 +31,8 @@ class MandalartViewModel: ObservableObject {
         self.createService = createService
         self.updateService = updateService
         self.deleteService = deleteService
+        self.mlModel = try! SpecificTagger3942(configuration: MLModelConfiguration())
+        self.manageWordTagger()
     }
     
     func createGoals(modelContext: ModelContext) {
@@ -153,15 +158,24 @@ class MandalartViewModel: ObservableObject {
             break
         }
     }
+    
+    func manageWordTagger() {
+        $text
+            .debounce(for: .seconds(0.38), scheduler: RunLoop.main)
+            .removeDuplicates()
+            .sink { [weak self] newText in
+                self?.wordTagger()
+            }
+            .store(in: &cancellables)
+    }
 
-    func wordTagger() -> [Bool] {
+    func wordTagger() {
         guard !text.isEmpty else {
-            return [false,false,false]
+            wwh = [false,false,false]
+            return
         }
         
         do {
-            let mlModel = try SpecificTagger3942(configuration: MLModelConfiguration())
-            
             let tokenizer = NLTokenizer(unit: .word)
             tokenizer.string = text
             var tokens: [String] = []
@@ -180,17 +194,17 @@ class MandalartViewModel: ObservableObject {
                 let taggedWord = TaggedWord(word: word, tag: tag.first ?? "")
                 results.append(taggedWord)
             }
-            return convertToWWH(taggedWords: results)
+            wwh = convertToWWH(taggedWords: results)
         } catch {
+            wwh = [false,false,false]
             print("Error loading model or making prediction: \(error)")
         }
-        return [false,false,false]
     }
     
     func convertToWWH(taggedWords: [TaggedWord]) -> [Bool] {
         var wwh: [Bool] = [false,false,false]
         
-        for word in taggedWords{
+        for word in taggedWords {
             if word.tag == "WHERE" {
                 print("WHERE: \(word.word)")
                 wwh[0] = true
