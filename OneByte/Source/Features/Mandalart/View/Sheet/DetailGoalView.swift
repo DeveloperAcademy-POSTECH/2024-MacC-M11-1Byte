@@ -78,10 +78,12 @@ struct DetailGoalView: View {
                     // 리마인드 알림
                     remind()
                         .padding(.top, 28)
-                    // 삭제 버튼
-                    deleteButton()
-                        .padding(.top, 28)
-                        .padding(.bottom, 53/852 * UIScreen.main.bounds.height)
+                    if newTitle != "" {
+                        // 삭제 버튼
+                        deleteButton()
+                            .padding(.top, 28)
+                            .padding(.bottom, 53/852 * UIScreen.main.bounds.height)
+                    }
                 } else {
                     // 저장되었을 때 보여주는 화면
                     saved()
