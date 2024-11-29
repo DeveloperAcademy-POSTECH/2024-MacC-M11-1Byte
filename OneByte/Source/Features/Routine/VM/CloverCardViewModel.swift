@@ -15,10 +15,10 @@ class CloverCardViewModel {
     // 이전주차 cloverState값에 따라서 클로버 타입 반환
     func getCloverCardType(for cloverState: Int?) -> CloverCardType {
             switch cloverState {
-            case 0: return .basicClover
+            case 0: return .noClover
             case 1: return .greenClover
             case 2: return .goldClover
-            default: return .basicClover
+            default: return .noClover
             }
         }
     

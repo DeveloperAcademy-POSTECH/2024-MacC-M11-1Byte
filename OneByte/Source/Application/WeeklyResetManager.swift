@@ -47,10 +47,10 @@ struct WeeklyResetManager {
             return true // 초기화 날짜가 없으면 초기화 필요
         }
     
-    func resetGoals(goals: [MainGoal], modelContext: ModelContext) {
+    func resetGoals(goals: [MainGoal], modelContext: ModelContext) -> Bool {
         guard needsReset() else {
             print("⚠️ No reset needed. Skipping...")
-            return
+            return false
         }
         
 //        var lastWeekCloverState: Int? = nil
@@ -84,6 +84,6 @@ struct WeeklyResetManager {
             print("❌ Failed to save modelContext: \(error)")
         }
         
-//        return lastWeekCloverState
+        return true
     }
 }

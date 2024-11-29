@@ -49,7 +49,7 @@ struct CloverCardView: View {
                         .foregroundStyle(.white)
                     Text(cloverCardType.cloverCardMessage) // 메세지
                         .font(.Pretendard.Medium.size16)
-                        .foregroundStyle(.white)
+                        .foregroundStyle(.white.opacity(0.9))
                 }
                 .padding(.top, 32)
                 
@@ -63,14 +63,14 @@ struct CloverCardView: View {
                         VStack(spacing: 2) {
                             Text(viewModel.getLastWeekWeekofMonth()) // 이전 주차
                                 .font(.Pretendard.Bold.size18)
-                                .foregroundStyle(.myFFF6D3)
+                                .foregroundStyle(cloverCardType.cloverLastWeekDateColor)
                             Text(cloverCardType.cloverType)
                                 .font(.Pretendard.ExtraBold.size24)
                                 .foregroundStyle(.white)
                         }
                         .padding(.top, 46)
                         
-                        Image(cloverCardType.cloverCardClover) // 클로버 아이콘
+                        Image(cloverCardType.cloverCardClover ?? "") // 클로버 아이콘
                             .rotation3DEffect(
                                 .degrees(rotationAngle),
                                 axis: (x: 0, y: 1, z: 0)
@@ -114,7 +114,7 @@ struct CloverCardView: View {
                 
                 // 완수율 통계
                 if isCheckAchievement {
-                    completionRateView()
+                    completionRateView(cloverCardType: cloverCardType)
                         .transition(.move(edge: .bottom))
                 }
                 
@@ -143,7 +143,7 @@ struct CloverCardView: View {
     }
     
     @ViewBuilder
-    private func completionRateView() -> some View {
+    private func completionRateView(cloverCardType: CloverCardType) -> some View {
         VStack(spacing: 12) {
             Text("12월 4주차의 루틴 완수율") // 저번주 날짜 데이터 넣기
                 .font(.Pretendard.Bold.size17)
@@ -163,7 +163,7 @@ struct CloverCardView: View {
             }
         }
         .padding()
-        .background(.myF2EAD0)
+        .background(cloverCardType.completionRateBackgroundColor)
         .cornerRadius(16)
         .padding(.horizontal, 17)
         .padding(.top, 2)
