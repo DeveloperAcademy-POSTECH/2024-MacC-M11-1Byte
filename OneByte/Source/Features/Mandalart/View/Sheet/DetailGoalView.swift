@@ -92,6 +92,8 @@ struct DetailGoalView: View {
             UIApplication.shared.endEditing()
         }
         .navigationBarBackButtonHidden()
+        .navigationTitle("루틴 추가하기")
+        .navigationBarTitleDisplayMode(.inline)
         .backButtonToolbar {
             if isModified {
                 showBackAlert = true

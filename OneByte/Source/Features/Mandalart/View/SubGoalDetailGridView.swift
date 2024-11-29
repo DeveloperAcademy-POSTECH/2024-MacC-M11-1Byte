@@ -43,29 +43,41 @@ struct SubGoalDetailGridView: View {
                             if detailGoalIndex < sortedDetailGoals.count {
                                 let detailGoal = sortedDetailGoals[detailGoalIndex]
                                 
-                                Button(action: {
-                                    let detailGoal = sortedDetailGoals[detailGoalIndex]
-                                    selectedDetailGoal = detailGoal
-                                    detailNavigation = true
-                                }) {
-                                    Text(detailGoal.title)
-                                        .padding(.all, 14)
-                                        .padding(.top, detailGoalIndex == 0 || detailGoalIndex == 1 ? 4 : 0)
-                                        .padding(.leading, detailGoalIndex == 0 || detailGoalIndex == 3 ? 4 : 0)
-                                        .padding(.trailing, detailGoalIndex == 1 || detailGoalIndex == 3 ? 4 : 0)
-                                        .padding(.bottom, detailGoalIndex == 2 || detailGoalIndex == 3 ? 4 : 0)
+                                if selectedSubGoal.title == "" {
+                                    // 회색 네모
+                                    Text("")
                                         .modifier(NextMandalartButtonModifier())
-                                        .background(Color.myBFEBBB)
-                                }
-                                .cornerRadius(18)
-                                .cornerRadius(cornerRadius, corners: cornerStyle, defaultRadius: 18)
-                                .contextMenu {
-                                    Button(role: .destructive) {
-                                        viewModel.deleteDetailGoal(
-                                            detailGoal: detailGoal, newTitle: "", newMemo: "", achieveCount: 0, achieveGoal: 0, alertMon: false, alertTue: false, alertWed: false, alertThu: false, alertFri: false, alertSat: false, alertSun: false, isRemind: false, remindTime: nil, achieveMon: false, achieveTue: false, achieveWed: false, achieveThu: false, achieveFri: false, achieveSat: false, achieveSun: false, isMorning: true, isAfternoon: false, isEvening: false, isNight: false, isFree: false
-                                        )
-                                    } label: {
-                                        Label("Delete", systemImage: "trash")
+                                        .background(.myE4E4E4)
+                                        .cornerRadius(18)
+                                        .cornerRadius(cornerRadius, corners: cornerStyle, defaultRadius: 18)
+                                } else {
+                                    Button(action: {
+                                        let detailGoal = sortedDetailGoals[detailGoalIndex]
+                                        selectedDetailGoal = detailGoal
+                                        detailNavigation = true
+                                    }) {
+                                        Text(detailGoal.title == "" ?  "눌러서 루틴 추가하기" : detailGoal.title)
+                                            .font(detailGoal.title == "" ? .Pretendard.Medium.size14 : .Pretendard.Medium.size16)
+                                            .padding(.all, 14)
+                                            .padding(.top, detailGoalIndex == 0 || detailGoalIndex == 1 ? 4 : 0)
+                                            .padding(.leading, detailGoalIndex == 0 || detailGoalIndex == 3 ? 4 : 0)
+                                            .padding(.trailing, detailGoalIndex == 1 || detailGoalIndex == 3 ? 4 : 0)
+                                            .padding(.bottom, detailGoalIndex == 2 || detailGoalIndex == 3 ? 4 : 0)
+                                            .frame(width: 123/393 * UIScreen.main.bounds.width, height: 123/852 * UIScreen.main.bounds.height)
+                                            .foregroundStyle(detailGoal.title == "" ? Color.black.opacity(0.3) : .black)
+                                            .cornerRadius(8)
+                                            .background(Color.myBFEBBB)
+                                    }
+                                    .cornerRadius(18)
+                                    .cornerRadius(cornerRadius, corners: cornerStyle, defaultRadius: 18)
+                                    .contextMenu {
+                                        Button(role: .destructive) {
+                                            viewModel.deleteDetailGoal(
+                                                detailGoal: detailGoal, newTitle: "", newMemo: "", achieveCount: 0, achieveGoal: 0, alertMon: false, alertTue: false, alertWed: false, alertThu: false, alertFri: false, alertSat: false, alertSun: false, isRemind: false, remindTime: nil, achieveMon: false, achieveTue: false, achieveWed: false, achieveThu: false, achieveFri: false, achieveSat: false, achieveSun: false, isMorning: true, isAfternoon: false, isEvening: false, isNight: false, isFree: false
+                                            )
+                                        } label: {
+                                            Label("Delete", systemImage: "trash")
+                                        }
                                     }
                                 }
                             }
@@ -94,12 +106,8 @@ struct SubGoalDetailGridView: View {
             isSubNavigation = false
         }
         .background(Color.myFFFAF4)
-//        .toolbar {
-//            ToolbarItem(placement: .principal, content: {
-//                Text(subGoal?.title ?? "")
-//                    .font(.Pretendard.Bold.size18)
-//            })
-//        }
+        .navigationTitle(subGoal?.title ?? "")
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar(tabBarVisible ? .visible : .hidden, for: .tabBar)
         .onAppear{
             tabBarVisible = false
@@ -116,10 +124,12 @@ extension SubGoalDetailGridView {
             Button(action: {
                 subNavigation = true
             }, label: {
-                Text(selectedSubGoal.title)
+                Text(selectedSubGoal.title == "" ? "눌러서 목표 추가하기" : selectedSubGoal.title)
                     .padding()
-                    .font(.Pretendard.SemiBold.size18)
-                    .modifier(NextMandalartButtonModifier())
+                    .font(selectedSubGoal.title == "" ? .Pretendard.Medium.size17: .Pretendard.Bold.size17)
+                    .frame(width: 123/393 * UIScreen.main.bounds.width, height: 123/852 * UIScreen.main.bounds.height)
+                    .foregroundStyle(selectedSubGoal.title == "" ? .white.opacity(0.7) : .white)
+                    .cornerRadius(8)
                     .background(Color.my95D895)
             })
             .cornerRadius(18)

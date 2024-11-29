@@ -66,12 +66,8 @@ struct SubGoalView: View {
         .backButtonToolbar {
             subNavigation = false
         }
-//        .toolbar {
-//            ToolbarItem(placement: .principal, content: {
-//                Text("목표 추가하기")
-//                    .font(.Pretendard.Bold.size18)
-//            })
-//        }
+        .navigationTitle("목표 추가하기")
+        .navigationBarTitleDisplayMode(.inline)
         .padding()
         .background(.myFFFAF4)
         .onAppear {
