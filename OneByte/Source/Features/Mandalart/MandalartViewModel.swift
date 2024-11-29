@@ -129,25 +129,25 @@ class MandalartViewModel: ObservableObject {
     }
     
     // MARK: - Time Period Management
-    func setTimePeriod(detailGoal: DetailGoal, selectedPeriod: String) {
-        // 초기화: 모든 시간대는 false로 설정
+    func updateBooleanStates(detailGoal: DetailGoal, for time: String) {
+        // 모든 값 초기화
         detailGoal.isMorning = false
         detailGoal.isAfternoon = false
         detailGoal.isEvening = false
         detailGoal.isNight = false
         detailGoal.isFree = false
         
-        // 선택된 시간대만 true로 설정
-        switch selectedPeriod {
-        case "Morning":
+        // 시간대에 맞게 상태 업데이트
+        switch time {
+        case "아침":
             detailGoal.isMorning = true
-        case "Afternoon":
+        case "점심":
             detailGoal.isAfternoon = true
-        case "Evening":
+        case "저녁":
             detailGoal.isEvening = true
-        case "Night":
+        case "자기전":
             detailGoal.isNight = true
-        case "Free":
+        case "자율":
             detailGoal.isFree = true
         default:
             break

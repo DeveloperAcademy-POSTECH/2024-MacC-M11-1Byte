@@ -7,7 +7,6 @@
 
 import SwiftUI
 struct MandalartButtonModifier: ViewModifier {
-//    var color: Color
     func body(content: Content) -> some View {
         content
             .frame(width: 78/393 * UIScreen.main.bounds.width, height: 78/852 * UIScreen.main.bounds.height)
@@ -17,8 +16,6 @@ struct MandalartButtonModifier: ViewModifier {
     }
 }
 struct NextMandalartButtonModifier: ViewModifier {
-//    var color: Color
-
     func body(content: Content) -> some View {
         content
             .frame(width: 123/393 * UIScreen.main.bounds.width, height: 123/852 * UIScreen.main.bounds.height)

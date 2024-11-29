@@ -15,12 +15,11 @@ struct DetailGoalView: View {
         updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []),
         deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: [])
     )
-    @State private var isEditing: Bool = false
-    @Binding var detailGoal: DetailGoal?
     @State private var newTitle: String = ""
     @State private var newMemo: String = ""
     @State private var achieveCount = 0
     @State private var achieveGoal = 0
+    @Binding var detailGoal: DetailGoal?
     @Binding var tabBarVisible: Bool
     
     // 알람 요일
@@ -53,40 +52,37 @@ struct DetailGoalView: View {
     
     @State private var wwh: [Bool] = [false, false, false] // Where What HOW-MUCH 포함 여부 리스트
     @State private var isQuestionMarkClicked = false
+    @State private var selectedTime: String = "아침"
     
+    private let timeOptions = ["아침", "점심", "저녁", "자기전", "자율"]
     private let titleLimit = 20 // 제목 글자수 제한
     private let memoLimit = 100 // 메모 글자수 제한
     
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
-                //Spacer()
-                if isEditing {
-                    // 타이틀 입력란
-                    detailGaolTitle()
+                // 타이틀 입력란
+                detailGaolTitle()
+                    .padding(.top, 28)
+                
+                // 메모 입력란
+                DetailGoalMemo()
+                    .padding(.top, -4)
+                // 요일 선택
+                selectDays()
+                    .padding(.top, 28)
+                // 시간대 선택
+                selectTime()
+                    .padding(.top, 28)
+                // 리마인드 알림
+                remind()
+                    .padding(.top, 28)
+                
+                if detailGoal?.title != "" {
+                    // 삭제 버튼
+                    deleteButton()
                         .padding(.top, 28)
-                    
-                    // 메모 입력란
-                    DetailGoalMemo()
-                        .padding(.top, -4)
-                    // 요일 선택
-                    selectDays()
-                        .padding(.top, 28)
-                    // 시간대 선택
-                    selectTime()
-                        .padding(.top, 28)
-                    // 리마인드 알림
-                    remind()
-                        .padding(.top, 28)
-                    if newTitle != "" {
-                        // 삭제 버튼
-                        deleteButton()
-                            .padding(.top, 28)
-                            .padding(.bottom, 53/852 * UIScreen.main.bounds.height)
-                    }
-                } else {
-                    // 저장되었을 때 보여주는 화면
-                    saved()
+                        .padding(.bottom, 53/852 * UIScreen.main.bounds.height)
                 }
                 Spacer()
             }
@@ -116,8 +112,7 @@ struct DetailGoalView: View {
             ToolbarItem(placement: .topBarTrailing, content: {
                 Button(action: {
                     isModified = false
-                    isEditing.toggle()
-                    if !isEditing, let detailGoal = detailGoal{
+                    if let detailGoal = detailGoal{
                         // 요일 갯수 계산
                         achieveGoal = [alertMon, alertTue, alertWed, alertThu, alertFri, alertSat, alertSun]
                             .filter { $0 }
@@ -156,6 +151,8 @@ struct DetailGoalView: View {
                             isNight: isNight,
                             isFree: isFree
                         )
+                        
+                        viewModel.updateBooleanStates(detailGoal: detailGoal, for: selectedTime)
                         // 알림 설정 호출
                         if isRemind {
                             let selectedDays = getSelectedDays()
@@ -182,12 +179,14 @@ struct DetailGoalView: View {
                             }
                         }
                     }
+                    dismiss()
+                    
                 }, label: {
-                    Text(isEditing ? "저장" : "수정")
-                        .foregroundStyle((isEditing && newTitle == "") ? Color.my538F53.opacity(0.5) : Color.my538F53)
-                        .fontWeight(isEditing ? .bold : .regular)
+                    Text("저장")
+                        .foregroundStyle((isModified) ? .my538F53 : .myA9C5A3)
+                        .fontWeight(isModified ? .bold : .regular)
                 })
-                .disabled(newTitle == "" && isEditing == true)
+                .disabled(newTitle == "" && isModified == true)
             })
         }
         .padding(.horizontal, 16)
@@ -219,8 +218,19 @@ struct DetailGoalView: View {
                 isEvening = detailGoal.isEvening
                 isNight = detailGoal.isNight
                 isFree = detailGoal.isFree
+                
+                if detailGoal.isMorning {
+                    selectedTime = "아침"
+                } else if detailGoal.isAfternoon {
+                    selectedTime = "점심"
+                } else if detailGoal.isEvening {
+                    selectedTime = "저녁"
+                } else if detailGoal.isNight {
+                    selectedTime = "자기전"
+                } else if detailGoal.isFree {
+                    selectedTime = "자율"
+                }
             } else { print("실패")}
-            
         }
         .background(Color.myFFFAF4)
     }
@@ -289,20 +299,18 @@ extension DetailGoalView {
         }
         .padding(.top, -20)
         
-        if isEditing {
-            // 글자수 부분
-            HStack(spacing: 0) {
-                Spacer()
-                Text("\(newTitle.count)")
-                    .font(.Pretendard.Medium.size12)
-                    .foregroundStyle(Color.my6C6C6C)
-                Text("/\(titleLimit)")
-                    .font(.Pretendard.Medium.size12)
-                    .foregroundStyle(Color.my6C6C6C.opacity(0.5))
-            }
-            .padding(.trailing, 10)
-            .padding(.top, -20)
+        // 글자수 부분
+        HStack(spacing: 0) {
+            Spacer()
+            Text("\(newTitle.count)")
+                .font(.Pretendard.Medium.size12)
+                .foregroundStyle(Color.my6C6C6C)
+            Text("/\(titleLimit)")
+                .font(.Pretendard.Medium.size12)
+                .foregroundStyle(Color.my6C6C6C.opacity(0.5))
         }
+        .padding(.trailing, 10)
+        .padding(.top, -20)
         
         HStack(spacing: 4) {
             Image(wwh[0] ? "Routine_Check_Green" : "Routine_Check" )
@@ -443,15 +451,16 @@ extension DetailGoalView {
             Text("반복 요일")
                 .font(.Pretendard.SemiBold.size16)
             HStack(spacing: 12) {
-                DayButton(title: "일", isSelected: $alertSun)
-                DayButton(title: "월", isSelected: $alertMon)
-                DayButton(title: "화", isSelected: $alertTue)
-                DayButton(title: "수", isSelected: $alertWed)
-                DayButton(title: "목", isSelected: $alertThu)
-                DayButton(title: "금", isSelected: $alertFri)
-                DayButton(title: "토", isSelected: $alertSat)
+                DayButton(title: "일", isSelected: $alertSun, isModified: $isModified)
+                DayButton(title: "월", isSelected: $alertMon, isModified: $isModified)
+                DayButton(title: "화", isSelected: $alertTue, isModified: $isModified)
+                DayButton(title: "수", isSelected: $alertWed, isModified: $isModified)
+                DayButton(title: "목", isSelected: $alertThu, isModified: $isModified)
+                DayButton(title: "금", isSelected: $alertFri, isModified: $isModified)
+                DayButton(title: "토", isSelected: $alertSat, isModified: $isModified)
             }
         }
+        
         .padding()
         .frame(maxWidth: .infinity)
         .frame(height: 105/852 * UIScreen.main.bounds.height)
@@ -479,20 +488,31 @@ extension DetailGoalView {
         }
         .padding(.leading, 4)
         //실제 요일 선택
-        VStack(alignment: .leading, spacing: 16){
+        
+        HStack {
             Text("루틴 시간대")
-                .font(.Pretendard.SemiBold.size16)
-            HStack(spacing: 12.24) {
-                SelectTimeButton(title: "아침", isSelected: $isMorning)
-                SelectTimeButton(title: "점심", isSelected: $isAfternoon)
-                SelectTimeButton(title: "저녁", isSelected: $isEvening)
-                SelectTimeButton(title: "자기전", isSelected: $isNight)
-                SelectTimeButton(title: "자율", isSelected: $isFree)
+                .font(.Pretendard.Medium.size16)
+            
+            Spacer()
+            
+            Picker("시간대", selection: $selectedTime) {
+                ForEach(timeOptions, id: \.self) { time in
+                    Text(time)
+                        .tag(time)
+                }
+            }
+            .accentColor(.my3C3C43.opacity(0.6))
+            .pickerStyle(MenuPickerStyle())
+            .onChange(of: selectedTime) { old, newValue in
+                if let detailGoal = detailGoal {
+                    viewModel.updateBooleanStates(detailGoal: detailGoal, for: newValue)
+                }
             }
         }
+        .pickerStyle(.menu)
         .padding()
         .frame(maxWidth: .infinity)
-        .frame(height: 105/852 * UIScreen.main.bounds.height)
+        .frame(height: 51)
         .background(.white)
         .cornerRadius(12)
         .overlay(
@@ -520,7 +540,7 @@ extension DetailGoalView {
                 // 알림 설정 토글
                 HStack() {
                     Text("알림 설정")
-                        .font(.Pretendard.SemiBold.size16)
+                        .font(.Pretendard.Medium.size16)
                         .foregroundStyle(.black)
                     Spacer()
                     
@@ -542,7 +562,7 @@ extension DetailGoalView {
                     // 알림 시간 설정
                     HStack {
                         Text("알림 시간")
-                            .font(.Pretendard.SemiBold.size16)
+                            .font(.Pretendard.Medium.size16)
                             .foregroundStyle(.black)
                         Spacer()
                         
@@ -577,79 +597,6 @@ extension DetailGoalView {
     }
     
     @ViewBuilder
-    func saved() -> some View {
-        VStack(alignment: .leading, spacing: 16) {
-            HStack(spacing: 30) {
-                Text("루틴 이름")
-                    .foregroundStyle(Color.my675542)
-                    .font(.Pretendard.SemiBold.size16)
-                    .frame(width: 60)
-                Text(newTitle)
-                    .font(.Pretendard.Medium.size16)
-                Spacer()
-            }
-            Divider()
-                .padding(.horizontal, -16)
-            HStack(spacing: 30) {
-                Text("메모")
-                    .foregroundStyle(Color.my675542)
-                    .font(.Pretendard.SemiBold.size16)
-                    .frame(width: 60, alignment: .leading)
-                Text(newMemo)
-                    .font(.Pretendard.Medium.size16)
-                Spacer()
-            }
-            Divider()
-                .padding(.horizontal, -16)
-            HStack(spacing: 30) {
-                Text("반복 요일")
-                    .foregroundStyle(Color.my675542)
-                    .font(.Pretendard.SemiBold.size16)
-                    .frame(width: 60)
-                // 선택된 요일만 표시
-                let selectedDays = getSelectedDays()
-                Text(selectedDays.joined(separator: ", "))
-                    .font(.Pretendard.Medium.size16)
-                Spacer()
-            }
-            Divider()
-                .padding(.horizontal, -16)
-            HStack(spacing: 30) {
-                Text("알람 시간")
-                    .foregroundStyle(Color.my675542)
-                    .font(.Pretendard.SemiBold.size16)
-                    .frame(width: 60)
-                if isRemind {
-                    var formattedRemindTime: String {
-                        guard let remindTime = remindTime else {
-                            return "미설정"
-                        }
-                        
-                        let formatter = DateFormatter()
-                        formatter.dateFormat = "a h시 mm분" // 오전/오후 + 시:분 형식
-                        formatter.locale = Locale(identifier: "ko_KR") // 한국어로 설정
-                        return formatter.string(from: remindTime)
-                    }
-                    Text(formattedRemindTime)
-                        .font(.Pretendard.Medium.size16)
-                } else {
-                    Text("미설정")
-                        .font(.Pretendard.Medium.size16)
-                        .foregroundStyle(Color.gray)
-                }
-                Spacer()
-            }
-        }
-        .padding()
-        .background(.white)
-        .cornerRadius(12)
-        .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.myF0E8DF, lineWidth: 1)
-        )
-    }
-    
-    @ViewBuilder
     func deleteButton() -> some View {
         Button(action: {
             showAlert = true
@@ -674,7 +621,6 @@ extension DetailGoalView {
                         detailGoal: detailGoal, newTitle: "", newMemo: "", achieveCount: 0, achieveGoal: 0, alertMon: false, alertTue: false, alertWed: false, alertThu: false, alertFri: false, alertSat: false, alertSun: false, isRemind: false, remindTime: nil, achieveMon: false, achieveTue: false, achieveWed: false, achieveThu: false, achieveFri: false, achieveSat: false, achieveSun: false, isMorning: true, isAfternoon: false, isEvening: false, isNight: false, isFree: isFree
                     )
                 }
-                isEditing = false
                 // 버튼 누르면 SubGoalDetailGridView로 pop되게 하기
                 dismiss()
             }
