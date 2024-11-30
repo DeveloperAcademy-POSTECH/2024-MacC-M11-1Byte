@@ -70,9 +70,11 @@ struct TabBarManager: View {
             }
         }
         .onAppear {
-            let resetManager = WeeklyResetManager()
-            if resetManager.resetGoals(goals: mainGoals, modelContext: modelContext) {
-                showCloverCardView = true // 초기화가 발생한 경우에만 CloverCardView 로드
+            if !FirstOnboarding {
+                let resetManager = WeeklyResetManager()
+                if resetManager.resetGoals(goals: mainGoals, modelContext: modelContext) {
+                    showCloverCardView = true // 초기화가 발생한 경우에만 CloverCardView 로드
+                }
             }
         }
         .fullScreenCover(isPresented: $showCloverCardView) {
