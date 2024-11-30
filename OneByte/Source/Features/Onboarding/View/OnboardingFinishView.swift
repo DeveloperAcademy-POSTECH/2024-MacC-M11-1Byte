@@ -39,11 +39,13 @@ struct OnboardingFinishView: View {
                     .font(.Pretendard.Bold.size26)
                     .multilineTextAlignment(.center)
                     .lineSpacing(3.6)
+                    .kerning(0.4)
                 Text(nowOnboard.onboardingSubTitle)
                     .font(.Pretendard.Regular.size16)
                     .foregroundStyle(.my5A5A5A)
                     .multilineTextAlignment(.center)
                     .lineSpacing(2.4)
+                    .kerning(0.4)
             }
             .padding(.top, 31)
             
@@ -51,7 +53,6 @@ struct OnboardingFinishView: View {
             Image("OnboardingTurtle3")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 243, height: 187)
             
             Spacer()
             // 하단 Button
@@ -59,7 +60,7 @@ struct OnboardingFinishView: View {
                 GoButton {
                     FirstOnboarding = false  // 온보딩 종료
                 } label: {
-                    Text("이어서 작성하기")
+                    Text("하고만다 시작하기")
                 }
             }
             .padding()
