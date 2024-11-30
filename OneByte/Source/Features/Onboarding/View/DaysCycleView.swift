@@ -94,13 +94,13 @@ struct DaysCycleView: View {
                     }
                     
                     HStack(spacing: 7) {
-                        DaysCycleButton(day: "일", isSelected: $alertSun, onChange: updateAchieveGoal)
-                        DaysCycleButton(day: "월", isSelected: $alertMon, onChange: updateAchieveGoal)
-                        DaysCycleButton(day: "화", isSelected: $alertTue, onChange: updateAchieveGoal)
-                        DaysCycleButton(day: "수", isSelected: $alertWed, onChange: updateAchieveGoal)
-                        DaysCycleButton(day: "목", isSelected: $alertThu, onChange: updateAchieveGoal)
-                        DaysCycleButton(day: "금", isSelected: $alertFri, onChange: updateAchieveGoal)
-                        DaysCycleButton(day: "토", isSelected: $alertSat, onChange: updateAchieveGoal)
+                        DaysCycleCellButton(day: "일", isSelected: $alertSun, onChange: updateAchieveGoal)
+                        DaysCycleCellButton(day: "월", isSelected: $alertMon, onChange: updateAchieveGoal)
+                        DaysCycleCellButton(day: "화", isSelected: $alertTue, onChange: updateAchieveGoal)
+                        DaysCycleCellButton(day: "수", isSelected: $alertWed, onChange: updateAchieveGoal)
+                        DaysCycleCellButton(day: "목", isSelected: $alertThu, onChange: updateAchieveGoal)
+                        DaysCycleCellButton(day: "금", isSelected: $alertFri, onChange: updateAchieveGoal)
+                        DaysCycleCellButton(day: "토", isSelected: $alertSat, onChange: updateAchieveGoal)
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 10)
@@ -230,28 +230,6 @@ struct DaysCycleView: View {
         achieveGoal = [alertMon, alertTue, alertWed, alertThu, alertFri, alertSat, alertSun]
             .filter { $0 }
             .count
-    }
-}
-
-
-struct DaysCycleButton: View {
-    
-    let day: String
-    @Binding var isSelected: Bool
-    var onChange: () -> Void
-    
-    var body: some View {
-        Button(action: {
-            isSelected.toggle()
-            onChange()
-        }) {
-            Text(day)
-                .font(.Pretendard.Medium.size17)
-                .foregroundStyle(isSelected ? .white : .white)
-                .frame(width: 36, height: 36)
-                .background(isSelected ? .my95D895 : .myCFCFCF)
-                .clipShape(Circle())
-        }
     }
 }
 

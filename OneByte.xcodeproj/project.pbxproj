@@ -59,6 +59,8 @@
 		1FC686422CFB0CEA008F399F /* RoutineCycleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC686412CFB0CEA008F399F /* RoutineCycleViewModel.swift */; };
 		1FC686442CFB5FA0008F399F /* OnboardingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC686432CFB5FA0008F399F /* OnboardingHeaderView.swift */; };
 		1FC686482CFB6162008F399F /* CustomTextModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC686472CFB6162008F399F /* CustomTextModifier.swift */; };
+		1FC6864B2CFB64EB008F399F /* DaysCycleCellButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC6864A2CFB64EB008F399F /* DaysCycleCellButton.swift */; };
+		1FC6864D2CFB6528008F399F /* DaysCycleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC6864C2CFB6528008F399F /* DaysCycleCell.swift */; };
 		1FD405232CEC74E800403A19 /* AllRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD405222CEC74E800403A19 /* AllRoutineView.swift */; };
 		1FD405252CEC79DD00403A19 /* TodayRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD405242CEC79DD00403A19 /* TodayRoutineView.swift */; };
 		1FD4052A2CECBFCB00403A19 /* RoutineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD405292CECBFCB00403A19 /* RoutineModel.swift */; };
@@ -151,6 +153,8 @@
 		1FC686412CFB0CEA008F399F /* RoutineCycleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCycleViewModel.swift; sourceTree = "<group>"; };
 		1FC686432CFB5FA0008F399F /* OnboardingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingHeaderView.swift; sourceTree = "<group>"; };
 		1FC686472CFB6162008F399F /* CustomTextModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextModifier.swift; sourceTree = "<group>"; };
+		1FC6864A2CFB64EB008F399F /* DaysCycleCellButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysCycleCellButton.swift; sourceTree = "<group>"; };
+		1FC6864C2CFB6528008F399F /* DaysCycleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysCycleCell.swift; sourceTree = "<group>"; };
 		1FD405222CEC74E800403A19 /* AllRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRoutineView.swift; sourceTree = "<group>"; };
 		1FD405242CEC79DD00403A19 /* TodayRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutineView.swift; sourceTree = "<group>"; };
 		1FD405292CECBFCB00403A19 /* RoutineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineModel.swift; sourceTree = "<group>"; };
@@ -218,8 +222,9 @@
 		1F4D8BEE2CDF4F9200A0B5CC /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				1FB10A3E2CDF7EEF00D54EC5 /* ViewModel */,
 				1FB10A3D2CDF7EDD00D54EC5 /* View */,
+				1FB10A3E2CDF7EEF00D54EC5 /* ViewModel */,
+				1FC686492CFB64DA008F399F /* Cell */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -526,6 +531,15 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		1FC686492CFB64DA008F399F /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				1FC6864A2CFB64EB008F399F /* DaysCycleCellButton.swift */,
+				1FC6864C2CFB6528008F399F /* DaysCycleCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		1FD405282CECBF9400403A19 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -651,6 +665,7 @@
 				610595D92CE2584D005ED7B4 /* MadalartShape.swift in Sources */,
 				1FD405252CEC79DD00403A19 /* TodayRoutineView.swift in Sources */,
 				1FD405362CECE6F800403A19 /* TodayRouitneTypeHeaderView.swift in Sources */,
+				1FC6864B2CFB64EB008F399F /* DaysCycleCellButton.swift in Sources */,
 				61CC00FD2CF0276B0009D063 /* DetailGoalColor.swift in Sources */,
 				1FB10A252CDF511600D54EC5 /* GoButton.swift in Sources */,
 				1FC686402CF8CF5A008F399F /* CloverCard.swift in Sources */,
@@ -663,6 +678,7 @@
 				1FE27C712CF0B7F600A4C6BE /* DaysCycleView.swift in Sources */,
 				1F42BE892CDF838500A59703 /* Font+.swift in Sources */,
 				1F4D8BF02CDF4F9E00A0B5CC /* OnboardingStartView.swift in Sources */,
+				1FC6864D2CFB6528008F399F /* DaysCycleCell.swift in Sources */,
 				1FB10A382CDF5FE800D54EC5 /* OnboardingExplain.swift in Sources */,
 				1FC686422CFB0CEA008F399F /* RoutineCycleViewModel.swift in Sources */,
 				1F18DD862CEA3869000F0E3E /* Clover.swift in Sources */,

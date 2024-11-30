@@ -145,23 +145,6 @@ struct CompleteCycleView: View {
     }
 }
 
-struct DaysCycleCell: View {
-    
-    let day: String
-    @Binding var isSelected: Bool
-    
-    var body: some View {
-        VStack {
-            Text(day)
-                .font(.Pretendard.Medium.size14)
-                .foregroundStyle(.white)
-                .frame(width: 28, height: 28)
-                .background(.my6FB56F)
-                .clipShape(Circle())
-        }
-    }
-}
-
 #Preview {
     CompleteCycleView()
         .environment(NavigationManager())
