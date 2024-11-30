@@ -43,7 +43,6 @@
 		1FB10A252CDF511600D54EC5 /* GoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A242CDF511600D54EC5 /* GoButton.swift */; };
 		1FB10A292CDF515300D54EC5 /* ReadyCycleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A282CDF515300D54EC5 /* ReadyCycleView.swift */; };
 		1FB10A2C2CDF52E600D54EC5 /* OnboardingProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A2B2CDF52E600D54EC5 /* OnboardingProgressBar.swift */; };
-		1FB10A2E2CDF54B400D54EC5 /* EnterMaingoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A2D2CDF54B400D54EC5 /* EnterMaingoalView.swift */; };
 		1FB10A302CDF55AA00D54EC5 /* SubgoalCycleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A2F2CDF55AA00D54EC5 /* SubgoalCycleView.swift */; };
 		1FB10A322CDF56E200D54EC5 /* RoutineCycleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A312CDF56E200D54EC5 /* RoutineCycleView.swift */; };
 		1FB10A342CDF593600D54EC5 /* OnboardingFinishView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A332CDF593600D54EC5 /* OnboardingFinishView.swift */; };
@@ -136,7 +135,6 @@
 		1FB10A242CDF511600D54EC5 /* GoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoButton.swift; sourceTree = "<group>"; };
 		1FB10A282CDF515300D54EC5 /* ReadyCycleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadyCycleView.swift; sourceTree = "<group>"; };
 		1FB10A2B2CDF52E600D54EC5 /* OnboardingProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingProgressBar.swift; sourceTree = "<group>"; };
-		1FB10A2D2CDF54B400D54EC5 /* EnterMaingoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterMaingoalView.swift; sourceTree = "<group>"; };
 		1FB10A2F2CDF55AA00D54EC5 /* SubgoalCycleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubgoalCycleView.swift; sourceTree = "<group>"; };
 		1FB10A312CDF56E200D54EC5 /* RoutineCycleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCycleView.swift; sourceTree = "<group>"; };
 		1FB10A332CDF593600D54EC5 /* OnboardingFinishView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFinishView.swift; sourceTree = "<group>"; };
@@ -477,7 +475,6 @@
 				1FE27C702CF0B7F600A4C6BE /* DaysCycleView.swift */,
 				1FE27C742CF0C8AF00A4C6BE /* CompleteCycleView.swift */,
 				1FB10A332CDF593600D54EC5 /* OnboardingFinishView.swift */,
-				1FB10A2D2CDF54B400D54EC5 /* EnterMaingoalView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -703,7 +700,6 @@
 				610595DD2CE2EA6C005ED7B4 /* DetailGoalView.swift in Sources */,
 				1FB10A3A2CDF60D100D54EC5 /* OnboardingExplainPageView.swift in Sources */,
 				61FA4DF32CE77EDD00256B57 /* BackButtonToolbarModifier.swift in Sources */,
-				1FB10A2E2CDF54B400D54EC5 /* EnterMaingoalView.swift in Sources */,
 				615A0A112CC0AEB800908531 /* StatisticView.swift in Sources */,
 				1FC6863A2CF8ABC1008F399F /* CloverCardView.swift in Sources */,
 				1F599E382CE664B100788D07 /* TermsRow.swift in Sources */,

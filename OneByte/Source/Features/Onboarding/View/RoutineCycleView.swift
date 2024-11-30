@@ -94,8 +94,7 @@ struct RoutineCycleView: View {
                             Image(wwhViewModel.wwh[0] ? "Onboarding_Routine_Check" : "Onboarding_Routine_NoCheck")
                                 .resizable()
                                 .frame(width: 16, height: 16)
-                            Text("어디서")
-                                .font(.Pretendard.SemiBold.size14)
+                            Text("어디서")                                .font(.Pretendard.SemiBold.size14)
                                 .kerning(0.2)
                                 .foregroundStyle(wwhViewModel.wwh[0] ? .my385E38 : .white.opacity(0.6))
                             Image(wwhViewModel.wwh[1] ? "Onboarding_Routine_Check" : "Onboarding_Routine_NoCheck")
@@ -168,8 +167,6 @@ struct RoutineCycleView: View {
                         isFree: false
                     )
                     navigationManager.push(to: .onboardDays)
-                } else {
-                    print("❌ Error: DetailGoal ID 1 not found.")
                 }
             } label: {
                 Text("다음")
