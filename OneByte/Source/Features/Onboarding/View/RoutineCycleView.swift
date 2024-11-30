@@ -64,7 +64,7 @@ struct RoutineCycleView: View {
                 .frame(maxWidth: .infinity)
                 .frame(height: 178)
                 .overlay (
-                    VStack(spacing: 5) {
+                    VStack(spacing: 0) {
                         Text("목표")
                             .font(.Pretendard.Medium.size16)
                             .foregroundStyle(Color.myBFEBBB)
@@ -75,6 +75,7 @@ struct RoutineCycleView: View {
                                 .font(.Pretendard.Medium.size20)
                                 .foregroundStyle(.white)
                                 .multilineTextAlignment(.center)
+                                .padding(.top, 4)
                         }
                         
                         ZStack {
@@ -82,7 +83,7 @@ struct RoutineCycleView: View {
                                 .font(.Pretendard.Medium.size16)
                                 .multilineTextAlignment(.leading)
                                 .submitLabel(.done)
-                                .frame(height: 54)
+                                .frame(height: 46)
                                 .padding(.horizontal)
                                 .background(.white)
                                 .cornerRadius(12)

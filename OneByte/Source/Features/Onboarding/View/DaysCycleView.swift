@@ -17,6 +17,7 @@ struct DaysCycleView: View {
     
     @Query private var subGoals: [SubGoal]
     @Query private var detailGoals: [DetailGoal]
+    
     @State private var targetSubGoal: SubGoal? // id가 1인 SubGoal 저장변수
     @State private var targetDetailGoal: DetailGoal? // id가 1인 SubGoal 저장변수
     
@@ -28,6 +29,9 @@ struct DaysCycleView: View {
     @State private var alertFri: Bool = false
     @State private var alertSat: Bool = false
     @State private var alertSun: Bool = false
+    
+    @State var selectedTime = "color"
+    var routineTimes = ["아침","점심","저녁","자기 전","자율"]
     
     var nowOnboard: Onboarding = .daysCycle
     
@@ -127,6 +131,50 @@ struct DaysCycleView: View {
             .cornerRadius(12)
             .padding(.top, 10)
             
+            VStack(spacing: 2) {
+                HStack {
+                    Text("시간대 선택")
+                        .font(.Pretendard.SemiBold.size17)
+                        .foregroundStyle(.my675542)
+                        .kerning(0.2)
+                    Spacer()
+                }
+                HStack {
+                    Text("루틴을 실행할 대략적인 시간대를 선택해주세요. " )
+                        .font(.Pretendard.Medium.size14)
+                        .foregroundStyle(.myB4A99D)
+                        .kerning(0.2)
+                    Spacer()
+                }
+            }
+            .padding(.leading, 4)
+            .padding(.top, 28)
+            
+            VStack(spacing: 0) {
+                HStack {
+                    Text("루틴 시간대")
+                        .font(.Pretendard.SemiBold.size16)
+                        .kerning(0.2)
+                    Spacer()
+                    Picker("Choose a times", selection: $selectedTime) {
+                            ForEach(routineTimes, id: \.self) {
+                              Text($0)
+                                .font(.Pretendard.Regular.size17)
+                            }
+                          }
+                    .pickerStyle(.menu)
+                    .tint(.my89898D)
+                }
+                .padding(.vertical)
+                .padding(.horizontal,16)
+            }
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color.myB4A99D, lineWidth: 1)
+            )
+            .cornerRadius(12)
+            .padding(.top, 10)
+            
             Spacer()
             
             // 하단 Button
@@ -140,6 +188,13 @@ struct DaysCycleView: View {
                         print("⚠️ targetDetailGoal is nil")
                         return
                     }
+                    
+                    // Picker에서 선택한 시간대에 따라 업데이트
+                        let isMorning = selectedTime == "아침"
+                        let isAfternoon = selectedTime == "점심"
+                        let isEvening = selectedTime == "저녁"
+                        let isNight = selectedTime == "자기 전"
+                        let isFree = selectedTime == "자율"
                     
                     viewModel.updateDetailGoal(
                         detailGoal: targetDetailGoal,
@@ -163,11 +218,11 @@ struct DaysCycleView: View {
                         achieveFri: targetDetailGoal.achieveFri,
                         achieveSat: targetDetailGoal.achieveSat,
                         achieveSun: targetDetailGoal.achieveSun,
-                        isMorning: targetDetailGoal.isMorning,
-                        isAfternoon: targetDetailGoal.isAfternoon,
-                        isEvening: targetDetailGoal.isEvening,
-                        isNight: targetDetailGoal.isNight,
-                        isFree: targetDetailGoal.isFree
+                        isMorning: isMorning,
+                        isAfternoon: isAfternoon,
+                        isEvening: isEvening,
+                        isNight: isNight,
+                        isFree: isFree
                     )
                     navigationManager.push(to: .onboardComplete)
                 } label: {
@@ -192,6 +247,7 @@ struct DaysCycleView: View {
             .count
     }
 }
+
 
 struct DaysCycleButton: View {
     
