@@ -53,5 +53,5 @@ struct OnboardingExplainPageView: View {
 }
 
 #Preview {
-    OnboardingExplainPageView(nowOnboard: .fifth, selectedOnboarding: .fifth)
+    OnboardingExplainPageView(nowOnboard: .fourth, selectedOnboarding: .fourth)
 }
