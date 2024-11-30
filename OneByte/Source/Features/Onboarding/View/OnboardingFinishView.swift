@@ -17,22 +17,21 @@ struct OnboardingFinishView: View {
     var body: some View {
         VStack(spacing: 0) {
             // Back Button & 프로그레스 바
-            HStack {
+            HStack(spacing: 14) {
                 Button {
                     navigationManager.pop()
                 } label: {
                     HStack {
                         Image(systemName: "chevron.left")
+                            .frame(width: 24, height: 24)
                             .tint(.black)
-                            .bold()
+                            .padding(.leading, 4)
                     }
                 }
                 OnboardingProgressBar(value: 5/5)
                     .frame(height: 10)
-                    .padding()
-                    .padding(.trailing)
+                    .padding(.trailing, 43)
             }
-            .padding(.horizontal)
             
             VStack(spacing: 10) {
                 Text(nowOnboard.onboardingTitle)

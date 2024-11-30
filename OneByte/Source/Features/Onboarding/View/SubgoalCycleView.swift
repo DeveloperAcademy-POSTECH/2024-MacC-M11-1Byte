@@ -18,20 +18,21 @@ struct SubgoalCycleView: View {
     var body: some View {
         VStack(spacing: 0) {
             // Back Button & 프로그레스 바
-            HStack {
+            HStack(spacing: 14) {
                 Button {
                     navigationManager.pop()
                 } label: {
-                    Image(systemName: "chevron.left")
-                        .frame(width: 24, height: 24)
-                        .tint(.black)
+                    HStack {
+                        Image(systemName: "chevron.left")
+                            .frame(width: 24, height: 24)
+                            .tint(.black)
+                            .padding(.leading, 4)
+                    }
                 }
                 OnboardingProgressBar(value: 1/5)
                     .frame(height: 10)
-                    .padding()
-                    .padding(.trailing)
+                    .padding(.trailing, 43)
             }
-            .padding(.horizontal)
             
             // 상단 텍스트
             VStack(spacing: 12) {
@@ -110,8 +111,8 @@ struct SubgoalCycleView: View {
             }
             .padding(.vertical)
         }
-        .background(.myFFFAF4)
         .padding(.horizontal, 16)
+        .background(.myFFFAF4)
         .contentShape(Rectangle())
         .ignoresSafeArea(.keyboard, edges: .bottom) // 키보드 올라올때, 뷰 자동 스크롤 제어
         .onTapGesture {

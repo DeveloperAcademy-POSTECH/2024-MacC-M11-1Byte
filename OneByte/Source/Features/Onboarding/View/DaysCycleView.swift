@@ -38,24 +38,23 @@ struct DaysCycleView: View {
     var body: some View {
         VStack(spacing: 0) {
             // Back Button & 프로그레스 바
-            ScrollView(.vertical, showsIndicators: false) {
-                HStack {
-                    Button {
-                        navigationManager.pop()
-                    } label: {
-                        HStack {
-                            Image(systemName: "chevron.left")
-                                .tint(.black)
-                                .bold()
-                        }
+            HStack(spacing: 14) {
+                Button {
+                    navigationManager.pop()
+                } label: {
+                    HStack {
+                        Image(systemName: "chevron.left")
+                            .frame(width: 24, height: 24)
+                            .tint(.black)
+                            .padding(.leading, 4)
                     }
-                    OnboardingProgressBar(value: 3/5)
-                        .frame(height: 10)
-                        .padding()
-                        .padding(.trailing)
                 }
-                .padding(.horizontal)
-                
+                OnboardingProgressBar(value: 3/5)
+                    .frame(height: 10)
+                    .padding(.trailing, 43)
+            }
+            
+            ScrollView(.vertical, showsIndicators: false) {
                 VStack(spacing: 12) {
                     Text(nowOnboard.onboardingTitle)
                         .font(.Pretendard.Bold.size26)

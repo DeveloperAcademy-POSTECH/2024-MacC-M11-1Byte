@@ -39,17 +39,15 @@ struct CompleteCycleView: View {
                 } label: {
                     HStack {
                         Image(systemName: "chevron.left")
+                            .frame(width: 24, height: 24)
                             .tint(.black)
-                            .bold()
+                            .padding(.leading, 4)
                     }
                 }
                 OnboardingProgressBar(value: 4/5)
                     .frame(height: 10)
                     .padding(.trailing, 43)
             }
-            .padding(.leading, 4)
-            .padding(.top, 12) // 다른 프로그레스바에도 모두 적용 ⚠️⚠️⚠️
-            .padding(.bottom, 13)
             
             VStack(spacing: 12) {
                 Text(nowOnboard.onboardingTitle)
