@@ -34,13 +34,11 @@ struct OnboardingFinishView: View {
                 .scaledToFit()
             
             Spacer()
-            // 하단 Button
-            HStack {
-                GoButton {
-                    FirstOnboarding = false  // 온보딩 종료
-                } label: {
-                    Text("하고만다 시작하기")
-                }
+            
+            GoButton {
+                FirstOnboarding = false  // 온보딩 종료
+            } label: {
+                Text("하고만다 시작하기")
             }
             .padding(.vertical)
         }

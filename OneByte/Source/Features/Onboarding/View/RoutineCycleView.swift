@@ -136,46 +136,43 @@ struct RoutineCycleView: View {
             
             Spacer()
             
-            // 하단 Button
-            HStack {
-                NextButton(isEnabled: !viewModel.userDetailGoal.isEmpty) {
-                    if let targetSubGoal = targetSubGoal, // id = 1에 해당하는 SubGoal의
-                       let detailGoalToUpdate = targetSubGoal.detailGoals.first(where: { $0.id == 1 }) { // id = 1 DetailGoal 공간에 Update
-                        viewModel.updateDetailGoal(
-                            detailGoal: detailGoalToUpdate,
-                            newTitle: viewModel.userDetailGoal,
-                            newMemo: "",
-                            achieveCount: 0,
-                            achieveGoal: 0,
-                            alertMon: false,
-                            alertTue: false,
-                            alertWed: false,
-                            alertThu: false,
-                            alertFri: false,
-                            alertSat: false,
-                            alertSun: false,
-                            isRemind: false,
-                            remindTime: nil,
-                            achieveMon: false,
-                            achieveTue: false,
-                            achieveWed: false,
-                            achieveThu: false,
-                            achieveFri: false,
-                            achieveSat: false,
-                            achieveSun: false,
-                            isMorning: true,
-                            isAfternoon: false,
-                            isEvening: false,
-                            isNight: false,
-                            isFree: false
-                        )
-                        navigationManager.push(to: .onboardDays)
-                    } else {
-                        print("❌ Error: DetailGoal ID 1 not found.")
-                    }
-                } label: {
-                    Text("다음")
+            NextButton(isEnabled: !viewModel.userDetailGoal.isEmpty) {
+                if let targetSubGoal = targetSubGoal, // id = 1에 해당하는 SubGoal의
+                   let detailGoalToUpdate = targetSubGoal.detailGoals.first(where: { $0.id == 1 }) { // id = 1 DetailGoal 공간에 Update
+                    viewModel.updateDetailGoal(
+                        detailGoal: detailGoalToUpdate,
+                        newTitle: viewModel.userDetailGoal,
+                        newMemo: "",
+                        achieveCount: 0,
+                        achieveGoal: 0,
+                        alertMon: false,
+                        alertTue: false,
+                        alertWed: false,
+                        alertThu: false,
+                        alertFri: false,
+                        alertSat: false,
+                        alertSun: false,
+                        isRemind: false,
+                        remindTime: nil,
+                        achieveMon: false,
+                        achieveTue: false,
+                        achieveWed: false,
+                        achieveThu: false,
+                        achieveFri: false,
+                        achieveSat: false,
+                        achieveSun: false,
+                        isMorning: true,
+                        isAfternoon: false,
+                        isEvening: false,
+                        isNight: false,
+                        isFree: false
+                    )
+                    navigationManager.push(to: .onboardDays)
+                } else {
+                    print("❌ Error: DetailGoal ID 1 not found.")
                 }
+            } label: {
+                Text("다음")
             }
             .padding(.vertical)
         }

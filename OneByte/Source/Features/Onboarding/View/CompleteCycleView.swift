@@ -97,16 +97,12 @@ struct CompleteCycleView: View {
                 )
                 .cornerRadius(12)
             }
-            
             Spacer()
             
-            // 하단 Button
-            HStack {
-                GoButton {
-                    navigationManager.push(to: .onboardFinish)
-                } label: {
-                    Text("다음")
-                }
+            GoButton {
+                navigationManager.push(to: .onboardFinish)
+            } label: {
+                Text("다음")
             }
             .padding(.vertical)
         }

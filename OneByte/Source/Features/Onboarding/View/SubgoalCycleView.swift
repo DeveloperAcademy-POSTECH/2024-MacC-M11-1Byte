@@ -72,24 +72,20 @@ struct SubgoalCycleView: View {
             
             Spacer()
             
-            // 하단 Button
-            HStack {
-                NextButton(isEnabled: !userSubGoal.isEmpty) {
-                    if let subGoal = mainGoals.first?.subGoals.first(where: { $0.id == 1 }) {
-                        viewModel.updateSubGoal(
-                            subGoal: subGoal,
-                            newTitle: userSubGoal,
-                            category: subGoal.category
-                        )
-                        navigationManager.push(to: .onboardDetailgoal)
-                    } else {
-                        print("Error: subGoal with ID 1 not found.")
-                    }
-                } label: {
-                    Text("다음")
+            NextButton(isEnabled: !userSubGoal.isEmpty) {
+                if let subGoal = mainGoals.first?.subGoals.first(where: { $0.id == 1 }) {
+                    viewModel.updateSubGoal(
+                        subGoal: subGoal,
+                        newTitle: userSubGoal,
+                        category: subGoal.category
+                    )
+                    navigationManager.push(to: .onboardDetailgoal)
+                } else {
+                    print("Error: subGoal with ID 1 not found.")
                 }
-            }
-            .padding(.vertical)
+            } label: {
+                Text("다음")
+            }            .padding(.vertical)
         }
         .padding(.horizontal, 16)
         .background(.myFFFAF4)

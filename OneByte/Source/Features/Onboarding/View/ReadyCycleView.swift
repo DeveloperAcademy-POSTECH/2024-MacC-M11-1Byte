@@ -34,13 +34,10 @@ struct ReadyCycleView: View {
             .padding(.top, 23)
             Spacer()
             
-            // 하단 Button
-            HStack {
-                GoButton {
-                    navigationManager.push(to: .onboardSubgoal)
-                } label: {
-                    Text("시작하기")
-                }
+            GoButton {
+                navigationManager.push(to: .onboardSubgoal)
+            } label: {
+                Text("시작하기")
             }
             .padding()
         }

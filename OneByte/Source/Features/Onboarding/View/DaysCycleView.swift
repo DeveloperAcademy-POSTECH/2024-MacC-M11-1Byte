@@ -159,63 +159,60 @@ struct DaysCycleView: View {
                 .padding(.bottom, 32)
             }
             
-            // 하단 Button
-            HStack {
-                NextButton(isEnabled: achieveGoal > 0 ) {
-                    achieveGoal = [alertMon, alertTue, alertWed, alertThu, alertFri, alertSat, alertSun]
-                        .filter { $0 }
-                        .count
-                    
-                    guard let targetDetailGoal = targetDetailGoal else {
-                        print("⚠️ targetDetailGoal is nil")
-                        return
-                    }
-                    
-                    // Picker에서 선택한 시간대에 따라 업데이트
-                    let isAfternoon = selectedTime == "점심"
-                    let isEvening = selectedTime == "저녁"
-                    let isNight = selectedTime == "자기 전"
-                    let isFree = selectedTime == "자율"
-                    
-                    // isMorning 업데이트 조건 추가
-                    let isMorning: Bool
-                    if isAfternoon || isEvening || isNight || isFree {
-                        isMorning = false // 다른 시간대가 선택된 경우 false
-                    } else {
-                        isMorning = targetDetailGoal.isMorning // 아무것도 선택되지 않은 경우 기존 값 유지
-                    }
-                    viewModel.updateDetailGoal(
-                        detailGoal: targetDetailGoal,
-                        newTitle: targetDetailGoal.title,
-                        newMemo: targetDetailGoal.memo,
-                        achieveCount: targetDetailGoal.achieveCount,
-                        achieveGoal: achieveGoal,
-                        alertMon: alertMon,
-                        alertTue: alertTue,
-                        alertWed: alertWed,
-                        alertThu: alertThu,
-                        alertFri: alertFri,
-                        alertSat: alertSat,
-                        alertSun: alertSun,
-                        isRemind: targetDetailGoal.isRemind,
-                        remindTime: targetDetailGoal.remindTime,
-                        achieveMon: targetDetailGoal.achieveMon,
-                        achieveTue: targetDetailGoal.achieveTue,
-                        achieveWed: targetDetailGoal.achieveWed,
-                        achieveThu: targetDetailGoal.achieveThu,
-                        achieveFri: targetDetailGoal.achieveFri,
-                        achieveSat: targetDetailGoal.achieveSat,
-                        achieveSun: targetDetailGoal.achieveSun,
-                        isMorning: isMorning,
-                        isAfternoon: isAfternoon,
-                        isEvening: isEvening,
-                        isNight: isNight,
-                        isFree: isFree
-                    )
-                    navigationManager.push(to: .onboardComplete)
-                } label: {
-                    Text("다음")
+            NextButton(isEnabled: achieveGoal > 0 ) {
+                achieveGoal = [alertMon, alertTue, alertWed, alertThu, alertFri, alertSat, alertSun]
+                    .filter { $0 }
+                    .count
+                
+                guard let targetDetailGoal = targetDetailGoal else {
+                    print("⚠️ targetDetailGoal is nil")
+                    return
                 }
+                
+                // Picker에서 선택한 시간대에 따라 업데이트
+                let isAfternoon = selectedTime == "점심"
+                let isEvening = selectedTime == "저녁"
+                let isNight = selectedTime == "자기 전"
+                let isFree = selectedTime == "자율"
+                
+                // isMorning 업데이트 조건 추가
+                let isMorning: Bool
+                if isAfternoon || isEvening || isNight || isFree {
+                    isMorning = false // 다른 시간대가 선택된 경우 false
+                } else {
+                    isMorning = targetDetailGoal.isMorning // 아무것도 선택되지 않은 경우 기존 값 유지
+                }
+                viewModel.updateDetailGoal(
+                    detailGoal: targetDetailGoal,
+                    newTitle: targetDetailGoal.title,
+                    newMemo: targetDetailGoal.memo,
+                    achieveCount: targetDetailGoal.achieveCount,
+                    achieveGoal: achieveGoal,
+                    alertMon: alertMon,
+                    alertTue: alertTue,
+                    alertWed: alertWed,
+                    alertThu: alertThu,
+                    alertFri: alertFri,
+                    alertSat: alertSat,
+                    alertSun: alertSun,
+                    isRemind: targetDetailGoal.isRemind,
+                    remindTime: targetDetailGoal.remindTime,
+                    achieveMon: targetDetailGoal.achieveMon,
+                    achieveTue: targetDetailGoal.achieveTue,
+                    achieveWed: targetDetailGoal.achieveWed,
+                    achieveThu: targetDetailGoal.achieveThu,
+                    achieveFri: targetDetailGoal.achieveFri,
+                    achieveSat: targetDetailGoal.achieveSat,
+                    achieveSun: targetDetailGoal.achieveSun,
+                    isMorning: isMorning,
+                    isAfternoon: isAfternoon,
+                    isEvening: isEvening,
+                    isNight: isNight,
+                    isFree: isFree
+                )
+                navigationManager.push(to: .onboardComplete)
+            } label: {
+                Text("다음")
             }
             .padding(.vertical)
         }
