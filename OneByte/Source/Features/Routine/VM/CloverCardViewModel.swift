@@ -11,6 +11,11 @@ import SwiftData
 @Observable
 class CloverCardViewModel {
     
+    var lastWeekCloverState: Int? // 지난주의 cloverState 값
+    
+    var isCheckAchievement = false // 완수율 확인하기
+    var rotationAngle: Double = 0 // 회전 각도
+    var isTapped: Bool = false  // 애니메이션 자동회전/탭회전 구분
     
     // 이전주차 cloverState값에 따라서 클로버 타입 반환
     func getCloverCardType(for cloverState: Int?) -> CloverCardType {
@@ -68,5 +73,53 @@ class CloverCardViewModel {
             }
         }
         return 0
+    }
+    
+    // 클로버 자동 회전
+    func startRotationAnimation() {
+        guard !isTapped else { return } // 탭 회전 중이면 무시
+        withAnimation(
+            Animation.linear(duration: 2.5) // 애니메이션 지속 시간
+                .repeatForever(autoreverses: false) // 무한 반복
+        ) {
+            rotationAngle += 360 // Y축 기준으로 한 바퀴 회전
+        }
+    }
+    
+    // 클로버 탭 회전
+    func tapRotationAnimation() {
+        guard !isTapped else { return } // 이미 빠른 회전 중이면 무시
+        isTapped = true
+        
+        // 탭 회전 시작
+        withAnimation(
+            Animation.linear(duration: 1.0)
+        ) {
+            rotationAngle += 90
+        }
+        
+        withAnimation(
+            Animation.linear(duration: 1.4)
+        ) {
+            rotationAngle += 90
+        }
+        
+        withAnimation(
+            Animation.linear(duration: 1.8)
+        ) {
+            rotationAngle += 90
+        }
+        
+        withAnimation(
+            Animation.linear(duration: 2.2)
+        ) {
+            rotationAngle += 90
+        }
+        
+        // 자동 회전으로 복귀
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.isTapped = false
+            self.startRotationAnimation()
+        }
     }
 }
