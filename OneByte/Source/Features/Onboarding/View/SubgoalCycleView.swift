@@ -23,8 +23,8 @@ struct SubgoalCycleView: View {
                     navigationManager.pop()
                 } label: {
                     Image(systemName: "chevron.left")
+                        .frame(width: 24, height: 24)
                         .tint(.black)
-                        .bold()
                 }
                 OnboardingProgressBar(value: 1/5)
                     .frame(height: 10)
@@ -39,18 +39,20 @@ struct SubgoalCycleView: View {
                     .font(.Pretendard.Bold.size26)
                     .multilineTextAlignment(.center)
                     .lineSpacing(3.6)
+                    .kerning(0.4)
                 Text(nowOnboard.onboardingSubTitle)
                     .font(.Pretendard.Regular.size16)
                     .foregroundStyle(.my5A5A5A)
                     .multilineTextAlignment(.center)
                     .lineSpacing(2.4)
+                    .kerning(0.4)
             }
             .padding(.top, 31)
             
             // SubGoal 입력 창
             ZStack {
                 RoundedRectangle(cornerRadius: 24)
-                    .fill(.my95D895)
+                    .fill(.my6FB56F)
                     .onTapGesture {
                         isFocused = true // Cell 전체영역 터치 시 TextField에 포커스
                     }
@@ -84,7 +86,7 @@ struct SubgoalCycleView: View {
                 .padding()
             }
             .frame(width: 199, height: 199)
-            .padding(.top, 81)
+            .padding(.top, 83)
             
             Spacer()
             
