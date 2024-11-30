@@ -29,6 +29,30 @@ class DeleteService: DeleteGoalUseCase {
         subGoal.title = ""
         subGoal.category = ""
     }
+    func deleteSubDetailGoals(subGoal: SubGoal) {
+        subGoal.title = ""
+        subGoal.category = ""
+        
+        for detailGoal in subGoal.detailGoals {
+            detailGoal.title = ""
+            detailGoal.memo = ""
+            detailGoal.achieveCount = 0
+            detailGoal.achieveGoal = 0
+            detailGoal.alertMon = false
+            detailGoal.alertTue = false
+            detailGoal.alertWed  = false
+            detailGoal.alertThu = false
+            detailGoal.alertFri = false
+            detailGoal.alertSat = false
+            detailGoal.alertSun = false
+            detailGoal.isMorning = true
+            detailGoal.isAfternoon = false
+            detailGoal.isEvening = false
+            detailGoal.isNight = false
+            detailGoal.isFree = false
+        }
+        
+    }
     
     func deleteDetailGoal(detailGoal: DetailGoal) {
         detailGoal.title = ""

@@ -627,9 +627,9 @@ extension DetailGoalView {
                 // 버튼 누르면 SubGoalDetailGridView로 pop되게 하기
                 dismiss()
             }
-            Button("계속하기", role: .cancel) {}
+            Button("취소", role: .cancel) {}
         } message: {
-            Text("삭제한 루틴은 복구할 수 없어요.")
+            Text("삭제한 루틴은 다시 되돌릴 수 없어요.")
         }
     }
 }

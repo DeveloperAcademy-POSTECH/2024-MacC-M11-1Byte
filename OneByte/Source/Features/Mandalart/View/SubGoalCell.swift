@@ -33,6 +33,7 @@ struct SubGoalCell: View {
                                 .background(Color.my95D895)
                                 .font(.Pretendard.Bold.size14)
                                 .cornerRadius(11)
+                                .foregroundStyle(.white)
                         } else {
                             let detailGoalIndex = index < (4 - selectedSubGoal.id) ? index : index - 1
                             if detailGoalIndex < detailGoalsSorted.count {

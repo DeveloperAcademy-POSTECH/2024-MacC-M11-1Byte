@@ -86,6 +86,10 @@ class MandalartViewModel: ObservableObject {
         deleteService.deleteSubGoal(subGoal: subGoal, newTitle: newTitle, category: category)
     }
     
+    func deleteSubDetailGoals(subGoal: SubGoal) {
+        deleteService.deleteSubDetailGoals(subGoal: subGoal)
+    }
+    
     func deleteDetailGoal(detailGoal: DetailGoal) {
         deleteService.deleteDetailGoal(
             detailGoal: detailGoal

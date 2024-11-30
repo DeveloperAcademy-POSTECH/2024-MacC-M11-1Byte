@@ -18,6 +18,8 @@ struct SubGoalView: View {
     @State private var newTitle: String = ""
     @State private var showAlert: Bool = false
     @State private var isModified: Bool = false
+    @State private var showBackAlert: Bool = false
+    
     private let titleLimit = 20
     private let categoryLimit = 6
     private let categories = ["건강", "학업", "여행", "저축", "자기계발", "취미 생활", "가족", "새로운 도전"]
@@ -73,7 +75,19 @@ struct SubGoalView: View {
         }
         .navigationBarBackButtonHidden()
         .backButtonToolbar {
-            subNavigation = false
+            if isModified {
+                showBackAlert = true
+            } else {
+                subNavigation = false
+            }
+        }
+        .alert("목표 작성을 중단하시겠습니까?", isPresented: $showBackAlert) {
+            Button("나가기", role: .destructive) {
+                subNavigation = false
+            }
+            Button("계속하기", role: .cancel) {}
+        } message: {
+            Text("이 페이지에서 나가면 작성된 목표가 저장되지 않아요.")
         }
         .navigationTitle("목표 추가하기")
         .navigationBarTitleDisplayMode(.inline)
@@ -295,13 +309,13 @@ extension SubGoalView {
         .alert("목표를 삭제하시겠습니까?", isPresented: $showAlert) {
             Button("삭제하기", role: .destructive) {
                 if let subGoal = subGoal {
-                    viewModel.deleteSubGoal(subGoal: subGoal, id: subGoal.id, newTitle: subGoal.title, category: subGoal.category)
+                    viewModel.deleteSubDetailGoals(subGoal: subGoal)
                 }
                 subNavigation = false
             }
             Button("취소", role: .cancel) {}
         } message: {
-            Text("목표를 삭제하면 목표에 해당하는 루틴들도 일괄 삭제됩니다.")
+            Text("목표를 삭제하면 목표에 해당하는 루틴들도 일괄 삭제돼요.")
         }
     }
     

@@ -14,6 +14,9 @@ struct SubGoalDetailGridView: View {
     @State var subNavigation: Bool = false
     @State private var selectedDetailGoal: DetailGoal?
     @State var subSheetIsPresented: Bool = false
+    @State private var isModified: Bool = false
+    @State private var showAlertDetail: Bool = false
+    @State private var showAlertSub: Bool = false
     @Binding var subGoal: SubGoal?
     @Binding var tabBarVisible: Bool
     @Binding var isTabBarMainVisible: Bool
@@ -53,30 +56,53 @@ struct SubGoalDetailGridView: View {
                                         .cornerRadius(18)
                                         .cornerRadius(cornerRadius, corners: cornerStyle, defaultRadius: 18)
                                 } else {
-                                    Button(action: {
-                                        let detailGoal = sortedDetailGoals[detailGoalIndex]
-                                        selectedDetailGoal = detailGoal
-                                        detailNavigation = true
-                                    }) {
-                                        Text(detailGoal.title == "" ?  "눌러서 루틴 추가하기" : detailGoal.title)
-                                            .font(detailGoal.title == "" ? .Pretendard.Medium.size14 : .Pretendard.Medium.size16)
-                                            .padding(.all, 14)
-                                            .padding(.top, detailGoalIndex == 0 || detailGoalIndex == 1 ? 4 : 0)
-                                            .padding(.leading, detailGoalIndex == 0 || detailGoalIndex == 3 ? 4 : 0)
-                                            .padding(.trailing, detailGoalIndex == 1 || detailGoalIndex == 3 ? 4 : 0)
-                                            .padding(.bottom, detailGoalIndex == 2 || detailGoalIndex == 3 ? 4 : 0)
-                                            .frame(width: 123/393 * UIScreen.main.bounds.width, height: 123/852 * UIScreen.main.bounds.height)
-                                            .foregroundStyle(detailGoal.title == "" ? Color.black.opacity(0.3) : .black)
-                                            .cornerRadius(8)
-                                            .background(Color.myBFEBBB)
-                                    }
-                                    .cornerRadius(18)
-                                    .cornerRadius(cornerRadius, corners: cornerStyle, defaultRadius: 18)
-                                    .contextMenu {
-                                        Button(role: .destructive) {
-                                            viewModel.deleteDetailGoal(detailGoal: detailGoal)
-                                        } label: {
-                                            Label("Delete", systemImage: "trash")
+                                    ZStack(alignment: .topLeading) {
+                                        Button(action: {
+                                            let detailGoal = sortedDetailGoals[detailGoalIndex]
+                                            selectedDetailGoal = detailGoal
+                                            detailNavigation = true
+                                        }) {
+                                            Text(detailGoal.title == "" ?  "눌러서 루틴 추가하기" : detailGoal.title)
+                                                .font(detailGoal.title == "" ? .Pretendard.Medium.size14 : .Pretendard.Medium.size16)
+                                                .padding(.all, 14)
+                                                .padding(.top, detailGoalIndex == 0 || detailGoalIndex == 1 ? 4 : 0)
+                                                .padding(.leading, detailGoalIndex == 0 || detailGoalIndex == 3 ? 4 : 0)
+                                                .padding(.trailing, detailGoalIndex == 1 || detailGoalIndex == 3 ? 4 : 0)
+                                                .padding(.bottom, detailGoalIndex == 2 || detailGoalIndex == 3 ? 4 : 0)
+                                                .frame(width: 123/393 * UIScreen.main.bounds.width, height: 123/852 * UIScreen.main.bounds.height)
+                                                .foregroundStyle(detailGoal.title == "" ? Color.black.opacity(0.3) : .black)
+                                                .cornerRadius(8)
+                                                .background(Color.myBFEBBB)
+                                        }
+                                        .disabled(isModified)
+                                        .cornerRadius(18)
+                                        .cornerRadius(cornerRadius, corners: cornerStyle, defaultRadius: 18)
+                                        .contextMenu {
+                                            Button(role: .destructive) {
+                                                viewModel.deleteDetailGoal(detailGoal: detailGoal)
+                                            } label: {
+                                                Label("삭제하기", systemImage: "trash")
+                                            }
+                                            
+                                        }
+                                        // 편집 버튼
+                                        if isModified && detailGoal.title != ""{
+                                            Button(action: {
+                                                showAlertDetail = true
+                                            }, label: {
+                                                Image(systemName: "minus.circle.fill")
+                                                    .frame(width: 24, height: 22, alignment: .topLeading)
+                                            })
+                                            .padding(.all, 5)
+                                            .foregroundStyle(.red)
+                                            .alert("루틴을 삭제하시겠습니까?", isPresented: $showAlertDetail) {
+                                                Button("삭제하기", role: .destructive) {
+                                                    viewModel.deleteDetailGoal(detailGoal: detailGoal)
+                                                }
+                                                Button("취소", role: .cancel) {}
+                                            } message: {
+                                                Text("삭제한 루틴은 다시 되돌릴 수 없어요.")
+                                            }
                                         }
                                     }
                                 }
@@ -86,7 +112,7 @@ struct SubGoalDetailGridView: View {
                 }
                 .navigationDestination(isPresented: $detailNavigation) {
                     let detailGoal = selectedDetailGoal
-                        DetailGoalView(detailGoal: .constant(detailGoal), tabBarVisible: $tabBarVisible)
+                    DetailGoalView(detailGoal: .constant(detailGoal), tabBarVisible: $tabBarVisible)
                 }
                 .navigationDestination(isPresented: $subNavigation) {
                     let subGoal = selectedSubGoal
@@ -100,6 +126,17 @@ struct SubGoalDetailGridView: View {
                 ProgressView("loading..")
             }
         } // VStack 끝
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing, content: {
+                Button(action: {
+                    isModified.toggle()
+                }, label: {
+                    Text(isModified ? "완료": "편집")
+                        .foregroundStyle(.my538F53)
+                        .font(.Pretendard.SemiBold.size17)
+                })
+            })
+        }
         .padding(.horizontal)
         .navigationBarBackButtonHidden()
         .backButtonToolbar {
@@ -117,31 +154,55 @@ struct SubGoalDetailGridView: View {
 }
 
 extension SubGoalDetailGridView {
+    // MARK: 섭골 부분
     @ViewBuilder
     func subGoalContent() -> some View {
         if let selectedSubGoal = subGoal {
-            // 네 번째 셀에 서브골 제목 표시
-            Button(action: {
-                subNavigation = true
-            }, label: {
-                Text(selectedSubGoal.title == "" ? "눌러서 목표 추가하기" : selectedSubGoal.title)
-                    .padding()
-                    .font(selectedSubGoal.title == "" ? .Pretendard.Medium.size17: .Pretendard.Bold.size17)
-                    .frame(width: 123/393 * UIScreen.main.bounds.width, height: 123/852 * UIScreen.main.bounds.height)
-                    .foregroundStyle(selectedSubGoal.title == "" ? .white.opacity(0.7) : .white)
-                    .cornerRadius(8)
-                    .background(Color.my95D895)
-            })
-            .cornerRadius(18)
-            .contextMenu {
-                Button(role: .destructive){
-                    viewModel.deleteSubGoal(subGoal: selectedSubGoal, id: selectedSubGoal.id, newTitle: "", category: "")
-                } label: {
-                    Label("Delete", systemImage: "trash")
+            ZStack(alignment: .topLeading) {
+                // 네 번째 셀에 서브골 제목 표시
+                Button(action: {
+                    subNavigation = true
+                }, label: {
+                    Text(selectedSubGoal.title == "" ? "눌러서 목표 추가하기" : selectedSubGoal.title)
+                        .padding()
+                        .font(selectedSubGoal.title == "" ? .Pretendard.Medium.size17: .Pretendard.Bold.size17)
+                        .frame(width: 123/393 * UIScreen.main.bounds.width, height: 123/852 * UIScreen.main.bounds.height)
+                        .foregroundStyle(selectedSubGoal.title == "" ? .white.opacity(0.7) : .white)
+                        .cornerRadius(8)
+                        .background(Color.my95D895)
+                })
+                .disabled(isModified)
+                .cornerRadius(18)
+                .contextMenu {
+                    Button(role: .destructive){
+                        viewModel.deleteSubDetailGoals(subGoal: selectedSubGoal)
+                    } label: {
+                        Label("삭제하기", systemImage: "trash")
+                    }
+                }
+                // 편집 버튼
+                if isModified && selectedSubGoal.title != ""{
+                    Button(action: {
+                        showAlertSub = true
+                    }, label: {
+                        Image(systemName: "minus.circle.fill")
+                            .frame(width: 24, height: 22, alignment: .topLeading)
+                    })
+                    .padding(.all, 5)
+                    .foregroundStyle(.red)
+                    .alert("목표를 삭제하시겠습니까?", isPresented: $showAlertSub) {
+                        Button("삭제하기", role: .destructive) {
+                            viewModel.deleteSubDetailGoals(subGoal: selectedSubGoal)
+                        }
+                        Button("취소", role: .cancel) {}
+                    } message: {
+                        Text("목표를 삭제하면 목표에 해당하는 루틴들도 일괄 삭제돼요.")
+                    }
                 }
             }
         }
     }
+    // MARK: 메모 리스트
     @ViewBuilder
     func memoes() -> some View {
         // 메모 모아보기 리스트
