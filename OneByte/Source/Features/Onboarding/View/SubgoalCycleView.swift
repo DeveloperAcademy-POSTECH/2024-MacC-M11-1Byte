@@ -5,14 +5,10 @@ struct SubgoalCycleView: View {
     
     @Environment(NavigationManager.self) var navigationManager
     @Environment(\.modelContext) private var modelContext
-    
     @Query private var mainGoals: [MainGoal]
     @State var viewModel = RoutineCycleViewModel(updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     
-    @State private var userSubGoal: String = "" // 사용자 SubGoal 입력 텍스트
     @FocusState private var isFocused: Bool // TextField 포커스 상태 관리
-    private let subGoalLimit = 15 // 글자 수 제한
-    
     var nowOnboard: Onboarding = .subgoalCycle
     
     var body: some View {
@@ -20,7 +16,6 @@ struct SubgoalCycleView: View {
             OnboardingHeaderView(progressValue: 1/5) {
                 navigationManager.pop()
             }
-            
             // 상단 텍스트
             VStack(spacing: 12) {
                 Text(nowOnboard.onboardingTitle)
@@ -30,7 +25,7 @@ struct SubgoalCycleView: View {
             }
             .padding(.top, 31)
             
-            // SubGoal 입력 창
+            // SubGoal 입력 뷰
             ZStack {
                 RoundedRectangle(cornerRadius: 24)
                     .fill(.my6FB56F)
@@ -38,19 +33,19 @@ struct SubgoalCycleView: View {
                         isFocused = true // Cell 전체영역 터치 시 TextField에 포커스
                     }
                 
-                TextField("이루고 싶은 목표", text: $userSubGoal, axis: .vertical)
+                TextField("이루고 싶은 목표", text: $viewModel.userNewSubGoal, axis: .vertical)
                     .font(.Pretendard.Medium.size20)
                     .foregroundStyle(.white)
                     .multilineTextAlignment(.center)
                     .focused($isFocused)
                     .submitLabel(.done)
                     .padding(10)
-                    .onChange(of: userSubGoal) { oldValue, newValue in
-                        if newValue.count > subGoalLimit {
-                            userSubGoal = String(newValue.prefix(subGoalLimit))
+                    .onChange(of: viewModel.userNewSubGoal) { oldValue, newValue in
+                        if newValue.count > viewModel.subGoalLimit {
+                            viewModel.userNewSubGoal = String(newValue.prefix(viewModel.subGoalLimit))
                         }
                         if let lastChar = newValue.last, lastChar == "\n" {
-                            userSubGoal = String(newValue.dropLast())
+                            viewModel.userNewSubGoal = String(newValue.dropLast())
                             isFocused = false
                         }
                     }
@@ -59,9 +54,9 @@ struct SubgoalCycleView: View {
                     Spacer()
                     HStack(spacing: 0) {
                         Spacer()
-                        Text("\(userSubGoal.count)")
+                        Text("\(viewModel.userNewSubGoal.count)")
                             .foregroundStyle(.my6C6C6C)
-                        Text("/15")
+                        Text("/\(viewModel.subGoalLimit)")
                             .foregroundStyle(.my6C6C6C.opacity(0.5))
                     }
                 }
@@ -72,20 +67,19 @@ struct SubgoalCycleView: View {
             
             Spacer()
             
-            NextButton(isEnabled: !userSubGoal.isEmpty) {
+            NextButton(isEnabled: !viewModel.userNewSubGoal.isEmpty) {
                 if let subGoal = mainGoals.first?.subGoals.first(where: { $0.id == 1 }) {
                     viewModel.updateSubGoal(
                         subGoal: subGoal,
-                        newTitle: userSubGoal,
+                        newTitle: viewModel.userNewSubGoal,
                         category: subGoal.category
                     )
                     navigationManager.push(to: .onboardDetailgoal)
-                } else {
-                    print("Error: subGoal with ID 1 not found.")
                 }
             } label: {
                 Text("다음")
-            }            .padding(.vertical)
+            }
+            .padding(.vertical)
         }
         .padding(.horizontal, 16)
         .background(.myFFFAF4)
