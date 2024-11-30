@@ -21,13 +21,15 @@ struct OnboardingExplainPageView: View {
                     .font(.Pretendard.Bold.size26)
                     .multilineTextAlignment(.center)
                     .lineSpacing(3.6)
+                    .kerning(0.4)
                 Text(nowOnboard.onboardingSubTitle)
                     .font(.Pretendard.Regular.size16)
                     .foregroundStyle(.my5A5A5A)
                     .multilineTextAlignment(.center)
                     .lineSpacing(2.4)
+                    .kerning(0.4)
             }
-            .padding(.top, 80)
+            .padding(.top, 40)
             
             Spacer()
             // 하단 온보딩 설명 이미지

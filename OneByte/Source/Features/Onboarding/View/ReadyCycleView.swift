@@ -21,11 +21,13 @@ struct ReadyCycleView: View {
                     .font(.Pretendard.Bold.size26)
                     .multilineTextAlignment(.center)
                     .lineSpacing(3.6)
+                    .kerning(0.4)
                 Text(nowOnboard.onboardingSubTitle)
                     .font(.Pretendard.Regular.size16)
                     .foregroundStyle(.my5A5A5A)
                     .multilineTextAlignment(.center)
                     .lineSpacing(2.4)
+                    .kerning(0.4)
             }
             .padding(.top, 40)
             
@@ -37,7 +39,6 @@ struct ReadyCycleView: View {
                     .frame(width: 353, height: 399)
             }
             .padding(.top, 23)
-            
             Spacer()
             
             // 하단 Button
