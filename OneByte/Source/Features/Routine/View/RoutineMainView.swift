@@ -84,6 +84,7 @@ struct RoutineMainView: View {
     // MARK: 동기부여 메시지 뷰
     private func motivationMessageView() -> some View {
         HStack(spacing: 0) {
+            Spacer()
             TurtleMessageView(message: viewModel.currentMessage)
                 .padding(.bottom, 30)
             
