@@ -21,6 +21,6 @@ protocol UpdateGoalUseCase {
 protocol DeleteGoalUseCase {
     func deleteMainGoal(mainGoal: MainGoal, modelContext: ModelContext, id: Int, newTitle: String, cloverState: Int)
     func deleteSubGoal(subGoal: SubGoal, newTitle: String, category: String)
-    func deleteDetailGoal(detailGoal: DetailGoal, title: String, memo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool, isMorning: Bool, isAfternoon: Bool, isEvening: Bool, isNight: Bool, isFree: Bool)
+    func deleteDetailGoal(detailGoal: DetailGoal)
     func resetAllData(modelContext: ModelContext, mainGoal: MainGoal)
 }

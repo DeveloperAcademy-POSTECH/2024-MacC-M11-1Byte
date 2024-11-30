@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// MARK: 본체
 struct DetailGoalView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var context
@@ -184,10 +185,10 @@ struct DetailGoalView: View {
                     
                 }, label: {
                     Text("저장")
-                        .foregroundStyle((isModified) ? .my538F53 : .myA9C5A3)
-                        .fontWeight(isModified ? .bold : .regular)
+                        .foregroundStyle((newTitle == "" || isModified == false) ? .myA9C5A3 : .my538F53)
+                        .fontWeight((newTitle == "" || isModified == false) ? .regular : .bold)
                 })
-                .disabled(newTitle == "" && isModified == true)
+                .disabled(newTitle == "" || isModified == false)
             })
         }
         .padding(.horizontal, 16)
@@ -251,6 +252,7 @@ struct DetailGoalView: View {
 }
 
 extension DetailGoalView {
+    // MARK: 루틴 이름 입력
     @ViewBuilder
     func detailGaolTitle() -> some View {
         Text("루틴 이름")
@@ -270,8 +272,7 @@ extension DetailGoalView {
                         .stroke(Color.myF0E8DF, lineWidth: 1)
                 )
                 .onChange(of: newTitle) { oldValue, newValue in
-                    print(newValue)
-                    viewModel.text = newValue
+                    viewModel.detailGoalTitleText = newValue
                     
                     if newValue != detailGoal?.title {
                         isModified = true
@@ -380,6 +381,7 @@ extension DetailGoalView {
         .opacity(isQuestionMarkClicked ? 1.0 : 0.0)
     }
     
+    // MARK: 메모 입력
     @ViewBuilder
     func DetailGoalMemo() -> some  View {
         Text("메모")
@@ -430,6 +432,7 @@ extension DetailGoalView {
         .padding(.top, 10)
     }
     
+    // MARK: 요일 선택
     @ViewBuilder
     func selectDays() -> some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -471,6 +474,7 @@ extension DetailGoalView {
         .padding(.top, -18)
     }
     
+    // MARK: 시간대 선택
     @ViewBuilder
     func selectTime() -> some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -519,6 +523,8 @@ extension DetailGoalView {
         )
         .padding(.top, -18)
     }
+    
+    // MARK: 리마인드 선택
     @ViewBuilder
     func remind() -> some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -594,6 +600,7 @@ extension DetailGoalView {
         .padding(.top, -18)
     }
     
+    // MARK: 삭제 버튼
     @ViewBuilder
     func deleteButton() -> some View {
         Button(action: {
@@ -615,9 +622,7 @@ extension DetailGoalView {
         .alert("루틴을 삭제하시겠습니까?", isPresented: $showAlert) {
             Button("삭제하기", role: .destructive) {
                 if let detailGoal = detailGoal {
-                    viewModel.deleteDetailGoal(
-                        detailGoal: detailGoal, newTitle: "", newMemo: "", achieveCount: 0, achieveGoal: 0, alertMon: false, alertTue: false, alertWed: false, alertThu: false, alertFri: false, alertSat: false, alertSun: false, isRemind: false, remindTime: nil, achieveMon: false, achieveTue: false, achieveWed: false, achieveThu: false, achieveFri: false, achieveSat: false, achieveSun: false, isMorning: true, isAfternoon: false, isEvening: false, isNight: false, isFree: isFree
-                    )
+                    viewModel.deleteDetailGoal(detailGoal: detailGoal)
                 }
                 // 버튼 누르면 SubGoalDetailGridView로 pop되게 하기
                 dismiss()

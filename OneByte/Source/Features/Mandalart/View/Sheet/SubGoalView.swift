@@ -17,7 +17,9 @@ struct SubGoalView: View {
     @State private var customCategory: String = ""
     @State private var newTitle: String = ""
     @State private var showAlert: Bool = false
+    @State private var isModified: Bool = false
     private let titleLimit = 20
+    private let categoryLimit = 6
     private let categories = ["건강", "학업", "여행", "저축", "자기계발", "취미 생활", "가족", "새로운 도전"]
     private let customCategoryLimit = 6
     
@@ -39,28 +41,35 @@ struct SubGoalView: View {
             WritingObject()
             
             Spacer()
-            Button(action: {
-                if let subGoal = subGoal {
-                    viewModel.updateSubGoal(
-                        subGoal: subGoal,
-                        newTitle: newTitle,
-                        category: selectedCategory
-                    )
-                    subNavigation = false
+            
+            if let subGoal = subGoal {
+                if subGoal.title != "" {
+                    // 삭제 버튼
+                    deleteButton()
+                        .padding(.bottom)
                 }
-            }) {
-                Text("저장")
-                    .frame(maxWidth: .infinity)
-                    .font(.Pretendard.Medium.size16)
-                    .padding()
-                    .background(newTitle == "" ? Color.my538F53.opacity(0.7) : Color.my538F53)
-                    .foregroundStyle(newTitle == "" ? .white.opacity(0.7) : .white)
-                    .cornerRadius(12)
             }
-            .disabled(newTitle == "")
-            // 삭제 버튼
-            deleteButton()
-                .padding(.bottom)
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing, content: {
+                Button(action: {
+                    isModified = false
+                    subNavigation = false
+                    if let subGoal = subGoal {
+                        viewModel.updateSubGoal(
+                            subGoal: subGoal,
+                            newTitle: newTitle,
+                            category: selectedCategory
+                        )
+                    }
+                }, label: {
+                    Text("저장")
+                        .foregroundStyle((newTitle == "" || isModified == false || selectedCategory == "") ? .myA9C5A3 : .my538F53)
+                        .fontWeight((newTitle == "" || isModified == false || selectedCategory == "") ? .regular : .bold)
+                })
+                .disabled(newTitle == "" || isModified == false || selectedCategory == "")
+                // 수정되거나 title, category값을 모두 설정해야만 활성화 된다. category 값이 비어있으면 안됨.
+            })
         }
         .navigationBarBackButtonHidden()
         .backButtonToolbar {
@@ -127,11 +136,19 @@ extension SubGoalView {
         }
     }
     
+    // MARK: 카테고리 선택 버튼
     @ViewBuilder
     func categoryButton(category: String) -> some View {
         Button(action: {
             selectedCategory = category
             isCustomCategoryActive = false
+            if let subGoal = subGoal {
+                if subGoal.category != selectedCategory {
+                    isModified = true
+                } else {
+                    isModified = false
+                }
+            }
         }) {
             Text(category)
                 .font(selectedCategory == category ? .Pretendard.SemiBold.size16 : .Pretendard.Medium.size16)
@@ -147,6 +164,7 @@ extension SubGoalView {
         }
     }
     
+    // MARK: 커스텀 카테고리 텍스트 필드
     @ViewBuilder
     func customCategoryView() -> some View {
         ZStack {
@@ -160,11 +178,11 @@ extension SubGoalView {
                         .stroke(Color.myF0E8DF, lineWidth: 1)
                 )
                 .onChange(of: customCategory) { oldValue, newValue in
-                    //                        if newValue != detailGoal?.title {
-                    //                                isModified = true
-                    //                            }
-                    if newValue.count > titleLimit {
-                        customCategory = String(newValue.prefix(titleLimit))
+                    if newValue != subGoal?.category {
+                        isModified = true
+                    }
+                    if newValue.count > categoryLimit {
+                        customCategory = String(newValue.prefix(categoryLimit))
                     }
                 }
             
@@ -184,8 +202,21 @@ extension SubGoalView {
             }
         }
         .padding(.top, 6)
+        
+        HStack(spacing: 0) {
+            Spacer()
+            Text("\(customCategory.count)")
+                .font(.Pretendard.Medium.size12)
+                .foregroundStyle(Color.my6C6C6C)
+            Text("/\(categoryLimit)")
+                .font(.Pretendard.Medium.size12)
+                .foregroundStyle(Color.my6C6C6C.opacity(0.5))
+        }
+        .padding(.trailing, 10)
+        .padding(.top, -2)
     }
     
+    // MARK: 작은 목표 이름 텍스트 필드
     @ViewBuilder
     func WritingObject() -> some View {
         Text("작은 목표 이름")
@@ -206,14 +237,13 @@ extension SubGoalView {
                         .stroke(Color.myF0E8DF, lineWidth: 1)
                 )
                 .onChange(of: newTitle) { oldValue, newValue in
-                    //                        if newValue != detailGoal?.title {
-                    //                                isModified = true
-                    //                            }
-                    if newValue.count > titleLimit {
-                        newTitle = String(newValue.prefix(titleLimit))
+                    if newValue != subGoal?.title {
+                        isModified = true
+                        if newValue.count > titleLimit {
+                            newTitle = String(newValue.prefix(titleLimit))
+                        }
                     }
                 }
-            
             HStack {
                 Spacer()
                 if newTitle != "" {
@@ -229,8 +259,21 @@ extension SubGoalView {
                 }
             }
         }
+        // 글자수 부분
+        HStack(spacing: 0) {
+            Spacer()
+            Text("\(newTitle.count)")
+                .font(.Pretendard.Medium.size12)
+                .foregroundStyle(Color.my6C6C6C)
+            Text("/\(titleLimit)")
+                .font(.Pretendard.Medium.size12)
+                .foregroundStyle(Color.my6C6C6C.opacity(0.5))
+        }
+        .padding(.trailing, 10)
+        .padding(.top, -2)
     }
     
+    // MARK:  삭제 버튼
     @ViewBuilder
     func deleteButton() -> some View {
         Button(action: {
@@ -249,16 +292,16 @@ extension SubGoalView {
             .background(Color.myF0E8DF)
             .cornerRadius(12)
         })
-        .alert("루틴을 삭제하시겠습니까?", isPresented: $showAlert) {
+        .alert("목표를 삭제하시겠습니까?", isPresented: $showAlert) {
             Button("삭제하기", role: .destructive) {
-                //                if let detailGoal = detailGoal {
-                //
-                //                }
-                //                dismiss()
+                if let subGoal = subGoal {
+                    viewModel.deleteSubGoal(subGoal: subGoal, id: subGoal.id, newTitle: subGoal.title, category: subGoal.category)
+                }
+                subNavigation = false
             }
-            Button("계속하기", role: .cancel) {}
+            Button("취소", role: .cancel) {}
         } message: {
-            Text("삭제한 루틴은 복구할 수 없어요.")
+            Text("목표를 삭제하면 목표에 해당하는 루틴들도 일괄 삭제됩니다.")
         }
     }
     

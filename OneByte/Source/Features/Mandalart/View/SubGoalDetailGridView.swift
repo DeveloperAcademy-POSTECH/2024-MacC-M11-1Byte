@@ -74,9 +74,7 @@ struct SubGoalDetailGridView: View {
                                     .cornerRadius(cornerRadius, corners: cornerStyle, defaultRadius: 18)
                                     .contextMenu {
                                         Button(role: .destructive) {
-                                            viewModel.deleteDetailGoal(
-                                                detailGoal: detailGoal, newTitle: "", newMemo: "", achieveCount: 0, achieveGoal: 0, alertMon: false, alertTue: false, alertWed: false, alertThu: false, alertFri: false, alertSat: false, alertSun: false, isRemind: false, remindTime: nil, achieveMon: false, achieveTue: false, achieveWed: false, achieveThu: false, achieveFri: false, achieveSat: false, achieveSun: false, isMorning: true, isAfternoon: false, isEvening: false, isNight: false, isFree: false
-                                            )
+                                            viewModel.deleteDetailGoal(detailGoal: detailGoal)
                                         } label: {
                                             Label("Delete", systemImage: "trash")
                                         }

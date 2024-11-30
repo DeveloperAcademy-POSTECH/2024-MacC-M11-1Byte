@@ -16,7 +16,7 @@ import Combine
 class MandalartViewModel: ObservableObject {
     @Published var mainGoal: MainGoal?
     
-    @Published var text: String = ""
+    @Published var detailGoalTitleText: String = ""
     private var cancellables = Set<AnyCancellable>()
     
     private let mlModel: SpecificTagger3942
@@ -86,33 +86,9 @@ class MandalartViewModel: ObservableObject {
         deleteService.deleteSubGoal(subGoal: subGoal, newTitle: newTitle, category: category)
     }
     
-    func deleteDetailGoal(detailGoal: DetailGoal,newTitle: String, newMemo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool, isMorning: Bool, isAfternoon: Bool, isEvening: Bool, isNight: Bool, isFree: Bool) {
+    func deleteDetailGoal(detailGoal: DetailGoal) {
         deleteService.deleteDetailGoal(
-            detailGoal: detailGoal,
-            title: newTitle, memo: newMemo,
-            achieveCount: achieveCount,
-            achieveGoal: achieveGoal,
-            alertMon: alertMon,
-            alertTue: alertTue,
-            alertWed: alertWed,
-            alertThu: alertThu,
-            alertFri: alertFri,
-            alertSat: alertSat,
-            alertSun: alertSun,
-            isRemind: isRemind,
-            remindTime: remindTime,
-            achieveMon: achieveMon,
-            achieveTue: achieveTue,
-            achieveWed: achieveWed,
-            achieveThu: achieveThu,
-            achieveFri: achieveFri,
-            achieveSat: achieveSat,
-            achieveSun: achieveSun,
-            isMorning: isMorning,
-            isAfternoon: isAfternoon,
-            isEvening: isEvening,
-            isNight: isNight,
-            isFree: isFree
+            detailGoal: detailGoal
         )
     }
     
@@ -160,7 +136,7 @@ class MandalartViewModel: ObservableObject {
     }
     
     func manageWordTagger() {
-        $text
+        $detailGoalTitleText
             .debounce(for: .seconds(0.3), scheduler: RunLoop.main)
             .sink { [weak self] newText in
                 self?.wordTagger()
@@ -169,16 +145,16 @@ class MandalartViewModel: ObservableObject {
     }
 
     func wordTagger() {
-        guard !text.isEmpty else {
+        guard !detailGoalTitleText.isEmpty else {
             wwh = [false,false,false]
             return
         }
         do {
             let tokenizer = NLTokenizer(unit: .word)
-            tokenizer.string = text
+            tokenizer.string = detailGoalTitleText
             var tokens: [String] = []
-            tokenizer.enumerateTokens(in: text.startIndex..<text.endIndex) { tokenRange, _ in
-                let word = String(text[tokenRange])
+            tokenizer.enumerateTokens(in: detailGoalTitleText.startIndex..<detailGoalTitleText.endIndex) { tokenRange, _ in
+                let word = String(detailGoalTitleText[tokenRange])
                 print("\(tokenRange)")
                 tokens.append(word)
                 return true
