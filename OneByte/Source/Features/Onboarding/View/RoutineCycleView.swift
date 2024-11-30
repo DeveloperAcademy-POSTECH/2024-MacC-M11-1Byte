@@ -14,7 +14,7 @@ struct RoutineCycleView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var subGoals: [SubGoal]
     
-    @State var viewModel = OnboardingViewModel(createService: CreateService(), updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
+    @State var viewModel = RoutineCycleViewModel(updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     @StateObject private var wwhViewModel = MandalartViewModel(
         createService: CreateService(),
         updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []),

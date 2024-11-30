@@ -9,63 +9,23 @@ import SwiftUI
 import SwiftData
 
 @Observable
-class OnboardingViewModel {
-    
-    //    @Environment(\.modelContext) private var modelContext
-    
-    //    @Query var mainGoals: [MainGoal]
-    //    @Query var subGoals: [SubGoal]
-    //    @Query var detailGoals: [DetailGoal]
-    
-    var userDetailGoal: String = "" // 사용자 SubGoal 입력 텍스트
-    let detailGoalLimit = 20 // DetailGoal 글자 수 제한
+class OnboardingStartViewModel {
     
     var navigationManager = NavigationManager()
     var nowOnboard: OnboardingExplain = .first
-    private let createService: CreateGoalUseCase
-    private let updateService: UpdateGoalUseCase
     
-    init(createService: CreateGoalUseCase, updateService: UpdateGoalUseCase ) {
+    private let createService: CreateGoalUseCase
+    
+    init(createService: CreateGoalUseCase) {
         self.createService = createService
-        self.updateService = updateService
     }
     
-    // Goals 전체 데이터 생성
+    // GoalModel 전체 데이터 생성
     func createGoals(modelContext: ModelContext) {
         createService.createGoals(modelContext: modelContext)
     }
     
-    // MainGoal 업데이트
-    func updateMainGoal(mainGoals: [MainGoal], userMainGoal: String, cloverState: Int ) {
-        guard let mainGoal = mainGoals.first else {
-            print("Error: mainGoal이 nil입니다.")
-            return
-        }
-        
-        updateService.updateMainGoal(
-            mainGoal: mainGoal,
-            id: mainGoal.id,
-            newTitle: userMainGoal,
-            cloverState: cloverState
-        )
-    }
-    
-    // SubGoal 업데이트
-    func updateSubGoal(subGoal: SubGoal, newTitle: String, category: String) {
-        updateService.updateSubGoal(
-            subGoal: subGoal,
-            newTitle: newTitle,
-            category: category
-        )
-    }
-    
-    // DetailGoal 업데이트
-    func updateDetailGoal(detailGoal: DetailGoal, newTitle: String, newMemo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool, isMorning: Bool, isAfternoon: Bool, isEvening: Bool, isNight: Bool, isFree: Bool) {
-        updateService.updateDetailGoal(detailGoal: detailGoal, title: newTitle, memo: newMemo, achieveCount: achieveCount, achieveGoal: achieveGoal, alertMon: alertMon, alertTue: alertTue, alertWed: alertWed, alertThu: alertThu, alertFri: alertFri, alertSat: alertSat, alertSun: alertSun, isRemind: isRemind, remindTime: remindTime, achieveMon: achieveMon, achieveTue: achieveTue, achieveWed: achieveWed, achieveThu: achieveThu, achieveFri: achieveFri, achieveSat: achieveFri, achieveSun: achieveSun, isMorning: isMorning, isAfternoon: isAfternoon, isEvening: isEvening, isNight: isNight, isFree: isFree)
-        
-    }
-    
-    // 2024년 11월 ~ 2026년 클로버 데이터 객체 생성
+    // 2024년 11월 ~ 2026년 클로버 데이터 객체 전체 생성
     func createAllCloverData(modelContext: ModelContext) {
         var idCounter = 1
         
@@ -148,10 +108,5 @@ class OnboardingViewModel {
         } else {
             print("❌ 앱 설치일 저장 실패")
         }
-    }
-    
-    // 사용자 입력 DetailGoal 비우기
-    func clearUserDetailGoal() {
-        userDetailGoal = ""
     }
 }

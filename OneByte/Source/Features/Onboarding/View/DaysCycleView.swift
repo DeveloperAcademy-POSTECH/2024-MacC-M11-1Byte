@@ -13,7 +13,7 @@ struct DaysCycleView: View {
     @Environment(NavigationManager.self) var navigationManager
     @Environment(\.modelContext) private var modelContext
     
-    @State var viewModel = OnboardingViewModel(createService: CreateService(), updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
+    @State var viewModel = RoutineCycleViewModel(updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     
     @Query private var subGoals: [SubGoal]
     @Query private var detailGoals: [DetailGoal]

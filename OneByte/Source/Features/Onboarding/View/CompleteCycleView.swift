@@ -13,7 +13,7 @@ struct CompleteCycleView: View {
     @Environment(NavigationManager.self) var navigationManager
     @Environment(\.modelContext) private var modelContext
     
-    @State var viewModel = OnboardingViewModel(createService: CreateService(), updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
+    @State var viewModel = RoutineCycleViewModel(updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     
     @Query private var subGoals: [SubGoal] // 전체 SubGoals
     @State private var targetSubGoal: SubGoal? // SubGoal id 1번

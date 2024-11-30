@@ -12,10 +12,7 @@ struct OnboardingStartView: View {
     
     @Environment(\.modelContext) private var modelContext
     @AppStorage("FirstOnboarding") private var FirstOnboarding: Bool = true
-    @State var viewModel = OnboardingViewModel(
-        createService: CreateService(),
-        updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: [])
-    )
+    @State var viewModel = OnboardingStartViewModel(createService: CreateService())
     
     var body: some View {
         NavigationStack(path: $viewModel.navigationManager.path) {
