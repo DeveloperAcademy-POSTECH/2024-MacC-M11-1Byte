@@ -19,7 +19,6 @@ struct OnboardingFinishView: View {
             OnboardingHeaderView(progressValue: 5/5) {
                 navigationManager.pop()
             }
-            
             VStack(spacing: 10) {
                 Text(nowOnboard.onboardingTitle)
                     .customMainStyle()
@@ -32,7 +31,6 @@ struct OnboardingFinishView: View {
             Image("OnboardingTurtle3")
                 .resizable()
                 .scaledToFit()
-            
             Spacer()
             
             GoButton {

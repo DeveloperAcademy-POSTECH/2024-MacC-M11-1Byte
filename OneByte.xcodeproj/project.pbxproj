@@ -49,7 +49,7 @@
 		1FB10A382CDF5FE800D54EC5 /* OnboardingExplain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A372CDF5FE800D54EC5 /* OnboardingExplain.swift */; };
 		1FB10A3A2CDF60D100D54EC5 /* OnboardingExplainPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A392CDF60D100D54EC5 /* OnboardingExplainPageView.swift */; };
 		1FB10A3C2CDF78C400D54EC5 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A3B2CDF78C400D54EC5 /* NextButton.swift */; };
-		1FB10A402CDF7F4B00D54EC5 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A3F2CDF7F4B00D54EC5 /* OnboardingViewModel.swift */; };
+		1FB10A402CDF7F4B00D54EC5 /* OnboardingStartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A3F2CDF7F4B00D54EC5 /* OnboardingStartViewModel.swift */; };
 		1FC686362CF78276008F399F /* TodayRoutineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC686352CF78276008F399F /* TodayRoutineCell.swift */; };
 		1FC686382CF782FB008F399F /* WeekAchieveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC686372CF782FB008F399F /* WeekAchieveCell.swift */; };
 		1FC6863A2CF8ABC1008F399F /* CloverCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC686392CF8ABC1008F399F /* CloverCardView.swift */; };
@@ -143,7 +143,7 @@
 		1FB10A372CDF5FE800D54EC5 /* OnboardingExplain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingExplain.swift; sourceTree = "<group>"; };
 		1FB10A392CDF60D100D54EC5 /* OnboardingExplainPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingExplainPageView.swift; sourceTree = "<group>"; };
 		1FB10A3B2CDF78C400D54EC5 /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
-		1FB10A3F2CDF7F4B00D54EC5 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
+		1FB10A3F2CDF7F4B00D54EC5 /* OnboardingStartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStartViewModel.swift; sourceTree = "<group>"; };
 		1FC686352CF78276008F399F /* TodayRoutineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutineCell.swift; sourceTree = "<group>"; };
 		1FC686372CF782FB008F399F /* WeekAchieveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekAchieveCell.swift; sourceTree = "<group>"; };
 		1FC686392CF8ABC1008F399F /* CloverCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloverCardView.swift; sourceTree = "<group>"; };
@@ -487,7 +487,7 @@
 		1FB10A3E2CDF7EEF00D54EC5 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				1FB10A3F2CDF7F4B00D54EC5 /* OnboardingViewModel.swift */,
+				1FB10A3F2CDF7F4B00D54EC5 /* OnboardingStartViewModel.swift */,
 				1FC686412CFB0CEA008F399F /* RoutineCycleViewModel.swift */,
 			);
 			path = ViewModel;
@@ -689,7 +689,7 @@
 				1FC6863E2CF8CED3008F399F /* CloverCardViewModel.swift in Sources */,
 				615A0A0B2CC0ADA800908531 /* TabBarManager.swift in Sources */,
 				61CC00FF2CF1742B0009D063 /* DetailGoalColorFunc.swift in Sources */,
-				1FB10A402CDF7F4B00D54EC5 /* OnboardingViewModel.swift in Sources */,
+				1FB10A402CDF7F4B00D54EC5 /* OnboardingStartViewModel.swift in Sources */,
 				1F599E2D2CE6430D00788D07 /* StatisticViewModel.swift in Sources */,
 				1FB10A302CDF55AA00D54EC5 /* SubgoalCycleView.swift in Sources */,
 				1F7C9C282CD083CC00BAC358 /* GoalModels.swift in Sources */,

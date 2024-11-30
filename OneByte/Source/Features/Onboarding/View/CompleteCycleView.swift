@@ -12,21 +12,8 @@ struct CompleteCycleView: View {
     
     @Environment(NavigationManager.self) var navigationManager
     @Environment(\.modelContext) private var modelContext
-    
+    @Query private var subGoals: [SubGoal]
     @State var viewModel = RoutineCycleViewModel(updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
-    
-    @Query private var subGoals: [SubGoal] // 전체 SubGoals
-    @State private var targetSubGoal: SubGoal? // SubGoal id 1번
-    @State private var targetDetailGoal: DetailGoal? // SubGoal id 1번의 DetailGoal id 1번
-    
-    @State private var achieveGoal = 0
-    @State private var alertMon: Bool = false
-    @State private var alertTue: Bool = false
-    @State private var alertWed: Bool = false
-    @State private var alertThu: Bool = false
-    @State private var alertFri: Bool = false
-    @State private var alertSat: Bool = false
-    @State private var alertSun: Bool = false
     
     var nowOnboard: Onboarding = .completeCycle
     
@@ -51,11 +38,11 @@ struct CompleteCycleView: View {
                     .frame(height: 86)
                     .overlay (
                         VStack(spacing: 6) {
-                            Text(targetSubGoal?.title ?? "No SubGoal")
+                            Text(viewModel.targetSubGoal?.title ?? "No SubGoal")
+                                .font(.Pretendard.Medium.size16)
                                 .foregroundStyle(.my538F53)
                                 .kerning(0.43)
-                                .font(.Pretendard.Medium.size16)
-                            Text(targetDetailGoal?.title ?? "No DetailGoal")
+                            Text(viewModel.targetDetailGoal?.title ?? "No DetailGoal")
                                 .font(.Pretendard.Medium.size20)
                                 .kerning(0.43)
                         }
@@ -70,7 +57,7 @@ struct CompleteCycleView: View {
                         .kerning(0.43)
                     
                     HStack(spacing: 11) {
-                        ForEach(selectedDays(), id: \.day) { dayInfo in
+                        ForEach(viewModel.getSelectedDays(), id: \.day) { dayInfo in
                             DaysCycleCell(day: dayInfo.day, isSelected: .constant(dayInfo.isSelected))
                         }
                     }
@@ -82,7 +69,7 @@ struct CompleteCycleView: View {
                         .kerning(0.43)
                         .padding(.top, 28)
                     
-                    Text(getSelectedTime())
+                    Text(viewModel.getSelectedTime())
                         .font(.Pretendard.Medium.size20)
                         .kerning(0.43)
                         .padding(.bottom, 30)
@@ -109,39 +96,9 @@ struct CompleteCycleView: View {
         .padding(.horizontal, 16)
         .background(.myFFFAF4)
         .onAppear {
-            targetSubGoal = subGoals.first(where: { $0.id == 1 })
-            targetDetailGoal = targetSubGoal?.detailGoals.first(where: { $0.id == 1 })
+            viewModel.targetSubGoal = subGoals.first(where: { $0.id == 1 })
+            viewModel.targetDetailGoal = viewModel.targetSubGoal?.detailGoals.first(where: { $0.id == 1 })
         }
-    }
-    
-    // 선택된 요일만 반환
-    private func selectedDays() -> [(day: String, isSelected: Bool)] {
-        guard let detailGoal = targetDetailGoal else { return [] }
-        
-        var days: [(day: String, isSelected: Bool)] = []
-        
-        if detailGoal.alertSun { days.append((day: "일", isSelected: true)) }
-        if detailGoal.alertMon { days.append((day: "월", isSelected: true)) }
-        if detailGoal.alertTue { days.append((day: "화", isSelected: true)) }
-        if detailGoal.alertWed { days.append((day: "수", isSelected: true)) }
-        if detailGoal.alertThu { days.append((day: "목", isSelected: true)) }
-        if detailGoal.alertFri { days.append((day: "금", isSelected: true)) }
-        if detailGoal.alertSat { days.append((day: "토", isSelected: true)) }
-        
-        return days
-    }
-    
-    // 사용자가 선택한 시간대 반환
-    private func getSelectedTime() -> String {
-        guard let detailGoal = targetDetailGoal else { return "시간대 없음" }
-        
-        if detailGoal.isMorning { return "아침" }
-        if detailGoal.isAfternoon { return "점심" }
-        if detailGoal.isEvening { return "저녁" }
-        if detailGoal.isNight { return "자기 전" }
-        if detailGoal.isFree { return "자율" }
-        
-        return "시간대 없음"
     }
 }
 

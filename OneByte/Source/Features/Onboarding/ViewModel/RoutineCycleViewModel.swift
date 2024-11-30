@@ -11,6 +11,8 @@ import SwiftData
 @Observable
 class RoutineCycleViewModel {
     
+    var navigationManager = NavigationManager()
+    
     // SubgoalCycleView
     var userNewSubGoal: String = "" // 사용자 SubGoal 입력 텍스트
     let subGoalLimit = 15 // 글자 수 제한
@@ -32,8 +34,7 @@ class RoutineCycleViewModel {
     var alertSun = false
     var selectedTime = ""
     var routineTimes = ["아침","점심","저녁","자기 전","자율"]
-    
-    var navigationManager = NavigationManager()
+
     private let updateService: UpdateGoalUseCase
     init(updateService: UpdateGoalUseCase) {
         self.updateService = updateService
@@ -70,7 +71,7 @@ class RoutineCycleViewModel {
         
         let isMorning: Bool
         if isAfternoon || isEvening || isNight || isFree {
-            isMorning = false // 다른 시간대가 선택된 경우 false
+            isMorning = false // 다른 시간대가 선택된 경우 isMorning false
         } else {
             isMorning = targetDetailGoal?.isMorning ?? false // 아무것도 선택되지 않은 경우 기존 값 유지
         }
@@ -116,6 +117,34 @@ class RoutineCycleViewModel {
             isNight: isNight,
             isFree: isFree
         )
+    }
+    
+    // ComepleteCycleView에서 사용자가 선택한 요일 리스트만 반환
+    func getSelectedDays() -> [(day: String, isSelected: Bool)] {
+        guard let detailGoal = targetDetailGoal else { return [] }
+        
+        var days: [(day: String, isSelected: Bool)] = []
+        if detailGoal.alertSun { days.append((day: "일", isSelected: true)) }
+        if detailGoal.alertMon { days.append((day: "월", isSelected: true)) }
+        if detailGoal.alertTue { days.append((day: "화", isSelected: true)) }
+        if detailGoal.alertWed { days.append((day: "수", isSelected: true)) }
+        if detailGoal.alertThu { days.append((day: "목", isSelected: true)) }
+        if detailGoal.alertFri { days.append((day: "금", isSelected: true)) }
+        if detailGoal.alertSat { days.append((day: "토", isSelected: true)) }
+        
+        return days
+    }
+    // ComepleteCycleView에서 사용자가 선택한 시간대 반환
+    func getSelectedTime() -> String {
+        guard let detailGoal = targetDetailGoal else { return "시간대 없음" }
+        
+        if detailGoal.isMorning { return "아침" }
+        if detailGoal.isAfternoon { return "점심" }
+        if detailGoal.isEvening { return "저녁" }
+        if detailGoal.isNight { return "자기 전" }
+        if detailGoal.isFree { return "자율" }
+        
+        return "시간대 없음"
     }
     
     // 사용자 입력 DetailGoal 비우기
