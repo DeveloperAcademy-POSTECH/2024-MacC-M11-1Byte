@@ -91,27 +91,6 @@ struct StatisticView: View {
                     VStack(spacing: 0) {
                         Image("Turtle_Hands")
                             .padding(.trailing, 16.97)
-                        Rectangle()
-                            .foregroundStyle(.clear)
-                            .frame(width: 83, height: 24)
-                            .background(.white.opacity(0.8))
-                            .cornerRadius(22.5)
-                            .overlay(
-                                HStack(spacing: 5) {
-                                    Image("Clover_Gold")
-                                        .resizable()
-                                        .frame(width: 15, height: 15)
-                                    Text("\(viewModel.currentMonthCloverStates[2])")
-                                        .font(.Pretendard.SemiBold.size12)
-                                        .foregroundStyle(.myA7A7A7)
-                                    Image("Clover_Green")
-                                        .resizable()
-                                        .frame(width: 15, height: 15)
-                                    Text("\(viewModel.currentMonthCloverStates[1])")
-                                        .font(.Pretendard.SemiBold.size12)
-                                        .foregroundStyle(.myA7A7A7)
-                                }
-                            )
                             .padding(.top, 1.05)
                     }
                 }
@@ -122,21 +101,13 @@ struct StatisticView: View {
             }
             
             VStack(alignment: .leading, spacing: 16) {
-                let nickname = UserDefaults.loadNickname()
-                if !nickname.isEmpty {
-                    Text("\(nickname)님! \n이번 달 클로버를 \(viewModel.currentMonthClovers.count)개 획득했어요")
-                        .font(.Pretendard.Bold.size20)
-                        .foregroundStyle(.white)
-                } else {
-                    Text("다라님!\n이번 달 클로버를 \(viewModel.currentMonthClovers.count)개 획득했어요")
-                        .font(.Pretendard.Bold.size20)
-                        .foregroundStyle(.white)
-                }
-                
+                //let nickname = UserDefaults.loadNickname()
+                Text("지난주에는 모든 루틴을 완수했어요")
+                    .font(.Pretendard.Bold.size18)
+                    .foregroundStyle(.white)
                 Text("모든 성장은 작은 시도에서 시작된답니다.\n다음 목표부터 하나씩 도전해볼까요?")
-                    .font(.Pretendard.SemiBold.size14)
-                    .foregroundStyle(Color.my4A4A4A)
-                    .frame(width: 227, alignment: .leading)
+                    .font(.Pretendard.Medium.size16)
+                    .foregroundStyle(Color.myDCECDC)
             }
             .padding(.leading, 21)
             .padding(.top, 26)
