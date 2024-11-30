@@ -58,6 +58,7 @@
 		1FC6863E2CF8CED3008F399F /* CloverCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC6863D2CF8CED2008F399F /* CloverCardViewModel.swift */; };
 		1FC686402CF8CF5A008F399F /* CloverCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC6863F2CF8CF5A008F399F /* CloverCard.swift */; };
 		1FC686422CFB0CEA008F399F /* RoutineCycleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC686412CFB0CEA008F399F /* RoutineCycleViewModel.swift */; };
+		1FC686442CFB5FA0008F399F /* OnboardingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC686432CFB5FA0008F399F /* OnboardingHeaderView.swift */; };
 		1FD405232CEC74E800403A19 /* AllRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD405222CEC74E800403A19 /* AllRoutineView.swift */; };
 		1FD405252CEC79DD00403A19 /* TodayRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD405242CEC79DD00403A19 /* TodayRoutineView.swift */; };
 		1FD4052A2CECBFCB00403A19 /* RoutineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD405292CECBFCB00403A19 /* RoutineModel.swift */; };
@@ -149,6 +150,7 @@
 		1FC6863D2CF8CED2008F399F /* CloverCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloverCardViewModel.swift; sourceTree = "<group>"; };
 		1FC6863F2CF8CF5A008F399F /* CloverCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloverCard.swift; sourceTree = "<group>"; };
 		1FC686412CFB0CEA008F399F /* RoutineCycleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCycleViewModel.swift; sourceTree = "<group>"; };
+		1FC686432CFB5FA0008F399F /* OnboardingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingHeaderView.swift; sourceTree = "<group>"; };
 		1FD405222CEC74E800403A19 /* AllRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRoutineView.swift; sourceTree = "<group>"; };
 		1FD405242CEC79DD00403A19 /* TodayRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutineView.swift; sourceTree = "<group>"; };
 		1FD405292CECBFCB00403A19 /* RoutineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineModel.swift; sourceTree = "<group>"; };
@@ -445,6 +447,7 @@
 				1FB10A242CDF511600D54EC5 /* GoButton.swift */,
 				1FB10A3B2CDF78C400D54EC5 /* NextButton.swift */,
 				61FA4DF22CE77EDD00256B57 /* BackButtonToolbarModifier.swift */,
+				1FC686432CFB5FA0008F399F /* OnboardingHeaderView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -705,6 +708,7 @@
 				1FE2B8D62CDFAF8600781E20 /* Int+GridExtensions.swift in Sources */,
 				610595CE2CE2140D005ED7B4 /* SubGoalCell.swift in Sources */,
 				618FD0762CDF11410003450D /* UpdateService.swift in Sources */,
+				1FC686442CFB5FA0008F399F /* OnboardingHeaderView.swift in Sources */,
 				1FD4053C2CED987700403A19 /* TurtleMessageView.swift in Sources */,
 				1FC686382CF782FB008F399F /* WeekAchieveCell.swift in Sources */,
 				1FB10A292CDF515300D54EC5 /* ReadyCycleView.swift in Sources */,
