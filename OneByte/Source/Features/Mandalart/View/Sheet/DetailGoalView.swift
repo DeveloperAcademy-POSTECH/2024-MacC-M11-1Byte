@@ -21,7 +21,7 @@ struct DetailGoalView: View {
     @State private var achieveCount = 0
     @State private var achieveGoal = 0
     @State private var requestNotification: Bool = false
-//    @State private var isAlertAllowed: Bool = false
+    @State private var allowAlert: Bool = false
     @Binding var detailGoal: DetailGoal?
     @Binding var tabBarVisible: Bool
     
@@ -544,9 +544,24 @@ extension DetailGoalView {
                             }
                             viewModel.checkNotificationPermission{ isAllowed in
                                 if isAllowed { return } else {
-                                    viewModel.openAppSettings()
+                                    allowAlert = true
+                                    
                                 }
                             }
+                        }
+                        .alert(isPresented: $allowAlert) {
+                            Alert(
+                                title: Text("알림이 꺼진 상태예요!"),
+                                message: Text("설정으로 이동해서 알림을 허용할까요?"),
+                                primaryButton: .default(Text("확인")) {
+                                    // 확인 버튼이 눌렸을 때 실행할 함수
+                                    isRemind = false
+                                    viewModel.openAppSettings()
+                                },
+                                secondaryButton: .cancel(Text("취소")) {
+                                    isRemind = false
+                                }
+                            )
                         }
                 }
                 if isRemind {

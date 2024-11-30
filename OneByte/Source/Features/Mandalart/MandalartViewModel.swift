@@ -216,9 +216,12 @@ class MandalartViewModel: ObservableObject {
     
     // 하고만다 앱의 '휴대폰 설정'화면으로 이동
     func openAppSettings() {
-        if let appSettingsURL = URL(string: UIApplication.openSettingsURLString) {
-            if UIApplication.shared.canOpenURL(appSettingsURL) {
-                UIApplication.shared.open(appSettingsURL, options: [:], completionHandler: nil)
+        // 메인 스레드에서 실행되도록 보장
+        DispatchQueue.main.async {
+            if let appSettingsURL = URL(string: UIApplication.openSettingsURLString) {
+                if UIApplication.shared.canOpenURL(appSettingsURL) {
+                    UIApplication.shared.open(appSettingsURL, options: [:], completionHandler: nil)
+                }
             }
         }
     }
