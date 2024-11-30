@@ -18,16 +18,9 @@ struct OnboardingExplainPageView: View {
             // 상단 온보딩 설명 텍스트
             VStack(spacing: 12) {
                 Text(nowOnboard.onboardingTitle)
-                    .font(.Pretendard.Bold.size26)
-                    .multilineTextAlignment(.center)
-                    .lineSpacing(3.6)
-                    .kerning(0.4)
+                    .customMainStyle()
                 Text(nowOnboard.onboardingSubTitle)
-                    .font(.Pretendard.Regular.size16)
-                    .foregroundStyle(.my5A5A5A)
-                    .multilineTextAlignment(.center)
-                    .lineSpacing(2.4)
-                    .kerning(0.4)
+                    .customSubStyle()
             }
             .padding(.top, 40)
             
