@@ -199,8 +199,9 @@ struct RoutineCycleView: View {
                     Text("다음")
                 }
             }
-            .padding()
+            .padding(.vertical)
         }
+        .padding(.horizontal, 16)
         .ignoresSafeArea(.keyboard, edges: .bottom) // 키보드 올라올때, 뷰 자동 스크롤 제어
         .background(.myFFFAF4)
         .contentShape(Rectangle())

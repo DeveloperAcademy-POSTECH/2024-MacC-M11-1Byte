@@ -128,6 +128,7 @@ struct CompleteCycleView: View {
                     Text("다음")
                 }
             }
+            .padding(.vertical)
         }
         .padding(.horizontal, 16)
         .background(.myFFFAF4)

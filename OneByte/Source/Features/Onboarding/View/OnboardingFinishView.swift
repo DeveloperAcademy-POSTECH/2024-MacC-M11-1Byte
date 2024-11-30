@@ -63,8 +63,9 @@ struct OnboardingFinishView: View {
                     Text("하고만다 시작하기")
                 }
             }
-            .padding()
+            .padding(.vertical)
         }
+        .padding(.horizontal, 16)
         .background(.myFFFAF4)
     }
 }
