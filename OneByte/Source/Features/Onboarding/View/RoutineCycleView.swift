@@ -47,28 +47,31 @@ struct RoutineCycleView: View {
                     .font(.Pretendard.Bold.size26)
                     .multilineTextAlignment(.center)
                     .lineSpacing(3.6)
+                    .kerning(0.4)
                 Text(nowOnboard.onboardingSubTitle)
                     .font(.Pretendard.Regular.size16)
                     .foregroundStyle(.my5A5A5A)
                     .multilineTextAlignment(.center)
                     .lineSpacing(2.4)
+                    .kerning(0.4)
             }
             .padding(.top, 31)
             
             RoundedRectangle(cornerRadius: 12)
-                .fill(Color.my95D895)
+                .fill(Color.my6FB56F)
                 .frame(maxWidth: .infinity)
                 .frame(height: 154)
                 .overlay (
                     VStack(spacing: 5) {
                         Text("목표")
                             .font(.Pretendard.Medium.size16)
-                            .foregroundStyle(Color.my538F53)
-                            .padding(.top)
+                            .foregroundStyle(Color.myBFEBBB)
+                            .padding(.top, 14)
                         
                         if let title = targetSubGoal?.title {
                             Text(title)
                                 .font(.Pretendard.Medium.size20)
+                                .foregroundStyle(.white)
                                 .multilineTextAlignment(.center)
                         }
                         
