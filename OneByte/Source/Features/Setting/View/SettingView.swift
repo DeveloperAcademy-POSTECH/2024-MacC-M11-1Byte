@@ -176,6 +176,46 @@ extension UserDefaults {
     static func loadNickname() -> String {
         return UserDefaults.standard.string(forKey: nicknameKey) ?? ""
     }
+    
+    static func loadInstallYear() -> Int? {
+        guard let installDateString = UserDefaults.standard.string(forKey: "userInstallDate") else {
+            print("❌ userInstallDate을 찾을 수 없습니다")
+            return nil
+        }
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.timeZone = TimeZone(identifier: "Asia/Seoul")
+        
+        guard let installDate = formatter.date(from: installDateString) else {
+            print("❌ userInstallDate를 Date 객체로 변환하는 데 실패했습니다.")
+            return nil
+        }
+        
+        let calendar = Calendar(identifier: .iso8601)
+        let year = calendar.component(.year, from: installDate)
+        return year
+    }
+    
+    static func loadInstallWeekOfYear() -> Int? {
+        guard let installDateString = UserDefaults.standard.string(forKey: "userInstallDate") else {
+            print("❌ userInstallDate을 찾을 수 없습니다.")
+            return nil
+        }
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.timeZone = TimeZone(identifier: "Asia/Seoul")
+        
+        guard let installDate = formatter.date(from: installDateString) else {
+            print("❌ userInstallDate을 Date 객체로 변환하는 데 실패했습니다.")
+            return nil
+        }
+        
+        let calendar = Calendar(identifier: .iso8601)
+        let weekOfYear = calendar.component(.weekOfYear, from: installDate)
+        return weekOfYear
+    }
 }
 
 #Preview {

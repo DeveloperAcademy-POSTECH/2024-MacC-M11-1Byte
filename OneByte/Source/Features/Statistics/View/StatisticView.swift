@@ -22,7 +22,7 @@ struct StatisticView: View {
                     .ignoresSafeArea(edges: .top)
                 VStack(spacing: 0){
                     HStack {
-                        Text("통계")
+                        Text("나의 클로버")
                             .font(.Pretendard.Bold.size22)
                             .foregroundStyle(Color.myB4A99D)
                         
@@ -40,16 +40,16 @@ struct StatisticView: View {
                     }
                     ScrollView {
                         thisMonthCloverInfoView()
-                            .padding(.top, 52)
+                            .padding(.top, 44)
                         thisYearCloverInfoView()
-                            .padding(.top, 40)
+                            .padding(.top, 32)
                         weeklyCloverInfoView()
                             .padding(.top, 10)
                         
                         Spacer()
                     }
                 }
-                .padding(.horizontal, 20)
+                .padding(.horizontal, 16)
                 .background(Color.myFFFAF4)
                 .onAppear {
                     isTabBarMainVisible = true
@@ -77,13 +77,14 @@ struct StatisticView: View {
             RoundedRectangle(cornerRadius: 12)
                 .fill(Color.my6FB56F)
                 .frame(maxWidth: .infinity)
-                .frame(height: 146)
+                .frame(height: 114)
             
             HStack {
                 Spacer()
                 Image("Clover_Back")
-                    .frame(width: 130, height: 130)
-                    .padding(.trailing, 10)
+                    .resizable()
+                    .frame(width: 90, height: 90)
+                    .padding(.trailing, 20)
             }
             VStack(spacing: 0) {
                 HStack {
@@ -100,18 +101,16 @@ struct StatisticView: View {
                 
             }
             
-            VStack(alignment: .leading, spacing: 16) {
-                //let nickname = UserDefaults.loadNickname()
-                Text("지난주에는 모든 루틴을 완수했어요")
+            VStack(alignment: .leading, spacing: 10) {
+                Text(viewModel.getMonthInfoViewPhrase()[0])
                     .font(.Pretendard.Bold.size18)
                     .foregroundStyle(.white)
-                Text("모든 성장은 작은 시도에서 시작된답니다.\n다음 목표부터 하나씩 도전해볼까요?")
+                Text(viewModel.getMonthInfoViewPhrase()[1])
                     .font(.Pretendard.Medium.size16)
                     .foregroundStyle(Color.myDCECDC)
             }
-            .padding(.leading, 21)
-            .padding(.top, 26)
-            .padding(.bottom, 20)
+            .padding(.leading, 20)
+            .padding(.vertical, 20)
         }
     }
     
