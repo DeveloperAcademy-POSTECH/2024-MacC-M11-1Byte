@@ -12,7 +12,13 @@ import SwiftData
 // MARK: 첫화면 - 9개 서브골-디테일골들
 struct SubGoalCell: View {
     @Binding var selectedSubGoal: SubGoal?
+    
     private let innerColumns = Array(repeating: GridItem(.fixed(74/852 * UIScreen.main.bounds.height)), count: 2)
+    private let viewModel = MandalartViewModel(
+        createService: CreateService(),
+        updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []),
+        deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: [])
+    )
     
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
@@ -44,7 +50,7 @@ struct SubGoalCell: View {
                                     .frame(width: 78/393 * UIScreen.main.bounds.width, height: 78/852 * UIScreen.main.bounds.height)
                                     .foregroundStyle(.black)
                                     .font(.Pretendard.Medium.size12)
-                                    .background(colorForGoal(achieveGoal: detailGoal.achieveGoal, achieveCount: detailGoal.achieveCount))
+                                    .background(viewModel.colorForGoal(achieveGoal: detailGoal.achieveGoal, achieveCount: detailGoal.achieveCount))
                                     .cornerRadius(cornerRadius, corners: cornerStyle, defaultRadius: 11)
                                     .cornerRadius(11)
                             }

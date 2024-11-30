@@ -81,7 +81,6 @@
 		618FD0762CDF11410003450D /* UpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618FD0752CDF11410003450D /* UpdateService.swift */; };
 		618FD0782CDF11760003450D /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618FD0772CDF11760003450D /* Protocol.swift */; };
 		61CC00FD2CF0276B0009D063 /* DetailGoalColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CC00FC2CF0276B0009D063 /* DetailGoalColor.swift */; };
-		61CC00FF2CF1742B0009D063 /* DetailGoalColorFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CC00FE2CF1742B0009D063 /* DetailGoalColorFunc.swift */; };
 		61CC01012CF6CBD00009D063 /* DayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CC01002CF6CBD00009D063 /* DayButton.swift */; };
 		61CC01052CF74D190009D063 /* SubGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CC01042CF74D190009D063 /* SubGoalView.swift */; };
 		61E28B822CEE01FE000F77FB /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E28B812CEE01FE000F77FB /* Notification.swift */; };
@@ -166,7 +165,6 @@
 		618FD0752CDF11410003450D /* UpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateService.swift; sourceTree = "<group>"; };
 		618FD0772CDF11760003450D /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		61CC00FC2CF0276B0009D063 /* DetailGoalColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoalColor.swift; sourceTree = "<group>"; };
-		61CC00FE2CF1742B0009D063 /* DetailGoalColorFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoalColorFunc.swift; sourceTree = "<group>"; };
 		61CC01002CF6CBD00009D063 /* DayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayButton.swift; sourceTree = "<group>"; };
 		61CC01042CF74D190009D063 /* SubGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubGoalView.swift; sourceTree = "<group>"; };
 		61E28B812CEE01FE000F77FB /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
@@ -304,7 +302,6 @@
 			children = (
 				613904E92CD21A0B008E591D /* MandalartViewModel.swift */,
 				1F7C9C142CD0735500BAC358 /* View */,
-				61CC00FE2CF1742B0009D063 /* DetailGoalColorFunc.swift */,
 			);
 			path = Mandalart;
 			sourceTree = "<group>";
@@ -647,7 +644,6 @@
 				1F88AB412CD6101C0009730D /* Date+.swift in Sources */,
 				1FB10A322CDF56E200D54EC5 /* RoutineCycleView.swift in Sources */,
 				615A0A0B2CC0ADA800908531 /* TabBarManager.swift in Sources */,
-				61CC00FF2CF1742B0009D063 /* DetailGoalColorFunc.swift in Sources */,
 				1FB10A402CDF7F4B00D54EC5 /* OnboardingViewModel.swift in Sources */,
 				1F599E2D2CE6430D00788D07 /* StatisticViewModel.swift in Sources */,
 				1FB10A302CDF55AA00D54EC5 /* SubgoalCycleView.swift in Sources */,

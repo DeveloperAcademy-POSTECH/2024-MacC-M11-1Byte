@@ -64,13 +64,13 @@ struct OuterGridView: View {
     
     @State private var currentMessage: String = ""
        private let messages: [String] = [
-           "완벽하지 않아도 괜찮아요. 중요한 것은 꾸준히 다시 시작하는 거예요!",
-           "한 걸음씩 가다 보면 어느새 큰 변화를 느낄 거예요!",
-           "같이 좀만 더 힘내봐요! 조금만 힘내면 금새 습관이 될거예요.",
-           "누가 그랬는데 탁월함은 행동이 아니라 습관에서 온대요.",
-           "오늘 조금 못해도 괜찮아요, 내일은 더 잘할 수 있을거예요.",
-           "느려도 괜찮아요. 꾸준함이 우리를 목표로 데려다줄 거예요.",
-           "중단했더라도 괜찮아요. 중요한 건 포기하지 않는 마음이에요."
+           "완벽하지 않아도 괜찮아요.\n중요한 것은 꾸준히 다시 시작하는 거예요!",
+           "한 걸음씩 가다 보면 \n어느새 큰 변화를 느낄 거예요!",
+           "같이 좀만 더 힘내봐요! \n조금만 힘내면 금새 습관이 될거예요.",
+           "누가 그랬는데 \n탁월함은 행동이 아니라 습관에서 온대요.",
+           "오늘 조금 못해도 괜찮아요, \n내일은 더 잘할 수 있을거예요.",
+           "느려도 괜찮아요.\n꾸준함이 우리를 목표로 데려다줄 거예요.",
+           "중단했더라도 괜찮아요.\n중요한 건 포기하지 않는 마음이에요."
        ]
     
     
@@ -132,15 +132,16 @@ struct OuterGridView: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 73/393 * UIScreen.main.bounds.width)
                 })
-                
-                ZStack{
-                    Image("comment")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(height: 55)
-                    Text(currentMessage)
-                        .font(.Pretendard.Medium.size14)
-                }
+                Text(currentMessage)
+                    .font(.Pretendard.Medium.size14)
+                    .multilineTextAlignment(.leading)
+                    .padding(EdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 15))
+                    .background(
+                        Image("comment")
+                            .resizable()
+                            .scaledToFill()
+                    )
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
             .padding(.bottom, 47/852 * UIScreen.main.bounds.height)
             Spacer()

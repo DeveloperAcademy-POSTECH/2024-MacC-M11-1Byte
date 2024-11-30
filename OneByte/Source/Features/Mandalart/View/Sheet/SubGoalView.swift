@@ -94,7 +94,7 @@ struct SubGoalView: View {
         .padding()
         .background(.myFFFAF4)
         .onAppear {
-            if let subGoal = subGoal{
+            if let subGoal = subGoal {
                 let result = viewModel.initializeSubGoal(
                     subGoal: subGoal,
                     categories: categories
@@ -104,7 +104,6 @@ struct SubGoalView: View {
                 newTitle = subGoal.title
             }
         }
-        
     }
 }
 

@@ -245,7 +245,6 @@ extension DetailGoalView {
             .foregroundStyle(Color.my675542)
         
         // 할 일 제목 입력란
-        
         ZStack {
             TextField("루틴을 입력해주세요.", text: $newTitle)
                 .padding()
