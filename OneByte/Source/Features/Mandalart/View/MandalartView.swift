@@ -33,9 +33,9 @@ struct MandalartView: View {
         }
         .onAppear {
             isTabBarMainVisible = true
-            if requestNotification {
-                requestNotificationPermission()
-            }
+//            if requestNotification {
+//                requestNotificationPermission()
+//            }
         }
     }
 }
@@ -149,7 +149,7 @@ struct OuterGridView: View {
         .onAppear {
             currentMessage = messages.randomElement() ?? ""
             isTabBarMainVisible = true
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 capturedImage = captureView()
                     .padding()
                     .padding(.top, -30)

@@ -20,6 +20,8 @@ struct DetailGoalView: View {
     @State private var newMemo: String = ""
     @State private var achieveCount = 0
     @State private var achieveGoal = 0
+    @State private var requestNotification: Bool = false
+//    @State private var isAlertAllowed: Bool = false
     @Binding var detailGoal: DetailGoal?
     @Binding var tabBarVisible: Bool
     
@@ -537,9 +539,16 @@ extension DetailGoalView {
                             if new != detailGoal?.isRemind {
                                 isModified = true
                             }
+                            if isRemind {
+                                requestNotificationPermission()
+                            }
+                            viewModel.checkNotificationPermission{ isAllowed in
+                                if isAllowed { return } else {
+                                    viewModel.openAppSettings()
+                                }
+                            }
                         }
                 }
-                
                 if isRemind {
                     Divider()
                         .foregroundStyle(Color.myF0E8DF)

@@ -214,6 +214,46 @@ class MandalartViewModel: ObservableObject {
         createService.createNotification(detailGoal: detailGoal, newTitle: newTitle, selectedDays: selectedDays)
     }
     
+    // 하고만다 앱의 '휴대폰 설정'화면으로 이동
+    func openAppSettings() {
+        if let appSettingsURL = URL(string: UIApplication.openSettingsURLString) {
+            if UIApplication.shared.canOpenURL(appSettingsURL) {
+                UIApplication.shared.open(appSettingsURL, options: [:], completionHandler: nil)
+            }
+        }
+    }
+    
+    // 알림 허용, 거부 여부 반환 함수
+    func checkNotificationPermission(completion: @escaping (Bool) -> Void) {
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            switch settings.authorizationStatus {
+            case .notDetermined:
+                print("알림 권한이 아직 결정되지 않았습니다.")
+                // 권한 요청을 할 수 있음
+                completion(true) // 아직 결정되지 않았으면 알림을 요청할 수 있으므로 true 반환
+            case .denied:
+                print("알림 권한이 거부되었습니다.")
+                // 알림 권한이 거부된 상태
+                completion(false) // 거부된 상태이므로 false 반환
+            case .authorized:
+                print("알림 권한이 허용되었습니다.")
+                // 알림 권한이 허용된 상태
+                completion(true) // 허용된 상태이므로 true 반환
+            case .provisional:
+                print("알림 권한이 임시 허용되었습니다.")
+                // 임시 권한 허용 상태
+                completion(true) // 임시 허용된 상태는 알림이 활성화되므로 true 반환
+            case .ephemeral:
+                print("알림 권한이 임시적(ephemeral)으로 허용되었습니다.")
+                // ephemeral은 잠시만 허용된 상태이므로, 그에 맞는 처리 추가 가능
+                completion(true) // 임시 허용도 알림이 활성화되므로 true 반환
+            @unknown default:
+                print("알 수 없는 상태입니다.")
+                completion(true) // 알 수 없는 상태인 경우는 기본적으로 true 반환
+            }
+        }
+    }
+    
     func colorForGoal(achieveGoal: Int, achieveCount: Int) -> Color {
         switch (achieveGoal, achieveCount) {
         case(0,0):
