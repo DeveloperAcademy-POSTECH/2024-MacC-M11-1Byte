@@ -30,7 +30,7 @@ struct DaysCycleView: View {
     @State private var alertSat: Bool = false
     @State private var alertSun: Bool = false
     
-    @State var selectedTime = "color"
+    @State var selectedTime = ""
     var routineTimes = ["아침","점심","저녁","자기 전","자율"]
     
     var nowOnboard: Onboarding = .daysCycle
@@ -157,11 +157,11 @@ struct DaysCycleView: View {
                         .kerning(0.2)
                     Spacer()
                     Picker("Choose a times", selection: $selectedTime) {
-                            ForEach(routineTimes, id: \.self) {
-                              Text($0)
+                        ForEach(routineTimes, id: \.self) {
+                            Text($0)
                                 .font(.Pretendard.Regular.size17)
-                            }
-                          }
+                        }
+                    }
                     .pickerStyle(.menu)
                     .tint(.my89898D)
                 }
@@ -190,12 +190,18 @@ struct DaysCycleView: View {
                     }
                     
                     // Picker에서 선택한 시간대에 따라 업데이트
-                        let isMorning = selectedTime == "아침"
-                        let isAfternoon = selectedTime == "점심"
-                        let isEvening = selectedTime == "저녁"
-                        let isNight = selectedTime == "자기 전"
-                        let isFree = selectedTime == "자율"
+                    let isAfternoon = selectedTime == "점심"
+                    let isEvening = selectedTime == "저녁"
+                    let isNight = selectedTime == "자기 전"
+                    let isFree = selectedTime == "자율"
                     
+                    // isMorning 업데이트 조건 추가
+                    let isMorning: Bool
+                    if isAfternoon || isEvening || isNight || isFree {
+                        isMorning = false // 다른 시간대가 선택된 경우 false
+                    } else {
+                        isMorning = targetDetailGoal.isMorning // 아무것도 선택되지 않은 경우 기존 값 유지
+                    }
                     viewModel.updateDetailGoal(
                         detailGoal: targetDetailGoal,
                         newTitle: targetDetailGoal.title,

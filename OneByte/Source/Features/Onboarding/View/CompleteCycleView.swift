@@ -33,7 +33,7 @@ struct CompleteCycleView: View {
     var body: some View {
         VStack(spacing: 0) {
             // Back Button & 프로그레스 바
-            HStack {
+            HStack(spacing: 14) {
                 Button {
                     navigationManager.pop()
                 } label: {
@@ -45,10 +45,11 @@ struct CompleteCycleView: View {
                 }
                 OnboardingProgressBar(value: 4/5)
                     .frame(height: 10)
-                    .padding()
-                    .padding(.trailing)
+                    .padding(.trailing, 43)
             }
-            .padding(.horizontal)
+            .padding(.leading, 4)
+            .padding(.top, 12) // 다른 프로그레스바에도 모두 적용 ⚠️⚠️⚠️
+            .padding(.bottom, 13)
             
             VStack(spacing: 12) {
                 Text(nowOnboard.onboardingTitle)
@@ -64,87 +65,51 @@ struct CompleteCycleView: View {
             .padding(.top, 31)
             
             VStack(spacing: 12) {
-                VStack(spacing: 4) {
-                    Text("목표")
-                        .font(.Pretendard.Medium.size16)
-                        .foregroundStyle(.my538F53)
-                    Text(targetSubGoal?.title ?? "")
-                        .font(.Pretendard.Medium.size20)
-                }
-                .frame(maxWidth: .infinity)
-                .frame(height: 86)
-                .background(.my95D895)
-                .cornerRadius(12)
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color.myD6F3D4)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 86)
+                    .overlay (
+                        VStack(spacing: 6) {
+                            Text(targetSubGoal?.title ?? "No SubGoal")
+                                .foregroundStyle(.my538F53)
+                                .kerning(0.43)
+                                .font(.Pretendard.Medium.size16)
+                            Text(targetDetailGoal?.title ?? "No DetailGoal")
+                                .font(.Pretendard.Medium.size20)
+                                .kerning(0.43)
+                        }
+                    )
+                    .padding(.top, 32)
                 
                 VStack(spacing: 8) {
-                    Text("루틴")
-                        .font(.Pretendard.Medium.size16)
-                        .foregroundStyle(.myB4A99D)
-                        .padding(.top)
-                    Text(targetDetailGoal?.title ?? "")
-                        .font(.Pretendard.Medium.size20)
-                    
                     Text("요일")
                         .font(.Pretendard.Medium.size16)
                         .foregroundStyle(.myB4A99D)
-                        .padding(.top)
+                        .padding(.top, 24)
+                        .kerning(0.43)
                     
-                    HStack(spacing: 8) {
-                        DaysCycleCell(
-                            day: "일",
-                            isSelected: Binding(
-                                get: { targetDetailGoal?.alertSun ?? false },
-                                set: { targetDetailGoal?.alertSun = $0 }
-                            )
-                        )
-                        DaysCycleCell(
-                            day: "월",
-                            isSelected: Binding(
-                                get: { targetDetailGoal?.alertMon ?? false },
-                                set: { targetDetailGoal?.alertMon = $0 }
-                            )
-                        )
-                        
-                        DaysCycleCell(
-                            day: "화",
-                            isSelected: Binding(
-                                get: { targetDetailGoal?.alertTue ?? false },
-                                set: { targetDetailGoal?.alertTue = $0 }
-                            )
-                        )
-                        DaysCycleCell(
-                            day: "수",
-                            isSelected: Binding(
-                                get: { targetDetailGoal?.alertWed ?? false },
-                                set: { targetDetailGoal?.alertWed = $0 }
-                            )
-                        )
-                        DaysCycleCell(
-                            day: "목",
-                            isSelected: Binding(
-                                get: { targetDetailGoal?.alertThu ?? false },
-                                set: { targetDetailGoal?.alertThu = $0 }
-                            )
-                        )
-                        DaysCycleCell(
-                            day: "금",
-                            isSelected: Binding(
-                                get: { targetDetailGoal?.alertFri ?? false },
-                                set: { targetDetailGoal?.alertFri = $0 }
-                            )
-                        )
-                        DaysCycleCell(
-                            day: "토",
-                            isSelected: Binding(
-                                get: { targetDetailGoal?.alertSat ?? false },
-                                set: { targetDetailGoal?.alertSat = $0 }
-                            )
-                        )
+                    HStack(spacing: 11) {
+                        ForEach(selectedDays(), id: \.day) { dayInfo in
+                            DaysCycleCell(day: dayInfo.day, isSelected: .constant(dayInfo.isSelected))
+                        }
                     }
-                    .padding(.bottom, 26)
+                    .padding(.top, 12)
+                    
+                    Text("시간대")
+                        .font(.Pretendard.Medium.size16)
+                        .foregroundStyle(.myB4A99D)
+                        .kerning(0.43)
+                        .padding(.top, 28)
+                    
+                    Text(getSelectedTime())
+                        .font(.Pretendard.Medium.size20)
+                        .kerning(0.43)
+                        .padding(.bottom, 30)
+                    
                 }
                 .frame(maxWidth: .infinity)
-                .frame(height: 179)
+                .frame(height: 209)
                 .background(.white)
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
@@ -152,8 +117,6 @@ struct CompleteCycleView: View {
                 )
                 .cornerRadius(12)
             }
-            .padding(.top, 81)
-            .padding(.horizontal)
             
             Spacer()
             
@@ -165,15 +128,43 @@ struct CompleteCycleView: View {
                     Text("다음")
                 }
             }
-            .padding()
         }
+        .padding(.horizontal, 16)
         .background(.myFFFAF4)
         .onAppear {
             targetSubGoal = subGoals.first(where: { $0.id == 1 })
-            if let subGoal = targetSubGoal {
-                targetDetailGoal = subGoal.detailGoals.first(where: { $0.id == 1 })
-            }
+            targetDetailGoal = targetSubGoal?.detailGoals.first(where: { $0.id == 1 })
         }
+    }
+    
+    // 선택된 요일만 반환
+    private func selectedDays() -> [(day: String, isSelected: Bool)] {
+        guard let detailGoal = targetDetailGoal else { return [] }
+        
+        var days: [(day: String, isSelected: Bool)] = []
+        
+        if detailGoal.alertSun { days.append((day: "일", isSelected: true)) }
+        if detailGoal.alertMon { days.append((day: "월", isSelected: true)) }
+        if detailGoal.alertTue { days.append((day: "화", isSelected: true)) }
+        if detailGoal.alertWed { days.append((day: "수", isSelected: true)) }
+        if detailGoal.alertThu { days.append((day: "목", isSelected: true)) }
+        if detailGoal.alertFri { days.append((day: "금", isSelected: true)) }
+        if detailGoal.alertSat { days.append((day: "토", isSelected: true)) }
+        
+        return days
+    }
+    
+    // 사용자가 선택한 시간대 반환
+    private func getSelectedTime() -> String {
+        guard let detailGoal = targetDetailGoal else { return "시간대 없음" }
+        
+        if detailGoal.isMorning { return "아침" }
+        if detailGoal.isAfternoon { return "점심" }
+        if detailGoal.isEvening { return "저녁" }
+        if detailGoal.isNight { return "자기 전" }
+        if detailGoal.isFree { return "자율" }
+        
+        return "시간대 없음"
     }
 }
 
@@ -186,14 +177,10 @@ struct DaysCycleCell: View {
         VStack {
             Text(day)
                 .font(.Pretendard.Medium.size14)
-                .foregroundStyle(isSelected ? .white : Color.my95D895)
+                .foregroundStyle(.white)
                 .frame(width: 28, height: 28)
-                .background(isSelected ? Color.my95D895 : .white)
+                .background(.my6FB56F)
                 .clipShape(Circle())
-                .overlay(
-                    Circle()
-                        .stroke(isSelected ? .white : Color.my95D895, lineWidth: 1)
-                )
         }
     }
 }
