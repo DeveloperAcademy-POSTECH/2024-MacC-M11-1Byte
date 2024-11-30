@@ -27,12 +27,11 @@ func requestNotificationPermission() {
     }
 }
 
-func scheduleNotification(for title: String, on days: [String], at time: Date) {
+func scheduleNotification(detailGoal: DetailGoal, for title: String, on days: [String], at time: Date) {
     let center = UNUserNotificationCenter.current()
     
     // 알림 식별자 설정
-    let identifier = "\(title)-\(days.joined(separator: ","))"
-    
+    let identifier = "\(detailGoal.id)"
 //    // 여러 개의 제목을 배열로 설정하고, 랜덤으로 선택
 //       let titles = [
 //           "🐢 루틴을 시작해보세요",

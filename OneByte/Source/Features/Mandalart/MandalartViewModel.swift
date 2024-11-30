@@ -78,12 +78,12 @@ class MandalartViewModel: ObservableObject {
         )
     }
     
-    func deleteMainGoal(mainGoal: MainGoal, modelContext: ModelContext, id: Int, newTitle: String, cloverState: Int) {
-        deleteService.deleteMainGoal(mainGoal: mainGoal, modelContext: modelContext, id: id, newTitle: newTitle, cloverState: cloverState)
+    func deleteMainGoal(mainGoal: MainGoal) {
+        deleteService.deleteMainGoal(mainGoal: mainGoal)
     }
     
-    func deleteSubGoal(subGoal: SubGoal, id: Int, newTitle: String, category: String) {
-        deleteService.deleteSubGoal(subGoal: subGoal, newTitle: newTitle, category: category)
+    func deleteSubGoal(subGoal: SubGoal) {
+        deleteService.deleteSubGoal(subGoal: subGoal)
     }
     
     func deleteSubDetailGoals(subGoal: SubGoal) {
@@ -91,13 +91,15 @@ class MandalartViewModel: ObservableObject {
     }
     
     func deleteDetailGoal(detailGoal: DetailGoal) {
-        deleteService.deleteDetailGoal(
-            detailGoal: detailGoal
-        )
+        deleteService.deleteDetailGoal(detailGoal: detailGoal)
     }
     
     func resetAllData(modelContext: ModelContext, mainGoal: MainGoal) {
         deleteService.resetAllData(modelContext: modelContext, mainGoal: mainGoal)
+    }
+    
+    func deleteNotification(detailGoal: DetailGoal) {
+        deleteService.deleteNotification(detailGoal: detailGoal)
     }
     
     func initializeSubGoal(subGoal: SubGoal?, categories: [String]) -> (String, Bool) {
@@ -206,6 +208,12 @@ class MandalartViewModel: ObservableObject {
         let generator = UIImpactFeedbackGenerator(style: .medium)
         generator.impactOccurred()
     }
+    
+    // 알림 생성
+    func createNotification(detailGoal: DetailGoal, newTitle: String, selectedDays: [String]) {
+        createService.createNotification(detailGoal: detailGoal, newTitle: newTitle, selectedDays: selectedDays)
+    }
+    
 }
 
 struct TaggedWord {

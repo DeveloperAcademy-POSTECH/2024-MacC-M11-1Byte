@@ -10,6 +10,7 @@ import SwiftData
 
 protocol CreateGoalUseCase {
     func createGoals(modelContext: ModelContext)
+    func createNotification(detailGoal: DetailGoal, newTitle: String, selectedDays: [String])
 }
 
 protocol UpdateGoalUseCase {
@@ -19,9 +20,10 @@ protocol UpdateGoalUseCase {
 }
 
 protocol DeleteGoalUseCase {
-    func deleteMainGoal(mainGoal: MainGoal, modelContext: ModelContext, id: Int, newTitle: String, cloverState: Int)
-    func deleteSubGoal(subGoal: SubGoal, newTitle: String, category: String)
+    func deleteMainGoal(mainGoal: MainGoal)
+    func deleteSubGoal(subGoal: SubGoal)
     func deleteDetailGoal(detailGoal: DetailGoal)
     func resetAllData(modelContext: ModelContext, mainGoal: MainGoal)
     func deleteSubDetailGoals(subGoal: SubGoal)
+    func deleteNotification(detailGoal: DetailGoal)
 }
