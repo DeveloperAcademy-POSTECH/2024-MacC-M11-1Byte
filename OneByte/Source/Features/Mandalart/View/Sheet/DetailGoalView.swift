@@ -549,19 +549,17 @@ extension DetailGoalView {
                                 }
                             }
                         }
-                        .alert(isPresented: $allowAlert) {
-                            Alert(
-                                title: Text("알림이 꺼진 상태예요!"),
-                                message: Text("설정으로 이동해서 알림을 허용할까요?"),
-                                primaryButton: .default(Text("확인")) {
-                                    // 확인 버튼이 눌렸을 때 실행할 함수
-                                    isRemind = false
-                                    viewModel.openAppSettings()
-                                },
-                                secondaryButton: .cancel(Text("취소")) {
-                                    isRemind = false
-                                }
-                            )
+                        .alert("알림 설정이 꺼져있어요", isPresented: $allowAlert) {
+                            Button("취소", role: .cancel) {
+                                isRemind = false
+                            }
+                            Button("이동하기") {
+                                // 확인 버튼이 눌렸을 때 실행할 함수
+                                isRemind = false
+                                viewModel.openAppSettings()
+                            }
+                        } message: {
+                            Text("알림 기능을 사용하시려면\n기기설정에서 알림을 허용해주세요.")
                         }
                 }
                 if isRemind {
