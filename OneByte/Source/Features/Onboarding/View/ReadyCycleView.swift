@@ -27,17 +27,16 @@ struct ReadyCycleView: View {
                     .multilineTextAlignment(.center)
                     .lineSpacing(2.4)
             }
-            .padding(.top, 80)
-            
-            Spacer()
+            .padding(.top, 40)
             
             // 중앙 캐릭터 이미지
             HStack {
                 Image("OnboardingTurtle2")
                     .resizable()
                     .scaledToFit()
-                    .frame(height: 200)
+                    .frame(width: 353, height: 399)
             }
+            .padding(.top, 23)
             
             Spacer()
             

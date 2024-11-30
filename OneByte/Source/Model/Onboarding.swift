@@ -15,7 +15,7 @@ enum Onboarding: CaseIterable {
     var onboardingTitle: String {
         switch self {
         case .ready:
-            return "다라와 함께\n목표설정을 시작해봐요"
+            return "지금부터 함께\n루틴 설정을 배워봐요"
         case .subgoalCycle:
             return "달성하고 싶은 목표가\n무엇인가요?"
         case .detailgoalCycle:
@@ -32,7 +32,7 @@ enum Onboarding: CaseIterable {
     var onboardingSubTitle: String {
         switch self {
         case .ready:
-            return "4가지 목표 중 하나를 함께 작성해보고\n목표달성을 위한 루틴도 만들어봐요"
+            return "목표와 루틴을 하나씩 적어가면서 클로버를 심어봐요\n같이 하면 다음엔 훨씬 쉬울거에요!"
         case .subgoalCycle:
             return "나의 꾸준한 노력으로 이루고 싶은 일들은\n어떤 것이 있을지 떠올려보세요"
         case .detailgoalCycle:
