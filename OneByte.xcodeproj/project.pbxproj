@@ -57,6 +57,7 @@
 		1FC6863C2CF8BCFD008F399F /* CloverCardProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC6863B2CF8BCFD008F399F /* CloverCardProgressBar.swift */; };
 		1FC6863E2CF8CED3008F399F /* CloverCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC6863D2CF8CED2008F399F /* CloverCardViewModel.swift */; };
 		1FC686402CF8CF5A008F399F /* CloverCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC6863F2CF8CF5A008F399F /* CloverCard.swift */; };
+		1FC686422CFB0CEA008F399F /* RoutineCycleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC686412CFB0CEA008F399F /* RoutineCycleViewModel.swift */; };
 		1FD405232CEC74E800403A19 /* AllRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD405222CEC74E800403A19 /* AllRoutineView.swift */; };
 		1FD405252CEC79DD00403A19 /* TodayRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD405242CEC79DD00403A19 /* TodayRoutineView.swift */; };
 		1FD4052A2CECBFCB00403A19 /* RoutineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD405292CECBFCB00403A19 /* RoutineModel.swift */; };
@@ -147,6 +148,7 @@
 		1FC6863B2CF8BCFD008F399F /* CloverCardProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloverCardProgressBar.swift; sourceTree = "<group>"; };
 		1FC6863D2CF8CED2008F399F /* CloverCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloverCardViewModel.swift; sourceTree = "<group>"; };
 		1FC6863F2CF8CF5A008F399F /* CloverCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloverCard.swift; sourceTree = "<group>"; };
+		1FC686412CFB0CEA008F399F /* RoutineCycleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCycleViewModel.swift; sourceTree = "<group>"; };
 		1FD405222CEC74E800403A19 /* AllRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRoutineView.swift; sourceTree = "<group>"; };
 		1FD405242CEC79DD00403A19 /* TodayRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutineView.swift; sourceTree = "<group>"; };
 		1FD405292CECBFCB00403A19 /* RoutineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineModel.swift; sourceTree = "<group>"; };
@@ -478,6 +480,7 @@
 			isa = PBXGroup;
 			children = (
 				1FB10A3F2CDF7F4B00D54EC5 /* OnboardingViewModel.swift */,
+				1FC686412CFB0CEA008F399F /* RoutineCycleViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -658,6 +661,7 @@
 				1F42BE892CDF838500A59703 /* Font+.swift in Sources */,
 				1F4D8BF02CDF4F9E00A0B5CC /* OnboardingStartView.swift in Sources */,
 				1FB10A382CDF5FE800D54EC5 /* OnboardingExplain.swift in Sources */,
+				1FC686422CFB0CEA008F399F /* RoutineCycleViewModel.swift in Sources */,
 				1F18DD862CEA3869000F0E3E /* Clover.swift in Sources */,
 				610595D62CE23653005ED7B4 /* DeleteService.swift in Sources */,
 				1F88AB412CD6101C0009730D /* Date+.swift in Sources */,

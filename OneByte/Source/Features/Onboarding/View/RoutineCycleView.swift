@@ -11,15 +11,17 @@ import SwiftData
 struct RoutineCycleView: View {
     
     @Environment(NavigationManager.self) var navigationManager
-    
     @Environment(\.modelContext) private var modelContext
     @Query private var subGoals: [SubGoal]
     
     @State var viewModel = OnboardingViewModel(createService: CreateService(), updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
-    @State private var userDetailGoal: String = "" // 사용자 SubGoal 입력 텍스트
-    @State private var targetSubGoal: SubGoal? // id가 1인 SubGoal 저장변수
-    private let detailGoalLimit = 20 // 글자 수 제한
+    @StateObject private var wwhViewModel = MandalartViewModel(
+        createService: CreateService(),
+        updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []),
+        deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: [])
+    )
     
+    @State private var targetSubGoal: SubGoal? // id가 1인 SubGoal 저장변수
     var nowOnboard: Onboarding = .detailgoalCycle
     
     var body: some View {
@@ -60,7 +62,7 @@ struct RoutineCycleView: View {
             RoundedRectangle(cornerRadius: 12)
                 .fill(Color.my6FB56F)
                 .frame(maxWidth: .infinity)
-                .frame(height: 154)
+                .frame(height: 178)
                 .overlay (
                     VStack(spacing: 5) {
                         Text("목표")
@@ -76,7 +78,7 @@ struct RoutineCycleView: View {
                         }
                         
                         ZStack {
-                            TextField("목표를 위한 루틴을 추가해보세요", text: $userDetailGoal)
+                            TextField("목표를 위한 루틴을 추가해보세요", text: $viewModel.userDetailGoal)
                                 .font(.Pretendard.Medium.size16)
                                 .multilineTextAlignment(.leading)
                                 .submitLabel(.done)
@@ -84,39 +86,85 @@ struct RoutineCycleView: View {
                                 .padding(.horizontal)
                                 .background(.white)
                                 .cornerRadius(12)
-                                .onChange(of: userDetailGoal) { oldValue, newValue in
-                                    if newValue.count > detailGoalLimit {
-                                        userDetailGoal = String(newValue.prefix(detailGoalLimit))
+                                .onChange(of: viewModel.userDetailGoal) { oldValue, newValue in
+                                    wwhViewModel.text = newValue // MandalartViewModel에 전달
+                                    
+                                    if newValue.count > viewModel.detailGoalLimit {
+                                        viewModel.userDetailGoal = String(newValue.prefix(viewModel.detailGoalLimit))
                                     }
                                 }
+                            HStack {
+                                Spacer()
+                                Button {
+                                    viewModel.clearUserDetailGoal()
+                                } label: {
+                                    Image(systemName: "xmark.circle.fill")
+                                        .resizable()
+                                        .frame(width: 23, height: 23)
+                                        .foregroundStyle(Color.myB9B9B9)
+                                }
+                                .opacity(viewModel.userDetailGoal.isEmpty ? 0 : 1)
+                                .padding(.trailing)
+                            }
+                        }
+                        .padding(.horizontal, 12)
+                        .padding(.top, 20)
+                        
+                        HStack(spacing: 4) {
+                            Image(wwhViewModel.wwh[0] ? "Onboarding_Routine_Check" : "Onboarding_Routine_NoCheck")
+                                .resizable()
+                                .frame(width: 16, height: 16)
+                            Text("어디서")
+                                .font(.Pretendard.SemiBold.size14)
+                                .kerning(0.2)
+                                .foregroundStyle(wwhViewModel.wwh[0] ? .my385E38 : .white.opacity(0.6))
+                            Image(wwhViewModel.wwh[1] ? "Onboarding_Routine_Check" : "Onboarding_Routine_NoCheck")
+                                .resizable()
+                                .frame(width: 16, height: 16)
+                                .padding(.leading, 8)
+                            Text("무엇을")
+                                .font(.Pretendard.SemiBold.size14)
+                                .kerning(0.2)
+                                .foregroundStyle(wwhViewModel.wwh[1] ? .my385E38 : .white.opacity(0.6))
+                            Image(wwhViewModel.wwh[2] ? "Onboarding_Routine_Check" : "Onboarding_Routine_NoCheck")
+                                .resizable()
+                                .frame(width: 16, height: 16)
+                                .padding(.leading, 8)
+                            Text("얼마나")
+                                .font(.Pretendard.SemiBold.size14)
+                                .kerning(0.2)
+                                .foregroundStyle(wwhViewModel.wwh[2] ? .my385E38 : .white.opacity(0.6))
+                            
+                            Spacer()
                             
                             HStack(spacing: 0) {
                                 Spacer()
-                                Text("\(userDetailGoal.count)")
-                                    .foregroundStyle(.my6C6C6C)
+                                Text("\(viewModel.userDetailGoal.count)")
+                                    .foregroundStyle(.myE8E8E8)
                                     .font(.Pretendard.Medium.size14)
-                                Text("/20")
-                                    .foregroundStyle(.my6C6C6C.opacity(0.5))
+                                Text("/\(viewModel.detailGoalLimit)")
+                                    .foregroundStyle(.white.opacity(0.5))
                                     .font(.Pretendard.Medium.size14)
                             }
-                            .padding(.trailing)
                         }
-                        .padding()
+                        .padding(.horizontal, 20)
+                        .padding(.top, 14)
+                        .padding(.bottom, 14)
                     }
                 )
-                .padding(.horizontal)
+                .padding(.horizontal, 16)
                 .padding(.top, 81)
             
             Spacer()
             
             // 하단 Button
             HStack {
-                NextButton(isEnabled: !userDetailGoal.isEmpty) {
+                NextButton(isEnabled: !viewModel.userDetailGoal.isEmpty) {
                     if let targetSubGoal = targetSubGoal, // id = 1에 해당하는 SubGoal의
                        let detailGoalToUpdate = targetSubGoal.detailGoals.first(where: { $0.id == 1 }) { // id = 1 DetailGoal 공간에 Update
                         viewModel.updateDetailGoal(
                             detailGoal: detailGoalToUpdate,
-                            newTitle: userDetailGoal,
+                            newTitle: viewModel.userDetailGoal,
                             newMemo: "",
                             achieveCount: 0,
                             achieveGoal: 0,
@@ -135,7 +183,7 @@ struct RoutineCycleView: View {
                             achieveThu: false,
                             achieveFri: false,
                             achieveSat: false,
-                            achieveSun: false, 
+                            achieveSun: false,
                             isMorning: true,
                             isAfternoon: false,
                             isEvening: false,

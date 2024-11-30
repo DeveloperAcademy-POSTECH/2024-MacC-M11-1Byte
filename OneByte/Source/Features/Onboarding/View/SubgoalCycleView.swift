@@ -59,6 +59,7 @@ struct SubgoalCycleView: View {
                 
                 TextField("이루고 싶은 목표", text: $userSubGoal, axis: .vertical)
                     .font(.Pretendard.Medium.size20)
+                    .foregroundStyle(.white)
                     .multilineTextAlignment(.center)
                     .focused($isFocused)
                     .submitLabel(.done)

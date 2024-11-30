@@ -16,6 +16,10 @@ class OnboardingViewModel {
     //    @Query var mainGoals: [MainGoal]
     //    @Query var subGoals: [SubGoal]
     //    @Query var detailGoals: [DetailGoal]
+    
+    var userDetailGoal: String = "" // 사용자 SubGoal 입력 텍스트
+    let detailGoalLimit = 20 // DetailGoal 글자 수 제한
+    
     var navigationManager = NavigationManager()
     var nowOnboard: OnboardingExplain = .first
     private let createService: CreateGoalUseCase
@@ -144,5 +148,10 @@ class OnboardingViewModel {
         } else {
             print("❌ 앱 설치일 저장 실패")
         }
+    }
+    
+    // 사용자 입력 DetailGoal 비우기
+    func clearUserDetailGoal() {
+        userDetailGoal = ""
     }
 }
