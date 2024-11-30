@@ -13,9 +13,9 @@ class OnboardingStartViewModel {
     
     var navigationManager = NavigationManager()
     var nowOnboard: OnboardingExplain = .first
+    var opacity = 0.0
     
     private let createService: CreateGoalUseCase
-    
     init(createService: CreateGoalUseCase) {
         self.createService = createService
     }
@@ -109,4 +109,16 @@ class OnboardingStartViewModel {
             print("❌ 앱 설치일 저장 실패")
         }
     }
+    
+    // 온보딩 TabView 페이지가 넘어갈때 자연스럽게 연결하기 위한 opacity 조절
+    func setOpacity(selectedOnboarding: OnboardingExplain) {
+        if selectedOnboarding == nowOnboard {
+            withAnimation(.easeInOut(duration: 0.5)) {
+                self.opacity = 1.0
+            }
+        } else {
+            self.opacity = 0.0
+        }
+    }
+    
 }

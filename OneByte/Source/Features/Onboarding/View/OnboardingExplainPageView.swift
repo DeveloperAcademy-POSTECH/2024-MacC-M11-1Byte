@@ -9,7 +9,8 @@ import SwiftUI
 
 struct OnboardingExplainPageView: View {
     
-    @State private var opacity = 0.0
+    @State var viewModel = OnboardingStartViewModel(createService: CreateService())
+    
     var nowOnboard: OnboardingExplain
     var selectedOnboarding: OnboardingExplain
     
@@ -35,12 +36,9 @@ struct OnboardingExplainPageView: View {
             Spacer()
         }
         .background(.myFFFAF4)
+        .padding(.horizontal, 16)
         .onAppear {
-            if selectedOnboarding == nowOnboard {
-                withAnimation(.easeInOut(duration: 0.5)) {
-                    opacity = 1.0
-                }
-            }
+            viewModel.setOpacity(selectedOnboarding: selectedOnboarding)
         }
     }
 }

@@ -15,7 +15,6 @@ class RoutineCycleViewModel {
     let detailGoalLimit = 20 // DetailGoal 글자 수 제한
     
     var navigationManager = NavigationManager()
-//    var nowOnboard: OnboardingExplain = .first
     private let updateService: UpdateGoalUseCase
     
     init(updateService: UpdateGoalUseCase) {

@@ -46,8 +46,9 @@ struct OnboardingStartView: View {
                 } label: {
                     Text("다음")
                 }
-                .padding()
+                .padding(.vertical)
             }
+            .padding(.horizontal, 16)
             .background(.myFFFAF4)
             .navigationDestination(for: PathType.self) { pathType in
                 pathType.NavigatingView()
@@ -67,5 +68,5 @@ struct OnboardingStartView: View {
 #Preview {
     OnboardingStartView()
         .environment(NavigationManager())
-        .modelContainer(for: [MainGoal.self, SubGoal.self, DetailGoal.self], inMemory: true) // 임시 컨테이너 생성
+        .modelContainer(for: [MainGoal.self, SubGoal.self, DetailGoal.self], inMemory: true)
 }

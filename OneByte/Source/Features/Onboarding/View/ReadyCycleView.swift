@@ -9,8 +9,6 @@ import SwiftUI
 struct ReadyCycleView: View {
     
     @Environment(NavigationManager.self) var navigationManager
-    @Environment(\.dismiss) private var dismiss
-    
     var nowOnboard: Onboarding = .ready
     
     var body: some View {
@@ -39,10 +37,10 @@ struct ReadyCycleView: View {
             } label: {
                 Text("시작하기")
             }
-            .padding()
+            .padding(.vertical)
         }
+        .padding(.horizontal, 16)
         .background(.myFFFAF4)
-        .navigationBarBackButtonHidden()
     }
 }
 
