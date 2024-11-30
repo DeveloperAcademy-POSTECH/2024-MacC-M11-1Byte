@@ -29,7 +29,7 @@ struct SubGoalCell: View {
                             Text(selectedSubGoal.title)
                                 .padding(.horizontal, 10)
                                 .padding(.vertical, 15)
-                                .modifier(MandalartButtonModifier())
+                                .frame(width: 78/393 * UIScreen.main.bounds.width, height: 78/852 * UIScreen.main.bounds.height)
                                 .background(Color.my95D895)
                                 .font(.Pretendard.Bold.size14)
                                 .cornerRadius(11)
@@ -41,7 +41,8 @@ struct SubGoalCell: View {
                                 // 디테일 골 제목
                                 Text(detailGoal.title)
                                     .padding(.all, 10)
-                                    .modifier(MandalartButtonModifier())
+                                    .frame(width: 78/393 * UIScreen.main.bounds.width, height: 78/852 * UIScreen.main.bounds.height)
+                                    .foregroundStyle(.black)
                                     .font(.Pretendard.Medium.size12)
                                     .background(colorForGoal(achieveGoal: detailGoal.achieveGoal, achieveCount: detailGoal.achieveCount))
                                     .cornerRadius(cornerRadius, corners: cornerStyle, defaultRadius: 11)

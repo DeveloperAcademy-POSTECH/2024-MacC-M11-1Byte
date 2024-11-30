@@ -33,17 +33,17 @@ func scheduleNotification(for title: String, on days: [String], at time: Date) {
     // 알림 식별자 설정
     let identifier = "\(title)-\(days.joined(separator: ","))"
     
-    // 여러 개의 제목을 배열로 설정하고, 랜덤으로 선택
-       let titles = [
-           "🐢 루틴을 시작해보세요",
-           "조금만 힘내면 금새 습관이 될 거예요",
-           "🍀 오늘의 네잎클로버를 칠해봐요",
-           "루틴 알림",
-           "오늘의 작은 실천을 해보아요"
-       ]
+//    // 여러 개의 제목을 배열로 설정하고, 랜덤으로 선택
+//       let titles = [
+//           "🐢 루틴을 시작해보세요",
+//           "조금만 힘내면 금새 습관이 될 거예요",
+//           "🍀 오늘의 네잎클로버를 칠해봐요",
+//           "루틴 알림",
+//           "오늘의 작은 실천을 해보아요"
+//       ]
     // 알림 내용
     let content = UNMutableNotificationContent()
-    content.title = titles.randomElement() ?? "🍀 오늘의 네잎클로버를 칠해봐요"
+    content.title = "🍀 오늘의 네잎클로버를 칠해봐요"
     content.body = title
     content.sound = .default
     

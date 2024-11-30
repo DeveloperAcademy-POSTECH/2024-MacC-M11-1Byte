@@ -77,7 +77,6 @@
 		615A0A0D2CC0AE8700908531 /* RoutineMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A0C2CC0AE8700908531 /* RoutineMainView.swift */; };
 		615A0A112CC0AEB800908531 /* StatisticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A102CC0AEB800908531 /* StatisticView.swift */; };
 		617816202CE5DF6A00834AAD /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6178161F2CE5DF6A00834AAD /* DateManager.swift */; };
-		618FD0702CDF0ED20003450D /* MandalartButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618FD06F2CDF0ED20003450D /* MandalartButtonModifier.swift */; };
 		618FD0742CDF11210003450D /* CreateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618FD0732CDF11210003450D /* CreateService.swift */; };
 		618FD0762CDF11410003450D /* UpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618FD0752CDF11410003450D /* UpdateService.swift */; };
 		618FD0782CDF11760003450D /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618FD0772CDF11760003450D /* Protocol.swift */; };
@@ -163,7 +162,6 @@
 		615A0A0C2CC0AE8700908531 /* RoutineMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineMainView.swift; sourceTree = "<group>"; };
 		615A0A102CC0AEB800908531 /* StatisticView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticView.swift; sourceTree = "<group>"; };
 		6178161F2CE5DF6A00834AAD /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
-		618FD06F2CDF0ED20003450D /* MandalartButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalartButtonModifier.swift; sourceTree = "<group>"; };
 		618FD0732CDF11210003450D /* CreateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateService.swift; sourceTree = "<group>"; };
 		618FD0752CDF11410003450D /* UpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateService.swift; sourceTree = "<group>"; };
 		618FD0772CDF11760003450D /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
@@ -531,7 +529,6 @@
 		610595D72CE2582A005ED7B4 /* Mandalart */ = {
 			isa = PBXGroup;
 			children = (
-				618FD06F2CDF0ED20003450D /* MandalartButtonModifier.swift */,
 				61CC01002CF6CBD00009D063 /* DayButton.swift */,
 				610595D82CE2584D005ED7B4 /* MadalartShape.swift */,
 			);
@@ -656,7 +653,6 @@
 				1FB10A302CDF55AA00D54EC5 /* SubgoalCycleView.swift in Sources */,
 				1F7C9C282CD083CC00BAC358 /* GoalModels.swift in Sources */,
 				618FD0782CDF11760003450D /* Protocol.swift in Sources */,
-				618FD0702CDF0ED20003450D /* MandalartButtonModifier.swift in Sources */,
 				613904E82CD20457008E591D /* MandalartView.swift in Sources */,
 				1FA420942CC0DC19001CB92D /* Color+.swift in Sources */,
 				1FB10A342CDF593600D54EC5 /* OnboardingFinishView.swift in Sources */,
