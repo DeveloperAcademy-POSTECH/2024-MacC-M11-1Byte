@@ -4,7 +4,6 @@ import SwiftData
 struct SubgoalCycleView: View {
     
     @Environment(NavigationManager.self) var navigationManager
-    @Environment(\.modelContext) private var modelContext
     @Query private var mainGoals: [MainGoal]
     @State var viewModel = RoutineCycleViewModel(updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     

@@ -15,8 +15,9 @@ class RoutineCycleViewModel {
     var userNewSubGoal: String = "" // 사용자 SubGoal 입력 텍스트
     let subGoalLimit = 15 // 글자 수 제한
     
-    
-    var userDetailGoal: String = "" // 사용자 SubGoal 입력 텍스트
+    // RoutineCycleView
+    var targetSubGoal: SubGoal? // id가 1인 SubGoal 저장변수
+    var userNewDetailGoal: String = "" // 사용자 SubGoal 입력 텍스트
     let detailGoalLimit = 20 // DetailGoal 글자 수 제한
     
     var navigationManager = NavigationManager()
@@ -43,6 +44,6 @@ class RoutineCycleViewModel {
     
     // 사용자 입력 DetailGoal 비우기
     func clearUserDetailGoal() {
-        userDetailGoal = ""
+        userNewDetailGoal = ""
     }
 }
