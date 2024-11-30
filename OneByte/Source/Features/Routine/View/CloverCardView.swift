@@ -105,9 +105,7 @@ struct CloverCardView: View {
                 }
                 .padding(.top, 24)
                 .onTapGesture {
-                    withAnimation(.easeInOut) {
-                        viewModel.isCheckAchievement.toggle()
-                    }
+                    viewModel.isCheckAchievement.toggle()
                 }
                 
                 // 완수율 통계
@@ -142,7 +140,7 @@ struct CloverCardView: View {
     @ViewBuilder
     private func completionRateView(cloverCardType: CloverCardType) -> some View {
         VStack(spacing: 12) {
-            Text(viewModel.getLastWeekWeekofMonth()) // 이전 주차
+            Text("\(viewModel.getLastWeekWeekofMonth())의 루틴 완수율") // 이전 주차
                 .font(.Pretendard.Bold.size17)
                 .foregroundStyle(.my575656)
                 .padding(.vertical, 10)
