@@ -17,6 +17,7 @@ struct DaysCycleView: View {
     
     @Query private var subGoals: [SubGoal]
     @Query private var detailGoals: [DetailGoal]
+    @State private var targetSubGoal: SubGoal? // id가 1인 SubGoal 저장변수
     @State private var targetDetailGoal: DetailGoal? // id가 1인 SubGoal 저장변수
     
     @State private var achieveGoal = 0
@@ -63,16 +64,48 @@ struct DaysCycleView: View {
             }
             .padding(.top, 31)
             
-            VStack(spacing: 5) {
-                Text("루틴")
-                    .font(.Pretendard.Medium.size16)
-                    .foregroundStyle(Color.myB4A99D)
-                    .padding(.top)
-                
-                Text(targetDetailGoal?.title ?? "")
-                    .foregroundStyle(.black)
-                    .font(.Pretendard.Medium.size20)
-                    .multilineTextAlignment(.center)
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.myD6F3D4)
+                .frame(maxWidth: .infinity)
+                .frame(height: 86)
+                .overlay (
+                    VStack(spacing: 6) {
+                        Text(targetSubGoal?.title ?? "No SubGoal")
+                            .foregroundStyle(.my538F53)
+                            .font(.Pretendard.Medium.size16)
+                        Text(targetDetailGoal?.title ?? "No DetailGoal")
+                            .font(.Pretendard.Medium.size20)
+                    }
+                )
+                .padding(.top, 32)
+            
+            VStack(spacing: 2) {
+                HStack {
+                    Text("요일 선택")
+                        .font(.Pretendard.SemiBold.size17)
+                        .foregroundStyle(.my675542)
+                        .kerning(0.2)
+                    Spacer()
+                }
+                HStack {
+                    Text("루틴을 실행할 요일을 선택해주세요 " )
+                        .font(.Pretendard.Medium.size14)
+                        .foregroundStyle(.myB4A99D)
+                        .kerning(0.2)
+                    Spacer()
+                }
+            }
+            .padding(.leading, 4)
+            .padding(.top, 32)
+            
+            VStack(spacing: 0) {
+                HStack {
+                    Text("반복 요일")
+                        .font(.Pretendard.SemiBold.size16)
+                        .kerning(0.2)
+                        .padding([.leading, .top], 16)
+                    Spacer()
+                }
                 
                 HStack(spacing: 7) {
                     DaysCycleButton(day: "일", isSelected: $alertSun, onChange: updateAchieveGoal)
@@ -83,14 +116,16 @@ struct DaysCycleView: View {
                     DaysCycleButton(day: "금", isSelected: $alertFri, onChange: updateAchieveGoal)
                     DaysCycleButton(day: "토", isSelected: $alertSat, onChange: updateAchieveGoal)
                 }
-                .padding()
+                .padding(.horizontal, 20)
+                .padding(.top, 10)
+                .padding(.bottom, 15)
             }
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(Color.myB4A99D, lineWidth: 1)
             )
             .cornerRadius(12)
-            .padding(.top, 81)
+            .padding(.top, 10)
             
             Spacer()
             
@@ -127,7 +162,7 @@ struct DaysCycleView: View {
                         achieveThu: targetDetailGoal.achieveThu,
                         achieveFri: targetDetailGoal.achieveFri,
                         achieveSat: targetDetailGoal.achieveSat,
-                        achieveSun: targetDetailGoal.achieveSun, 
+                        achieveSun: targetDetailGoal.achieveSun,
                         isMorning: targetDetailGoal.isMorning,
                         isAfternoon: targetDetailGoal.isAfternoon,
                         isEvening: targetDetailGoal.isEvening,
@@ -141,15 +176,16 @@ struct DaysCycleView: View {
             }
             .padding()
         }
+        .padding(.horizontal, 16)
         .background(.myFFFAF4)
         .onAppear {
-            // 사용자가 입력한 Subgoal id 1의 DetailGoal중 id 1번 값을 찾아 담음
-            if let targetSubGoal = subGoals.first(where: { $0.id == 1 }),
-               let targetDetail = targetSubGoal.detailGoals.first(where: { $0.id == 1 }) {
-                targetDetailGoal = targetDetail
-            }
+            // 사용자가 입력한 Subgoal id 1의 값을 targetSubGoal에 저장
+            targetSubGoal = subGoals.first(where: { $0.id == 1 })
+            // targetSubGoal의 DetailGoal 중 id 1의 값을 targetDetailGoal에 저장
+            targetDetailGoal = targetSubGoal?.detailGoals.first(where: { $0.id == 1 })
         }
     }
+    
     private func updateAchieveGoal() {
         achieveGoal = [alertMon, alertTue, alertWed, alertThu, alertFri, alertSat, alertSun]
             .filter { $0 }
@@ -170,16 +206,11 @@ struct DaysCycleButton: View {
         }) {
             Text(day)
                 .font(.Pretendard.Medium.size17)
-                .foregroundStyle(isSelected ? .white : .my95D895)
+                .foregroundStyle(isSelected ? .white : .white)
                 .frame(width: 36, height: 36)
-                .background(isSelected ? .my95D895 : .white)
+                .background(isSelected ? .my95D895 : .myCFCFCF)
                 .clipShape(Circle())
-                .overlay(
-                    Circle()
-                        .stroke(isSelected ? .white : .my95D895 , lineWidth: 1)
-                )
         }
-        .buttonStyle(PlainButtonStyle())
     }
 }
 

@@ -38,7 +38,7 @@ enum Onboarding: CaseIterable {
         case .detailgoalCycle:
             return "아래에 체크사항을 참고하면\n더 실천하기 쉬운 루틴을 적을 수 있어요"
         case .daysCycle:
-            return "루틴을 실천할 요일을 설정하여\n루틴을 구체화해보세요"
+            return "루틴을 실천할 요일과 시간대를 설정하여\n루틴을 구체화해봐요"
         case .completeCycle:
             return "루틴 설정으로 이동하여\n메모와 알람 시간도 추가할 수 있어요"
         case .finish:
