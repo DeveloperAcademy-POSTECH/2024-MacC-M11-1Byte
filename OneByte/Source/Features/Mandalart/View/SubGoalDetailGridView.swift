@@ -46,7 +46,9 @@ struct SubGoalDetailGridView: View {
                                 if selectedSubGoal.title == "" {
                                     // 회색 네모
                                     Text("")
-                                        .modifier(NextMandalartButtonModifier())
+                                        .frame(width: 123/393 * UIScreen.main.bounds.width, height: 123/852 * UIScreen.main.bounds.height)
+                                        .foregroundStyle(.black)
+                                        .cornerRadius(8)
                                         .background(.myE4E4E4)
                                         .cornerRadius(18)
                                         .cornerRadius(cornerRadius, corners: cornerStyle, defaultRadius: 18)

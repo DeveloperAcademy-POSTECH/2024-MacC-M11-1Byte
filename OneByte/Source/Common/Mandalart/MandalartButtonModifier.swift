@@ -14,12 +14,3 @@ struct MandalartButtonModifier: ViewModifier {
             .cornerRadius(8)
     }
 }
-struct NextMandalartButtonModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .frame(width: 123/393 * UIScreen.main.bounds.width, height: 123/852 * UIScreen.main.bounds.height)
-            .foregroundStyle(.black)
-            .cornerRadius(8)
-    }
-}
-
