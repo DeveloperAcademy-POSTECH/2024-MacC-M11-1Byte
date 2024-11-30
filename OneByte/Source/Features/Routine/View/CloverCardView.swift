@@ -149,18 +149,19 @@ struct CloverCardView: View {
     @ViewBuilder
     private func completionRateView(cloverCardType: CloverCardType) -> some View {
         VStack(spacing: 12) {
-            Text("12월 4주차의 루틴 완수율") // 저번주 날짜 데이터 넣기
+            Text(viewModel.getLastWeekWeekofMonth()) // 이전 주차
                 .font(.Pretendard.Bold.size17)
                 .foregroundStyle(.my575656)
                 .padding(.vertical, 10)
             
-            ForEach(0..<4) { _ in
+            // SubGoal의 category를 표시
+            ForEach(mainGoals.first?.subGoals.sorted(by: { $0.id < $1.id }) ?? [], id: \.id) { subGoal in
                 HStack {
-                    Text("키워드1")
+                    Text(subGoal.category) // SubGoal의 category 표시
                         .font(.Pretendard.Bold.size12)
                         .foregroundStyle(.my505050)
                         .frame(width: 62, alignment: .leading)
-                    CloverCardProgressBar(value: 0.7)
+                    CloverCardProgressBar(value: 0.7) // 진행률은 임시값
                         .progressViewStyle(LinearProgressViewStyle(tint: .myFFA64A))
                 }
                 .padding(.horizontal, 33)
@@ -183,12 +184,12 @@ struct CloverCardView: View {
             rotationAngle += 360 // Y축 기준으로 한 바퀴 회전
         }
     }
-
+    
     // 클로버 탭 회전
     private func tapRotationAnimation() {
         guard !isTapped else { return } // 이미 빠른 회전 중이면 무시
         isTapped = true
-
+        
         // 탭 회전 시작
         withAnimation(
             Animation.linear(duration: 1.0)
@@ -201,7 +202,7 @@ struct CloverCardView: View {
         ) {
             rotationAngle += 90
         }
-
+        
         withAnimation(
             Animation.linear(duration: 1.8)
         ) {
