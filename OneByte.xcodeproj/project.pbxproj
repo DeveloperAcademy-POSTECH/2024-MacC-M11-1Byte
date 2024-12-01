@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F100F402CFCA3A200130BA9 /* CustomTextModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F100F3F2CFCA3A200130BA9 /* CustomTextModifier.swift */; };
+		1F100F422CFCA3B300130BA9 /* OnboardingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F100F412CFCA3B300130BA9 /* OnboardingHeaderView.swift */; };
+		1F100F442CFCA3F000130BA9 /* RoutineCycleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F100F432CFCA3F000130BA9 /* RoutineCycleViewModel.swift */; };
+		1F100F462CFCA45300130BA9 /* CloverCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F100F452CFCA45300130BA9 /* CloverCardView.swift */; };
+		1F100F482CFCA47800130BA9 /* CloverCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F100F472CFCA47800130BA9 /* CloverCardViewModel.swift */; };
+		1F100F4A2CFCA49200130BA9 /* CloverCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F100F492CFCA49200130BA9 /* CloverCard.swift */; };
+		1F100F4D2CFCA5B100130BA9 /* DaysCycleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F100F4C2CFCA5B100130BA9 /* DaysCycleCell.swift */; };
+		1F100F4F2CFCA5CF00130BA9 /* DaysCycleCellButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F100F4E2CFCA5CF00130BA9 /* DaysCycleCellButton.swift */; };
+		1F100F512CFCA62000130BA9 /* CloverCardProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F100F502CFCA62000130BA9 /* CloverCardProgressBar.swift */; };
 		1F18DD862CEA3869000F0E3E /* Clover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F18DD852CEA3869000F0E3E /* Clover.swift */; };
 		1F42BE7E2CDF826D00A59703 /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1F42BE752CDF826C00A59703 /* Pretendard-ExtraBold.otf */; };
 		1F42BE7F2CDF826D00A59703 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1F42BE762CDF826C00A59703 /* Pretendard-Bold.otf */; };
@@ -50,7 +59,7 @@
 		1FB10A382CDF5FE800D54EC5 /* OnboardingExplain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A372CDF5FE800D54EC5 /* OnboardingExplain.swift */; };
 		1FB10A3A2CDF60D100D54EC5 /* OnboardingExplainPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A392CDF60D100D54EC5 /* OnboardingExplainPageView.swift */; };
 		1FB10A3C2CDF78C400D54EC5 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A3B2CDF78C400D54EC5 /* NextButton.swift */; };
-		1FB10A402CDF7F4B00D54EC5 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A3F2CDF7F4B00D54EC5 /* OnboardingViewModel.swift */; };
+		1FB10A402CDF7F4B00D54EC5 /* OnboardingStartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A3F2CDF7F4B00D54EC5 /* OnboardingStartViewModel.swift */; };
 		1FC686362CF78276008F399F /* TodayRoutineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC686352CF78276008F399F /* TodayRoutineCell.swift */; };
 		1FC686382CF782FB008F399F /* WeekAchieveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC686372CF782FB008F399F /* WeekAchieveCell.swift */; };
 		1FD405232CEC74E800403A19 /* AllRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD405222CEC74E800403A19 /* AllRoutineView.swift */; };
@@ -89,6 +98,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1F100F3F2CFCA3A200130BA9 /* CustomTextModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextModifier.swift; sourceTree = "<group>"; };
+		1F100F412CFCA3B300130BA9 /* OnboardingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingHeaderView.swift; sourceTree = "<group>"; };
+		1F100F432CFCA3F000130BA9 /* RoutineCycleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCycleViewModel.swift; sourceTree = "<group>"; };
+		1F100F452CFCA45300130BA9 /* CloverCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloverCardView.swift; sourceTree = "<group>"; };
+		1F100F472CFCA47800130BA9 /* CloverCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloverCardViewModel.swift; sourceTree = "<group>"; };
+		1F100F492CFCA49200130BA9 /* CloverCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloverCard.swift; sourceTree = "<group>"; };
+		1F100F4C2CFCA5B100130BA9 /* DaysCycleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysCycleCell.swift; sourceTree = "<group>"; };
+		1F100F4E2CFCA5CF00130BA9 /* DaysCycleCellButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysCycleCellButton.swift; sourceTree = "<group>"; };
+		1F100F502CFCA62000130BA9 /* CloverCardProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloverCardProgressBar.swift; sourceTree = "<group>"; };
 		1F18DD852CEA3869000F0E3E /* Clover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clover.swift; sourceTree = "<group>"; };
 		1F42BE752CDF826C00A59703 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
 		1F42BE762CDF826C00A59703 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
@@ -134,7 +152,7 @@
 		1FB10A372CDF5FE800D54EC5 /* OnboardingExplain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingExplain.swift; sourceTree = "<group>"; };
 		1FB10A392CDF60D100D54EC5 /* OnboardingExplainPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingExplainPageView.swift; sourceTree = "<group>"; };
 		1FB10A3B2CDF78C400D54EC5 /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
-		1FB10A3F2CDF7F4B00D54EC5 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
+		1FB10A3F2CDF7F4B00D54EC5 /* OnboardingStartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStartViewModel.swift; sourceTree = "<group>"; };
 		1FC686352CF78276008F399F /* TodayRoutineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutineCell.swift; sourceTree = "<group>"; };
 		1FC686372CF782FB008F399F /* WeekAchieveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekAchieveCell.swift; sourceTree = "<group>"; };
 		1FD405222CEC74E800403A19 /* AllRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRoutineView.swift; sourceTree = "<group>"; };
@@ -183,6 +201,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F100F4B2CFCA58200130BA9 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				1F100F4C2CFCA5B100130BA9 /* DaysCycleCell.swift */,
+				1F100F4E2CFCA5CF00130BA9 /* DaysCycleCellButton.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		1F42BE742CDF824D00A59703 /* Font */ = {
 			isa = PBXGroup;
 			children = (
@@ -202,6 +229,7 @@
 		1F4D8BEE2CDF4F9200A0B5CC /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				1F100F4B2CFCA58200130BA9 /* Cell */,
 				1FB10A3E2CDF7EEF00D54EC5 /* ViewModel */,
 				1FB10A3D2CDF7EDD00D54EC5 /* View */,
 			);
@@ -334,6 +362,7 @@
 				615A0A0C2CC0AE8700908531 /* RoutineMainView.swift */,
 				1FD405242CEC79DD00403A19 /* TodayRoutineView.swift */,
 				1FD405222CEC74E800403A19 /* AllRoutineView.swift */,
+				1F100F452CFCA45300130BA9 /* CloverCardView.swift */,
 				1FD405352CECE6F800403A19 /* TodayRouitneTypeHeaderView.swift */,
 			);
 			path = View;
@@ -427,6 +456,7 @@
 			isa = PBXGroup;
 			children = (
 				1FB10A242CDF511600D54EC5 /* GoButton.swift */,
+				1F100F412CFCA3B300130BA9 /* OnboardingHeaderView.swift */,
 				1FB10A3B2CDF78C400D54EC5 /* NextButton.swift */,
 				61FA4DF22CE77EDD00256B57 /* BackButtonToolbarModifier.swift */,
 			);
@@ -437,8 +467,10 @@
 			isa = PBXGroup;
 			children = (
 				1FB10A2B2CDF52E600D54EC5 /* OnboardingProgressBar.swift */,
+				1F100F502CFCA62000130BA9 /* CloverCardProgressBar.swift */,
 				1FD4053B2CED987700403A19 /* TurtleMessageView.swift */,
 				61CC00FC2CF0276B0009D063 /* DetailGoalColor.swift */,
+				1F100F3F2CFCA3A200130BA9 /* CustomTextModifier.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -462,7 +494,8 @@
 		1FB10A3E2CDF7EEF00D54EC5 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				1FB10A3F2CDF7F4B00D54EC5 /* OnboardingViewModel.swift */,
+				1FB10A3F2CDF7F4B00D54EC5 /* OnboardingStartViewModel.swift */,
+				1F100F432CFCA3F000130BA9 /* RoutineCycleViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -509,6 +542,7 @@
 			isa = PBXGroup;
 			children = (
 				1FD405292CECBFCB00403A19 /* RoutineModel.swift */,
+				1F100F492CFCA49200130BA9 /* CloverCard.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -518,6 +552,7 @@
 			children = (
 				1FD4052B2CECBFF900403A19 /* RoutineMainViewModel.swift */,
 				1FD405372CECE7B400403A19 /* TodayRoutineViewModel.swift */,
+				1F100F472CFCA47800130BA9 /* CloverCardViewModel.swift */,
 				1FD4052F2CECC42500403A19 /* AllRoutineViewModel.swift */,
 			);
 			path = VM;
@@ -629,7 +664,10 @@
 				1FD405362CECE6F800403A19 /* TodayRouitneTypeHeaderView.swift in Sources */,
 				61CC00FD2CF0276B0009D063 /* DetailGoalColor.swift in Sources */,
 				1FB10A252CDF511600D54EC5 /* GoButton.swift in Sources */,
+				1F100F4A2CFCA49200130BA9 /* CloverCard.swift in Sources */,
 				1FE27C752CF0C8AF00A4C6BE /* CompleteCycleView.swift in Sources */,
+				1F100F4D2CFCA5B100130BA9 /* DaysCycleCell.swift in Sources */,
+				1F100F442CFCA3F000130BA9 /* RoutineCycleViewModel.swift in Sources */,
 				1F62B8F12CF18AE4004A3F0B /* WeeklyResetManager.swift in Sources */,
 				1F599E362CE6648B00788D07 /* PrivacyPolicyRow.swift in Sources */,
 				1F599E3A2CE66AA300788D07 /* SettingViewModel.swift in Sources */,
@@ -642,9 +680,12 @@
 				1F18DD862CEA3869000F0E3E /* Clover.swift in Sources */,
 				610595D62CE23653005ED7B4 /* DeleteService.swift in Sources */,
 				1F88AB412CD6101C0009730D /* Date+.swift in Sources */,
+				1F100F482CFCA47800130BA9 /* CloverCardViewModel.swift in Sources */,
 				1FB10A322CDF56E200D54EC5 /* RoutineCycleView.swift in Sources */,
 				615A0A0B2CC0ADA800908531 /* TabBarManager.swift in Sources */,
-				1FB10A402CDF7F4B00D54EC5 /* OnboardingViewModel.swift in Sources */,
+				1F100F402CFCA3A200130BA9 /* CustomTextModifier.swift in Sources */,
+				1F100F422CFCA3B300130BA9 /* OnboardingHeaderView.swift in Sources */,
+				1FB10A402CDF7F4B00D54EC5 /* OnboardingStartViewModel.swift in Sources */,
 				1F599E2D2CE6430D00788D07 /* StatisticViewModel.swift in Sources */,
 				1FB10A302CDF55AA00D54EC5 /* SubgoalCycleView.swift in Sources */,
 				1F7C9C282CD083CC00BAC358 /* GoalModels.swift in Sources */,
@@ -665,6 +706,7 @@
 				1FD4052A2CECBFCB00403A19 /* RoutineModel.swift in Sources */,
 				1FB10A2C2CDF52E600D54EC5 /* OnboardingProgressBar.swift in Sources */,
 				1F599E282CE5F29500788D07 /* EditNicknameSheetView.swift in Sources */,
+				1F100F512CFCA62000130BA9 /* CloverCardProgressBar.swift in Sources */,
 				610595DD2CE2EA6C005ED7B4 /* DetailGoalView.swift in Sources */,
 				1FB10A3A2CDF60D100D54EC5 /* OnboardingExplainPageView.swift in Sources */,
 				61FA4DF32CE77EDD00256B57 /* BackButtonToolbarModifier.swift in Sources */,
@@ -679,8 +721,10 @@
 				61CC01052CF74D190009D063 /* SubGoalView.swift in Sources */,
 				1FD4053C2CED987700403A19 /* TurtleMessageView.swift in Sources */,
 				1FC686382CF782FB008F399F /* WeekAchieveCell.swift in Sources */,
+				1F100F462CFCA45300130BA9 /* CloverCardView.swift in Sources */,
 				1FB10A292CDF515300D54EC5 /* ReadyCycleView.swift in Sources */,
 				1F4D8BF22CDF4FC300A0B5CC /* Onboarding.swift in Sources */,
+				1F100F4F2CFCA5CF00130BA9 /* DaysCycleCellButton.swift in Sources */,
 				1F599E302CE6640600788D07 /* AchievedRow.swift in Sources */,
 				1F599E342CE6643B00788D07 /* FontRow.swift in Sources */,
 				1FD4052C2CECBFF900403A19 /* RoutineMainViewModel.swift in Sources */,
