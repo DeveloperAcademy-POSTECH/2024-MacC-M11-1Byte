@@ -136,16 +136,20 @@ struct CloverCardView: View {
                     .background(.myFFFAF4)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
             }
-            .padding(.horizontal)
-            .padding(.vertical)
+            .padding()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(cloverCardType.gradient.ignoresSafeArea(edges: .all))
         .onAppear {
+            // 저번주의 CloverState 값 찾기
             viewModel.lastWeekCloverState = viewModel.getLastWeekCloverState(clovers: clovers)
+            print("🚧 저번주의 CloverState : \(String(describing: viewModel.lastWeekCloverState))")
+            // 현재 루틴들의 achieve 계산하여 ProgressValue로 변환
             if let subGoals = mainGoals.first?.subGoals {
+                
                 viewModel.calculateProgressValues(for: subGoals)
             }
+            // 데이터를 기준으로, 뷰를 다 렌더링 한뒤 초기화 작업
             DispatchQueue.main.async {
                 let resetManager = WeeklyResetManager()
                 resetManager.performReset(goals: mainGoals, modelContext: modelContext)
