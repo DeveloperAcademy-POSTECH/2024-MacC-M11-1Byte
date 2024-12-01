@@ -64,7 +64,7 @@ struct SubGoalDetailGridView: View {
                                         }) {
                                             Text(detailGoal.title == "" ?  "눌러서 루틴 추가하기" : detailGoal.title)
                                                 .font(detailGoal.title == "" ? .Pretendard.Medium.size14 : .Pretendard.Medium.size16)
-                                                .padding(.all, 14)
+                                                .padding(14)
                                                 .padding(.top, detailGoalIndex == 0 || detailGoalIndex == 1 ? 4 : 0)
                                                 .padding(.leading, detailGoalIndex == 0 || detailGoalIndex == 3 ? 4 : 0)
                                                 .padding(.trailing, detailGoalIndex == 1 || detailGoalIndex == 3 ? 4 : 0)
@@ -93,7 +93,7 @@ struct SubGoalDetailGridView: View {
                                                 Image(systemName: "minus.circle.fill")
                                                     .frame(width: 24, height: 22, alignment: .topLeading)
                                             })
-                                            .padding(.all, 5)
+                                            .padding(5)
                                             .foregroundStyle(.red)
                                             .alert("루틴을 삭제하시겠습니까?", isPresented: $showAlertDetail) {
                                                 Button("삭제하기", role: .destructive) {
@@ -188,7 +188,7 @@ extension SubGoalDetailGridView {
                         Image(systemName: "minus.circle.fill")
                             .frame(width: 24, height: 22, alignment: .topLeading)
                     })
-                    .padding(.all, 5)
+                    .padding(5)
                     .foregroundStyle(.red)
                     .alert("목표를 삭제하시겠습니까?", isPresented: $showAlertSub) {
                         Button("삭제하기", role: .destructive) {
@@ -236,7 +236,7 @@ extension SubGoalDetailGridView {
                                     }
                                     Spacer()
                                 }
-                                .padding(.all, 20)
+                                .padding(20)
                                 .background(.white)
                                 .cornerRadius(12)
                                 .overlay(

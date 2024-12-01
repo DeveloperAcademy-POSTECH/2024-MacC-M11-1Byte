@@ -31,12 +31,7 @@ struct MandalartView: View {
                 }
             }
         }
-        .onAppear {
-            isTabBarMainVisible = true
-//            if requestNotification {
-//                requestNotificationPermission()
-//            }
-        }
+        .padding(.horizontal)
     }
 }
 
@@ -64,13 +59,13 @@ struct OuterGridView: View {
     
     @State private var currentMessage: String = ""
        private let messages: [String] = [
-           "완벽하지 않아도 괜찮아요.\n중요한 것은 꾸준히 다시 시작하는 거예요!",
-           "한 걸음씩 가다 보면 \n어느새 큰 변화를 느낄 거예요!",
-           "같이 좀만 더 힘내봐요! \n조금만 힘내면 금새 습관이 될거예요.",
-           "누가 그랬는데 \n탁월함은 행동이 아니라 습관에서 온대요.",
-           "오늘 조금 못해도 괜찮아요, \n내일은 더 잘할 수 있을거예요.",
-           "느려도 괜찮아요.\n꾸준함이 우리를 목표로 데려다줄 거예요.",
-           "중단했더라도 괜찮아요.\n중요한 건 포기하지 않는 마음이에요."
+           "완벽하지 않아도 괜찮아요\n중요한 것은 꾸준히 다시 시작하는 거예요!",
+           "한 걸음씩 가다 보면\n어느새 큰 변화를 느낄 거예요!",
+           "같이 좀만 더 힘내봐요!\n조금만 힘내면 금새 습관이 될 거예요",
+           "누가 그랬는데\n탁월함은 행동이 아니라 습관에서 온대요",
+           "오늘 조금 못해도 괜찮아요\n내일은 더 잘할 수 있을 거예요",
+           "느려도 괜찮아요\n꾸준함이 우리를 목표로 데려다줄 거예요",
+           "중단했더라도 괜찮아요\n중요한 건 포기하지 않는 마음이에요"
        ]
     
     
@@ -82,7 +77,6 @@ struct OuterGridView: View {
                 Text("클로버 심기")
                     .font(.Pretendard.Bold.size22)
                     .foregroundStyle(Color.myB4A99D)
-                    .padding(.leading, -6)
                 
                 Spacer()
                 
@@ -152,11 +146,10 @@ struct OuterGridView: View {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 capturedImage = captureView()
                     .padding()
-                    .padding(.top, -30)
+                    .padding(.top, -30) // 이부분은 캡처 화면을 자르기 위함!
                     .snapshot()
             }
         }
-        .padding(.horizontal)
         .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
         .alert("작업을 중단하시겠습니까?", isPresented: $showAlert) {
             Button("나가기", role: .destructive) {

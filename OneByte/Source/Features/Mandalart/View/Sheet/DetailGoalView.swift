@@ -156,7 +156,7 @@ struct DetailGoalView: View {
                             isFree: isFree
                         )
                         
-                        viewModel.updateBooleanStates(detailGoal: detailGoal, for: selectedTime)
+                        viewModel.updateTimePeriodStates(detailGoal: detailGoal, for: selectedTime)
                         // 알림 설정 호출
                         if isRemind {
                             let selectedDays = getSelectedDays()
@@ -492,7 +492,7 @@ extension DetailGoalView {
             .pickerStyle(MenuPickerStyle())
             .onChange(of: selectedTime) { old, newValue in
                 if let detailGoal = detailGoal {
-                    viewModel.updateBooleanStates(detailGoal: detailGoal, for: newValue)
+                    viewModel.updateTimePeriodStates(detailGoal: detailGoal, for: newValue)
                 }
             }
         }

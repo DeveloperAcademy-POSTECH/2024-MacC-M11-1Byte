@@ -46,7 +46,7 @@ struct SubGoalCell: View {
                                 let detailGoal = detailGoalsSorted[detailGoalIndex]
                                 // 디테일 골 제목
                                 Text(detailGoal.title)
-                                    .padding(.all, 10)
+                                    .padding(10)
                                     .frame(width: 78/393 * UIScreen.main.bounds.width, height: 78/852 * UIScreen.main.bounds.height)
                                     .foregroundStyle(.black)
                                     .font(.Pretendard.Medium.size12)
