@@ -29,20 +29,23 @@ enum Onboarding: CaseIterable {
         }
     }
     
-    var onboardingSubTitle: String {
+    var onboardingSubTitle: Text {
         switch self {
         case .ready:
-            return "목표와 루틴을 하나씩 적어가면서 클로버를 심어봐요\n같이 하면 다음엔 훨씬 쉬울거에요!"
+            return Text("목표와 루틴을 하나씩 적어가면서 클로버를 심어봐요\n같이 하면 다음엔 훨씬 쉬울거에요!")
         case .subgoalCycle:
-            return "꾸준한 노력으로 이루고 싶은 일들은\n어떤 것이 있을지 떠올려봐요"
+            return Text("꾸준한 노력으로 이루고 싶은 일들은\n어떤 것이 있을지 떠올려봐요")
         case .detailgoalCycle:
-            return "아래에 체크사항을 참고하면\n더 실천하기 쉬운 루틴을 적을 수 있어요"
+            return Text("아래에 체크사항을 참고하면\n더 실천하기 쉬운 루틴을 적을 수 있어요")
         case .daysCycle:
-            return "루틴을 실천할 요일과 시간대를 설정하여\n루틴을 구체화해봐요"
+            return Text("루틴을 실천할 요일과 시간대를 설정하여\n루틴을 구체화해봐요")
         case .completeCycle:
-            return "루틴 설정으로 이동하여\n알림기능도 설정할 수 있어요"
+            return Text("루틴 설정으로 이동하여\n")
+                + Text("알림기능")
+                .font(.Pretendard.SemiBold.size16)
+                + Text("도 설정할 수 있어요")
         case .finish:
-            return "남은 목표와 루틴들도 작성할 수 있어요\n목표를 이룰 수 있도록 만부기가 항상 응원할게요!"
+            return Text("남은 목표와 루틴들도 작성할 수 있어요\n목표를 이룰 수 있도록 만부기가 항상 응원할게요!")
         }
     }
 }

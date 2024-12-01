@@ -22,7 +22,7 @@ struct OnboardingFinishView: View {
             VStack(spacing: 10) {
                 Text(nowOnboard.onboardingTitle)
                     .customMainStyle()
-                Text(nowOnboard.onboardingSubTitle)
+                nowOnboard.onboardingSubTitle
                     .customSubStyle()
             }
             .padding(.top, 31)
@@ -40,7 +40,7 @@ struct OnboardingFinishView: View {
             }
             .padding(.vertical)
         }
-        .padding(.horizontal, 16)
+        .padding(.horizontal)
         .background(.myFFFAF4)
     }
 }

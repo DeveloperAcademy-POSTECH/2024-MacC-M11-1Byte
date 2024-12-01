@@ -27,7 +27,7 @@ struct DaysCycleView: View {
                 VStack(spacing: 12) {
                     Text(nowOnboard.onboardingTitle)
                         .customMainStyle()
-                    Text(nowOnboard.onboardingSubTitle)
+                    nowOnboard.onboardingSubTitle
                         .customSubStyle()
                 }
                 .padding(.top, 31)
@@ -88,7 +88,7 @@ struct DaysCycleView: View {
             }
         }
         .padding(.leading, 4)
-        .padding(.top, 32)
+        .padding(.top, 20)
         
         VStack(spacing: 0) {
             HStack {
@@ -99,7 +99,7 @@ struct DaysCycleView: View {
                 Spacer()
             }
             
-            HStack(spacing: 7) {
+            HStack(spacing: 10) {
                 DaysCycleCellButton(day: "일", isSelected: $viewModel.alertSun, onChange: viewModel.updateAchieveGoal)
                 DaysCycleCellButton(day: "월", isSelected: $viewModel.alertMon, onChange: viewModel.updateAchieveGoal)
                 DaysCycleCellButton(day: "화", isSelected: $viewModel.alertTue, onChange: viewModel.updateAchieveGoal)
@@ -156,8 +156,7 @@ struct DaysCycleView: View {
                 .pickerStyle(.menu)
                 .tint(.my89898D)
             }
-            .padding(.vertical)
-            .padding(.horizontal,16)
+            .padding()
         }
         .overlay(
             RoundedRectangle(cornerRadius: 12)

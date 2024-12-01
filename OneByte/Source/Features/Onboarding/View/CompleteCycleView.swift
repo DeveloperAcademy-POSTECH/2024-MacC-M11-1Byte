@@ -26,7 +26,7 @@ struct CompleteCycleView: View {
             VStack(spacing: 12) {
                 Text(nowOnboard.onboardingTitle)
                     .customMainStyle()
-                Text(nowOnboard.onboardingSubTitle)
+                nowOnboard.onboardingSubTitle
                     .customSubStyle()
             }
             .padding(.top, 31)
@@ -93,7 +93,7 @@ struct CompleteCycleView: View {
             }
             .padding(.vertical)
         }
-        .padding(.horizontal, 16)
+        .padding(.horizontal)
         .background(.myFFFAF4)
         .onAppear {
             viewModel.targetSubGoal = subGoals.first(where: { $0.id == 1 })

@@ -29,7 +29,7 @@ struct RoutineCycleView: View {
             VStack(spacing: 12) {
                 Text(nowOnboard.onboardingTitle)
                     .customMainStyle()
-                Text(nowOnboard.onboardingSubTitle)
+                nowOnboard.onboardingSubTitle
                     .customSubStyle()
             }
             .padding(.top, 31)
@@ -45,13 +45,11 @@ struct RoutineCycleView: View {
                             .foregroundStyle(Color.myBFEBBB)
                             .padding(.top, 14)
                         
-                        if let title = viewModel.targetSubGoal?.title {
-                            Text(title)
-                                .font(.Pretendard.Medium.size20)
-                                .foregroundStyle(.white)
-                                .multilineTextAlignment(.center)
-                                .padding(.top, 4)
-                        }
+                        Text(viewModel.targetSubGoal?.title ?? "서브목표")
+                            .font(.Pretendard.Medium.size20)
+                            .foregroundStyle(.white)
+                            .multilineTextAlignment(.center)
+                            .padding(.top, 4)
                         
                         ZStack {
                             TextField("목표를 위한 루틴을 추가해보세요", text: $viewModel.userNewDetailGoal)
@@ -86,7 +84,7 @@ struct RoutineCycleView: View {
                         .padding(.horizontal, 12)
                         .padding(.top, 20)
                         
-                        wwhCheckView()
+                        wwhCheckView() // wwh View
                     }
                 )
                 .padding(.top, 81)
@@ -131,7 +129,7 @@ struct RoutineCycleView: View {
             }
             .padding(.vertical)
         }
-        .padding(.horizontal, 16)
+        .padding(.horizontal)
         .ignoresSafeArea(.keyboard, edges: .bottom)
         .background(.myFFFAF4)
         .contentShape(Rectangle())
@@ -184,8 +182,7 @@ struct RoutineCycleView: View {
             }
         }
         .padding(.horizontal, 20)
-        .padding(.top, 14)
-        .padding(.bottom, 14)
+        .padding(.vertical, 14)
     }
 }
 

@@ -32,11 +32,10 @@ struct OnboardingExplainPageView: View {
                     .resizable()
                     .scaledToFit()
             }
-            .padding(.horizontal)
             Spacer()
         }
         .background(.myFFFAF4)
-        .padding(.horizontal, 16)
+        .padding(.horizontal)
         .onAppear {
             viewModel.setOpacity(selectedOnboarding: selectedOnboarding)
         }

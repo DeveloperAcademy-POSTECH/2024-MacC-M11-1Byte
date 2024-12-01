@@ -48,7 +48,7 @@ struct OnboardingStartView: View {
                 }
                 .padding(.vertical)
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal)
             .background(.myFFFAF4)
             .navigationDestination(for: PathType.self) { pathType in
                 pathType.NavigatingView()

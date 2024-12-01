@@ -17,7 +17,7 @@ struct ReadyCycleView: View {
             VStack(spacing: 12) {
                 Text(nowOnboard.onboardingTitle)
                     .customMainStyle()
-                Text(nowOnboard.onboardingSubTitle)
+                nowOnboard.onboardingSubTitle
                     .customSubStyle()
             }
             .padding(.top, 40)
@@ -27,7 +27,6 @@ struct ReadyCycleView: View {
                 Image("OnboardingTurtle2")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 353, height: 399)
             }
             .padding(.top, 23)
             Spacer()
@@ -39,7 +38,7 @@ struct ReadyCycleView: View {
             }
             .padding(.vertical)
         }
-        .padding(.horizontal, 16)
+        .padding(.horizontal)
         .background(.myFFFAF4)
     }
 }

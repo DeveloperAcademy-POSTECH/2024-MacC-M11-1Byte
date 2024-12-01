@@ -19,7 +19,7 @@ struct SubgoalCycleView: View {
             VStack(spacing: 12) {
                 Text(nowOnboard.onboardingTitle)
                     .customMainStyle()
-                Text(nowOnboard.onboardingSubTitle)
+                nowOnboard.onboardingSubTitle
                     .customSubStyle()
             }
             .padding(.top, 31)
@@ -80,7 +80,7 @@ struct SubgoalCycleView: View {
             }
             .padding(.vertical)
         }
-        .padding(.horizontal, 16)
+        .padding(.horizontal)
         .background(.myFFFAF4)
         .contentShape(Rectangle())
         .ignoresSafeArea(.keyboard, edges: .bottom) // 키보드 올라올때, 뷰 자동 스크롤 제어
