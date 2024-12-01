@@ -17,7 +17,7 @@ struct StatisticView: View {
     @Binding var isTabBarMainVisible: Bool
     
     
-
+    
     
     var body: some View {
         NavigationStack {
@@ -45,7 +45,7 @@ struct StatisticView: View {
                     ScrollView {
                         thisMonthCloverInfoView()
                             .padding(.top, 44)
-
+                        
                         weeklyCloverInfoView()
                             .padding(.top, 21)
                         
@@ -123,8 +123,12 @@ struct StatisticView: View {
         
         let minMonth = viewModel.currentYearCloverMonthRange.min
         let maxMonth = viewModel.currentYearCloverMonthRange.max
-
-        let throughMonth = (isOpenedWeeklyCloverInfo) ? (minMonth) : maxMonth - 2
+        
+        let throughMonth = (maxMonth - minMonth > 2)
+            ? (isOpenedWeeklyCloverInfo ? minMonth : maxMonth - 2)
+            : minMonth
+        
+        let currentWeekOfMonth = 1
         
         VStack(spacing: 12) {
             VStack(spacing: 4) {
@@ -142,8 +146,7 @@ struct StatisticView: View {
                     Spacer()
                 }
             }
-            ZStack(alignment: .top) {
-                //if ()
+            ZStack(alignment: .topLeading) {
                 Rectangle()
                     .foregroundStyle(.white)
                     .frame(maxWidth: .infinity)
@@ -177,7 +180,7 @@ struct StatisticView: View {
                             .background(Color.myD5D5D5)
                             .padding(.horizontal, 59)
                             .frame(height: 46)
-                            
+                        
                         VStack(spacing: 7) {
                             HStack {
                                 Text("황금 클로버")
@@ -197,81 +200,75 @@ struct StatisticView: View {
                     }
                     .padding(.leading, 59)
                     .padding(.top, 20)
-                
-                        HStack(spacing: 28) {
-                            Text("1주차")
-                                .font(Font.Pretendard.SemiBold.size12)
-                                .foregroundStyle(.my887E78)
-                            Text("2주차")
-                                .font(Font.Pretendard.SemiBold.size12)
-                                .foregroundStyle(.my887E78)
-                            Text("3주차")
-                                .font(Font.Pretendard.SemiBold.size12)
-                                .foregroundStyle(.my887E78)
-                            Text("4주차")
-                                .font(Font.Pretendard.SemiBold.size12)
-                                .foregroundStyle(.my887E78)
-                            Text("5주차")
-                                .font(Font.Pretendard.SemiBold.size12)
-                                .foregroundStyle(.my887E78)
-                        }
-                        .padding(.top, 38)
-                        .padding(.bottom, 9)
-                        .padding(.leading, 82)
-                        
+                    
+                    HStack(spacing: 28.5) {
+                        Text("1주차")
+                            .font(currentWeekOfMonth == 1 ? Font.Pretendard.Bold.size12 : Font.Pretendard.SemiBold.size12)
+                            .foregroundStyle(.my887E78)
+                        Text("2주차")
+                            .font(currentWeekOfMonth == 2 ? Font.Pretendard.Bold.size12 : Font.Pretendard.SemiBold.size12)
+                            .foregroundStyle(.my887E78)
+                        Text("3주차")
+                            .font(currentWeekOfMonth == 3 ? Font.Pretendard.Bold.size12 : Font.Pretendard.SemiBold.size12)
+                            .foregroundStyle(.my887E78)
+                        Text("4주차")
+                            .font(currentWeekOfMonth == 4 ? Font.Pretendard.Bold.size12 : Font.Pretendard.SemiBold.size12)
+                            .foregroundStyle(.my887E78)
+                        Text("5주차")
+                            .font(currentWeekOfMonth == 5 ? Font.Pretendard.Bold.size12 : Font.Pretendard.SemiBold.size12)
+                            .foregroundStyle(.my887E78)
+                    }
+                    .padding(.top, 38)
+                    .padding(.bottom, 9)
+                    .padding(.leading, 81)
+                    
                     ForEach(Array(stride(from: viewModel.currentMonth, through: throughMonth, by: -1)), id: \.self) { month in // 내림차순
-                            let cloversForMonth = viewModel.filterCloversByMonth(clovers: viewModel.currentYearClovers, month: month)
-                            VStack(alignment: .leading, spacing: 0) {
-                                HStack(spacing: 16) {
-                                    RoundedRectangle(cornerRadius: 8)
-                                        .fill(Color.myF0E8DF)
-                                        .frame(width: 41, height: 29)
-                                        .overlay(
-                                            Text("\(month)월")
-                                                .font(Font.Pretendard.SemiBold.size14)
-                                                .foregroundStyle(.my887E78)
-                                        )
-
-                                    ForEach(1...5, id: \.self) { week in
-                                        let cloverForWeek = cloversForMonth.filter { $0.cloverWeekOfMonth == week }
-                                        
-                                        if let firstClover = cloverForWeek.first {
-                                            switch firstClover.cloverState {
-                                            case 0:
-                                                Image("Clover_Empty")
-                                                    .resizable()
-                                                    .frame(width: 41, height: 41)
-                                            case 1:
-                                                Image("Clover_Light")
-                                                    .resizable()
-                                                    .frame(width: 41, height: 41)
-                                            case 2:
-                                                Image("Clover_Green")
-                                                    .resizable()
-                                                    .frame(width: 41, height: 41)
-                                            case 3:
-                                                Image("Clover_Gold")
-                                                    .resizable()
-                                                    .frame(width: 41, height: 41)
-                                            default:
-                                                Image("Clover_Empty")
-                                                    .resizable()
-                                                    .frame(width: 41, height: 41)
-                                            }
-                                        } else {
+                        let cloversForMonth = viewModel.filterCloversByMonth(clovers: viewModel.currentYearClovers, month: month)
+                        VStack(alignment: .leading, spacing: 0) {
+                            HStack(spacing: 16) {
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(Color.myF0E8DF)
+                                    .frame(width: 41, height: 29)
+                                    .overlay(
+                                        Text("\(month)월")
+                                            .font(Font.Pretendard.SemiBold.size14)
+                                            .foregroundStyle(.my887E78)
+                                    )
+                                
+                                ForEach(1...5, id: \.self) { week in
+                                    let cloverForWeek = cloversForMonth.filter { $0.cloverWeekOfMonth == week }
+                                    
+                                    if let firstClover = cloverForWeek.first {
+                                        switch firstClover.cloverState {
+                                        case 0:
                                             Image("Clover_Empty")
                                                 .resizable()
                                                 .frame(width: 41, height: 41)
-//                                            Rectangle()
-//                                                .fill(.clear)
-//                                                .frame(width: 41, height: 41)
+                                        case 1:
+                                            Image("Clover_Green")
+                                                .resizable()
+                                                .frame(width: 41, height: 41)
+                                        case 2:
+                                            Image("Clover_Gold")
+                                                .resizable()
+                                                .frame(width: 41, height: 41)
+                                        default:
+                                            Image("Clover_Empty")
+                                                .resizable()
+                                                .frame(width: 41, height: 41)
                                         }
+                                    } else {
+                                        
+                                        Rectangle()
+                                            .fill(.clear)
+                                            .frame(width: 41, height: 41)
                                     }
                                 }
-                                .padding(.horizontal, 16)
-                                .padding(.bottom, 32)
                             }
+                            .padding(.horizontal, 16)
+                            .padding(.bottom, 32)
                         }
+                    }
                     if (viewModel.currentYearCloverMonthRange.max - viewModel.currentYearCloverMonthRange.min > 2) {
                         Button(action: {
                             isOpenedWeeklyCloverInfo.toggle()
@@ -298,11 +295,19 @@ struct StatisticView: View {
                             }
                             
                         }
+                        .padding(.top, -8)
                         .padding(.leading, 141)
                     }
-
+                    
                 }
+                
+                RoundedRectangle(cornerRadius: 9)
+                    .stroke(.my887E78, lineWidth: 1.5)
+                    .frame(width: 56, height: 80)
+                    .padding(.leading, CGFloat(currentWeekOfMonth)/12 + CGFloat(currentWeekOfMonth)/9 + CGFloat(currentWeekOfMonth)/6 + CGFloat(currentWeekOfMonth)/3 + 9 + 56 * CGFloat(currentWeekOfMonth))
+                    .padding(.top, 96)
             }
+            
         }
     }
 }

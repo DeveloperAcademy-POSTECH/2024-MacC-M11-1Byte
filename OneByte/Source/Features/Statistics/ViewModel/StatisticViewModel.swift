@@ -58,6 +58,10 @@ class StatisticViewModel {
         return calendar.component(.weekOfYear, from: Date())
     }
     
+    var currentWeekOfMonth: Int {
+        return calendar.component(.weekOfMonth, from: Date())
+    }
+    
     var lastWeekClover: [Clover] {
         currentYearClovers.filter {$0.cloverWeekOfYear == currentWeekOfYear - 1}
     }
@@ -83,7 +87,7 @@ class StatisticViewModel {
         let range = currentYearCloverMonthRange
         if range.max - range.min > 2 {
             let monthCount = currentMonth - range.min + 1
-            return CGFloat(monthCount) * 73 + 169
+            return CGFloat(monthCount) * 73 + 174
         } else {
             return 388
         }
@@ -94,7 +98,7 @@ class StatisticViewModel {
         var maxMonth: Int
 
         if currentYear == installYear {
-            minMonth = 8 // installMonth ?? 0
+            minMonth = installMonth ?? 0
             maxMonth = currentMonth
             
             return (min: minMonth, max: maxMonth)
