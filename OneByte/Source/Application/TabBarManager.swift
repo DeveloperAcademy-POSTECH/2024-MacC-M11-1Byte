@@ -72,17 +72,10 @@ struct TabBarManager: View {
         .onAppear {
             if !FirstOnboarding {
                 let resetManager = WeeklyResetManager()
-                if resetManager.needsReset() {
+                if resetManager.needsReset() { // 주차 초기화 되어야하는 시점이면 CloverCardView 로딩
                     showCloverCardView = true
                 }
             }
-//            showCloverCardView = true
-//            if !FirstOnboarding {
-//                let resetManager = WeeklyResetManager()
-//                if resetManager.resetGoals(goals: mainGoals, modelContext: modelContext) {
-//                    showCloverCardView = true // 초기화가 발생한 경우에만 CloverCardView 로드
-//                }
-//            }
         }
         .fullScreenCover(isPresented: $showCloverCardView) {
             CloverCardView(selectedTab: $selectedTab)

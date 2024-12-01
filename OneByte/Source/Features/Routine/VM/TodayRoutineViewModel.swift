@@ -203,7 +203,7 @@ class TodayRoutineViewModel {
         let currentWeekOfYear: Int = result.weekOfYear
         let currentWeekOfMonth: Int = result.weekOfMonth
         let currentMonth: Int = calendar.component(.month, from: today)
-        
+        print("현재 날짜 정보 : \(currentYear),\(currentWeekOfYear),\(currentWeekOfMonth),\(currentMonth)")
         // 주 시작일과 종료일 계산
         if let range = Date.weekDateRange(for: today) {
             let formatter = DateFormatter()
@@ -224,16 +224,15 @@ class TodayRoutineViewModel {
             
             // CloverState 업데이트
             matchingClover.cloverState = mainGoal.cloverState
-            
             // 저장
             do {
                 try context.save()
-                print("✅ CloverState successfully updated for Clover ID: \(matchingClover.id)")
+                print("✅ 클로버 상태 업데이트 성공(Clover ID): \(matchingClover.id)")
             } catch {
-                print("❌ Failed to save updated Clover: \(error)")
+                print("❌ 클로버 업데이트 실패: \(error)")
             }
         } else {
-            print("⚠️ No matching Clover found for 연도: \(currentYear), 월: \(currentMonth), 월차: \(currentWeekOfMonth), 주차: \(currentWeekOfYear)")
+            print("⚠️ 날짜 매칭 실패 for 연도: \(currentYear), 월: \(currentMonth), 월차: \(currentWeekOfMonth), 주차: \(currentWeekOfYear)")
         }
     }
 }
