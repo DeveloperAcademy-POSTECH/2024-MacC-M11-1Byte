@@ -12,7 +12,10 @@ struct OnboardingStartView: View {
     
     @Environment(\.modelContext) private var modelContext
     @AppStorage("FirstOnboarding") private var FirstOnboarding: Bool = true
-    @State var viewModel = OnboardingStartViewModel(createService: CreateService())
+    @State var viewModel = OnboardingViewModel(
+        createService: CreateService(),
+        updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: [])
+    )
     
     var body: some View {
         NavigationStack(path: $viewModel.navigationManager.path) {
@@ -46,9 +49,8 @@ struct OnboardingStartView: View {
                 } label: {
                     Text("다음")
                 }
-                .padding(.vertical)
+                .padding()
             }
-            .padding(.horizontal)
             .background(.myFFFAF4)
             .navigationDestination(for: PathType.self) { pathType in
                 pathType.NavigatingView()
@@ -68,5 +70,5 @@ struct OnboardingStartView: View {
 #Preview {
     OnboardingStartView()
         .environment(NavigationManager())
-        .modelContainer(for: [MainGoal.self, SubGoal.self, DetailGoal.self], inMemory: true)
+        .modelContainer(for: [MainGoal.self, SubGoal.self, DetailGoal.self], inMemory: true) // 임시 컨테이너 생성
 }

@@ -168,26 +168,27 @@ class TodayRoutineViewModel {
     
     // MARK: MainGoal의 cloverState 업데이트
     func updateCloverState(for mainGoal: MainGoal) {
-        let allDetailGoals = mainGoal.subGoals.flatMap { $0.detailGoals } // 모든 SubGoal의 DetailGoal 가져오기
-        let allAchieveCount = allDetailGoals.map { $0.achieveCount } // 모든 DetailGoal의 AchieveCount
-        let allAchieveGoal = allDetailGoals.map { $0.achieveGoal } // 모든 DetailGoal의 AchieveGoal
+        // 모든 DetailGoal 가져오기
+        let allDetailGoals = mainGoal.subGoals.flatMap { $0.detailGoals }
         
-        // 1) 모든 achieveCount가 0이면 cloverState = 0
+        // 모든 DetailGoal의 상태 확인
+        let allAchieveCount = allDetailGoals.map { $0.achieveCount }
+        let allAchieveGoal = allDetailGoals.map { $0.achieveGoal }
+        
+        // 1) 모든 achieveCount가 0이면 cloverState = 1
         if allAchieveCount.allSatisfy({ $0 == 0 }) {
-            mainGoal.cloverState = 0
-            print("🔥🔥🔥루틴 미성취: \(mainGoal.cloverState)")
+            mainGoal.cloverState = 1
             return
         }
         
-        // achieveGoal이 1이상인것중에, achieveCount == achieveGoal이 1개라도 있다면
-        if allDetailGoals.contains(where: { $0.achieveGoal > 0 && $0.achieveCount == $0.achieveGoal }) {
-            if zip(allAchieveCount, allAchieveGoal).allSatisfy({ $0 == $1 }) { // 모든 루틴이 같다면, 황금 클로버
-                mainGoal.cloverState = 2
-                print("🔥🔥 3번 조건(루틴 all 성공): \(mainGoal.cloverState)")
-            } else { // 1개성취면 초록클로버
-                mainGoal.cloverState = 1
-                print("🔥🔥 2번 조건(루틴 1개 성공): \(mainGoal.cloverState)")
-            }
+        // 2) 1개 이상 achieveCount가 0보다 크면 cloverState = 2
+        if allAchieveCount.contains(where: { $0 > 0 }) {
+            mainGoal.cloverState = 2
+        }
+        
+        // 3) 모든 achieveCount가 achieveGoal과 같으면 cloverState = 3
+        if zip(allAchieveCount, allAchieveGoal).allSatisfy({ $0 == $1 }) {
+            mainGoal.cloverState = 3
             return
         }
     }
@@ -203,7 +204,14 @@ class TodayRoutineViewModel {
         let currentWeekOfYear: Int = result.weekOfYear
         let currentWeekOfMonth: Int = result.weekOfMonth
         let currentMonth: Int = calendar.component(.month, from: today)
-        print("현재 날짜 정보 : \(currentYear),\(currentWeekOfYear),\(currentWeekOfMonth),\(currentMonth)")
+        
+        //        print("클로버 데이터 개수: \(clovers.count)")
+        //        print("현재 계산된 값: 연도 \(currentYear), 월 \(currentMonth), 월차 \(currentWeekOfMonth), 주차 \(currentWeekOfYear)")
+        //
+        //        for clover in clovers {
+        //            print("Clover 데이터: ID \(clover.id), 연도 \(clover.cloverYear), 월 \(clover.cloverMonth), 월차 \(clover.cloverWeekOfMonth), 주차 \(clover.cloverWeekOfYear)")
+        //        }
+        
         // 주 시작일과 종료일 계산
         if let range = Date.weekDateRange(for: today) {
             let formatter = DateFormatter()
@@ -224,15 +232,16 @@ class TodayRoutineViewModel {
             
             // CloverState 업데이트
             matchingClover.cloverState = mainGoal.cloverState
+            
             // 저장
             do {
                 try context.save()
-                print("✅ 클로버 상태 업데이트 성공(Clover ID): \(matchingClover.id)")
+                print("✅ CloverState successfully updated for Clover ID: \(matchingClover.id)")
             } catch {
-                print("❌ 클로버 업데이트 실패: \(error)")
+                print("❌ Failed to save updated Clover: \(error)")
             }
         } else {
-            print("⚠️ 날짜 매칭 실패 for 연도: \(currentYear), 월: \(currentMonth), 월차: \(currentWeekOfMonth), 주차: \(currentWeekOfYear)")
+            print("⚠️ No matching Clover found for 연도: \(currentYear), 월: \(currentMonth), 월차: \(currentWeekOfMonth), 주차: \(currentWeekOfYear)")
         }
     }
 }

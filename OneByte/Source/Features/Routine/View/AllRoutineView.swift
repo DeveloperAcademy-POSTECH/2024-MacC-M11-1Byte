@@ -45,7 +45,7 @@ struct AllRoutineView: View {
                                 }
                             }
                         }
-                        .padding(.horizontal)
+                        .padding(.horizontal, 16)
                         .padding(.bottom, 32)
                     }
                 }
@@ -98,71 +98,54 @@ struct AllRoutineView: View {
         }
         .padding(.top, 20)
         .padding(.bottom, 24)
-        .padding(.horizontal, 10)
     }
 }
 
 struct WeekRoutineView : View {
     
-    @State private var isInfoVisible: Bool = false // 팝업 표시 상태
-    
     var tapType : tapInfo
     var subGoal: SubGoal
     
     var body: some View {
-        ZStack {
-            VStack(spacing: 0) {
-                ScrollView(.vertical, showsIndicators: false) {
-                    HStack {
-                        Image(tapType.colorClover)
-                            .resizable()
-                            .frame(width: 29, height: 29)
-                            .clipShape(Circle())
-                        
-                        Text(subGoal.title == "" ? "서브목표가 비어있어요." : subGoal.title)
-                            .font(.Pretendard.Bold.size18)
-                            .foregroundStyle(Color.my2B2B2B)
-                        Spacer()
-                        Image(systemName: "questionmark.circle")
-                            .bold()
-                            .foregroundStyle(.myB4A99D)
-                            .frame(width:20, height: 20)
+        VStack(spacing: 0) {
+            ScrollView(.vertical, showsIndicators: false) {
+                HStack {
+                    Image(tapType.colorClover)
+                        .resizable()
+                        .frame(width: 29, height: 29)
+                        .clipShape(Circle())
+                    
+                    Text(subGoal.title == "" ? "서브목표가 비어있어요." : subGoal.title)
+                        .font(.Pretendard.Bold.size18)
+                        .foregroundStyle(Color.my2B2B2B)
+                    Spacer()
+                }
+                .padding(.horizontal)
+                
+                VStack(spacing: 10) { // cell 사이 간격
+                    // 빈 제목이 아닌 DetailGoal만 표시
+                    ForEach(subGoal.detailGoals.filter { !$0.title.isEmpty }, id: \.id) { detailGoal in
+                        WeekAchieveCell(detailGoal: detailGoal)
                             .onTapGesture {
-                                isInfoVisible = true
+                                print("❌[DEBUG] title : \(detailGoal.title) 데이터 출력")
+                                print("❌[DEBUG] id : \(detailGoal.id)")
+                                print("❌[DEBUG] memo : \(detailGoal.memo)")
+                                print("❌[DEBUG] achieveCount : \(detailGoal.achieveCount)")
+                                print("❌[DEBUG] achieveGoal : \(detailGoal.achieveGoal)")
+                                print("❌[DEBUG] alertDays : \(detailGoal.alertMon), \(detailGoal.alertTue), \(detailGoal.alertWed), \(detailGoal.alertThu), \(detailGoal.alertFri), \(detailGoal.alertSat), \(detailGoal.alertSun)")
+                                print("❌[DEBUG] achieveDays : \(detailGoal.achieveMon), \(detailGoal.achieveTue), \(detailGoal.achieveWed), \(detailGoal.achieveThu), \(detailGoal.achieveFri), \(detailGoal.achieveSat), \(detailGoal.achieveSun)")
+                                print("❌[DEBUG] 알림설정 : \(detailGoal.isRemind ? "설정됨" : "설정 안됨")")
+                                if let time = detailGoal.remindTime {
+                                    print("❌[DEBUG] 알림시간 : \(time)")
+                                }
                             }
                     }
-                    .padding(.horizontal)
-                    
-                    VStack(spacing: 10) { // cell 사이 간격
-                        // 빈 제목이 아닌 DetailGoal만 표시
-                        ForEach(subGoal.detailGoals.filter { !$0.title.isEmpty }, id: \.id) { detailGoal in
-                            WeekAchieveCell(detailGoal: detailGoal)
-                        }
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding(.horizontal)
-                    .padding(.bottom, 32)
                 }
-            }
-            .frame(maxWidth: .infinity)
-            
-            // 팝업뷰
-            if isInfoVisible {
-                Image("CloverPopup")
-                    .resizable()
-                    .frame(width: 162, height: 198)
-                    .scaledToFit()
-                    .transition(.opacity.combined(with: .scale)) // 부드러운 애니메이션
-                    .position(x: UIScreen.main.bounds.width - 81, y: 125)
-                    .onTapGesture {
-                        isInfoVisible = false
-                    }
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal, 16)
+                .padding(.bottom, 32)
             }
         }
-        .onTapGesture {
-            isInfoVisible = false
-        }
+        .frame(maxWidth: .infinity)
     }
 }
-
-

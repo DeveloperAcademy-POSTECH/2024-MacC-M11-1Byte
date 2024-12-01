@@ -9,23 +9,59 @@ import SwiftUI
 import SwiftData
 
 @Observable
-class OnboardingStartViewModel {
+class OnboardingViewModel {
     
+    //    @Environment(\.modelContext) private var modelContext
+    
+    //    @Query var mainGoals: [MainGoal]
+    //    @Query var subGoals: [SubGoal]
+    //    @Query var detailGoals: [DetailGoal]
     var navigationManager = NavigationManager()
     var nowOnboard: OnboardingExplain = .first
-    var opacity = 0.0
-    
     private let createService: CreateGoalUseCase
-    init(createService: CreateGoalUseCase) {
+    private let updateService: UpdateGoalUseCase
+    
+    init(createService: CreateGoalUseCase, updateService: UpdateGoalUseCase ) {
         self.createService = createService
+        self.updateService = updateService
     }
     
-    // GoalModel 전체 데이터 생성
+    // Goals 전체 데이터 생성
     func createGoals(modelContext: ModelContext) {
         createService.createGoals(modelContext: modelContext)
     }
     
-    // 2024년 11월 ~ 2026년 클로버 데이터 객체 전체 생성
+    // MainGoal 업데이트
+    func updateMainGoal(mainGoals: [MainGoal], userMainGoal: String, cloverState: Int ) {
+        guard let mainGoal = mainGoals.first else {
+            print("Error: mainGoal이 nil입니다.")
+            return
+        }
+        
+        updateService.updateMainGoal(
+            mainGoal: mainGoal,
+            id: mainGoal.id,
+            newTitle: userMainGoal,
+            cloverState: cloverState
+        )
+    }
+    
+    // SubGoal 업데이트
+    func updateSubGoal(subGoal: SubGoal, newTitle: String, category: String) {
+        updateService.updateSubGoal(
+            subGoal: subGoal,
+            newTitle: newTitle,
+            category: category
+        )
+    }
+    
+    // DetailGoal 업데이트
+    func updateDetailGoal(detailGoal: DetailGoal, newTitle: String, newMemo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool, isMorning: Bool, isAfternoon: Bool, isEvening: Bool, isNight: Bool, isFree: Bool) {
+        updateService.updateDetailGoal(detailGoal: detailGoal, title: newTitle, memo: newMemo, achieveCount: achieveCount, achieveGoal: achieveGoal, alertMon: alertMon, alertTue: alertTue, alertWed: alertWed, alertThu: alertThu, alertFri: alertFri, alertSat: alertSat, alertSun: alertSun, isRemind: isRemind, remindTime: remindTime, achieveMon: achieveMon, achieveTue: achieveTue, achieveWed: achieveWed, achieveThu: achieveThu, achieveFri: achieveFri, achieveSat: achieveFri, achieveSun: achieveSun, isMorning: isMorning, isAfternoon: isAfternoon, isEvening: isEvening, isNight: isNight, isFree: isFree)
+        
+    }
+    
+    // 2024년 11월 ~ 2026년 클로버 데이터 객체 생성
     func createAllCloverData(modelContext: ModelContext) {
         var idCounter = 1
         
@@ -109,16 +145,4 @@ class OnboardingStartViewModel {
             print("❌ 앱 설치일 저장 실패")
         }
     }
-    
-    // 온보딩 TabView 페이지가 넘어갈때 자연스럽게 연결하기 위한 opacity 조절
-    func setOpacity(selectedOnboarding: OnboardingExplain) {
-        if selectedOnboarding == nowOnboard {
-            withAnimation(.easeInOut(duration: 0.5)) {
-                self.opacity = 1.0
-            }
-        } else {
-            self.opacity = 0.0
-        }
-    }
-    
 }

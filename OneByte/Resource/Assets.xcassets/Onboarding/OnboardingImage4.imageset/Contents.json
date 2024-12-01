@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "NoCloverBackground.png",
+      "filename" : "OnboardingImage4.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "NoCloverBackground@2x.png",
+      "filename" : "OnboardingImage4@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "NoCloverBackground@3x.png",
+      "filename" : "OnboardingImage4@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
