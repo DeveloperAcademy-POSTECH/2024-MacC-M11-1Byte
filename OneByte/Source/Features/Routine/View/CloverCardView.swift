@@ -149,12 +149,10 @@ struct CloverCardView: View {
             print("🚧 저번주의 CloverState : \(String(describing: viewModel.lastWeekCloverState))")
             // 현재 루틴들의 achieve 계산하여 ProgressValue로 변환
             if let subGoals = mainGoals.first?.subGoals {
-                
                 viewModel.calculateProgressValues(for: subGoals)
             }
             let resetManager = WeeklyResetManager()
             resetManager.performReset(goals: mainGoals, modelContext: modelContext)
-            
         }
     }
     

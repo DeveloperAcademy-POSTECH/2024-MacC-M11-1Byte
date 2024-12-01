@@ -202,7 +202,7 @@ class TodayRoutineViewModel {
         let currentYear: Int = result.year
         let currentWeekOfYear: Int = result.weekOfYear
         let currentWeekOfMonth: Int = result.weekOfMonth
-        let currentMonth: Int = calendar.component(.month, from: today)
+        let currentMonth: Int = result.month // 수정된 로직 적용
         print("현재 날짜 정보 : \(currentYear),\(currentWeekOfYear),\(currentWeekOfMonth),\(currentMonth)")
         // 주 시작일과 종료일 계산
         if let range = Date.weekDateRange(for: today) {
@@ -216,6 +216,7 @@ class TodayRoutineViewModel {
         // 현재 주차와 월차에 해당하는 Clover 객체를 찾음
         if let matchingClover = clovers.first(where: {
             $0.cloverYear == currentYear &&
+            $0.cloverMonth == currentMonth &&
             $0.cloverWeekOfMonth == currentWeekOfMonth &&
             $0.cloverWeekOfYear == currentWeekOfYear
         }) {
