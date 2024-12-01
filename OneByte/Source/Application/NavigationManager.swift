@@ -22,15 +22,15 @@ extension PathType {
     @ViewBuilder
     func NavigatingView() -> some View {
         switch self {
-        // 온보딩 case
+            // 온보딩 case
         case .onboardStart:
             OnboardingStartView()
             
         case .onboardReady:
             ReadyCycleView()
-            
+                .navigationBarBackButtonHidden()
         case .onboardSubgoal:
-            SubgoalCycleView() // SubgoalCycleView로 이름 변경
+            SubgoalCycleView()
                 .navigationBarBackButtonHidden()
             
         case .onboardDetailgoal:

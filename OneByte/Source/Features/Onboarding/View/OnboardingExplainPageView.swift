@@ -9,7 +9,8 @@ import SwiftUI
 
 struct OnboardingExplainPageView: View {
     
-    @State private var opacity = 0.0
+    @State var viewModel = OnboardingStartViewModel(createService: CreateService())
+    
     var nowOnboard: OnboardingExplain
     var selectedOnboarding: OnboardingExplain
     
@@ -18,16 +19,11 @@ struct OnboardingExplainPageView: View {
             // 상단 온보딩 설명 텍스트
             VStack(spacing: 12) {
                 Text(nowOnboard.onboardingTitle)
-                    .font(.Pretendard.Bold.size26)
-                    .multilineTextAlignment(.center)
-                    .lineSpacing(3.6)
+                    .customMainStyle()
                 Text(nowOnboard.onboardingSubTitle)
-                    .font(.Pretendard.Regular.size16)
-                    .foregroundStyle(.my5A5A5A)
-                    .multilineTextAlignment(.center)
-                    .lineSpacing(2.4)
+                    .customSubStyle()
             }
-            .padding(.top, 80)
+            .padding(.top, 40)
             
             Spacer()
             // 하단 온보딩 설명 이미지
@@ -36,20 +32,16 @@ struct OnboardingExplainPageView: View {
                     .resizable()
                     .scaledToFit()
             }
-            .padding(.horizontal)
             Spacer()
         }
         .background(.myFFFAF4)
+        .padding(.horizontal)
         .onAppear {
-            if selectedOnboarding == nowOnboard {
-                withAnimation(.easeInOut(duration: 0.5)) {
-                    opacity = 1.0
-                }
-            }
+            viewModel.setOpacity(selectedOnboarding: selectedOnboarding)
         }
     }
 }
 
 #Preview {
-    OnboardingExplainPageView(nowOnboard: .fifth, selectedOnboarding: .fifth)
+    OnboardingExplainPageView(nowOnboard: .fourth, selectedOnboarding: .fourth)
 }
