@@ -115,7 +115,25 @@ class MandalartViewModel: ObservableObject {
         return (category, isCustomCategoryActive)
     }
     
-    // MARK: - Time Period Management
+    func presentShareSheet(with image: UIImage) {
+        let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+
+        // 시트가 닫히는 시점을 감지
+        activityVC.completionWithItemsHandler = { activity, success, items, error in
+            if success {
+                print("Sharing succeeded.") // 공유 성공 시 동작
+            } else {
+                print("Sharing cancelled or failed.") // 공유 취소 또는 실패 시 동작
+            }
+            print("Share sheet dismissed.") // 시트가 닫힌 후 동작
+        }
+
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let rootVC = windowScene.windows.first?.rootViewController {
+            rootVC.present(activityVC, animated: true)
+        }
+    }
+    // Time Period Management
     func updateTimePeriodStates(detailGoal: DetailGoal, for time: String) {
         // 모든 값 초기화
         detailGoal.isMorning = false

@@ -81,24 +81,17 @@ struct OuterGridView: View {
                 Spacer()
                 
                 Button(action: {
-                    print("share")
-                    
-                }){
-                    if let image = capturedImage {
-                        let newImage = Image(uiImage: image)
-                        ShareLink(
-                            item: newImage,
-                            preview: SharePreview("공유할 이미지", image: newImage)
-                        ) {
-                            Label("", systemImage: "square.and.arrow.up")
-                                .aspectRatio(contentMode: .fit)
-                                .foregroundStyle(Color.my566956)
-                                .font(.system(size: 20, weight: .medium))
-                            // 이부분은 프리텐다드로 하면 적용이 안됨!
-                        }
+                    if let capturedImage = capturedImage {
+                        viewModel.presentShareSheet(with: capturedImage)
                     }
+                }) {
+                    Label("", systemImage: "square.and.arrow.up")
+                        .aspectRatio(contentMode: .fit)
+                        .foregroundStyle(Color.my566956)
+                        .font(.system(size: 20, weight: .medium))
                 }
                 .padding(.trailing, 14)
+
                 
                 NavigationLink {
                     SettingView(isTabBarMainVisible: $isTabBarMainVisible)
@@ -189,6 +182,17 @@ extension OuterGridView {
                             MainGoalsheetView(mainGoal: $mainGoal, isPresented: $mainIsPresented, isEdited: $isEdited)
                                 .presentationDragIndicator(.visible)
                                 .presentationDetents([.height(244/852 * UIScreen.main.bounds.height)])
+                        }
+                        .onChange(of: mainIsPresented) { old, new in
+                            if mainIsPresented == false {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    capturedImage = captureView()
+                                        .padding()
+                                        .padding(.top, -30) // 이부분은 캡처 화면을 자르기 위함!
+                                        .background(.myFFFAF4)
+                                        .snapshot()
+                                }
+                            }
                         }
                     }
                     if mainGoal?.title == "" {
