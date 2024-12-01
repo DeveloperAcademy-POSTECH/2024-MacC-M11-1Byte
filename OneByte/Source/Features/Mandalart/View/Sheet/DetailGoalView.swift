@@ -23,7 +23,6 @@ struct DetailGoalView: View {
     @State private var requestNotification: Bool = false
     @State private var allowAlert: Bool = false
     @Binding var detailGoal: DetailGoal?
-    @Binding var tabBarVisible: Bool
     
     // 알람 요일
     @State private var alertMon: Bool = false
@@ -179,7 +178,6 @@ struct DetailGoalView: View {
         }
         .padding(.horizontal, 16)
         .onAppear {
-            tabBarVisible = false
             if let detailGoal = detailGoal {
                 newTitle = detailGoal.title
                 newMemo = detailGoal.memo
