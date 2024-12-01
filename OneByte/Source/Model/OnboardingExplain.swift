@@ -34,7 +34,7 @@ enum OnboardingExplain: CaseIterable {
         case .third:
             return "루틴을 하나씩 완료할 때마다\n클로버의 색상이 점점 진해져요"
         case .fourth:
-            return "매주 일요일 자정에 지난주의 성취에 따라\n클로버를 획득할 수 있어요"
+            return "매주 일요일이 지난 뒤, 지난주의 성취에 따라\n클로버를 획득할 수 있어요"
         }
     }
     
