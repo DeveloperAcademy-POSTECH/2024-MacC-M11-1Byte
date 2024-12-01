@@ -201,7 +201,7 @@ struct StatisticView: View {
                     .padding(.trailing, 6)
                 }
                 HStack {
-                    Text("올해의 내가 수집한 클로버를 모아볼 수 있어요")
+                    Text("올해에 내가 수집한 클로버를 모아볼 수 있어요")
                         .font(.Pretendard.Medium.size14)
                         .foregroundStyle(Color.my909090)
                         .padding(.leading, 5)
