@@ -15,9 +15,9 @@ enum Onboarding: CaseIterable {
     var onboardingTitle: String {
         switch self {
         case .ready:
-            return "지금부터 함께\n루틴 설정을 배워봐요"
+            return "다라와 함께\n목표설정을 시작해봐요"
         case .subgoalCycle:
-            return "달성하고 싶은 목표를\n알려주세요"
+            return "달성하고 싶은 목표가\n무엇인가요?"
         case .detailgoalCycle:
             return "목표 달성을 위해\n어떤 루틴이 필요할까요?"
         case .daysCycle:
@@ -25,27 +25,24 @@ enum Onboarding: CaseIterable {
         case .completeCycle:
             return "첫 목표와 루틴 작성이\n완료되었어요"
         case .finish:
-            return "이제 스스로 목표와 루틴을\n작성할 시간이에요"
+            return "이제 스스로 목표와 루틴을\n작성해봐요"
         }
     }
     
-    var onboardingSubTitle: Text {
+    var onboardingSubTitle: String {
         switch self {
         case .ready:
-            return Text("목표와 루틴을 하나씩 적어가면서 클로버를 심어봐요\n같이 하면 다음엔 훨씬 쉬울거에요!")
+            return "4가지 목표 중 하나를 함께 작성해보고\n목표달성을 위한 루틴도 만들어봐요"
         case .subgoalCycle:
-            return Text("꾸준한 노력으로 이루고 싶은 일들은\n어떤 것이 있을지 떠올려봐요")
+            return "나의 꾸준한 노력으로 이루고 싶은 일들은\n어떤 것이 있을지 떠올려보세요"
         case .detailgoalCycle:
-            return Text("아래에 체크사항을 참고하면\n더 실천하기 쉬운 루틴을 적을 수 있어요")
+            return "목표를 달성하기 위해 실천해야 하는\n노력들은 무엇이 있을지 생각해보세요"
         case .daysCycle:
-            return Text("루틴을 실천할 요일과 시간대를 설정하여\n루틴을 구체화해봐요")
+            return "루틴을 실천할 요일을 설정하여\n루틴을 구체화해보세요"
         case .completeCycle:
-            return Text("루틴 설정으로 이동하여\n")
-                + Text("알림기능")
-                .font(.Pretendard.SemiBold.size16)
-                + Text("도 설정할 수 있어요")
+            return "루틴 설정으로 이동하여\n메모와 알람 시간도 추가할 수 있어요"
         case .finish:
-            return Text("남은 목표와 루틴들도 작성할 수 있어요\n목표를 이룰 수 있도록 만부기가 항상 응원할게요!")
+            return "꾸준한 노력으로 목표를 이루는 그 날까지\n만부기가 응원할게요!"
         }
     }
 }

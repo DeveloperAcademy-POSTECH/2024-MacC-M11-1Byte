@@ -10,31 +10,35 @@ import SwiftUI
 // MARK: 온보딩 설명탭 Pages Enumeration 데이터
 enum OnboardingExplain: CaseIterable {
     
-    case first, second, third, fourth
+    case first, second, third, fourth, fifth
     
     var onboardingTitle: String {
         switch self {
         case .first:
-            return "여러분의 루틴 관리를\n도와드릴게요"
+            return "안녕하세요\n주간 루틴 관리 메이트\n만부기예요."
         case .second:
-            return "목표와 루틴을 설정해서\n클로버를 심을 수 있어요"
+            return "달성하고 싶은 목표를\n루틴으로 관리해 보세요"
         case .third:
             return "주간 루틴을 잘 지키고 있는지\n한눈에 확인할 수 있어요"
         case .fourth:
-            return "한 주를 마무리하며\n성취를 확인할 수 있어요"
+            return "성취도에 따라 매주 일요일 자정\n주간 클로버가 수집됩니다"
+        case .fifth:
+            return "설정 시간에 맞춰\n알림을 보내드릴게요"
         }
     }
     
     var onboardingSubTitle: String {
         switch self {
         case .first:
-            return "지금부터 앱에 대한 소개를 시작해볼게요!"
+            return ""
         case .second:
             return "최대 4개의 목표와\n목표당 최대 3개의 루틴을 작성할 수 있어요"
         case .third:
-            return "루틴을 하나씩 완료할 때마다\n클로버의 색상이 점점 진해져요"
+            return "주간 루틴을 실천할 때마다\n클로버의 색상이 진해지는 것을 확인할 수 있어요"
         case .fourth:
-            return "매주 일요일이 지난 뒤, 지난주의 성취에 따라\n클로버를 획득할 수 있어요"
+            return "일주일중 1개라도 실천하면 초록 클로버\n모든 루틴을 성취하면 황금클로버를 수집할 수 있어요"
+        case .fifth:
+            return "알림을 통해 잊지 않고 루틴을 실천해보세요"
         }
     }
     
@@ -48,6 +52,8 @@ enum OnboardingExplain: CaseIterable {
             return Image("OnboardingImage2")
         case .fourth:
             return Image("OnboardingImage3")
+        case .fifth:
+            return Image("OnboardingImage4")
         }
     }
 }

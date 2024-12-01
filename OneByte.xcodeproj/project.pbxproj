@@ -43,24 +43,16 @@
 		1FB10A252CDF511600D54EC5 /* GoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A242CDF511600D54EC5 /* GoButton.swift */; };
 		1FB10A292CDF515300D54EC5 /* ReadyCycleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A282CDF515300D54EC5 /* ReadyCycleView.swift */; };
 		1FB10A2C2CDF52E600D54EC5 /* OnboardingProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A2B2CDF52E600D54EC5 /* OnboardingProgressBar.swift */; };
+		1FB10A2E2CDF54B400D54EC5 /* EnterMaingoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A2D2CDF54B400D54EC5 /* EnterMaingoalView.swift */; };
 		1FB10A302CDF55AA00D54EC5 /* SubgoalCycleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A2F2CDF55AA00D54EC5 /* SubgoalCycleView.swift */; };
 		1FB10A322CDF56E200D54EC5 /* RoutineCycleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A312CDF56E200D54EC5 /* RoutineCycleView.swift */; };
 		1FB10A342CDF593600D54EC5 /* OnboardingFinishView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A332CDF593600D54EC5 /* OnboardingFinishView.swift */; };
 		1FB10A382CDF5FE800D54EC5 /* OnboardingExplain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A372CDF5FE800D54EC5 /* OnboardingExplain.swift */; };
 		1FB10A3A2CDF60D100D54EC5 /* OnboardingExplainPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A392CDF60D100D54EC5 /* OnboardingExplainPageView.swift */; };
 		1FB10A3C2CDF78C400D54EC5 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A3B2CDF78C400D54EC5 /* NextButton.swift */; };
-		1FB10A402CDF7F4B00D54EC5 /* OnboardingStartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A3F2CDF7F4B00D54EC5 /* OnboardingStartViewModel.swift */; };
+		1FB10A402CDF7F4B00D54EC5 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB10A3F2CDF7F4B00D54EC5 /* OnboardingViewModel.swift */; };
 		1FC686362CF78276008F399F /* TodayRoutineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC686352CF78276008F399F /* TodayRoutineCell.swift */; };
 		1FC686382CF782FB008F399F /* WeekAchieveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC686372CF782FB008F399F /* WeekAchieveCell.swift */; };
-		1FC6863A2CF8ABC1008F399F /* CloverCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC686392CF8ABC1008F399F /* CloverCardView.swift */; };
-		1FC6863C2CF8BCFD008F399F /* CloverCardProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC6863B2CF8BCFD008F399F /* CloverCardProgressBar.swift */; };
-		1FC6863E2CF8CED3008F399F /* CloverCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC6863D2CF8CED2008F399F /* CloverCardViewModel.swift */; };
-		1FC686402CF8CF5A008F399F /* CloverCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC6863F2CF8CF5A008F399F /* CloverCard.swift */; };
-		1FC686422CFB0CEA008F399F /* RoutineCycleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC686412CFB0CEA008F399F /* RoutineCycleViewModel.swift */; };
-		1FC686442CFB5FA0008F399F /* OnboardingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC686432CFB5FA0008F399F /* OnboardingHeaderView.swift */; };
-		1FC686482CFB6162008F399F /* CustomTextModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC686472CFB6162008F399F /* CustomTextModifier.swift */; };
-		1FC6864B2CFB64EB008F399F /* DaysCycleCellButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC6864A2CFB64EB008F399F /* DaysCycleCellButton.swift */; };
-		1FC6864D2CFB6528008F399F /* DaysCycleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC6864C2CFB6528008F399F /* DaysCycleCell.swift */; };
 		1FD405232CEC74E800403A19 /* AllRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD405222CEC74E800403A19 /* AllRoutineView.swift */; };
 		1FD405252CEC79DD00403A19 /* TodayRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD405242CEC79DD00403A19 /* TodayRoutineView.swift */; };
 		1FD4052A2CECBFCB00403A19 /* RoutineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD405292CECBFCB00403A19 /* RoutineModel.swift */; };
@@ -135,24 +127,16 @@
 		1FB10A242CDF511600D54EC5 /* GoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoButton.swift; sourceTree = "<group>"; };
 		1FB10A282CDF515300D54EC5 /* ReadyCycleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadyCycleView.swift; sourceTree = "<group>"; };
 		1FB10A2B2CDF52E600D54EC5 /* OnboardingProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingProgressBar.swift; sourceTree = "<group>"; };
+		1FB10A2D2CDF54B400D54EC5 /* EnterMaingoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterMaingoalView.swift; sourceTree = "<group>"; };
 		1FB10A2F2CDF55AA00D54EC5 /* SubgoalCycleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubgoalCycleView.swift; sourceTree = "<group>"; };
 		1FB10A312CDF56E200D54EC5 /* RoutineCycleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCycleView.swift; sourceTree = "<group>"; };
 		1FB10A332CDF593600D54EC5 /* OnboardingFinishView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFinishView.swift; sourceTree = "<group>"; };
 		1FB10A372CDF5FE800D54EC5 /* OnboardingExplain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingExplain.swift; sourceTree = "<group>"; };
 		1FB10A392CDF60D100D54EC5 /* OnboardingExplainPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingExplainPageView.swift; sourceTree = "<group>"; };
 		1FB10A3B2CDF78C400D54EC5 /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
-		1FB10A3F2CDF7F4B00D54EC5 /* OnboardingStartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStartViewModel.swift; sourceTree = "<group>"; };
+		1FB10A3F2CDF7F4B00D54EC5 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		1FC686352CF78276008F399F /* TodayRoutineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutineCell.swift; sourceTree = "<group>"; };
 		1FC686372CF782FB008F399F /* WeekAchieveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekAchieveCell.swift; sourceTree = "<group>"; };
-		1FC686392CF8ABC1008F399F /* CloverCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloverCardView.swift; sourceTree = "<group>"; };
-		1FC6863B2CF8BCFD008F399F /* CloverCardProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloverCardProgressBar.swift; sourceTree = "<group>"; };
-		1FC6863D2CF8CED2008F399F /* CloverCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloverCardViewModel.swift; sourceTree = "<group>"; };
-		1FC6863F2CF8CF5A008F399F /* CloverCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloverCard.swift; sourceTree = "<group>"; };
-		1FC686412CFB0CEA008F399F /* RoutineCycleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCycleViewModel.swift; sourceTree = "<group>"; };
-		1FC686432CFB5FA0008F399F /* OnboardingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingHeaderView.swift; sourceTree = "<group>"; };
-		1FC686472CFB6162008F399F /* CustomTextModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextModifier.swift; sourceTree = "<group>"; };
-		1FC6864A2CFB64EB008F399F /* DaysCycleCellButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysCycleCellButton.swift; sourceTree = "<group>"; };
-		1FC6864C2CFB6528008F399F /* DaysCycleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysCycleCell.swift; sourceTree = "<group>"; };
 		1FD405222CEC74E800403A19 /* AllRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRoutineView.swift; sourceTree = "<group>"; };
 		1FD405242CEC79DD00403A19 /* TodayRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutineView.swift; sourceTree = "<group>"; };
 		1FD405292CECBFCB00403A19 /* RoutineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineModel.swift; sourceTree = "<group>"; };
@@ -218,9 +202,8 @@
 		1F4D8BEE2CDF4F9200A0B5CC /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				1FB10A3D2CDF7EDD00D54EC5 /* View */,
 				1FB10A3E2CDF7EEF00D54EC5 /* ViewModel */,
-				1FC686492CFB64DA008F399F /* Cell */,
+				1FB10A3D2CDF7EDD00D54EC5 /* View */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -352,7 +335,6 @@
 				1FD405242CEC79DD00403A19 /* TodayRoutineView.swift */,
 				1FD405222CEC74E800403A19 /* AllRoutineView.swift */,
 				1FD405352CECE6F800403A19 /* TodayRouitneTypeHeaderView.swift */,
-				1FC686392CF8ABC1008F399F /* CloverCardView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -445,10 +427,8 @@
 			isa = PBXGroup;
 			children = (
 				1FB10A242CDF511600D54EC5 /* GoButton.swift */,
-				1FC686472CFB6162008F399F /* CustomTextModifier.swift */,
 				1FB10A3B2CDF78C400D54EC5 /* NextButton.swift */,
 				61FA4DF22CE77EDD00256B57 /* BackButtonToolbarModifier.swift */,
-				1FC686432CFB5FA0008F399F /* OnboardingHeaderView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -457,7 +437,6 @@
 			isa = PBXGroup;
 			children = (
 				1FB10A2B2CDF52E600D54EC5 /* OnboardingProgressBar.swift */,
-				1FC6863B2CF8BCFD008F399F /* CloverCardProgressBar.swift */,
 				1FD4053B2CED987700403A19 /* TurtleMessageView.swift */,
 				61CC00FC2CF0276B0009D063 /* DetailGoalColor.swift */,
 			);
@@ -475,6 +454,7 @@
 				1FE27C702CF0B7F600A4C6BE /* DaysCycleView.swift */,
 				1FE27C742CF0C8AF00A4C6BE /* CompleteCycleView.swift */,
 				1FB10A332CDF593600D54EC5 /* OnboardingFinishView.swift */,
+				1FB10A2D2CDF54B400D54EC5 /* EnterMaingoalView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -482,8 +462,7 @@
 		1FB10A3E2CDF7EEF00D54EC5 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				1FB10A3F2CDF7F4B00D54EC5 /* OnboardingStartViewModel.swift */,
-				1FC686412CFB0CEA008F399F /* RoutineCycleViewModel.swift */,
+				1FB10A3F2CDF7F4B00D54EC5 /* OnboardingViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -526,20 +505,10 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		1FC686492CFB64DA008F399F /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				1FC6864A2CFB64EB008F399F /* DaysCycleCellButton.swift */,
-				1FC6864C2CFB6528008F399F /* DaysCycleCell.swift */,
-			);
-			path = Cell;
-			sourceTree = "<group>";
-		};
 		1FD405282CECBF9400403A19 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				1FD405292CECBFCB00403A19 /* RoutineModel.swift */,
-				1FC6863F2CF8CF5A008F399F /* CloverCard.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -550,7 +519,6 @@
 				1FD4052B2CECBFF900403A19 /* RoutineMainViewModel.swift */,
 				1FD405372CECE7B400403A19 /* TodayRoutineViewModel.swift */,
 				1FD4052F2CECC42500403A19 /* AllRoutineViewModel.swift */,
-				1FC6863D2CF8CED2008F399F /* CloverCardViewModel.swift */,
 			);
 			path = VM;
 			sourceTree = "<group>";
@@ -659,10 +627,8 @@
 				610595D92CE2584D005ED7B4 /* MadalartShape.swift in Sources */,
 				1FD405252CEC79DD00403A19 /* TodayRoutineView.swift in Sources */,
 				1FD405362CECE6F800403A19 /* TodayRouitneTypeHeaderView.swift in Sources */,
-				1FC6864B2CFB64EB008F399F /* DaysCycleCellButton.swift in Sources */,
 				61CC00FD2CF0276B0009D063 /* DetailGoalColor.swift in Sources */,
 				1FB10A252CDF511600D54EC5 /* GoButton.swift in Sources */,
-				1FC686402CF8CF5A008F399F /* CloverCard.swift in Sources */,
 				1FE27C752CF0C8AF00A4C6BE /* CompleteCycleView.swift in Sources */,
 				1F62B8F12CF18AE4004A3F0B /* WeeklyResetManager.swift in Sources */,
 				1F599E362CE6648B00788D07 /* PrivacyPolicyRow.swift in Sources */,
@@ -672,17 +638,13 @@
 				1FE27C712CF0B7F600A4C6BE /* DaysCycleView.swift in Sources */,
 				1F42BE892CDF838500A59703 /* Font+.swift in Sources */,
 				1F4D8BF02CDF4F9E00A0B5CC /* OnboardingStartView.swift in Sources */,
-				1FC6864D2CFB6528008F399F /* DaysCycleCell.swift in Sources */,
 				1FB10A382CDF5FE800D54EC5 /* OnboardingExplain.swift in Sources */,
-				1FC686422CFB0CEA008F399F /* RoutineCycleViewModel.swift in Sources */,
 				1F18DD862CEA3869000F0E3E /* Clover.swift in Sources */,
 				610595D62CE23653005ED7B4 /* DeleteService.swift in Sources */,
 				1F88AB412CD6101C0009730D /* Date+.swift in Sources */,
-				1FC686482CFB6162008F399F /* CustomTextModifier.swift in Sources */,
 				1FB10A322CDF56E200D54EC5 /* RoutineCycleView.swift in Sources */,
-				1FC6863E2CF8CED3008F399F /* CloverCardViewModel.swift in Sources */,
 				615A0A0B2CC0ADA800908531 /* TabBarManager.swift in Sources */,
-				1FB10A402CDF7F4B00D54EC5 /* OnboardingStartViewModel.swift in Sources *
+				1FB10A402CDF7F4B00D54EC5 /* OnboardingViewModel.swift in Sources */,
 				1F599E2D2CE6430D00788D07 /* StatisticViewModel.swift in Sources */,
 				1FB10A302CDF55AA00D54EC5 /* SubgoalCycleView.swift in Sources */,
 				1F7C9C282CD083CC00BAC358 /* GoalModels.swift in Sources */,
@@ -697,7 +659,6 @@
 				1F79EDCE2CC0A25D0079088B /* OneByteApp.swift in Sources */,
 				61FA4DF52CE7803600256B57 /* View+.swift in Sources */,
 				613904EA2CD21A0B008E591D /* MandalartViewModel.swift in Sources */,
-				1FC6863C2CF8BCFD008F399F /* CloverCardProgressBar.swift in Sources */,
 				6107A3CB2CF88E11001189FA /* SpecificTagger3942.mlmodel in Sources */,
 				1F88AB392CD607F90009730D /* NavigationManager.swift in Sources */,
 				615A0A0D2CC0AE8700908531 /* RoutineMainView.swift in Sources */,
@@ -707,15 +668,14 @@
 				610595DD2CE2EA6C005ED7B4 /* DetailGoalView.swift in Sources */,
 				1FB10A3A2CDF60D100D54EC5 /* OnboardingExplainPageView.swift in Sources */,
 				61FA4DF32CE77EDD00256B57 /* BackButtonToolbarModifier.swift in Sources */,
+				1FB10A2E2CDF54B400D54EC5 /* EnterMaingoalView.swift in Sources */,
 				615A0A112CC0AEB800908531 /* StatisticView.swift in Sources */,
-				1FC6863A2CF8ABC1008F399F /* CloverCardView.swift in Sources */,
 				1F599E382CE664B100788D07 /* TermsRow.swift in Sources */,
 				618FD0742CDF11210003450D /* CreateService.swift in Sources */,
 				1FD405232CEC74E800403A19 /* AllRoutineView.swift in Sources */,
 				1FE2B8D62CDFAF8600781E20 /* Int+GridExtensions.swift in Sources */,
 				610595CE2CE2140D005ED7B4 /* SubGoalCell.swift in Sources */,
 				618FD0762CDF11410003450D /* UpdateService.swift in Sources */,
-				1FC686442CFB5FA0008F399F /* OnboardingHeaderView.swift in Sources */,
 				61CC01052CF74D190009D063 /* SubGoalView.swift in Sources */,
 				1FD4053C2CED987700403A19 /* TurtleMessageView.swift in Sources */,
 				1FC686382CF782FB008F399F /* WeekAchieveCell.swift in Sources */,
