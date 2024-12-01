@@ -35,6 +35,17 @@ class StatisticViewModel {
         "firstTime": ["아직 앱을 설치하고 한 주가 지나지 않았어요\n루틴을 실천해서 성취감을 느껴봐요!"]
     ]
     
+    var installYear: Int? {
+        UserDefaults.loadInstallYear()
+    }
+    
+    var installMonth: Int? {
+        UserDefaults.loadInstallMonth()
+    }
+    var installWeekOfYear: Int? {
+        UserDefaults.loadInstallWeekOfYear()
+    }
+    
     var currentMonth: Int {
         return calendar.component(.month, from: Date())
     }
@@ -69,35 +80,43 @@ class StatisticViewModel {
     }
     
     var weeklyCloverInfoHeight: CGFloat {
-        if let range = currentYearCloverMonthRange {
+        let range = currentYearCloverMonthRange
+        if range.max - range.min > 2 {
             let monthCount = currentMonth - range.min + 1
-            return CGFloat(monthCount) * 62 + 94
+            return CGFloat(monthCount) * 73 + 169
         } else {
-            return 44
+            return 388
         }
     }
     
-    var currentYearCloverMonthRange: (min: Int, max: Int)? {
-        let months = currentYearClovers.map { $0.cloverMonth }
-        guard let minMonth = months.min(), let maxMonth = months.max() else {
-            return nil
+    var currentYearCloverMonthRange: (min: Int, max: Int) {
+        var minMonth: Int
+        var maxMonth: Int
+
+        if currentYear == installYear {
+            minMonth = 8 // installMonth ?? 0
+            maxMonth = currentMonth
+            
+            return (min: minMonth, max: maxMonth)
+        } else {
+            minMonth = 1
+            maxMonth = currentMonth
+
+            return (min: minMonth, max: maxMonth)
         }
-        return (min: minMonth, max: maxMonth)
     }
     
     func getMonthInfoViewPhrase() -> [String] {
         var state = ""
         var phrase: [String] = []
         var index: Int
-        let installYear = UserDefaults.loadInstallYear()
-        let installWeekOfYear = UserDefaults.loadInstallWeekOfYear()
         
         if installYear == currentYear && installWeekOfYear == currentWeekOfYear {
             state = "firstTime"
             index = 0
         }
         else {
-            index = mapNumberFromOntToThree(num: currentWeekOfYear - 1)
+            index = mapNumberFromZeroToTwo(num: currentWeekOfYear - 1)
             switch lastWeekClover.first?.cloverState {
             case 0:
                 state = "cloverX"
@@ -115,9 +134,10 @@ class StatisticViewModel {
         return phrase
     }
     
-    func mapNumberFromOntToThree(num: Int) -> Int {
+    func mapNumberFromZeroToTwo(num: Int) -> Int {
         let remainder = num % 3
-        return remainder + 1
+        
+        return remainder
         
     }
     

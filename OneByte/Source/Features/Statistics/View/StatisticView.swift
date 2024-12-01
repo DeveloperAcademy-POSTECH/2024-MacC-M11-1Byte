@@ -13,7 +13,11 @@ struct StatisticView: View {
     @Query var clovers: [Clover]
     @Query var profile: [Profile]
     @State var viewModel = StatisticViewModel()
+    @State var isOpenedWeeklyCloverInfo = false
     @Binding var isTabBarMainVisible: Bool
+    
+    
+
     
     var body: some View {
         NavigationStack {
@@ -117,6 +121,11 @@ struct StatisticView: View {
     private func weeklyCloverInfoView() -> some View {
         @State var rectangleHeight = viewModel.weeklyCloverInfoHeight
         
+        let minMonth = viewModel.currentYearCloverMonthRange.min
+        let maxMonth = viewModel.currentYearCloverMonthRange.max
+
+        let throughMonth = (isOpenedWeeklyCloverInfo) ? (minMonth) : maxMonth - 2
+        
         VStack(spacing: 12) {
             VStack(spacing: 4) {
                 HStack {
@@ -134,19 +143,20 @@ struct StatisticView: View {
                 }
             }
             ZStack(alignment: .top) {
+                //if ()
                 Rectangle()
                     .foregroundStyle(.white)
                     .frame(maxWidth: .infinity)
-                    .frame(height: viewModel.weeklyCloverInfoHeight)
+                    .frame(height: isOpenedWeeklyCloverInfo ? viewModel.weeklyCloverInfoHeight : 388)
                     .cornerRadius(13)
                     .overlay(
                         RoundedRectangle(cornerRadius: 13)
                             .stroke(Color.myF0E8DF, lineWidth: 1)
                     )
                 
-                VStack(spacing: 0) {
+                VStack(alignment: .leading, spacing: 0) {
                     HStack(alignment: .top, spacing: 0) {
-                        VStack(spacing: 10) {
+                        VStack(spacing: 7) {
                             HStack {
                                 Text("초록 클로버")
                                     .font(.Pretendard.Medium.size14)
@@ -166,8 +176,9 @@ struct StatisticView: View {
                         Divider()
                             .background(Color.myD5D5D5)
                             .padding(.horizontal, 59)
-                        
-                        VStack(spacing: 10) {
+                            .frame(height: 46)
+                            
+                        VStack(spacing: 7) {
                             HStack {
                                 Text("황금 클로버")
                                     .font(.Pretendard.Medium.size14)
@@ -184,40 +195,43 @@ struct StatisticView: View {
                             }
                         }
                     }
+                    .padding(.leading, 59)
                     .padding(.top, 20)
-                    
-                    if let range = viewModel.currentYearCloverMonthRange {
-                        HStack(spacing: 30) {
-                            Spacer()
-                                .frame(width: 20)
+                
+                        HStack(spacing: 28) {
                             Text("1주차")
                                 .font(Font.Pretendard.SemiBold.size12)
-                                .foregroundStyle(.my8)
+                                .foregroundStyle(.my887E78)
                             Text("2주차")
                                 .font(Font.Pretendard.SemiBold.size12)
-                                .foregroundStyle(.my9C9C9C)
+                                .foregroundStyle(.my887E78)
                             Text("3주차")
                                 .font(Font.Pretendard.SemiBold.size12)
-                                .foregroundStyle(.my9C9C9C)
+                                .foregroundStyle(.my887E78)
                             Text("4주차")
                                 .font(Font.Pretendard.SemiBold.size12)
-                                .foregroundStyle(.my9C9C9C)
+                                .foregroundStyle(.my887E78)
                             Text("5주차")
                                 .font(Font.Pretendard.SemiBold.size12)
-                                .foregroundStyle(.my9C9C9C)
+                                .foregroundStyle(.my887E78)
                         }
                         .padding(.top, 38)
-                        .padding(.bottom, 30)
+                        .padding(.bottom, 9)
+                        .padding(.leading, 82)
                         
-                        ForEach(Array(stride(from: viewModel.currentMonth, through: range.min, by: -1)), id: \.self) { month in // 내림차순
+                    ForEach(Array(stride(from: viewModel.currentMonth, through: throughMonth, by: -1)), id: \.self) { month in // 내림차순
                             let cloversForMonth = viewModel.filterCloversByMonth(clovers: viewModel.currentYearClovers, month: month)
-                            VStack(spacing: 0) {
-                                HStack(spacing: 20) {
-                                    Text("\(month)월")
-                                        .font(Font.Pretendard.Bold.size14)
-                                        .foregroundStyle(.my566956)
-                                        .frame(width: 30)
-                                    
+                            VStack(alignment: .leading, spacing: 0) {
+                                HStack(spacing: 16) {
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .fill(Color.myF0E8DF)
+                                        .frame(width: 41, height: 29)
+                                        .overlay(
+                                            Text("\(month)월")
+                                                .font(Font.Pretendard.SemiBold.size14)
+                                                .foregroundStyle(.my887E78)
+                                        )
+
                                     ForEach(1...5, id: \.self) { week in
                                         let cloverForWeek = cloversForMonth.filter { $0.cloverWeekOfMonth == week }
                                         
@@ -226,43 +240,67 @@ struct StatisticView: View {
                                             case 0:
                                                 Image("Clover_Empty")
                                                     .resizable()
-                                                    .frame(width: 38, height: 38)
+                                                    .frame(width: 41, height: 41)
                                             case 1:
                                                 Image("Clover_Light")
                                                     .resizable()
-                                                    .frame(width: 38, height: 38)
+                                                    .frame(width: 41, height: 41)
                                             case 2:
                                                 Image("Clover_Green")
                                                     .resizable()
-                                                    .frame(width: 38, height: 38)
+                                                    .frame(width: 41, height: 41)
                                             case 3:
                                                 Image("Clover_Gold")
                                                     .resizable()
-                                                    .frame(width: 38, height: 38)
+                                                    .frame(width: 41, height: 41)
                                             default:
                                                 Image("Clover_Empty")
                                                     .resizable()
-                                                    .frame(width: 38, height: 38)
+                                                    .frame(width: 41, height: 41)
                                             }
                                         } else {
-                                            Rectangle()
-                                                .fill(.clear)
-                                                .frame(width: 38, height: 38)
+                                            Image("Clover_Empty")
+                                                .resizable()
+                                                .frame(width: 41, height: 41)
+//                                            Rectangle()
+//                                                .fill(.clear)
+//                                                .frame(width: 41, height: 41)
                                         }
                                     }
                                 }
-                                if viewModel.weeklyCloverInfoHeight > 100 && month != range.min {
-                                    Divider()
-                                        .padding(12)
-                                }
-                                
+                                .padding(.horizontal, 16)
+                                .padding(.bottom, 32)
                             }
                         }
-                    } else {
-                        Text("클로버를 찾을 수 없습니다")
-                            .font(.Pretendard.Regular.size16)
-                            .padding(.top, 12)
+                    if (viewModel.currentYearCloverMonthRange.max - viewModel.currentYearCloverMonthRange.min > 2) {
+                        Button(action: {
+                            isOpenedWeeklyCloverInfo.toggle()
+                        }) {
+                            if (isOpenedWeeklyCloverInfo) {
+                                VStack(spacing: 2) {
+                                    Image(systemName: "chevron.up")
+                                        .frame(width: 16, height: 17)
+                                        .foregroundStyle(.my887E78)
+                                    Text("접기")
+                                        .font(.Pretendard.SemiBold.size14)
+                                        .foregroundStyle(.my887E78)
+                                }
+                                .frame(width: 78)
+                            } else {
+                                VStack(spacing: 2) {
+                                    Text("지난 달 더보기")
+                                        .font(.Pretendard.SemiBold.size14)
+                                        .foregroundStyle(.my887E78)
+                                    Image(systemName: "chevron.down")
+                                        .frame(width: 16, height: 17)
+                                        .foregroundStyle(.my887E78)
+                                }
+                            }
+                            
+                        }
+                        .padding(.leading, 141)
                     }
+
                 }
             }
         }
