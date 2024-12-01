@@ -88,24 +88,24 @@ struct CloverCardView: View {
                     }
                     .frame(width: 279, height: 360)
                     
-                    VStack(spacing: 6) {
-                        if viewModel.isCheckAchievement {
-                            Image(systemName: "chevron.up")
-                                .frame(width: 19, height: 11)
-                                .foregroundStyle(.white)
-                                .bold()
-                            Text("완수율 확인하기")
-                                .font(.Pretendard.Bold.size18)
-                                .foregroundStyle(.white)
-                        } else {
-                            Text("루틴 완수율 확인하기")
-                                .font(.Pretendard.Bold.size18)
-                                .foregroundStyle(.white)
-                            Image(systemName: "chevron.down")
-                                .frame(width: 19, height: 11)
-                                .foregroundStyle(.white)
-                        }
-                    }
+//                    VStack(spacing: 6) {
+//                        if viewModel.isCheckAchievement {
+//                            Image(systemName: "chevron.up")
+//                                .frame(width: 19, height: 11)
+//                                .foregroundStyle(.white)
+//                                .bold()
+//                            Text("완수율 확인하기")
+//                                .font(.Pretendard.Bold.size18)
+//                                .foregroundStyle(.white)
+//                        } else {
+//                            Text("루틴 완수율 확인하기")
+//                                .font(.Pretendard.Bold.size18)
+//                                .foregroundStyle(.white)
+//                            Image(systemName: "chevron.down")
+//                                .frame(width: 19, height: 11)
+//                                .foregroundStyle(.white)
+//                        }
+//                    }
                     .padding(.top, 2)
                     .onTapGesture {
                         viewModel.isCheckAchievement.toggle()
@@ -117,12 +117,12 @@ struct CloverCardView: View {
                             }
                         }
                     }
-                    // 완수율 통계
-                    if viewModel.isCheckAchievement {
-                        completionRateView(cloverCardType: cloverCardType)
-                            .transition(.move(edge: .bottom))
-                            .id("scrollToBottom")
-                    }
+//                    // 완수율 통계
+//                    if viewModel.isCheckAchievement {
+//                        completionRateView(cloverCardType: cloverCardType)
+//                            .transition(.move(edge: .bottom))
+//                            .id("scrollToBottom")
+//                    }
                     Spacer()
                 }
             }
@@ -158,32 +158,32 @@ struct CloverCardView: View {
         }
     }
     
-    @ViewBuilder
-    private func completionRateView(cloverCardType: CloverCardType) -> some View {
-        VStack(spacing: 12) {
-            Text("\(viewModel.getLastWeekWeekofMonth())의 루틴 완수율") // 이전 주차
-                .font(.Pretendard.Bold.size17)
-                .foregroundStyle(.my575656)
-                .padding(.vertical, 10)
-            
-            ForEach(mainGoals.first?.subGoals.sorted(by: { $0.id < $1.id }) ?? [], id: \.id) { subGoal in
-                HStack {
-                    Text(subGoal.category)
-                        .font(.Pretendard.Bold.size12)
-                        .foregroundStyle(.my505050)
-                        .frame(width: 62, alignment: .leading)
-                    CloverCardProgressBar(value: viewModel.progressValues[subGoal.id] ?? 0.0)
-                        .progressViewStyle(LinearProgressViewStyle(tint: .myFFA64A))
-                }
-                .padding(.horizontal, 33)
-            }
-        }
-        .padding()
-        .background(cloverCardType.completionRateBackgroundColor)
-        .cornerRadius(16)
-        .padding(.horizontal)
-        .padding(.top, 2)
-    }
+//    @ViewBuilder
+//    private func completionRateView(cloverCardType: CloverCardType) -> some View {
+//        VStack(spacing: 12) {
+//            Text("\(viewModel.getLastWeekWeekofMonth())의 루틴 완수율") // 이전 주차
+//                .font(.Pretendard.Bold.size17)
+//                .foregroundStyle(.my575656)
+//                .padding(.vertical, 10)
+//            
+//            ForEach(mainGoals.first?.subGoals.sorted(by: { $0.id < $1.id }) ?? [], id: \.id) { subGoal in
+//                HStack {
+//                    Text(subGoal.category)
+//                        .font(.Pretendard.Bold.size12)
+//                        .foregroundStyle(.my505050)
+//                        .frame(width: 62, alignment: .leading)
+//                    CloverCardProgressBar(value: viewModel.progressValues[subGoal.id] ?? 0.0)
+//                        .progressViewStyle(LinearProgressViewStyle(tint: .myFFA64A))
+//                }
+//                .padding(.horizontal, 33)
+//            }
+//        }
+//        .padding()
+//        .background(cloverCardType.completionRateBackgroundColor)
+//        .cornerRadius(16)
+//        .padding(.horizontal)
+//        .padding(.top, 2)
+//    }
 }
 
 #Preview {

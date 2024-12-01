@@ -61,7 +61,7 @@ struct RoutineCycleView: View {
                                 .background(.white)
                                 .cornerRadius(12)
                                 .onChange(of: viewModel.userNewDetailGoal) { oldValue, newValue in
-                                    wwhVM.text = newValue // MandalartViewModel에 전달
+                                    wwhVM.detailGoalTitleText = newValue // MandalartViewModel에 전달
                                     
                                     if newValue.count > viewModel.detailGoalLimit {
                                         viewModel.userNewDetailGoal = String(newValue.prefix(viewModel.detailGoalLimit))
