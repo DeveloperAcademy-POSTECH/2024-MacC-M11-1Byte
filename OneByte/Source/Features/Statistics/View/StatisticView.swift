@@ -192,7 +192,7 @@ struct StatisticView: View {
                                 .frame(width: 20)
                             Text("1주차")
                                 .font(Font.Pretendard.SemiBold.size12)
-                                .foregroundStyle(.my9C9C9C)
+                                .foregroundStyle(.my8)
                             Text("2주차")
                                 .font(Font.Pretendard.SemiBold.size12)
                                 .foregroundStyle(.my9C9C9C)
@@ -206,7 +206,7 @@ struct StatisticView: View {
                                 .font(Font.Pretendard.SemiBold.size12)
                                 .foregroundStyle(.my9C9C9C)
                         }
-                        .padding(.top, 32)
+                        .padding(.top, 38)
                         .padding(.bottom, 30)
                         
                         ForEach(Array(stride(from: viewModel.currentMonth, through: range.min, by: -1)), id: \.self) { month in // 내림차순
