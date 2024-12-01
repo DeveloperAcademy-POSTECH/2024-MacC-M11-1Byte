@@ -16,6 +16,7 @@ struct CloverCardView: View {
     @Environment(\.modelContext) private var modelContext
     
     @State var viewModel = CloverCardViewModel()
+    @State private var progressValues: [Int: Double] = [:]
     
     var body: some View {
         let cloverCardType = viewModel.getCloverCardType(for: viewModel.lastWeekCloverState)
@@ -145,6 +146,12 @@ struct CloverCardView: View {
         .background(cloverCardType.gradient.ignoresSafeArea(edges: .all))
         .onAppear {
             viewModel.lastWeekCloverState = viewModel.getLastWeekCloverState(clovers: clovers)
+            calculateProgressValues()
+            
+            DispatchQueue.main.async {
+                let resetManager = WeeklyResetManager()
+                resetManager.performReset(goals: mainGoals, modelContext: modelContext)
+            }
         }
     }
     
@@ -156,19 +163,14 @@ struct CloverCardView: View {
                 .foregroundStyle(.my575656)
                 .padding(.vertical, 10)
             
-            // SubGoal의 category를 표시
             ForEach(mainGoals.first?.subGoals.sorted(by: { $0.id < $1.id }) ?? [], id: \.id) { subGoal in
-                let totalAchieveCount = subGoal.detailGoals.reduce(0) { $0 + $1.achieveCount }
-                let totalAchieveGoal = subGoal.detailGoals.reduce(0) { $0 + $1.achieveGoal }
-                
-                // ProgressBar value 계산
-                let progressValue = totalAchieveGoal > 0 ? Double(totalAchieveCount) / Double(totalAchieveGoal) : 0
+                let progressValue = progressValues[subGoal.id] ?? 0.0 // 해당 SubGoal의 Progress 값
                 HStack {
-                    Text(subGoal.category) // SubGoal의 category 표시
+                    Text(subGoal.category)
                         .font(.Pretendard.Bold.size12)
                         .foregroundStyle(.my505050)
                         .frame(width: 62, alignment: .leading)
-                    CloverCardProgressBar(value: progressValue) // 진행률은 임시값
+                    CloverCardProgressBar(value: progressValue)
                         .progressViewStyle(LinearProgressViewStyle(tint: .myFFA64A))
                 }
                 .padding(.horizontal, 33)
@@ -179,6 +181,36 @@ struct CloverCardView: View {
         .cornerRadius(16)
         .padding(.horizontal, 17)
         .padding(.top, 2)
+    }
+    
+    private func calculateProgressValues() {
+        guard let subGoals = mainGoals.first?.subGoals else { return }
+        
+        let totals = calculateSubGoalTotals(for: subGoals)
+        
+        // Progress 값 계산
+        for (subGoalId, (totalAchieveCount, totalAchieveGoal)) in totals {
+            let progressValue = totalAchieveGoal > 0 ? Double(totalAchieveCount) / Double(totalAchieveGoal) : 0.0
+            progressValues[subGoalId] = progressValue
+        }
+    }
+    
+    private func calculateSubGoalTotals(for subGoals: [SubGoal]) -> [Int: (totalAchieveCount: Int, totalAchieveGoal: Int)] {
+        var subGoalTotals: [Int: (totalAchieveCount: Int, totalAchieveGoal: Int)] = [:]
+        
+        for subGoal in subGoals {
+            // achieveGoal이 1 이상인 DetailGoal 필터링
+            let filteredDetailGoals = subGoal.detailGoals.filter { $0.achieveGoal > 0 }
+            
+            // achieveCount와 achieveGoal 합산
+            let totalAchieveCount = filteredDetailGoals.reduce(0) { $0 + $1.achieveCount }
+            let totalAchieveGoal = filteredDetailGoals.reduce(0) { $0 + $1.achieveGoal }
+            
+            // SubGoal ID를 키로 사용하여 저장
+            subGoalTotals[subGoal.id] = (totalAchieveCount, totalAchieveGoal)
+        }
+        
+        return subGoalTotals
     }
 }
 

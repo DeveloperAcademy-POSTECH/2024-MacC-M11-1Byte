@@ -29,38 +29,34 @@ struct WeeklyResetManager {
             return true // 초기화 날짜가 없으면 초기화 필요
         }
     
-    func resetGoals(goals: [MainGoal], modelContext: ModelContext) -> Bool {
-        guard needsReset() else {
-            print("⚠️ No reset needed. Skipping...")
-            return false
-        }
-        
-        for mainGoal in goals {
-            print("🔄 Resetting MainGoal ID: \(mainGoal.id), Title: \(mainGoal.title)")
-            mainGoal.cloverState = 0 // MainGoal의 CloverState를 0으로 업데이트
-            for subGoal in mainGoal.subGoals {
-                for detailGoal in subGoal.detailGoals {
-                    print("🔄 Resetting DetailGoal ID: \(detailGoal.id), Title: \(detailGoal.title)")
-                    detailGoal.achieveCount = 0
-                    detailGoal.achieveMon = false
-                    detailGoal.achieveTue = false
-                    detailGoal.achieveWed = false
-                    detailGoal.achieveThu = false
-                    detailGoal.achieveFri = false
-                    detailGoal.achieveSat = false
-                    detailGoal.achieveSun = false
-                }
-            }
-        }
-        // 초기화된 날짜 새로 저장
-        UserDefaults.standard.set(Date(), forKey: WeeklyResetManager.lastResetDateKey)
-        
-        do {
-            try modelContext.save()
-            print("✅ Reset successful and changes saved.")
-        } catch {
-            print("❌ Failed to save modelContext: \(error)")
-        }
-        return true
-    }
+    /// 실제 초기화 작업 수행
+       func performReset(goals: [MainGoal], modelContext: ModelContext) {
+           for mainGoal in goals {
+               print("🔄 Resetting MainGoal ID: \(mainGoal.id), Title: \(mainGoal.title)")
+               mainGoal.cloverState = 0 // MainGoal의 CloverState를 0으로 업데이트
+               for subGoal in mainGoal.subGoals {
+                   for detailGoal in subGoal.detailGoals {
+                       print("🔄 Resetting DetailGoal ID: \(detailGoal.id), Title: \(detailGoal.title)")
+                       detailGoal.achieveCount = 0
+                       detailGoal.achieveMon = false
+                       detailGoal.achieveTue = false
+                       detailGoal.achieveWed = false
+                       detailGoal.achieveThu = false
+                       detailGoal.achieveFri = false
+                       detailGoal.achieveSat = false
+                       detailGoal.achieveSun = false
+                   }
+               }
+           }
+           
+           // 초기화된 날짜 새로 저장
+           UserDefaults.standard.set(Date(), forKey: WeeklyResetManager.lastResetDateKey)
+           
+           do {
+               try modelContext.save()
+               print("✅ Reset successful and changes saved.")
+           } catch {
+               print("❌ Failed to save modelContext: \(error)")
+           }
+       }
 }
