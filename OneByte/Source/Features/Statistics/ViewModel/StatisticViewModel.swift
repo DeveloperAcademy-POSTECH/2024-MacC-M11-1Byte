@@ -24,7 +24,7 @@ class StatisticViewModel {
     
     let monthInfoViewBodyPhraseDict : [String: [String]] = [
         "cloverX": ["괜찮아요. 항상 완벽할 필요는 없어요\n이번 주부터 다시 시작해봐요!",
-                     "루틴은 꾸준함이 핵심이지만,\n 쉬어가는 것도 과정의 일부예요. 다시 해볼까요?",
+                     "루틴은 꾸준함이 핵심이지만,\n쉬어가는 것도 과정의 일부예요. 다시 해볼까요?",
                      "꾸준함은 넘어지면서 배우는 거예요\n이번 주는 더 나아질 거니까 걱정 말아요"],
         "green": ["이미 충분히 잘하고 있어요!\n조금 더 스스로를 믿고, 조금 더 나아가 봐요",
                   "지금도 충분히 잘하고 있어요!\n조금만 있으면 큰 변화를 느낄 수 있을 거예요",
@@ -162,8 +162,6 @@ class StatisticViewModel {
     }
     
     func filterCloversByMonth(clovers: [Clover], month: Int) -> [Clover] {
-        let clovlist = clovers.filter { $0.cloverMonth == month }
-        
         return clovers.filter { $0.cloverMonth == month }
     }
     
@@ -172,24 +170,24 @@ class StatisticViewModel {
     }
     
     func classifyCloverState(clovers: [Clover]) -> [Int] {
-        var lightCloverCount = 0
+        var emptyCloverCount = 0
         var greenCloverCount = 0
         var goldCloverCount = 0
         
         for clover in clovers {
             switch clover.cloverState {
+            case 0:
+                emptyCloverCount += 1
             case 1:
-                lightCloverCount += 1
-            case 2:
                 greenCloverCount += 1
-            case 3:
+            case 2:
                 goldCloverCount += 1
             default:
                 break
             }
         }
         
-        return [lightCloverCount, greenCloverCount, goldCloverCount]
+        return [emptyCloverCount, greenCloverCount, goldCloverCount]
         
     }
    

@@ -297,24 +297,32 @@ struct StatisticView: View {
                                     let cloverForWeek = cloversForMonth.filter { $0.cloverWeekOfMonth == week }
                                     
                                     if let firstClover = cloverForWeek.first {
-                                        switch firstClover.cloverState {
-                                        case 0:
+                                        // 이번 주차는 클로버 상태를 표시하지 않음
+                                        if firstClover.cloverWeekOfMonth == currentWeekOfMonth {
                                             Image("Clover_Empty")
                                                 .resizable()
                                                 .frame(width: 41, height: 41)
-                                        case 1:
-                                            Image("Clover_Green")
-                                                .resizable()
-                                                .frame(width: 41, height: 41)
-                                        case 2:
-                                            Image("Clover_Gold")
-                                                .resizable()
-                                                .frame(width: 41, height: 41)
-                                        default:
-                                            Image("Clover_Empty")
-                                                .resizable()
-                                                .frame(width: 41, height: 41)
+                                        } else {
+                                            switch firstClover.cloverState {
+                                            case 0:
+                                                Image("Clover_Empty")
+                                                    .resizable()
+                                                    .frame(width: 41, height: 41)
+                                            case 1:
+                                                Image("Clover_Green")
+                                                    .resizable()
+                                                    .frame(width: 41, height: 41)
+                                            case 2:
+                                                Image("Clover_Gold")
+                                                    .resizable()
+                                                    .frame(width: 41, height: 41)
+                                            default:
+                                                Image("Clover_Empty")
+                                                    .resizable()
+                                                    .frame(width: 41, height: 41)
+                                            }
                                         }
+                                        
                                     } else {
                                         Rectangle()
                                             .fill(.clear)
@@ -358,7 +366,7 @@ struct StatisticView: View {
                 RoundedRectangle(cornerRadius: 9)
                     .stroke(.my887E78, lineWidth: 1.5)
                     .frame(width: 56, height: 80)
-                    .padding(.leading, CGFloat(currentWeekOfMonth)/12 + CGFloat(currentWeekOfMonth)/9 + CGFloat(currentWeekOfMonth)/6 + CGFloat(currentWeekOfMonth)/3 + 9 + 56 * CGFloat(currentWeekOfMonth))
+                    .padding(.leading, 2 * CGFloat(currentWeekOfMonth)/12 + CGFloat(currentWeekOfMonth)/9 + CGFloat(currentWeekOfMonth)/6 + CGFloat(currentWeekOfMonth)/3 + 9 + 56 * CGFloat(currentWeekOfMonth))
                     .padding(.top, 96)
             }
         }
