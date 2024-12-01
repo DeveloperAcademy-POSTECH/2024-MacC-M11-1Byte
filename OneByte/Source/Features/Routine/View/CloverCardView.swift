@@ -80,7 +80,6 @@ struct CloverCardView: View {
                                     viewModel.tapRotationAnimation() // 탭 회전
                                 }
                                 .padding(.top, 30)
-                            
                             Spacer()
                         }
                     }
@@ -141,7 +140,7 @@ struct CloverCardView: View {
                     .background(.myFFFAF4)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
             }
-            .padding(.horizontal, 17)
+            .padding(.horizontal)
             .padding(.vertical)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -181,7 +180,7 @@ struct CloverCardView: View {
         .padding()
         .background(cloverCardType.completionRateBackgroundColor)
         .cornerRadius(16)
-        .padding(.horizontal, 17)
+        .padding(.horizontal)
         .padding(.top, 2)
     }
     

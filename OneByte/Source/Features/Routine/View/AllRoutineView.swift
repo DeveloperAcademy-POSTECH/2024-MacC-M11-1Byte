@@ -45,7 +45,7 @@ struct AllRoutineView: View {
                                 }
                             }
                         }
-                        .padding(.horizontal, 16)
+                        .padding(.horizontal)
                         .padding(.bottom, 32)
                     }
                 }
@@ -98,6 +98,7 @@ struct AllRoutineView: View {
         }
         .padding(.top, 20)
         .padding(.bottom, 24)
+        .padding(.horizontal, 10)
     }
 }
 
@@ -139,7 +140,7 @@ struct WeekRoutineView : View {
                         }
                     }
                     .frame(maxWidth: .infinity)
-                    .padding(.horizontal, 16)
+                    .padding(.horizontal)
                     .padding(.bottom, 32)
                 }
             }

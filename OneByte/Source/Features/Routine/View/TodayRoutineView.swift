@@ -162,8 +162,7 @@ struct TodayRoutineView: View {
                     }
                 }
             }
-            .padding(.top, 28)
-            .padding(.horizontal, 16)
+            .padding([.top, .horizontal])
             .padding(.bottom, 32)
         }
         .background(Color.myFFFAF4)
