@@ -40,17 +40,21 @@ struct CloverCardView: View {
             
             ScrollViewReader { proxy in
                 ScrollView(.vertical, showsIndicators: false) {
-                    VStack(spacing: 3) {
-                        Text(cloverCardType.cloverCardTitle) // 클로버 종류
+                    VStack(spacing: 9) {
+                        Text(cloverCardType.cloverCardTitle) // 클로버 종류 획득 문구
                             .font(.Pretendard.Bold.size24)
                             .foregroundStyle(.white)
+                            .kerning(0.48)
                         Text(cloverCardType.cloverCardMessage) // 메세지
                             .font(.Pretendard.Medium.size16)
                             .foregroundStyle(.white.opacity(0.9))
+                            .multilineTextAlignment(.center)
+                            .kerning(0.32)
+                            .lineSpacing(1.35)
                     }
-                    .padding(.top, 32)
+                    .padding(.top, 26)
                     
-                    ZStack {
+                    ZStack { // (around padding 12)
                         Image(cloverCardType.cloverCardBackground) // 카드 배경
                             .resizable()
                             .scaledToFit()
@@ -65,7 +69,7 @@ struct CloverCardView: View {
                                     .font(.Pretendard.ExtraBold.size24)
                                     .foregroundStyle(.white)
                             }
-                            .padding(.top, 46)
+                            .padding(.top, 48)
                             
                             Image(cloverCardType.cloverCardClover ?? "") // 클로버 아이콘
                                 .rotation3DEffect (
@@ -82,7 +86,6 @@ struct CloverCardView: View {
                             Spacer()
                         }
                     }
-                    .padding(.top, 39)
                     .frame(width: 279, height: 360)
                     
                     VStack(spacing: 6) {
@@ -103,7 +106,7 @@ struct CloverCardView: View {
                                 .foregroundStyle(.white)
                         }
                     }
-                    .padding(.top, 24)
+                    .padding(.top, 2)
                     .onTapGesture {
                         viewModel.isCheckAchievement.toggle()
                         if viewModel.isCheckAchievement {

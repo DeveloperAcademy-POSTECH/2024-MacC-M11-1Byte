@@ -15,7 +15,7 @@ enum CloverCardType : String, CaseIterable {
     var cloverType: String {
         switch self {
         case .noClover:
-            return ""
+            return "할 수 있다!"
         case .greenClover:
             return "초록 클로버"
         case .goldClover:
@@ -26,7 +26,7 @@ enum CloverCardType : String, CaseIterable {
     var cloverCardTitle: String {
         switch self {
         case .noClover:
-            return "획득한 클로버가 없어요.."
+            return "이번 주는 더 잘할 수 있어요"
         case .greenClover:
             return "초록 클로버를 획득했어요!"
         case .goldClover:
@@ -37,11 +37,11 @@ enum CloverCardType : String, CaseIterable {
     var cloverCardMessage: String {
         switch self {
         case .noClover:
-            return "새로운 한주는 좀 더 노력해 클로버를 획득해보세요"
+            return "항상 완벽할 필요는 없어요\n다시 시작하려는 의지가 중요해요!"
         case .greenClover:
-            return "다음엔 황금클로버에도 도전해보세요."
+            return "한 주 동안 너무 수고했어요\n이번 주에는 황금클로버에도 도전해봐요!"
         case .goldClover:
-            return "잘하고 있어요! 앞으로도 지금처럼만 노력해봐요"
+            return "루틴을 완벽히 수행했어요\n지금처럼 꾸준히 한다면 곧 목표를 이룰 수 있을 거예요!"
         }
     }
     
