@@ -15,7 +15,7 @@ struct TurtleMessageView: View {
         Text(message)
             .font(.Pretendard.Medium.size14)
             .foregroundStyle(.my3C3C3C)
-            .frame(maxWidth: .infinity)
+            .multilineTextAlignment(.center)
             .frame(height: 55)
             .padding(.horizontal)
             .background(.myD4E5CC)

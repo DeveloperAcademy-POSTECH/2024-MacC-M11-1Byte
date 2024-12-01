@@ -17,6 +17,8 @@ struct TabBarManager: View {
     @State private var isTabBarMainVisible: Bool = true
     @State private var selectedTab: Int = 0
     
+    @State private var showCloverCardView: Bool = false  // 클로버 카드뷰 제어
+    
     var body: some View {
         ZStack {
             if FirstOnboarding {
@@ -68,8 +70,15 @@ struct TabBarManager: View {
             }
         }
         .onAppear {
-            let resetManager = WeeklyResetManager()
-            resetManager.resetGoals(goals: mainGoals, modelContext: modelContext) // 초기화 수행
+            if !FirstOnboarding {
+                let resetManager = WeeklyResetManager()
+                if resetManager.needsReset() { // 주차 초기화 되어야하는 시점이면 CloverCardView 로딩
+                    showCloverCardView = true
+                }
+            }
+        }
+        .fullScreenCover(isPresented: $showCloverCardView) {
+            CloverCardView(selectedTab: $selectedTab)
         }
     }
     
