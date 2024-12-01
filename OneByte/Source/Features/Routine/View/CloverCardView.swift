@@ -17,6 +17,7 @@ struct CloverCardView: View {
     
     @State var viewModel = CloverCardViewModel()
     @State private var progressValues: [Int: Double] = [:]
+    @Binding var selectedTab: Int
     
     var body: some View {
         let cloverCardType = viewModel.getCloverCardType(for: viewModel.lastWeekCloverState)
@@ -129,7 +130,8 @@ struct CloverCardView: View {
             }
             
             Button {
-                // action 뷰이동
+                selectedTab = 2 // 나의 클로버 뷰로 이동
+                dismiss()
             } label: {
                 Text("클로버 모아보기")
                     .font(.Pretendard.SemiBold.size17)
@@ -215,5 +217,5 @@ struct CloverCardView: View {
 }
 
 #Preview {
-    CloverCardView()
+    CloverCardView(selectedTab: .constant(2))
 }

@@ -85,7 +85,7 @@ struct TabBarManager: View {
 //            }
         }
         .fullScreenCover(isPresented: $showCloverCardView) {
-            CloverCardView()
+            CloverCardView(selectedTab: $selectedTab)
         }
     }
     
