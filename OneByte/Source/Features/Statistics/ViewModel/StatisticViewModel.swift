@@ -162,6 +162,7 @@ class StatisticViewModel {
     }
     
     func filterCloversByMonth(clovers: [Clover], month: Int) -> [Clover] {
+        let clovlist = clovers.filter { $0.cloverMonth == month }
         
         return clovers.filter { $0.cloverMonth == month }
     }

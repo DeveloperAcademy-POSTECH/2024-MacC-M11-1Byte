@@ -226,7 +226,6 @@ struct StatisticView: View {
                                 Text("초록 클로버")
                                     .font(.Pretendard.Medium.size14)
                                     .foregroundStyle(Color.my909090)
-                                
                             }
                             HStack {
                                 Image("Clover_Green")
@@ -234,7 +233,6 @@ struct StatisticView: View {
                                     .frame(width: 20, height: 20)
                                 Text("\(viewModel.currentYearCloverStates[1])개")
                                     .font(.Pretendard.SemiBold.size16)
-                                
                             }
                         }
                         
@@ -248,7 +246,6 @@ struct StatisticView: View {
                                 Text("황금 클로버")
                                     .font(.Pretendard.Medium.size14)
                                     .foregroundStyle(Color.my909090)
-                                
                             }
                             HStack {
                                 Image("Clover_Gold")
@@ -256,7 +253,6 @@ struct StatisticView: View {
                                     .frame(width: 20, height: 20)
                                 Text("\(viewModel.currentYearCloverStates[2])개")
                                     .font(.Pretendard.SemiBold.size16)
-                                
                             }
                         }
                     }
@@ -320,7 +316,6 @@ struct StatisticView: View {
                                                 .frame(width: 41, height: 41)
                                         }
                                     } else {
-                                        
                                         Rectangle()
                                             .fill(.clear)
                                             .frame(width: 41, height: 41)
@@ -355,22 +350,17 @@ struct StatisticView: View {
                                         .foregroundStyle(.my887E78)
                                 }
                             }
-                            
                         }
                         .padding(.top, -8)
                         .padding(.leading, 141)
                     }
-                    
                 }
-                
                 RoundedRectangle(cornerRadius: 9)
                     .stroke(.my887E78, lineWidth: 1.5)
                     .frame(width: 56, height: 80)
                     .padding(.leading, CGFloat(currentWeekOfMonth)/12 + CGFloat(currentWeekOfMonth)/9 + CGFloat(currentWeekOfMonth)/6 + CGFloat(currentWeekOfMonth)/3 + 9 + 56 * CGFloat(currentWeekOfMonth))
                     .padding(.top, 96)
-
             }
-            
         }
     }
 }
