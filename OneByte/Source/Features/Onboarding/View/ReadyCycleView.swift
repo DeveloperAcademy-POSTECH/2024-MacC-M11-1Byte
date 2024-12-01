@@ -9,8 +9,6 @@ import SwiftUI
 struct ReadyCycleView: View {
     
     @Environment(NavigationManager.self) var navigationManager
-    @Environment(\.dismiss) private var dismiss
-    
     var nowOnboard: Onboarding = .ready
     
     var body: some View {
@@ -18,41 +16,30 @@ struct ReadyCycleView: View {
             // 상단 텍스트
             VStack(spacing: 12) {
                 Text(nowOnboard.onboardingTitle)
-                    .font(.Pretendard.Bold.size26)
-                    .multilineTextAlignment(.center)
-                    .lineSpacing(3.6)
-                Text(nowOnboard.onboardingSubTitle)
-                    .font(.Pretendard.Regular.size16)
-                    .foregroundStyle(.my5A5A5A)
-                    .multilineTextAlignment(.center)
-                    .lineSpacing(2.4)
+                    .customMainStyle()
+                nowOnboard.onboardingSubTitle
+                    .customSubStyle()
             }
-            .padding(.top, 80)
-            
-            Spacer()
+            .padding(.top, 40)
             
             // 중앙 캐릭터 이미지
             HStack {
                 Image("OnboardingTurtle2")
                     .resizable()
                     .scaledToFit()
-                    .frame(height: 200)
             }
-            
+            .padding(.top, 23)
             Spacer()
             
-            // 하단 Button
-            HStack {
-                GoButton {
-                    navigationManager.push(to: .onboardSubgoal)
-                } label: {
-                    Text("시작하기")
-                }
+            GoButton {
+                navigationManager.push(to: .onboardSubgoal)
+            } label: {
+                Text("시작하기")
             }
-            .padding()
+            .padding(.vertical)
         }
+        .padding(.horizontal)
         .background(.myFFFAF4)
-        .navigationBarBackButtonHidden()
     }
 }
 

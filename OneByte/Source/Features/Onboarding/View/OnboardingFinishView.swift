@@ -16,34 +16,14 @@ struct OnboardingFinishView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            // Back Button & 프로그레스 바
-            HStack {
-                Button {
-                    navigationManager.pop()
-                } label: {
-                    HStack {
-                        Image(systemName: "chevron.left")
-                            .tint(.black)
-                            .bold()
-                    }
-                }
-                OnboardingProgressBar(value: 5/5)
-                    .frame(height: 10)
-                    .padding()
-                    .padding(.trailing)
+            OnboardingHeaderView(progressValue: 5/5) {
+                navigationManager.pop()
             }
-            .padding(.horizontal)
-            
             VStack(spacing: 10) {
                 Text(nowOnboard.onboardingTitle)
-                    .font(.Pretendard.Bold.size26)
-                    .multilineTextAlignment(.center)
-                    .lineSpacing(3.6)
-                Text(nowOnboard.onboardingSubTitle)
-                    .font(.Pretendard.Regular.size16)
-                    .foregroundStyle(.my5A5A5A)
-                    .multilineTextAlignment(.center)
-                    .lineSpacing(2.4)
+                    .customMainStyle()
+                nowOnboard.onboardingSubTitle
+                    .customSubStyle()
             }
             .padding(.top, 31)
             
@@ -51,19 +31,16 @@ struct OnboardingFinishView: View {
             Image("OnboardingTurtle3")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 243, height: 187)
-            
             Spacer()
-            // 하단 Button
-            HStack {
-                GoButton {
-                    FirstOnboarding = false  // 온보딩 종료
-                } label: {
-                    Text("이어서 작성하기")
-                }
+            
+            GoButton {
+                FirstOnboarding = false  // 온보딩 종료
+            } label: {
+                Text("하고만다 시작하기")
             }
-            .padding()
+            .padding(.vertical)
         }
+        .padding(.horizontal)
         .background(.myFFFAF4)
     }
 }
