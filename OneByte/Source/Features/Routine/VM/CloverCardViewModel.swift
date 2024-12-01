@@ -12,20 +12,20 @@ import SwiftData
 class CloverCardViewModel {
     
     var lastWeekCloverState: Int? // 지난주의 cloverState 값
-    
     var isCheckAchievement = false // 완수율 확인하기
     var rotationAngle: Double = 0 // 회전 각도
     var isTapped: Bool = false  // 애니메이션 자동회전/탭회전 구분
+    var progressValues: [Int: Double] = [:] // SubGoal별 Progress 값 저장
     
     // 이전주차 cloverState값에 따라서 클로버 타입 반환
     func getCloverCardType(for cloverState: Int?) -> CloverCardType {
-            switch cloverState {
-            case 0: return .noClover
-            case 1: return .greenClover
-            case 2: return .goldClover
-            default: return .noClover
-            }
+        switch cloverState {
+        case 0: return .noClover
+        case 1: return .greenClover
+        case 2: return .goldClover
+        default: return .noClover
         }
+    }
     
     // 저번주의 (월/월차) -> 카드에 주차 텍스트
     func getLastWeekWeekofMonth() -> String {
@@ -73,6 +73,27 @@ class CloverCardViewModel {
             }
         }
         return 0
+    }
+    
+    // SubGoal의 Progress 값 계산
+    func calculateProgressValues(for subGoals: [SubGoal]) {
+        let totals = calculateSubGoalTotals(for: subGoals)
+        for (subGoalId, (totalAchieveCount, totalAchieveGoal)) in totals {
+            let progressValue = totalAchieveGoal > 0 ? Double(totalAchieveCount) / Double(totalAchieveGoal) : 0.0
+            progressValues[subGoalId] = progressValue
+        }
+    }
+    
+    // SubGoal의 총합 계산 ( achieveGoal이 1이상인것들에 한해서 )
+    private func calculateSubGoalTotals(for subGoals: [SubGoal]) -> [Int: (totalAchieveCount: Int, totalAchieveGoal: Int)] {
+        var subGoalTotals: [Int: (totalAchieveCount: Int, totalAchieveGoal: Int)] = [:]
+        for subGoal in subGoals {
+            let filteredDetailGoals = subGoal.detailGoals.filter { $0.achieveGoal > 0 }
+            let totalAchieveCount = filteredDetailGoals.reduce(0) { $0 + $1.achieveCount }
+            let totalAchieveGoal = filteredDetailGoals.reduce(0) { $0 + $1.achieveGoal }
+            subGoalTotals[subGoal.id] = (totalAchieveCount, totalAchieveGoal)
+        }
+        return subGoalTotals
     }
     
     // 클로버 자동 회전
