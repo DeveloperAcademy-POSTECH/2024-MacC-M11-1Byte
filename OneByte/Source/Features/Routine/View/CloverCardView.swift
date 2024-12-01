@@ -94,15 +94,6 @@ struct CloverCardView: View {
                             Text("완수율 확인하기")
                                 .font(.Pretendard.Bold.size18)
                                 .foregroundStyle(.white)
-                                .onTapGesture {
-                                    if viewModel.isCheckAchievement {
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                            withAnimation {
-                                                proxy.scrollTo("scrollToBottom", anchor: .bottom)
-                                            }
-                                        }
-                                    }
-                                }
                         } else {
                             Text("루틴 완수율 확인하기")
                                 .font(.Pretendard.Bold.size18)
@@ -115,6 +106,13 @@ struct CloverCardView: View {
                     .padding(.top, 24)
                     .onTapGesture {
                         viewModel.isCheckAchievement.toggle()
+                        if viewModel.isCheckAchievement {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                withAnimation {
+                                    proxy.scrollTo("scrollToBottom", anchor: .bottom)
+                                }
+                            }
+                        }
                     }
                     // 완수율 통계
                     if viewModel.isCheckAchievement {
