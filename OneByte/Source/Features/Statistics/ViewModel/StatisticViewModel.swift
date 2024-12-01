@@ -47,6 +47,9 @@ class StatisticViewModel {
     }
     
     var currentMonth: Int {
+        if let data = UserDefaults.calendarData.first(where: { $0.0 == currentYear && $0.3 == currentWeekOfYear }) {
+            return data.1 
+        }
         return calendar.component(.month, from: Date())
     }
     
@@ -59,6 +62,9 @@ class StatisticViewModel {
     }
     
     var currentWeekOfMonth: Int {
+        if let data = UserDefaults.calendarData.first(where: { $0.0 == currentYear && $0.3 == currentWeekOfYear }) {
+            return data.2
+        }
         return calendar.component(.weekOfMonth, from: Date())
     }
     

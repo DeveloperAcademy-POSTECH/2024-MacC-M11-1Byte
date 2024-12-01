@@ -17,9 +17,6 @@ struct StatisticView: View {
     @State private var isQuestionMarkClicked = false
     @Binding var isTabBarMainVisible: Bool
     
-    
-    
-    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -36,20 +33,22 @@ struct StatisticView: View {
                         NavigationLink {
                             SettingView(isTabBarMainVisible: $isTabBarMainVisible)
                         } label: {
-                            Image("Setting")
+                            Image("SettingDark")
                                 .resizable()
                                 .frame(width: 24, height: 24)
                                 .foregroundStyle(Color.my566956)
                         }
                         .padding(.vertical)
                     }
+                    .padding(.leading, 4)
+                    .padding(.trailing, 10)
+                    .padding(.top, -6)
                     ScrollView {
                         thisMonthCloverInfoView()
                             .padding(.top, 44)
                         
                         weeklyCloverInfoView()
                             .padding(.top, 21)
-                        
                         Spacer()
                     }
                 }
@@ -117,8 +116,6 @@ struct StatisticView: View {
                             }
                             .padding(.leading, 12)
                             .padding(.bottom, 16)
-                            
-                            
                         }
                         .padding(.leading, 140)
                 }
@@ -183,7 +180,7 @@ struct StatisticView: View {
             ? (isOpenedWeeklyCloverInfo ? minMonth : maxMonth - 2)
             : minMonth
         
-        let currentWeekOfMonth = 1
+        let currentWeekOfMonth = viewModel.currentWeekOfMonth
         
         VStack(spacing: 12) {
             VStack(spacing: 4) {
