@@ -10,10 +10,12 @@ import SwiftUI
 struct DayButton: View {
     let title: String
     @Binding var isSelected: Bool
+    @Binding var isModified: Bool
     
     var body: some View {
         Button(action: {
             isSelected.toggle()
+            isModified = true
         }) {
             Text(title)
                 .font(.Pretendard.Medium.size17)
@@ -22,24 +24,5 @@ struct DayButton: View {
                 .background(isSelected ? Color.my538F53 : Color.myCFCFCF)
                 .clipShape(Circle())
         }
-        .buttonStyle(PlainButtonStyle()) // 기본 효과 제거
-    }
-}
-
-struct SelectTimeButton: View {
-    let title: String
-    @Binding var isSelected: Bool
-    var body: some View {
-        Button(action: {
-            isSelected.toggle()
-        }, label: {
-            Text(title)
-                .font(.Pretendard.Medium.size12)
-                .foregroundStyle(.white)
-                .padding(.vertical, 5)
-                .padding(.horizontal, 14)
-                .background(isSelected ? Color.my538F53 : Color.myCFCFCF)
-                .cornerRadius(34)
-        })
     }
 }

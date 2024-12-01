@@ -77,25 +77,23 @@
 		610595D42CE21505005ED7B4 /* MainGoalSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595D32CE21505005ED7B4 /* MainGoalSheetView.swift */; };
 		610595D62CE23653005ED7B4 /* DeleteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595D52CE23653005ED7B4 /* DeleteService.swift */; };
 		610595D92CE2584D005ED7B4 /* MadalartShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595D82CE2584D005ED7B4 /* MadalartShape.swift */; };
-		610595DB2CE2EA54005ED7B4 /* SubGoalSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595DA2CE2EA54005ED7B4 /* SubGoalSheetView.swift */; };
 		610595DD2CE2EA6C005ED7B4 /* DetailGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595DC2CE2EA6C005ED7B4 /* DetailGoalView.swift */; };
+		6107A3CB2CF88E11001189FA /* SpecificTagger3942.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 6107A3CA2CF88E11001189FA /* SpecificTagger3942.mlmodel */; };
 		613904E82CD20457008E591D /* MandalartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E72CD20457008E591D /* MandalartView.swift */; };
 		613904EA2CD21A0B008E591D /* MandalartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E92CD21A0B008E591D /* MandalartViewModel.swift */; };
 		615A0A0B2CC0ADA800908531 /* TabBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A0A2CC0ADA800908531 /* TabBarManager.swift */; };
 		615A0A0D2CC0AE8700908531 /* RoutineMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A0C2CC0AE8700908531 /* RoutineMainView.swift */; };
 		615A0A112CC0AEB800908531 /* StatisticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A102CC0AEB800908531 /* StatisticView.swift */; };
 		617816202CE5DF6A00834AAD /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6178161F2CE5DF6A00834AAD /* DateManager.swift */; };
-		618FD0702CDF0ED20003450D /* MandalartButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618FD06F2CDF0ED20003450D /* MandalartButtonModifier.swift */; };
 		618FD0742CDF11210003450D /* CreateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618FD0732CDF11210003450D /* CreateService.swift */; };
 		618FD0762CDF11410003450D /* UpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618FD0752CDF11410003450D /* UpdateService.swift */; };
 		618FD0782CDF11760003450D /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618FD0772CDF11760003450D /* Protocol.swift */; };
 		61CC00FD2CF0276B0009D063 /* DetailGoalColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CC00FC2CF0276B0009D063 /* DetailGoalColor.swift */; };
-		61CC00FF2CF1742B0009D063 /* DetailGoalColorFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CC00FE2CF1742B0009D063 /* DetailGoalColorFunc.swift */; };
 		61CC01012CF6CBD00009D063 /* DayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CC01002CF6CBD00009D063 /* DayButton.swift */; };
+		61CC01052CF74D190009D063 /* SubGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CC01042CF74D190009D063 /* SubGoalView.swift */; };
 		61E28B822CEE01FE000F77FB /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E28B812CEE01FE000F77FB /* Notification.swift */; };
 		61FA4DF32CE77EDD00256B57 /* BackButtonToolbarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FA4DF22CE77EDD00256B57 /* BackButtonToolbarModifier.swift */; };
 		61FA4DF52CE7803600256B57 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FA4DF42CE7803600256B57 /* View+.swift */; };
-		A14A18DE2CF7791A0013050F /* SpecificTagger3942.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A14A18DD2CF7791A0013050F /* SpecificTagger3942.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -171,25 +169,23 @@
 		610595D32CE21505005ED7B4 /* MainGoalSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGoalSheetView.swift; sourceTree = "<group>"; };
 		610595D52CE23653005ED7B4 /* DeleteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteService.swift; sourceTree = "<group>"; };
 		610595D82CE2584D005ED7B4 /* MadalartShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadalartShape.swift; sourceTree = "<group>"; };
-		610595DA2CE2EA54005ED7B4 /* SubGoalSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubGoalSheetView.swift; sourceTree = "<group>"; };
 		610595DC2CE2EA6C005ED7B4 /* DetailGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoalView.swift; sourceTree = "<group>"; };
+		6107A3CA2CF88E11001189FA /* SpecificTagger3942.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = SpecificTagger3942.mlmodel; path = Font/SpecificTagger3942.mlmodel; sourceTree = "<group>"; };
 		613904E72CD20457008E591D /* MandalartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalartView.swift; sourceTree = "<group>"; };
 		613904E92CD21A0B008E591D /* MandalartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalartViewModel.swift; sourceTree = "<group>"; };
 		615A0A0A2CC0ADA800908531 /* TabBarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarManager.swift; sourceTree = "<group>"; };
 		615A0A0C2CC0AE8700908531 /* RoutineMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineMainView.swift; sourceTree = "<group>"; };
 		615A0A102CC0AEB800908531 /* StatisticView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticView.swift; sourceTree = "<group>"; };
 		6178161F2CE5DF6A00834AAD /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
-		618FD06F2CDF0ED20003450D /* MandalartButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalartButtonModifier.swift; sourceTree = "<group>"; };
 		618FD0732CDF11210003450D /* CreateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateService.swift; sourceTree = "<group>"; };
 		618FD0752CDF11410003450D /* UpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateService.swift; sourceTree = "<group>"; };
 		618FD0772CDF11760003450D /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		61CC00FC2CF0276B0009D063 /* DetailGoalColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoalColor.swift; sourceTree = "<group>"; };
-		61CC00FE2CF1742B0009D063 /* DetailGoalColorFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoalColorFunc.swift; sourceTree = "<group>"; };
 		61CC01002CF6CBD00009D063 /* DayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayButton.swift; sourceTree = "<group>"; };
+		61CC01042CF74D190009D063 /* SubGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubGoalView.swift; sourceTree = "<group>"; };
 		61E28B812CEE01FE000F77FB /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		61FA4DF22CE77EDD00256B57 /* BackButtonToolbarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButtonToolbarModifier.swift; sourceTree = "<group>"; };
 		61FA4DF42CE7803600256B57 /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
-		A14A18DD2CF7791A0013050F /* SpecificTagger3942.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = SpecificTagger3942.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -323,7 +319,6 @@
 			children = (
 				613904E92CD21A0B008E591D /* MandalartViewModel.swift */,
 				1F7C9C142CD0735500BAC358 /* View */,
-				61CC00FE2CF1742B0009D063 /* DetailGoalColorFunc.swift */,
 			);
 			path = Mandalart;
 			sourceTree = "<group>";
@@ -387,7 +382,7 @@
 		1FA4208B2CC0DBD3001CB92D /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				A14A18DD2CF7791A0013050F /* SpecificTagger3942.mlmodel */,
+				6107A3CA2CF88E11001189FA /* SpecificTagger3942.mlmodel */,
 				1F79EDD12CC0A25E0079088B /* Assets.xcassets */,
 				1F42BE742CDF824D00A59703 /* Font */,
 			);
@@ -563,7 +558,6 @@
 		610595D72CE2582A005ED7B4 /* Mandalart */ = {
 			isa = PBXGroup;
 			children = (
-				618FD06F2CDF0ED20003450D /* MandalartButtonModifier.swift */,
 				61CC01002CF6CBD00009D063 /* DayButton.swift */,
 				610595D82CE2584D005ED7B4 /* MadalartShape.swift */,
 			);
@@ -574,7 +568,7 @@
 			isa = PBXGroup;
 			children = (
 				610595D32CE21505005ED7B4 /* MainGoalSheetView.swift */,
-				610595DA2CE2EA54005ED7B4 /* SubGoalSheetView.swift */,
+				61CC01042CF74D190009D063 /* SubGoalView.swift */,
 				610595DC2CE2EA6C005ED7B4 /* DetailGoalView.swift */,
 			);
 			path = Sheet;
@@ -688,15 +682,11 @@
 				1FB10A322CDF56E200D54EC5 /* RoutineCycleView.swift in Sources */,
 				1FC6863E2CF8CED3008F399F /* CloverCardViewModel.swift in Sources */,
 				615A0A0B2CC0ADA800908531 /* TabBarManager.swift in Sources */,
-				61CC00FF2CF1742B0009D063 /* DetailGoalColorFunc.swift in Sources */,
-				1FB10A402CDF7F4B00D54EC5 /* OnboardingStartViewModel.swift in Sources */,
+				1FB10A402CDF7F4B00D54EC5 /* OnboardingStartViewModel.swift in Sources *
 				1F599E2D2CE6430D00788D07 /* StatisticViewModel.swift in Sources */,
 				1FB10A302CDF55AA00D54EC5 /* SubgoalCycleView.swift in Sources */,
 				1F7C9C282CD083CC00BAC358 /* GoalModels.swift in Sources */,
-				A14A18DE2CF7791A0013050F /* SpecificTagger3942.mlmodel in Sources */,
 				618FD0782CDF11760003450D /* Protocol.swift in Sources */,
-				618FD0702CDF0ED20003450D /* MandalartButtonModifier.swift in Sources */,
-				610595DB2CE2EA54005ED7B4 /* SubGoalSheetView.swift in Sources */,
 				613904E82CD20457008E591D /* MandalartView.swift in Sources */,
 				1FA420942CC0DC19001CB92D /* Color+.swift in Sources */,
 				1FB10A342CDF593600D54EC5 /* OnboardingFinishView.swift in Sources */,
@@ -708,6 +698,7 @@
 				61FA4DF52CE7803600256B57 /* View+.swift in Sources */,
 				613904EA2CD21A0B008E591D /* MandalartViewModel.swift in Sources */,
 				1FC6863C2CF8BCFD008F399F /* CloverCardProgressBar.swift in Sources */,
+				6107A3CB2CF88E11001189FA /* SpecificTagger3942.mlmodel in Sources */,
 				1F88AB392CD607F90009730D /* NavigationManager.swift in Sources */,
 				615A0A0D2CC0AE8700908531 /* RoutineMainView.swift in Sources */,
 				1FD4052A2CECBFCB00403A19 /* RoutineModel.swift in Sources */,
@@ -725,6 +716,7 @@
 				610595CE2CE2140D005ED7B4 /* SubGoalCell.swift in Sources */,
 				618FD0762CDF11410003450D /* UpdateService.swift in Sources */,
 				1FC686442CFB5FA0008F399F /* OnboardingHeaderView.swift in Sources */,
+				61CC01052CF74D190009D063 /* SubGoalView.swift in Sources */,
 				1FD4053C2CED987700403A19 /* TurtleMessageView.swift in Sources */,
 				1FC686382CF782FB008F399F /* WeekAchieveCell.swift in Sources */,
 				1FB10A292CDF515300D54EC5 /* ReadyCycleView.swift in Sources */,
@@ -871,7 +863,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"OneByte/Preview Content\"";
-				DEVELOPMENT_TEAM = WTK65UP9RZ;
+				DEVELOPMENT_TEAM = TA9TKWGKS3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OneByte/Info.plist;
@@ -908,7 +900,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"OneByte/Preview Content\"";
-				DEVELOPMENT_TEAM = WTK65UP9RZ;
+				DEVELOPMENT_TEAM = TA9TKWGKS3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OneByte/Info.plist;
