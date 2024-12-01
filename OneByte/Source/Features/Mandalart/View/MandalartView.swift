@@ -147,7 +147,7 @@ struct OuterGridView: View {
                 capturedImage = captureView()
                     .padding()
                     .padding(.top, -30) // 이부분은 캡처 화면을 자르기 위함!
-                    .background(.white)
+                    .background(.myFFFAF4)
                     .snapshot()
             }
         }
