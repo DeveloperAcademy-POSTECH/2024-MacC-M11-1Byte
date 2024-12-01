@@ -14,6 +14,7 @@ struct StatisticView: View {
     @Query var profile: [Profile]
     @State var viewModel = StatisticViewModel()
     @State var isOpenedWeeklyCloverInfo = false
+    @State private var isQuestionMarkClicked = false
     @Binding var isTabBarMainVisible: Bool
     
     
@@ -60,6 +61,62 @@ struct StatisticView: View {
                     viewModel.setProfile(profile)
                 }
                 .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
+                
+                if (isQuestionMarkClicked) {
+                    Rectangle()
+                        .frame(width: 230, height: 178)
+                        .background(.my271500)
+                        .cornerRadius(8)
+                        .opacity(0.55)
+                        .overlay {
+                            VStack(alignment: .leading) {
+                                HStack {
+                                    Text("클로버 획득 방법")
+                                        .font(.Pretendard.Bold.size13)
+                                        .foregroundStyle(.white)
+                                    Spacer()
+                                    Button(action: {
+                                        isQuestionMarkClicked = false
+                                    }, label: {
+                                        Image(systemName: "xmark")
+                                            .resizable()
+                                            .frame(width: 10, height: 10)
+                                            .foregroundStyle(.white)
+                                    })
+                                }
+                                HStack {
+                                    Image("Clover_Green")
+                                        .resizable()
+                                        .frame(width: 12, height: 12)
+                                    Text("초록 클로버")
+                                        .font(.Pretendard.SemiBold.size13)
+                                        .foregroundStyle(.white)
+                                }
+                                .padding(.top, 14)
+                                Text("하나의 루틴만 계획대로 완수하면\n받을 수 있어요")
+                                    .font(.Pretendard.Regular.size13)
+                                    .foregroundStyle(.white)
+                                HStack {
+                                    Image("Clover_Gold")
+                                        .resizable()
+                                        .frame(width: 12, height: 12)
+                                    Text("황금 클로버")
+                                        .font(.Pretendard.SemiBold.size13)
+                                        .foregroundStyle(.white)
+                                }
+                                .padding(.top, 10)
+                                Text("모든 루틴을 계획대로 완수하면\n받을 수 있어요")
+                                    .font(.Pretendard.Regular.size13)
+                                    .foregroundStyle(.white)
+                            }
+                            .padding(.horizontal, 12)
+                            .padding(.bottom, 16)
+                            .padding(.top, 8)
+                            
+                        }
+                        .padding(.leading, 137)
+                        .padding(.top, -8)
+                }
             }
         }
     }
@@ -81,14 +138,7 @@ struct StatisticView: View {
                 .fill(Color.my6FB56F)
                 .frame(maxWidth: .infinity)
                 .frame(height: 114)
-            
-            HStack {
-                Spacer()
-                Image("Clover_Back")
-                    .resizable()
-                    .frame(width: 90, height: 90)
-                    .padding(.trailing, 20)
-            }
+        
             VStack(spacing: 0) {
                 HStack {
                     Spacer()
@@ -137,6 +187,15 @@ struct StatisticView: View {
                         .font(.Pretendard.SemiBold.size18)
                         .padding(.leading, 5)
                     Spacer()
+                    Button(action: {
+                        if isQuestionMarkClicked { isQuestionMarkClicked = false }
+                        else { isQuestionMarkClicked = true }
+                    }, label: {
+                        Image(systemName: "questionmark.circle")
+                            .resizable()
+                            .frame(width: 16, height: 16)
+                            .foregroundStyle(.my8E8E8E)
+                    })
                 }
                 HStack {
                     Text("올해의 내가 수집한 클로버를 모아볼 수 있어요")
@@ -306,6 +365,7 @@ struct StatisticView: View {
                     .frame(width: 56, height: 80)
                     .padding(.leading, CGFloat(currentWeekOfMonth)/12 + CGFloat(currentWeekOfMonth)/9 + CGFloat(currentWeekOfMonth)/6 + CGFloat(currentWeekOfMonth)/3 + 9 + 56 * CGFloat(currentWeekOfMonth))
                     .padding(.top, 96)
+
             }
             
         }
