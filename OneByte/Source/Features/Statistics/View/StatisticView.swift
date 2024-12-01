@@ -36,7 +36,7 @@ struct StatisticView: View {
                         NavigationLink {
                             SettingView(isTabBarMainVisible: $isTabBarMainVisible)
                         } label: {
-                            Image(systemName: "gear")
+                            Image("Setting")
                                 .resizable()
                                 .frame(width: 24, height: 24)
                                 .foregroundStyle(Color.my566956)
@@ -63,13 +63,15 @@ struct StatisticView: View {
                 .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
                 
                 if (isQuestionMarkClicked) {
+                    Image("Stat_Polygon")
+                        .padding(.leading, 333)
+                        .padding(.top, -97)
                     Rectangle()
-                        .frame(width: 230, height: 178)
-                        .background(.my271500)
+                        .frame(width: 228, height: 178)
+                        .foregroundStyle(.my897C6E)
                         .cornerRadius(8)
-                        .opacity(0.55)
                         .overlay {
-                            VStack(alignment: .leading) {
+                            VStack(alignment: .leading, spacing: 0) {
                                 HStack {
                                     Text("클로버 획득 방법")
                                         .font(.Pretendard.Bold.size13)
@@ -84,6 +86,8 @@ struct StatisticView: View {
                                             .foregroundStyle(.white)
                                     })
                                 }
+                                .padding(.top, 8)
+                                .padding(.trailing, 14)
                                 HStack {
                                     Image("Clover_Green")
                                         .resizable()
@@ -96,6 +100,7 @@ struct StatisticView: View {
                                 Text("하나의 루틴만 계획대로 완수하면\n받을 수 있어요")
                                     .font(.Pretendard.Regular.size13)
                                     .foregroundStyle(.white)
+                                    .padding(.top, 4)
                                 HStack {
                                     Image("Clover_Gold")
                                         .resizable()
@@ -108,14 +113,14 @@ struct StatisticView: View {
                                 Text("모든 루틴을 계획대로 완수하면\n받을 수 있어요")
                                     .font(.Pretendard.Regular.size13)
                                     .foregroundStyle(.white)
+                                    .padding(.top, 4)
                             }
-                            .padding(.horizontal, 12)
+                            .padding(.leading, 12)
                             .padding(.bottom, 16)
-                            .padding(.top, 8)
+                            
                             
                         }
-                        .padding(.leading, 137)
-                        .padding(.top, -8)
+                        .padding(.leading, 140)
                 }
             }
         }
@@ -196,6 +201,7 @@ struct StatisticView: View {
                             .frame(width: 16, height: 16)
                             .foregroundStyle(.my8E8E8E)
                     })
+                    .padding(.trailing, 6)
                 }
                 HStack {
                     Text("올해의 내가 수집한 클로버를 모아볼 수 있어요")
