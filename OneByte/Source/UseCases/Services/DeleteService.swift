@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftData
+import UserNotifications
 
 class DeleteService: DeleteGoalUseCase {
     // 업데이트할 데이터
@@ -20,17 +21,62 @@ class DeleteService: DeleteGoalUseCase {
         self.detailGoals = detailGoals
     }
     
-    func deleteMainGoal(mainGoal: MainGoal, modelContext: ModelContext, id: Int, newTitle: String, cloverState: Int) {
+    func deleteMainGoal(mainGoal: MainGoal) {
         mainGoal.title = ""
         mainGoal.cloverState = 0
     }
     
-    func deleteSubGoal(subGoal: SubGoal, newTitle: String,category: String) {
+    func deleteSubGoal(subGoal: SubGoal) {
         subGoal.title = ""
         subGoal.category = ""
     }
     
-    func deleteDetailGoal(detailGoal: DetailGoal, title: String, memo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool, isMorning: Bool, isAfternoon: Bool, isEvening: Bool, isNight: Bool, isFree: Bool) {
+    func deleteSubDetailGoals(subGoal: SubGoal) {
+        subGoal.title = ""
+        subGoal.category = ""
+        
+        for detailGoal in subGoal.detailGoals {
+            let identifier = "\(detailGoal.id)"
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
+            
+            // 디버깅: 현재 등록된 알림 확인
+            UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+                for request in requests {
+                    print("현재 등록된 알림: \(request.identifier)")
+                }
+            }
+        }
+        for detailGoal in subGoal.detailGoals {
+            detailGoal.title = ""
+            detailGoal.memo = ""
+            detailGoal.achieveCount = 0
+            detailGoal.achieveGoal = 0
+            detailGoal.alertMon = false
+            detailGoal.alertTue = false
+            detailGoal.alertWed  = false
+            detailGoal.alertThu = false
+            detailGoal.alertFri = false
+            detailGoal.alertSat = false
+            detailGoal.alertSun = false
+            detailGoal.isMorning = true
+            detailGoal.isAfternoon = false
+            detailGoal.isEvening = false
+            detailGoal.isNight = false
+            detailGoal.isFree = false
+        }
+    }
+    
+    func deleteDetailGoal(detailGoal: DetailGoal) {
+        let identifier = "\(detailGoal.id)"
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
+        
+        // 디버깅: 현재 등록된 알림 확인
+        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+            for request in requests {
+                print("현재 등록된 알림: \(request.identifier)")
+            }
+        }
+        
         detailGoal.title = ""
         detailGoal.memo = ""
         detailGoal.achieveCount = 0
@@ -58,6 +104,18 @@ class DeleteService: DeleteGoalUseCase {
         detailGoal.isFree = false
     }
     
+    // 이 부분은 알림 끄기만 했을 때 사용
+    func deleteNotification(detailGoal: DetailGoal) {
+        let identifier = "\(detailGoal.id)"
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
+        
+        // 디버깅: 현재 등록된 알림 확인
+        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+            for request in requests {
+                print("현재 등록된 알림: \(request.identifier)")
+            }
+        }
+    }
     func resetAllData(modelContext: ModelContext, mainGoal: MainGoal) {
         mainGoal.title = ""  // MainGoal의 타이틀 초기화
         

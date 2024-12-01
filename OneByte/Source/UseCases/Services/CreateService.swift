@@ -80,4 +80,19 @@ class CreateService: CreateGoalUseCase {
            // SwiftData에 MainGoal 추가
            modelContext.insert(newMainGoal)
        }
+    // 알림 생성
+    func createNotification(detailGoal: DetailGoal, newTitle: String, selectedDays: [String]) {
+        guard let remindTime = detailGoal.remindTime else { return }
+        
+        checkNotificationPermissionAndRequestIfNeeded()
+        scheduleNotification(detailGoal: detailGoal,for: detailGoal.title, on: selectedDays, at: remindTime)
+        
+        
+        // 디버깅: 현재 등록된 알림 확인
+        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+            for request in requests {
+                print("현재 등록된 알림: \(request.identifier)")
+            }
+        }
+    }
 }
