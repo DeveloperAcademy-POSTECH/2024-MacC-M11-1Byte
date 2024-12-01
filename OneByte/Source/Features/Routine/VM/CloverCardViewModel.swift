@@ -138,7 +138,7 @@ class CloverCardViewModel {
         }
         
         // 자동 회전으로 복귀
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.isTapped = false
             self.startRotationAnimation()
         }
