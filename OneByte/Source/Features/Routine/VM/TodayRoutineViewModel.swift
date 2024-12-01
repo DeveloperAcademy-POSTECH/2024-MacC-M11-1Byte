@@ -216,7 +216,6 @@ class TodayRoutineViewModel {
         // 현재 주차와 월차에 해당하는 Clover 객체를 찾음
         if let matchingClover = clovers.first(where: {
             $0.cloverYear == currentYear &&
-            $0.cloverMonth == currentMonth &&
             $0.cloverWeekOfMonth == currentWeekOfMonth &&
             $0.cloverWeekOfYear == currentWeekOfYear
         }) {
