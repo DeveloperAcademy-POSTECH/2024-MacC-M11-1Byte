@@ -15,6 +15,8 @@ struct MainGoalsheetView: View {
     @Binding var isPresented: Bool
     private let titleLimit = 15 // 제목 글자수 제한
     
+    @State private var showAlert = false
+    @Binding var isEdited: Bool
     @State private var newTitle: String = ""
     @State private var newMemo: String = ""
     @State private var cloverState: Int = 0
@@ -32,16 +34,21 @@ struct MainGoalsheetView: View {
             
             // 핵심 목표 제목 입력란
             ZStack {
-                TextField("나의 다짐을 입력해주세요", text: $newTitle)
-                    .padding()
-                    .background(.white)
-                    .font(.Pretendard.Medium.size16)
-                    .cornerRadius(12)
-                    .onChange(of: newTitle) { oldValue, newValue in
-                        if newValue.count > titleLimit {
-                            newTitle = String(newValue.prefix(titleLimit))
-                        }
+                TextField("나의 다짐을 입력해주세요", text: $newTitle, onEditingChanged: { isEditing in
+                    if isEditing {
+                        isEdited = true
                     }
+                })
+                .padding()
+                .background(.white)
+                .font(.Pretendard.Medium.size16)
+                .cornerRadius(12)
+                .onChange(of: newTitle) { oldValue, newValue in
+                    if newValue.count > titleLimit {
+                        newTitle = String(newValue.prefix(titleLimit))
+                    }
+                }
+                
                 HStack {
                     Spacer()
                     if newTitle != "" {
@@ -76,7 +83,7 @@ struct MainGoalsheetView: View {
             // 버튼 영역
             HStack {
                 Button(action: {
-                    isPresented = false
+                    showAlert = true
                 }) {
                     Text("취소")
                         .frame(maxWidth: .infinity)
@@ -96,6 +103,7 @@ struct MainGoalsheetView: View {
                             cloverState: cloverState)
                     }
                     isPresented = false
+                    isEdited = false
                 }) {
                     Text("저장")
                         .frame(maxWidth: .infinity)
@@ -108,12 +116,26 @@ struct MainGoalsheetView: View {
                 .disabled(newTitle == "")
             }
         }
+        .alert("작업을 중단하시겠습니까?", isPresented: $showAlert) {
+            Button("나가기", role: .destructive) {
+                isPresented = false
+            }
+            Button("계속하기", role: .cancel) {}
+        } message: {
+            Text("작성한 내용이 저장되지 않아요.")
+        }
         .padding(.horizontal)
         .padding(.vertical, 20)
         .background(Color.myF1F1F1)
         .onAppear {
             if let mainGoal = mainGoal {
                 newTitle = mainGoal.title
+            }
+        }
+        .onChange(of: isPresented) { old, newValue in
+            if newValue && isEdited {
+                // 시트가 닫히기 전에 알러트 표시
+                showAlert = true
             }
         }
     }
