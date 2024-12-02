@@ -30,8 +30,8 @@ class CreateService: CreateGoalUseCase {
                let newSubGoal = SubGoal(
                    id: subGoalCounter,
                    title: "",
-                   leafState: 0,
-                   detailGoals: []
+                   detailGoals: [],
+                   category: ""
                )
                subGoalCounter += 1 // SubGoal ID 증가
                
@@ -58,7 +58,12 @@ class CreateService: CreateGoalUseCase {
                        achieveThu: false,
                        achieveFri: false,
                        achieveSat: false,
-                       achieveSun: false
+                       achieveSun: false,
+                       isMorning: true,
+                       isAfternoon: false,
+                       isEvening: false,
+                       isNight: false,
+                       isFree: false
                    )
                    detailGoalCounter += 1 // DetailGoal ID 증가
                    
@@ -75,4 +80,15 @@ class CreateService: CreateGoalUseCase {
            // SwiftData에 MainGoal 추가
            modelContext.insert(newMainGoal)
        }
+    // 알림 생성
+    func createNotification(detailGoal: DetailGoal, newTitle: String, selectedDays: [String]) {
+        guard let remindTime = detailGoal.remindTime else { return }
+        
+        checkNotificationPermissionAndRequestIfNeeded()
+        
+        // 각 요일별로 알림 생성
+        for day in selectedDays {
+            scheduleNotification(detailGoal: detailGoal, for: detailGoal.title, on: day, at: remindTime)
+        }
+    }
 }

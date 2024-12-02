@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftData
+import UserNotifications
 
 class DeleteService: DeleteGoalUseCase {
     // 업데이트할 데이터
@@ -20,17 +21,64 @@ class DeleteService: DeleteGoalUseCase {
         self.detailGoals = detailGoals
     }
     
-    func deleteMainGoal(mainGoal: MainGoal, modelContext: ModelContext, id: Int, newTitle: String, cloverState: Int) {
+    func deleteMainGoal(mainGoal: MainGoal) {
         mainGoal.title = ""
         mainGoal.cloverState = 0
     }
     
-    func deleteSubGoal(subGoal: SubGoal, newTitle: String, leafState: Int) {
+    func deleteSubGoal(subGoal: SubGoal) {
         subGoal.title = ""
-        subGoal.leafState = 0
+        subGoal.category = ""
     }
     
-    func deleteDetailGoal(detailGoal: DetailGoal, title: String, memo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool) {
+    func deleteSubDetailGoals(subGoal: SubGoal, days: [String]) {
+        subGoal.title = ""
+        subGoal.category = ""
+        
+        for detailGoal in subGoal.detailGoals {
+            for day in days {
+                let identifier = "\(detailGoal.id)_\(day)"
+                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
+            }
+            // 디버깅: 현재 등록된 알림 확인
+            UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+                for request in requests {
+                    print("현재 등록된 알림: \(request.identifier)")
+                }
+            }
+        }
+        for detailGoal in subGoal.detailGoals {
+            detailGoal.title = ""
+            detailGoal.memo = ""
+            detailGoal.achieveCount = 0
+            detailGoal.achieveGoal = 0
+            detailGoal.alertMon = false
+            detailGoal.alertTue = false
+            detailGoal.alertWed  = false
+            detailGoal.alertThu = false
+            detailGoal.alertFri = false
+            detailGoal.alertSat = false
+            detailGoal.alertSun = false
+            detailGoal.isMorning = true
+            detailGoal.isAfternoon = false
+            detailGoal.isEvening = false
+            detailGoal.isNight = false
+            detailGoal.isFree = false
+        }
+    }
+    
+    func deleteDetailGoal(detailGoal: DetailGoal, days: [String]) {
+        for day in days {
+            let identifier = "\(detailGoal.id)_\(day)"
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
+        }
+        // 디버깅: 현재 등록된 알림 확인
+        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+            for request in requests {
+                print("현재 등록된 알림: \(request.identifier)")
+            }
+        }
+        
         detailGoal.title = ""
         detailGoal.memo = ""
         detailGoal.achieveCount = 0
@@ -51,15 +99,32 @@ class DeleteService: DeleteGoalUseCase {
         detailGoal.achieveFri = false
         detailGoal.achieveSat = false
         detailGoal.achieveSun = false
+        detailGoal.isMorning = true
+        detailGoal.isAfternoon = false
+        detailGoal.isEvening = false
+        detailGoal.isNight = false
+        detailGoal.isFree = false
     }
     
+    // 이 부분은 알림 끄기만 했을 때 사용
+    func deleteNotification(detailGoal: DetailGoal, days: [String]) {
+        for day in days {
+            let identifier = "\(detailGoal.id)_\(day)"
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
+        }
+        // 디버깅: 현재 등록된 알림 확인
+        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+            for request in requests {
+                print("현재 등록된 알림: \(request.identifier)")
+            }
+        }
+    }
     func resetAllData(modelContext: ModelContext, mainGoal: MainGoal) {
         mainGoal.title = ""  // MainGoal의 타이틀 초기화
         
         // 모든 SubGoal 초기화
         for subGoal in mainGoal.subGoals {
             subGoal.title = ""
-            subGoal.leafState = 0
             
             // 각 SubGoal에 연결된 DetailGoal 초기화
             for detailGoal in subGoal.detailGoals {
@@ -74,7 +139,11 @@ class DeleteService: DeleteGoalUseCase {
                 detailGoal.alertFri = false
                 detailGoal.alertSat = false
                 detailGoal.alertSun = false
-                
+                detailGoal.isMorning = true
+                detailGoal.isAfternoon = false
+                detailGoal.isEvening = false
+                detailGoal.isNight = false
+                detailGoal.isFree = false
             }
         }
     }

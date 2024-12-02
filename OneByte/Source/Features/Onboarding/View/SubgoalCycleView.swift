@@ -4,69 +4,47 @@ import SwiftData
 struct SubgoalCycleView: View {
     
     @Environment(NavigationManager.self) var navigationManager
-    @Environment(\.modelContext) private var modelContext
-    
     @Query private var mainGoals: [MainGoal]
-    @State var viewModel = OnboardingViewModel(createService: CreateService(), updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
+    @State var viewModel = RoutineCycleViewModel(updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     
-    @State private var userSubGoal: String = "" // 사용자 SubGoal 입력 텍스트
     @FocusState private var isFocused: Bool // TextField 포커스 상태 관리
-    private let subGoalLimit = 15 // 글자 수 제한
-    
     var nowOnboard: Onboarding = .subgoalCycle
     
     var body: some View {
         VStack(spacing: 0) {
-            // Back Button & 프로그레스 바
-            HStack {
-                Button {
-                    navigationManager.pop()
-                } label: {
-                    Image(systemName: "chevron.left")
-                        .tint(.black)
-                        .bold()
-                }
-                OnboardingProgressBar(value: 1/5)
-                    .frame(height: 10)
-                    .padding()
-                    .padding(.trailing)
+            OnboardingHeaderView(progressValue: 1/5) {
+                navigationManager.pop()
             }
-            .padding(.horizontal)
-            
             // 상단 텍스트
             VStack(spacing: 12) {
                 Text(nowOnboard.onboardingTitle)
-                    .font(.Pretendard.Bold.size26)
-                    .multilineTextAlignment(.center)
-                    .lineSpacing(3.6)
-                Text(nowOnboard.onboardingSubTitle)
-                    .font(.Pretendard.Regular.size16)
-                    .foregroundStyle(.my5A5A5A)
-                    .multilineTextAlignment(.center)
-                    .lineSpacing(2.4)
+                    .customMainStyle()
+                nowOnboard.onboardingSubTitle
+                    .customSubStyle()
             }
             .padding(.top, 31)
             
-            // SubGoal 입력 창
+            // SubGoal 입력 뷰
             ZStack {
                 RoundedRectangle(cornerRadius: 24)
-                    .fill(.my95D895)
+                    .fill(.my6FB56F)
                     .onTapGesture {
                         isFocused = true // Cell 전체영역 터치 시 TextField에 포커스
                     }
                 
-                TextField("이루고 싶은 목표", text: $userSubGoal, axis: .vertical)
+                TextField("이루고 싶은 목표", text: $viewModel.userNewSubGoal, axis: .vertical)
                     .font(.Pretendard.Medium.size20)
+                    .foregroundStyle(.white)
                     .multilineTextAlignment(.center)
                     .focused($isFocused)
                     .submitLabel(.done)
                     .padding(10)
-                    .onChange(of: userSubGoal) { oldValue, newValue in
-                        if newValue.count > subGoalLimit {
-                            userSubGoal = String(newValue.prefix(subGoalLimit))
+                    .onChange(of: viewModel.userNewSubGoal) { oldValue, newValue in
+                        if newValue.count > viewModel.subGoalLimit {
+                            viewModel.userNewSubGoal = String(newValue.prefix(viewModel.subGoalLimit))
                         }
                         if let lastChar = newValue.last, lastChar == "\n" {
-                            userSubGoal = String(newValue.dropLast())
+                            viewModel.userNewSubGoal = String(newValue.dropLast())
                             isFocused = false
                         }
                     }
@@ -75,38 +53,34 @@ struct SubgoalCycleView: View {
                     Spacer()
                     HStack(spacing: 0) {
                         Spacer()
-                        Text("\(userSubGoal.count)")
+                        Text("\(viewModel.userNewSubGoal.count)")
                             .foregroundStyle(.my6C6C6C)
-                        Text("/15")
+                        Text("/\(viewModel.subGoalLimit)")
                             .foregroundStyle(.my6C6C6C.opacity(0.5))
                     }
                 }
                 .padding()
             }
             .frame(width: 199, height: 199)
-            .padding(.top, 81)
+            .padding(.top, 83)
             
             Spacer()
             
-            // 하단 Button
-            HStack {
-                NextButton(isEnabled: !userSubGoal.isEmpty) {
-                    if let subGoal = mainGoals.first?.subGoals.first(where: { $0.id == 1 }) {
-                        viewModel.updateSubGoal(
-                            subGoal: subGoal,
-                            newTitle: userSubGoal,
-                            leafState: subGoal.leafState
-                        )
-                        navigationManager.push(to: .onboardDetailgoal)
-                    } else {
-                        print("Error: subGoal with ID 1 not found.")
-                    }
-                } label: {
-                    Text("다음")
+            NextButton(isEnabled: !viewModel.userNewSubGoal.isEmpty) {
+                if let subGoal = mainGoals.first?.subGoals.first(where: { $0.id == 1 }) {
+                    viewModel.updateSubGoal(
+                        subGoal: subGoal,
+                        newTitle: viewModel.userNewSubGoal,
+                        category: subGoal.category
+                    )
+                    navigationManager.push(to: .onboardDetailgoal)
                 }
+            } label: {
+                Text("다음")
             }
-            .padding()
+            .padding(.vertical)
         }
+        .padding(.horizontal)
         .background(.myFFFAF4)
         .contentShape(Rectangle())
         .ignoresSafeArea(.keyboard, edges: .bottom) // 키보드 올라올때, 뷰 자동 스크롤 제어

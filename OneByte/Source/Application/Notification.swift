@@ -27,23 +27,22 @@ func requestNotificationPermission() {
     }
 }
 
-func scheduleNotification(for title: String, on days: [String], at time: Date) {
+func scheduleNotification(detailGoal: DetailGoal, for title: String, on day: String, at time: Date) {
     let center = UNUserNotificationCenter.current()
     
     // 알림 식별자 설정
-    let identifier = "\(title)-\(days.joined(separator: ","))"
-    
-    // 여러 개의 제목을 배열로 설정하고, 랜덤으로 선택
-       let titles = [
-           "🐢 루틴을 시작해보세요",
-           "조금만 힘내면 금새 습관이 될 거예요",
-           "🍀 오늘의 네잎클로버를 칠해봐요",
-           "루틴 알림",
-           "오늘의 작은 실천을 해보아요"
-       ]
+    let identifier = "\(detailGoal.id)_\(day)"
+//    // 여러 개의 제목을 배열로 설정하고, 랜덤으로 선택
+//       let titles = [
+//           "🐢 루틴을 시작해보세요",
+//           "조금만 힘내면 금새 습관이 될 거예요",
+//           "🍀 오늘의 네잎클로버를 칠해봐요",
+//           "루틴 알림",
+//           "오늘의 작은 실천을 해보아요"
+//       ]
     // 알림 내용
     let content = UNMutableNotificationContent()
-    content.title = titles.randomElement() ?? "🍀 오늘의 네잎클로버를 칠해봐요"
+    content.title = "🍀 오늘의 네잎클로버를 칠해봐요"
     content.body = title
     content.sound = .default
     
@@ -51,18 +50,15 @@ func scheduleNotification(for title: String, on days: [String], at time: Date) {
     let calendar = Calendar.current
     let dateComponents = calendar.dateComponents([.hour, .minute], from: time)
     
-    // 요일 반복 처리
-    for day in days {
-        var triggerComponents = dateComponents
-        triggerComponents.weekday = dayToWeekday(day) // 요일을 숫자로 변환
-        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerComponents, repeats: true)
-        
-        // 요청 생성 및 추가
-        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
-        center.add(request) { error in
-            if let error = error {
-                print("알림 생성 실패: \(error.localizedDescription)")
-            }
+    var triggerComponents = dateComponents
+    triggerComponents.weekday = dayToWeekday(day) // 요일을 숫자로 변환
+    let trigger = UNCalendarNotificationTrigger(dateMatching: triggerComponents, repeats: true)
+    
+    // 요청 생성 및 추가
+    let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+    center.add(request) { error in
+        if let error = error {
+            print("알림 생성 실패: \(error.localizedDescription)")
         }
     }
 }
