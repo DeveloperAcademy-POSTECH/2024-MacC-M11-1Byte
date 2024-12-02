@@ -503,8 +503,14 @@ extension DetailGoalView {
             .pickerStyle(MenuPickerStyle())
             .onChange(of: selectedTime) { old, newValue in
                 if let detailGoal = detailGoal {
-                    viewModel.updateTimePeriodStates(detailGoal: detailGoal, for: newValue)
-                    isModified = true
+                    
+                    if (selectedTime == "아침" && detailGoal.isMorning) ||
+                        (selectedTime == "점심" && detailGoal.isAfternoon) ||
+                        (selectedTime == "저녁" && detailGoal.isEvening) ||
+                        (selectedTime == "자기전" && detailGoal.isNight) ||
+                        (selectedTime == "자율" && detailGoal.isFree) {
+                        isModified = false
+                    } else { isModified = true }
                 }
             }
         }
