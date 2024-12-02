@@ -156,13 +156,14 @@ struct DetailGoalView: View {
                         )
                         
                         viewModel.updateTimePeriodStates(detailGoal: detailGoal, for: selectedTime)
+                        let selectedDays = getSelectedDays()
+                        let notSelectedDays = getNotSelectedDays()
                         // 알림 설정 호출
                         if isRemind {
-                            let selectedDays = getSelectedDays()
                             viewModel.createNotification(detailGoal: detailGoal, newTitle: newTitle, selectedDays: selectedDays)
-                            
+                            viewModel.deleteNotification(detailGoal: detailGoal, days: notSelectedDays)
                         } else {
-                            viewModel.deleteNotification(detailGoal: detailGoal)
+                            viewModel.deleteNotification(detailGoal: detailGoal, days: ["월", "화", "수", "목", "금", "토", "일"])
                         }
                         
                     }
@@ -232,6 +233,18 @@ struct DetailGoalView: View {
         if alertSat { selected.append("토") }
         if alertSun { selected.append("일") }
         return selected
+    }
+    
+    func getNotSelectedDays() -> [String] {
+        var notSelected: [String] = []
+        if !alertMon { notSelected.append("월") }
+        if !alertTue { notSelected.append("화") }
+        if !alertWed { notSelected.append("수") }
+        if !alertThu { notSelected.append("목") }
+        if !alertFri { notSelected.append("금") }
+        if !alertSat { notSelected.append("토") }
+        if !alertSun { notSelected.append("일") }
+        return notSelected
     }
 }
 
@@ -631,7 +644,7 @@ extension DetailGoalView {
         .alert("루틴을 삭제하시겠습니까?", isPresented: $showAlert) {
             Button("삭제하기", role: .destructive) {
                 if let detailGoal = detailGoal {
-                    viewModel.deleteDetailGoal(detailGoal: detailGoal)
+                    viewModel.deleteDetailGoal(detailGoal: detailGoal, days: ["월", "화", "수", "목", "금", "토", "일"])
                 }
                 // 버튼 누르면 SubGoalDetailGridView로 pop되게 하기
                 dismiss()
