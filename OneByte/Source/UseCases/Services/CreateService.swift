@@ -85,14 +85,10 @@ class CreateService: CreateGoalUseCase {
         guard let remindTime = detailGoal.remindTime else { return }
         
         checkNotificationPermissionAndRequestIfNeeded()
-        scheduleNotification(detailGoal: detailGoal,for: detailGoal.title, on: selectedDays, at: remindTime)
         
-        
-        // 디버깅: 현재 등록된 알림 확인
-        UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
-            for request in requests {
-                print("현재 등록된 알림: \(request.identifier)")
-            }
+        // 각 요일별로 알림 생성
+        for day in selectedDays {
+            scheduleNotification(detailGoal: detailGoal, for: detailGoal.title, on: day, at: remindTime)
         }
     }
 }

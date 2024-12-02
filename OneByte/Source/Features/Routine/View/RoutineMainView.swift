@@ -94,6 +94,7 @@ struct RoutineMainView: View {
                 .frame(width: 105, height: 85)
                 .onTapGesture {
                     viewModel.updateRandomMessage()
+                    viewModel.routineTurtleHaptic()
                 }
         }
         .padding(.leading, 16)

@@ -22,8 +22,8 @@ protocol UpdateGoalUseCase {
 protocol DeleteGoalUseCase {
     func deleteMainGoal(mainGoal: MainGoal)
     func deleteSubGoal(subGoal: SubGoal)
-    func deleteDetailGoal(detailGoal: DetailGoal)
+    func deleteDetailGoal(detailGoal: DetailGoal, days: [String])
     func resetAllData(modelContext: ModelContext, mainGoal: MainGoal)
-    func deleteSubDetailGoals(subGoal: SubGoal)
-    func deleteNotification(detailGoal: DetailGoal)
+    func deleteSubDetailGoals(subGoal: SubGoal, days: [String])
+    func deleteNotification(detailGoal: DetailGoal, days: [String])
 }

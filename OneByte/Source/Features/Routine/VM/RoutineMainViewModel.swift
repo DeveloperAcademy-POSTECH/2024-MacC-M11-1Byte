@@ -52,11 +52,16 @@ class RoutineMainViewModel {
         return ""
     }
     
-    // 만북이 랜덤 메세지
+    // 만부기 랜덤 메세지
     func updateRandomMessage() {
         if let randomMessage = randomMessages.randomElement() {
             currentMessage = randomMessage
         }
     }
     
+    // 루틴뷰 만부기 햅틱
+    func routineTurtleHaptic() {
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
+    }
 }

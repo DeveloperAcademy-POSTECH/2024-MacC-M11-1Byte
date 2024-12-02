@@ -86,20 +86,20 @@ class MandalartViewModel: ObservableObject {
         deleteService.deleteSubGoal(subGoal: subGoal)
     }
     
-    func deleteSubDetailGoals(subGoal: SubGoal) {
-        deleteService.deleteSubDetailGoals(subGoal: subGoal)
+    func deleteSubDetailGoals(subGoal: SubGoal, days: [String]) {
+        deleteService.deleteSubDetailGoals(subGoal: subGoal, days: days)
     }
     
-    func deleteDetailGoal(detailGoal: DetailGoal) {
-        deleteService.deleteDetailGoal(detailGoal: detailGoal)
+    func deleteDetailGoal(detailGoal: DetailGoal, days: [String]) {
+        deleteService.deleteDetailGoal(detailGoal: detailGoal, days: days)
     }
     
     func resetAllData(modelContext: ModelContext, mainGoal: MainGoal) {
         deleteService.resetAllData(modelContext: modelContext, mainGoal: mainGoal)
     }
     
-    func deleteNotification(detailGoal: DetailGoal) {
-        deleteService.deleteNotification(detailGoal: detailGoal)
+    func deleteNotification(detailGoal: DetailGoal, days: [String]) {
+        deleteService.deleteNotification(detailGoal: detailGoal, days: days)
     }
     
     func initializeSubGoal(subGoal: SubGoal?, categories: [String]) -> (String, Bool) {

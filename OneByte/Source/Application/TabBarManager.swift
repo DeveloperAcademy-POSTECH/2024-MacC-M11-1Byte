@@ -10,6 +10,7 @@ import SwiftData
 
 struct TabBarManager: View {
     
+    @Environment(\.scenePhase) private var scenePhase // 앱 상태 감지 ( foreground <-> background )
     @Environment(\.modelContext) private var modelContext
     @Query private var mainGoals: [MainGoal]
     @AppStorage("FirstOnboarding") private var FirstOnboarding: Bool = true
@@ -18,6 +19,16 @@ struct TabBarManager: View {
     @State private var selectedTab: Int = 0
     
     @State private var showCloverCardView: Bool = false  // 클로버 카드뷰 제어
+    
+    init() {
+        // UITabBarAppearance로 탭바 경계선 제거
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.configureWithOpaqueBackground()
+        tabBarAppearance.shadowImage = nil // 그림자 제거
+        tabBarAppearance.shadowColor = .myB2AFAA
+        UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+        UITabBar.appearance().standardAppearance = tabBarAppearance
+    }
     
     var body: some View {
         ZStack {
@@ -49,6 +60,7 @@ struct TabBarManager: View {
                 .onAppear {
                     // 온보딩 완료 여부에 따라 기본 탭 설정
                     if !hasSeenOnboarding {
+                        isRoutineReset() // 온보딩 이후 첫 초기화 작업 한번만 실행 ( 앱 설치날짜를, 비교기준날짜로 담아둠 )
                         selectedTab = 1
                         hasSeenOnboarding = true
                     } else {
@@ -69,16 +81,23 @@ struct TabBarManager: View {
                 }
             }
         }
-        .onAppear {
-            if !FirstOnboarding {
-                let resetManager = WeeklyResetManager()
-                if resetManager.needsReset() { // 주차 초기화 되어야하는 시점이면 CloverCardView 로딩
-                    showCloverCardView = true
-                }
+        .onChange(of: scenePhase) { oldPhase, newPhase in
+            if newPhase == .active {
+                isRoutineReset() // 앱이 활성화될 때마다 실행
             }
         }
         .fullScreenCover(isPresented: $showCloverCardView) {
             CloverCardView(selectedTab: $selectedTab)
+        }
+    }
+    
+    // 초기화를 해야하는 새로운 주차인지 판별 -> true면 CloverView 로딩
+    private func isRoutineReset() {
+        if !FirstOnboarding {
+            let resetManager = WeeklyResetManager()
+            if resetManager.needsReset() {
+                showCloverCardView = true
+            }
         }
     }
     

@@ -79,7 +79,7 @@ struct SubGoalDetailGridView: View {
                                         .cornerRadius(cornerRadius, corners: cornerStyle, defaultRadius: 18)
                                         .contextMenu {
                                             Button(role: .destructive) {
-                                                viewModel.deleteDetailGoal(detailGoal: detailGoal)
+                                                viewModel.deleteDetailGoal(detailGoal: detailGoal, days: ["월", "화", "수", "목", "금", "토", "일"])
                                             } label: {
                                                 Label("삭제하기", systemImage: "trash")
                                             }
@@ -97,7 +97,7 @@ struct SubGoalDetailGridView: View {
                                             .foregroundStyle(.red)
                                             .alert("루틴을 삭제하시겠습니까?", isPresented: $showAlertDetail) {
                                                 Button("삭제하기", role: .destructive) {
-                                                    viewModel.deleteDetailGoal(detailGoal: detailGoal)
+                                                    viewModel.deleteDetailGoal(detailGoal: detailGoal, days: ["월", "화", "수", "목", "금", "토", "일"])
                                                 }
                                                 Button("취소", role: .cancel) {}
                                             } message: {
@@ -175,7 +175,7 @@ extension SubGoalDetailGridView {
                 .cornerRadius(18)
                 .contextMenu {
                     Button(role: .destructive){
-                        viewModel.deleteSubDetailGoals(subGoal: selectedSubGoal)
+                        viewModel.deleteSubDetailGoals(subGoal: selectedSubGoal, days: ["월", "화", "수", "목", "금", "토", "일"])
                     } label: {
                         Label("삭제하기", systemImage: "trash")
                     }
@@ -192,7 +192,7 @@ extension SubGoalDetailGridView {
                     .foregroundStyle(.red)
                     .alert("목표를 삭제하시겠습니까?", isPresented: $showAlertSub) {
                         Button("삭제하기", role: .destructive) {
-                            viewModel.deleteSubDetailGoals(subGoal: selectedSubGoal)
+                            viewModel.deleteSubDetailGoals(subGoal: selectedSubGoal, days: ["월", "화", "수", "목", "금", "토", "일"])
                         }
                         Button("취소", role: .cancel) {}
                     } message: {

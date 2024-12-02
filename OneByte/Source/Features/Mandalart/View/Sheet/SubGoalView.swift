@@ -65,11 +65,11 @@ struct SubGoalView: View {
                     }
                 }, label: {
                     Text("저장")
-                        .foregroundStyle((newTitle == "" || isModified == false || selectedCategory == "") ? .myA9C5A3 : .my538F53)
-                        .fontWeight((newTitle == "" || isModified == false || selectedCategory == "") ? .regular : .bold)
+                        .foregroundStyle((newTitle == "" || isModified == false) ? .myA9C5A3 : .my538F53)
+                        .fontWeight((newTitle == "" || isModified == false) ? .regular : .bold)
                 })
-                .disabled(newTitle == "" || isModified == false || selectedCategory == "")
-                // 수정되거나 title, category값을 모두 설정해야만 활성화 된다. category 값이 비어있으면 안됨.
+                .disabled(newTitle == "" || isModified == false)
+                // 수정되거나 title 값이 있어야 한다.
             })
         }
         .navigationBarBackButtonHidden()
@@ -307,7 +307,7 @@ extension SubGoalView {
         .alert("목표를 삭제하시겠습니까?", isPresented: $showAlert) {
             Button("삭제하기", role: .destructive) {
                 if let subGoal = subGoal {
-                    viewModel.deleteSubDetailGoals(subGoal: subGoal)
+                    viewModel.deleteSubDetailGoals(subGoal: subGoal, days: ["월", "화", "수", "목", "금", "토", "일"])
                 }
                 subNavigation = false
             }

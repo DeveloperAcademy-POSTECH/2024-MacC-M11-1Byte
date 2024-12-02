@@ -153,7 +153,7 @@ struct StatisticView: View {
                     Rectangle()
                         .foregroundStyle(.white)
                         .frame(maxWidth: .infinity)
-                        .frame(height: isOpenedWeeklyCloverInfo ? viewModel.weeklyCloverInfoHeight : 388)
+                        .frame(height: (viewModel.currentYearCloverMonthRange.max - viewModel.currentYearCloverMonthRange.min > 2) ? (isOpenedWeeklyCloverInfo ? viewModel.weeklyCloverInfoHeight : 388) : viewModel.weeklyCloverInfoHeight)
                         .cornerRadius(13)
                         .overlay(
                             RoundedRectangle(cornerRadius: 13)
@@ -347,7 +347,7 @@ struct StatisticView: View {
                                         .foregroundStyle(.white)
                                 }
                                 .padding(.top, 14)
-                                Text("하나의 루틴만 계획대로 완수하면\n받을 수 있어요")
+                                Text("하나의 루틴이라도 계획대로 완수하면\n받을 수 있어요")
                                     .font(.Pretendard.Regular.size13)
                                     .foregroundStyle(.white)
                                     .padding(.top, 4)

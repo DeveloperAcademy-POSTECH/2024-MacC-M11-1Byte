@@ -54,6 +54,10 @@ class StatisticViewModel {
     }
     
     var currentYear: Int {
+        // 12월 마지막 주차가 내년의 1월 1주차일 경우 -> 연도를 내년으로 취급
+        if currentWeekOfYear == 1 && calendar.component(.month, from: Date()) == 12 {
+            return calendar.component(.year, from: Date()) + 1
+        }
         return calendar.component(.year, from: Date())
     }
     
@@ -91,11 +95,11 @@ class StatisticViewModel {
     
     var weeklyCloverInfoHeight: CGFloat {
         let range = currentYearCloverMonthRange
+        let monthCount = currentMonth - range.min + 1
         if range.max - range.min > 2 {
-            let monthCount = currentMonth - range.min + 1
             return CGFloat(monthCount) * 73 + 174
         } else {
-            return 388
+            return CGFloat(monthCount) * 73 + 120
         }
     }
     

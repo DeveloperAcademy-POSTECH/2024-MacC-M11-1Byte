@@ -16,21 +16,30 @@ struct WeeklyResetManager {
         let calendar = Calendar(identifier: .iso8601) // ISO8601 캘린더 사용 (월요일 시작)
         let today = Date()
         
+        // 앱 설치일 가져오기
+        let userInstallDateKey = "userInstallDate"
+        guard let installDateString = UserDefaults.standard.string(forKey: userInstallDateKey),
+              let installDate = DateFormatter().userInstallSeoulDate(from: installDateString) else {
+            print("❌ 설치일을 찾을 수 없음. 초기화 진행 필요.")
+            return true // 설치일이 없다면 초기화 필요
+        }
+
+        // 설치 주간인지 확인
+        if calendar.isDate(today, equalTo: installDate, toGranularity: .weekOfYear) {
+            print("✅ 앱 설치 주간입니다. 초기화가 필요하지 않음.")
+            return false
+        }
+        
         // 마지막 초기화 날짜 가져오기
         let lastResetDate = UserDefaults.standard.object(forKey: WeeklyResetManager.lastResetDateKey) as? Date
-        
-        // 앱 설치일인지 확인
-        if lastResetDate == nil {
-            // 앱을 처음 실행한 날로 초기화 날짜 설정
-            UserDefaults.standard.set(today, forKey: WeeklyResetManager.lastResetDateKey)
-            print("✅ First run detected. Setting lastResetDate to today: \(today)")
-            return false // 첫 실행 시 초기화 필요 없음
-        }
+
         // 마지막 초기화 날짜와 현재 날짜가 같은 주에 속하는지 확인
         if let lastDate = lastResetDate {
             let isSameWeek = calendar.isDate(today, equalTo: lastDate, toGranularity: .weekOfYear)
             return !isSameWeek // 같은 주면 초기화 불필요
         }
+
+        print("✅ 설치 주간이 아니고, 마지막 초기화 날짜가 없음. 초기화 필요.")
         return true // 초기화 필요
     }
     
@@ -63,5 +72,14 @@ struct WeeklyResetManager {
         } catch {
             print("❌ Failed to save modelContext: \(error)")
         }
+    }
+}
+
+extension DateFormatter {
+    func userInstallSeoulDate(from string: String) -> Date? {
+        self.locale = Locale(identifier: "ko_KR")
+        self.timeZone = TimeZone(identifier: "Asia/Seoul")
+        self.dateFormat = "yyyy-MM-dd HH:mm:ss" // 저장된 설치일 포맷
+        return self.date(from: string)
     }
 }
