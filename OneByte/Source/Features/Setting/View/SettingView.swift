@@ -16,9 +16,7 @@ struct SettingView: View {
     @Binding var isTabBarMainVisible: Bool
     
     @State private var nickname: String = UserDefaults.loadNickname()
-    
 
-    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -26,11 +24,11 @@ struct SettingView: View {
                     .ignoresSafeArea(edges: .bottom)
                 
                 ScrollView {
-                    HStack {
-                        profileInfoView()
-                    }
-                    .padding()
-                    .background(.white)
+//                    HStack {
+//                        profileInfoView()
+//                    }
+//                    .padding()
+//                    .background(.white)
                     
                     VStack {
                         Divider()

@@ -124,13 +124,13 @@ class RoutineCycleViewModel {
         guard let detailGoal = targetDetailGoal else { return [] }
         
         var days: [(day: String, isSelected: Bool)] = []
-        if detailGoal.alertSun { days.append((day: "일", isSelected: true)) }
         if detailGoal.alertMon { days.append((day: "월", isSelected: true)) }
         if detailGoal.alertTue { days.append((day: "화", isSelected: true)) }
         if detailGoal.alertWed { days.append((day: "수", isSelected: true)) }
         if detailGoal.alertThu { days.append((day: "목", isSelected: true)) }
         if detailGoal.alertFri { days.append((day: "금", isSelected: true)) }
         if detailGoal.alertSat { days.append((day: "토", isSelected: true)) }
+        if detailGoal.alertSun { days.append((day: "일", isSelected: true)) }
         
         return days
     }

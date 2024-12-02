@@ -19,6 +19,16 @@ struct TabBarManager: View {
     
     @State private var showCloverCardView: Bool = false  // 클로버 카드뷰 제어
     
+    init() {
+        // UITabBarAppearance로 탭바 경계선 제거
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.configureWithOpaqueBackground()
+        tabBarAppearance.shadowImage = nil // 그림자 제거
+        tabBarAppearance.shadowColor = .myB2AFAA
+        UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+        UITabBar.appearance().standardAppearance = tabBarAppearance
+    }
+    
     var body: some View {
         ZStack {
             if FirstOnboarding {

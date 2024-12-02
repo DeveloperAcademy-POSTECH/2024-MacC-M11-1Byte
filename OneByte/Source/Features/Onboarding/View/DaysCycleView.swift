@@ -100,13 +100,13 @@ struct DaysCycleView: View {
             }
             
             HStack(spacing: 10) {
-                DaysCycleCellButton(day: "일", isSelected: $viewModel.alertSun, onChange: viewModel.updateAchieveGoal)
                 DaysCycleCellButton(day: "월", isSelected: $viewModel.alertMon, onChange: viewModel.updateAchieveGoal)
                 DaysCycleCellButton(day: "화", isSelected: $viewModel.alertTue, onChange: viewModel.updateAchieveGoal)
                 DaysCycleCellButton(day: "수", isSelected: $viewModel.alertWed, onChange: viewModel.updateAchieveGoal)
                 DaysCycleCellButton(day: "목", isSelected: $viewModel.alertThu, onChange: viewModel.updateAchieveGoal)
                 DaysCycleCellButton(day: "금", isSelected: $viewModel.alertFri, onChange: viewModel.updateAchieveGoal)
                 DaysCycleCellButton(day: "토", isSelected: $viewModel.alertSat, onChange: viewModel.updateAchieveGoal)
+                DaysCycleCellButton(day: "일", isSelected: $viewModel.alertSun, onChange: viewModel.updateAchieveGoal)
             }
             .padding(.horizontal, 20)
             .padding(.top, 10)
