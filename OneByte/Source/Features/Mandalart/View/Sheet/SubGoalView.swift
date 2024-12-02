@@ -307,7 +307,7 @@ extension SubGoalView {
         .alert("목표를 삭제하시겠습니까?", isPresented: $showAlert) {
             Button("삭제하기", role: .destructive) {
                 if let subGoal = subGoal {
-                    viewModel.deleteSubDetailGoals(subGoal: subGoal)
+                    viewModel.deleteSubDetailGoals(subGoal: subGoal, days: ["월", "화", "수", "목", "금", "토", "일"])
                 }
                 subNavigation = false
             }

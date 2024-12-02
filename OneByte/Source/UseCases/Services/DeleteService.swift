@@ -31,14 +31,15 @@ class DeleteService: DeleteGoalUseCase {
         subGoal.category = ""
     }
     
-    func deleteSubDetailGoals(subGoal: SubGoal) {
+    func deleteSubDetailGoals(subGoal: SubGoal, days: [String]) {
         subGoal.title = ""
         subGoal.category = ""
         
         for detailGoal in subGoal.detailGoals {
-            let identifier = "\(detailGoal.id)"
-            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
-            
+            for day in days {
+                let identifier = "\(detailGoal.id)_\(day)"
+                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
+            }
             // 디버깅: 현재 등록된 알림 확인
             UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
                 for request in requests {
@@ -66,10 +67,11 @@ class DeleteService: DeleteGoalUseCase {
         }
     }
     
-    func deleteDetailGoal(detailGoal: DetailGoal) {
-        let identifier = "\(detailGoal.id)"
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
-        
+    func deleteDetailGoal(detailGoal: DetailGoal, days: [String]) {
+        for day in days {
+            let identifier = "\(detailGoal.id)_\(day)"
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
+        }
         // 디버깅: 현재 등록된 알림 확인
         UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
             for request in requests {
@@ -105,10 +107,11 @@ class DeleteService: DeleteGoalUseCase {
     }
     
     // 이 부분은 알림 끄기만 했을 때 사용
-    func deleteNotification(detailGoal: DetailGoal) {
-        let identifier = "\(detailGoal.id)"
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
-        
+    func deleteNotification(detailGoal: DetailGoal, days: [String]) {
+        for day in days {
+            let identifier = "\(detailGoal.id)_\(day)"
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
+        }
         // 디버깅: 현재 등록된 알림 확인
         UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
             for request in requests {
