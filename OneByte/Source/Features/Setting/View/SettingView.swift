@@ -17,6 +17,8 @@ struct SettingView: View {
     
     @State private var nickname: String = UserDefaults.loadNickname()
     
+
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -167,6 +169,38 @@ struct SettingView: View {
 extension UserDefaults {
     private static let nicknameKey = "nicknameKey"
     
+    static let calendarData = [
+        // 2024년 ( 연도 / 월 / 월차 / 주차 / 클로버 스테이트 0 )
+        (2024, 11, 1, 45, 0), (2024, 11, 2, 46, 0), (2024, 11, 3, 47, 0), (2024, 11, 4, 48, 0),
+        (2024, 12, 1, 49, 0), (2024, 12, 2, 50, 0), (2024, 12, 3, 51, 0), (2024, 12, 4, 52, 0),
+        // 2025년
+        (2025, 1, 1, 1, 0), (2025, 1, 2, 2, 0), (2025, 1, 3, 3, 0), (2025, 1, 4, 4, 0), (2025, 1, 5, 5, 0),
+        (2025, 2, 1, 6, 0), (2025, 2, 2, 7, 0), (2025, 2, 3, 8, 0), (2025, 2, 4, 9, 0),
+        (2025, 3, 1, 10, 0), (2025, 3, 2, 11, 0), (2025, 3, 3, 12, 0), (2025, 3, 4, 13, 0),
+        (2025, 4, 1, 14, 0), (2025, 4, 2, 15, 0), (2025, 4, 3, 16, 0), (2025, 4, 4, 17, 0),
+        (2025, 5, 1, 18, 0), (2025, 5, 2, 19, 0), (2025, 5, 3, 20, 0), (2025, 5, 4, 21, 0), (2025, 5, 5, 22, 0),
+        (2025, 6, 1, 23, 0), (2025, 6, 2, 24, 0), (2025, 6, 3, 25, 0), (2025, 6, 4, 26, 0),
+        (2025, 7, 1, 27, 0), (2025, 7, 2, 28, 0), (2025, 7, 3, 29, 0), (2025, 7, 4, 30, 0), (2025, 7, 5, 31, 0),
+        (2025, 8, 1, 32, 0), (2025, 8, 2, 33, 0), (2025, 8, 3, 34, 0), (2025, 8, 4, 35, 0),
+        (2025, 9, 1, 36, 0), (2025, 9, 2, 37, 0), (2025, 9, 3, 38, 0), (2025, 9, 4, 39, 0),
+        (2025, 10, 1, 40, 0), (2025, 10, 2, 41, 0), (2025, 10, 3, 42, 0), (2025, 10, 4, 43, 0), (2025, 10, 5, 44, 0),
+        (2025, 11, 1, 45, 0), (2025, 11, 2, 46, 0), (2025, 11, 3, 47, 0), (2025, 11, 4, 48, 0),
+        (2025, 12, 1, 49, 0), (2025, 12, 2, 50, 0), (2025, 12, 3, 51, 0), (2025, 12, 4, 52, 0),
+        // 2026년
+        (2026, 1, 1, 1, 0), (2026, 1, 2, 2, 0), (2026, 1, 4, 3, 0), (2026, 1, 3, 4, 0), (2026, 1, 5, 5, 0),
+        (2026, 2, 1, 6, 0), (2026, 2, 2, 7, 0), (2026, 2, 4, 8, 0), (2026, 2, 3, 9, 0),
+        (2026, 3, 1, 10, 0), (2026, 3, 2, 11, 0), (2026, 3, 4, 12, 0), (2026, 3, 3, 13, 0),
+        (2026, 4, 1, 14, 0), (2026, 4, 2, 15, 0), (2026, 4, 4, 16, 0), (2026, 4, 3, 17, 0), (2026, 4, 5, 18, 0),
+        (2026, 5, 1, 19, 0), (2026, 5, 2, 20, 0), (2026, 5, 4, 21, 0), (2026, 5, 3, 22, 0),
+        (2026, 6, 1, 23, 0), (2026, 6, 2, 24, 0), (2026, 6, 4, 25, 0), (2026, 6, 3, 26, 0),
+        (2026, 7, 1, 27, 0), (2026, 7, 2, 28, 0), (2026, 7, 4, 29, 0), (2026, 7, 3, 30, 0), (2026, 7, 5, 31, 0),
+        (2026, 8, 1, 32, 0), (2026, 8, 2, 33, 0), (2026, 8, 4, 34, 0), (2026, 8, 3, 35, 0),
+        (2026, 9, 1, 36, 0), (2026, 9, 2, 37, 0), (2026, 9, 4, 38, 0), (2026, 9, 3, 39, 0),
+        (2026, 10, 1, 40, 0), (2026, 10, 2, 41, 0), (2026, 10, 4, 42, 0), (2026, 10, 3, 43, 0), (2026, 10, 5, 44, 0),
+        (2026, 11, 1, 45, 0), (2026, 11, 2, 46, 0), (2026, 11, 4, 47, 0), (2026, 11, 3, 48, 0),
+        (2026, 12, 1, 49, 0), (2026, 12, 2, 50, 0), (2026, 12, 4, 51, 0), (2026, 12, 3, 52, 0), (2026, 12, 5, 53, 0)
+    ]
+    
     // 닉네임 저장
     static func saveNickname(_ nickname: String) {
         UserDefaults.standard.set(nickname, forKey: nicknameKey)
@@ -175,6 +209,71 @@ extension UserDefaults {
     // 닉네임 불러오기
     static func loadNickname() -> String {
         return UserDefaults.standard.string(forKey: nicknameKey) ?? ""
+    }
+    
+    static func loadInstallYear() -> Int? {
+        guard let installDateString = UserDefaults.standard.string(forKey: "userInstallDate") else {
+            print("❌ userInstallDate을 찾을 수 없습니다")
+            return nil
+        }
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.timeZone = TimeZone(identifier: "Asia/Seoul")
+        
+        guard let installDate = formatter.date(from: installDateString) else {
+            print("❌ userInstallDate를 Date 객체로 변환하는 데 실패했습니다.")
+            return nil
+        }
+        
+        let calendar = Calendar(identifier: .iso8601)
+        let year = calendar.component(.year, from: installDate)
+        return year
+    }
+    
+    static func loadInstallMonth() -> Int? {
+        guard let installDateString = UserDefaults.standard.string(forKey: "userInstallDate") else {
+            print("❌ userInstallDate을 찾을 수 없습니다")
+            return nil
+        }
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.timeZone = TimeZone(identifier: "Asia/Seoul")
+        
+        guard let installDate = formatter.date(from: installDateString) else {
+            print("❌ userInstallDate를 Date 객체로 변환하는 데 실패했습니다.")
+            return nil
+        }
+        
+        let calendar = Calendar(identifier: .iso8601)
+        let weekOfYear = calendar.component(.weekOfYear, from: installDate)
+        let year = calendar.component(.year, from: installDate)
+        
+        if let data = calendarData.first(where: { $0.0 == year && $0.3 == weekOfYear }) {
+            return data.1
+        }
+        return calendar.component(.month, from: Date())
+    }
+    
+    static func loadInstallWeekOfYear() -> Int? {
+        guard let installDateString = UserDefaults.standard.string(forKey: "userInstallDate") else {
+            print("❌ userInstallDate을 찾을 수 없습니다.")
+            return nil
+        }
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.timeZone = TimeZone(identifier: "Asia/Seoul")
+        
+        guard let installDate = formatter.date(from: installDateString) else {
+            print("❌ userInstallDate을 Date 객체로 변환하는 데 실패했습니다.")
+            return nil
+        }
+        
+        let calendar = Calendar(identifier: .iso8601)
+        let weekOfYear = calendar.component(.weekOfYear, from: installDate)
+        return weekOfYear
     }
 }
 
