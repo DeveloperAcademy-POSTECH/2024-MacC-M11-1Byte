@@ -202,7 +202,7 @@ class TodayRoutineViewModel {
         let currentYear: Int = result.year
         let currentWeekOfYear: Int = result.weekOfYear
         let currentWeekOfMonth: Int = result.weekOfMonth
-        let currentMonth: Int = calendar.component(.month, from: today)
+        let currentMonth: Int = result.month // 수정된 로직 적용
         print("현재 날짜 정보 : \(currentYear),\(currentWeekOfYear),\(currentWeekOfMonth),\(currentMonth)")
         // 주 시작일과 종료일 계산
         if let range = Date.weekDateRange(for: today) {
