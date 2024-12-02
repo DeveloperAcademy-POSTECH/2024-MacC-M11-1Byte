@@ -559,6 +559,12 @@ extension DetailGoalView {
                         } message: {
                             Text("알림 기능을 사용하시려면\n기기설정에서 알림을 허용해주세요.")
                         }
+                        .onAppear {
+                            // 앱이 포그라운드로 돌아왔을 때 allowAlert를 리셋
+                            NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { _ in
+                                allowAlert = false
+                            }
+                        }
                 }
                 if isRemind {
                     Divider()
