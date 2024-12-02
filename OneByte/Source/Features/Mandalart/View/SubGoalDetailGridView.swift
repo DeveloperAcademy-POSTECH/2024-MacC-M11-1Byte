@@ -112,11 +112,11 @@ struct SubGoalDetailGridView: View {
                 }
                 .navigationDestination(isPresented: $detailNavigation) {
                     let detailGoal = selectedDetailGoal
-                    DetailGoalView(detailGoal: .constant(detailGoal), tabBarVisible: $tabBarVisible)
+                    DetailGoalView(detailGoal: .constant(detailGoal))
                 }
                 .navigationDestination(isPresented: $subNavigation) {
                     let subGoal = selectedSubGoal
-                    SubGoalView(subGoal: .constant(subGoal), tabBarVisible: $tabBarVisible, subNavigation: $subNavigation)
+                    SubGoalView(subGoal: .constant(subGoal), subNavigation: $subNavigation)
                 }
                 .padding(.top, 55)
                 // 메모 모아보기

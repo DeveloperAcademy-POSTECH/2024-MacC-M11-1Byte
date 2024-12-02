@@ -12,7 +12,8 @@ struct MandalartView: View {
     @State private var requestNotification: Bool = true
     @State var isPresented = false
     @State private var mainGoal: MainGoal?
-   
+    @State var tabBarVisible: Bool = true
+    
     @Binding var isTabBarMainVisible: Bool
     
     @Query private var mainGoals: [MainGoal]
@@ -23,7 +24,7 @@ struct MandalartView: View {
                 Color.myFFFAF4
                     .ignoresSafeArea(edges: .top)
                 if let firstMainGoal = mainGoals.first {
-                    OuterGridView(mainGoal: $mainGoal, isTabBarMainVisible: $isTabBarMainVisible)
+                    OuterGridView(mainGoal: $mainGoal, isTabBarMainVisible: $isTabBarMainVisible, tabBarVisible: $tabBarVisible)
                         .environment(\.modelContext, modelContext)
                         .onAppear {
                             mainGoal = firstMainGoal
@@ -37,6 +38,8 @@ struct MandalartView: View {
 
 // MARK: 첫화면 -  전체 81개짜리
 struct OuterGridView: View {
+    @Environment(\.modelContext) private var modelContext  // SwiftData 컨텍스트
+    @Environment(\.managedObjectContext) private var context
     @Binding var mainGoal: MainGoal?
     @Binding var isTabBarMainVisible: Bool
 
@@ -44,8 +47,8 @@ struct OuterGridView: View {
     @State var mainIsPresented: Bool = false
     @State private var selectedSubGoal: SubGoal? // 선택된 SubGoal을 관리
     @State private var isSubNavigationActive: Bool = false // 네비게이션 활성화 상태
-    @State var tabBarVisible: Bool = true
-    @State private var showAlert = false 
+    @Binding var tabBarVisible: Bool
+    @State private var showAlert = false
     @State private var isEdited = false
     
     private let dateManager = DateManager()
@@ -134,8 +137,8 @@ struct OuterGridView: View {
             Spacer()
         }
         .onAppear {
-            currentMessage = messages.randomElement() ?? ""
             isTabBarMainVisible = true
+            tabBarVisible = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 capturedImage = captureView()
                     .padding()
@@ -143,6 +146,7 @@ struct OuterGridView: View {
                     .background(.myFFFAF4)
                     .snapshot()
             }
+            currentMessage = messages.randomElement() ?? ""
         }
         .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
         .alert("작업을 중단하시겠습니까?", isPresented: $showAlert) {

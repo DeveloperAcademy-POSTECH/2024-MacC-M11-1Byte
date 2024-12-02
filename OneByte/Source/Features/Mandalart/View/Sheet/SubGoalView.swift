@@ -10,7 +10,6 @@ import SwiftUI
 
 struct SubGoalView: View {
     @Binding var subGoal: SubGoal?
-    @Binding var tabBarVisible: Bool
     @Binding var subNavigation: Bool
     @State private var selectedCategory: String = ""
     @State private var isCustomCategoryActive: Bool = false
