@@ -16,14 +16,14 @@ class StatisticViewModel {
     let calendar = Calendar(identifier: .iso8601)
     
     let monthInfoViewHeadPhraseDict: [String: String] = [
-        "cloverX": "지난주에는 루틴에 신경을 못쓰셨나봐요",
+        "cloverX": "지난주는 바쁘셨나봐요. 괜찮아요!",
         "green": "지난주에는 초록 클로버를 받았어요",
         "gold": "지난주에는 모든 루틴을 완수했어요",
         "firstTime": "지난주의 성취에 따라 응원해줄게요!"
     ]
     
     let monthInfoViewBodyPhraseDict : [String: [String]] = [
-        "cloverX": ["괜찮아요. 항상 완벽할 필요는 없어요\n이번 주부터 다시 시작해봐요!",
+        "cloverX": ["항상 완벽할 필요는 없어요\n이번 주부터 다시 시작해봐요!",
                      "루틴은 꾸준함이 핵심이지만,\n쉬어가는 것도 과정의 일부예요. 다시 해볼까요?",
                      "꾸준함은 넘어지면서 배우는 거예요\n이번 주는 더 나아질 거니까 걱정 말아요"],
         "green": ["이미 충분히 잘하고 있어요!\n조금 더 스스로를 믿고, 조금 더 나아가 봐요",
