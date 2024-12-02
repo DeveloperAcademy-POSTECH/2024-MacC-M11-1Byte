@@ -347,7 +347,7 @@ struct StatisticView: View {
                                         .foregroundStyle(.white)
                                 }
                                 .padding(.top, 14)
-                                Text("하나의 루틴만 계획대로 완수하면\n받을 수 있어요")
+                                Text("하나의 루틴이라도 계획대로 완수하면\n받을 수 있어요")
                                     .font(.Pretendard.Regular.size13)
                                     .foregroundStyle(.white)
                                     .padding(.top, 4)

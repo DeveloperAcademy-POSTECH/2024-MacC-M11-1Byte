@@ -54,6 +54,10 @@ class StatisticViewModel {
     }
     
     var currentYear: Int {
+        // 12월 마지막 주차가 내년의 1월 1주차일 경우 -> 연도를 내년으로 취급
+        if currentWeekOfYear == 1 && calendar.component(.month, from: Date()) == 12 {
+            return calendar.component(.year, from: Date()) + 1
+        }
         return calendar.component(.year, from: Date())
     }
     
