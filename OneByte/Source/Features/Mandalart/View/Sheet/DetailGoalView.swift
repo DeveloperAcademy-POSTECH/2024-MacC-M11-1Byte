@@ -504,6 +504,7 @@ extension DetailGoalView {
             .onChange(of: selectedTime) { old, newValue in
                 if let detailGoal = detailGoal {
                     viewModel.updateTimePeriodStates(detailGoal: detailGoal, for: newValue)
+                    isModified = true
                 }
             }
         }
