@@ -95,11 +95,11 @@ class StatisticViewModel {
     
     var weeklyCloverInfoHeight: CGFloat {
         let range = currentYearCloverMonthRange
+        let monthCount = currentMonth - range.min + 1
         if range.max - range.min > 2 {
-            let monthCount = currentMonth - range.min + 1
             return CGFloat(monthCount) * 73 + 174
         } else {
-            return 388
+            return CGFloat(monthCount) * 73 + 120
         }
     }
     
