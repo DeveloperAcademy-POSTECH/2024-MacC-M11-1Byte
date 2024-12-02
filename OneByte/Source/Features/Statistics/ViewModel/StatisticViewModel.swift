@@ -175,16 +175,22 @@ class StatisticViewModel {
         var goldCloverCount = 0
         
         for clover in clovers {
-            switch clover.cloverState {
-            case 0:
-                emptyCloverCount += 1
-            case 1:
-                greenCloverCount += 1
-            case 2:
-                goldCloverCount += 1
-            default:
-                break
+            // 이번 주 클로버는 아직 결정되지 않았음으로 계산되면 안 된다
+            if clover.cloverWeekOfYear == currentWeekOfYear {
+                continue
+            } else {
+                switch clover.cloverState {
+                case 0:
+                    emptyCloverCount += 1
+                case 1:
+                    greenCloverCount += 1
+                case 2:
+                    goldCloverCount += 1
+                default:
+                    break
+                }
             }
+
         }
         
         return [emptyCloverCount, greenCloverCount, goldCloverCount]
