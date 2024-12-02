@@ -224,13 +224,13 @@ struct DetailGoalView: View {
     // 선택된 요일을 필터링하여 배열로 반환하는 함수
     func getSelectedDays() -> [String] {
         var selected: [String] = []
-        if alertSun { selected.append("일") }
         if alertMon { selected.append("월") }
         if alertTue { selected.append("화") }
         if alertWed { selected.append("수") }
         if alertThu { selected.append("목") }
         if alertFri { selected.append("금") }
         if alertSat { selected.append("토") }
+        if alertSun { selected.append("일") }
         return selected
     }
 }
