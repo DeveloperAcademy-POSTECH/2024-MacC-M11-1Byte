@@ -153,7 +153,7 @@ struct StatisticView: View {
                     Rectangle()
                         .foregroundStyle(.white)
                         .frame(maxWidth: .infinity)
-                        .frame(height: isOpenedWeeklyCloverInfo ? viewModel.weeklyCloverInfoHeight : 388)
+                        .frame(height: (viewModel.currentYearCloverMonthRange.max - viewModel.currentYearCloverMonthRange.min > 2) ? (isOpenedWeeklyCloverInfo ? viewModel.weeklyCloverInfoHeight : 388) : viewModel.weeklyCloverInfoHeight)
                         .cornerRadius(13)
                         .overlay(
                             RoundedRectangle(cornerRadius: 13)
