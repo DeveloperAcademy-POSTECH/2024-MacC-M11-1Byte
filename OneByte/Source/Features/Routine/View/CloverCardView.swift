@@ -177,7 +177,7 @@ struct CloverCardView: View {
                         .frame(width: 62, alignment: .leading)
                     CloverCardProgressBar(value: data.progress)
                         .progressViewStyle(LinearProgressViewStyle(tint: .myFFA64A))
-                    
+                        .padding(.top, 3)
                 }
                 .padding(.horizontal, 33)
             }
