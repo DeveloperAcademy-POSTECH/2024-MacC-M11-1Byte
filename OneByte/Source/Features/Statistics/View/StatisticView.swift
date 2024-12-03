@@ -310,6 +310,36 @@ struct StatisticView: View {
                         .padding(.leading, 2 * CGFloat(currentWeekOfMonth)/12 + CGFloat(currentWeekOfMonth)/9 + CGFloat(currentWeekOfMonth)/6 + CGFloat(currentWeekOfMonth)/3 + 9 + 56 * CGFloat(currentWeekOfMonth))
                         .padding(.top, 96)
                 }
+                VStack(spacing: 4) {
+                    HStack {
+                        Text("클로버 카드 보기")
+                            .font(.Pretendard.SemiBold.size18)
+                            .padding(.leading, 5)
+                        Spacer()
+                    }
+                    HStack {
+                        Text("앱 체험을 위해 임시로 추가된 기능이에요")
+                            .font(.Pretendard.Medium.size14)
+                            .foregroundStyle(Color.my909090)
+                            .padding(.leading, 5)
+                        Spacer()
+                    }
+                    Button(action: {
+                        viewModel.isNextWeek.toggle()
+                    }, label: {
+                        HStack(alignment: .center, spacing: 10) {
+                            Text("이번 주 마무리하고, 클로버 카드 받기")
+                                .font(.Pretendard.Medium.size14)
+                                .foregroundStyle(.white)
+                        }
+                        .padding(.horizontal, 72)
+                        .padding(.vertical, 14)
+                        .frame(width: 361, height: 44, alignment: .center)
+                        .background(.my6FB56F)
+                        .cornerRadius(10)
+                    })
+                    .padding(.top, 18)
+                }
             }
             if (isQuestionMarkClicked) {
                 Group {
