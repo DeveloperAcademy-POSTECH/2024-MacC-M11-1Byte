@@ -560,12 +560,14 @@ extension DetailGoalView {
                             if isRemind {
                                 requestNotificationPermission()
                             }
-                            viewModel.checkNotificationPermission{ isAllowed in
-                                if isAllowed {
-                                    isRemind = true
-                                } else {
-                                    allowAlert = true
-                                    
+                            if old == false {
+                                viewModel.checkNotificationPermission{ isAllowed in
+                                    if isAllowed {
+                                        isRemind = true
+                                    } else {
+                                        allowAlert = true
+                                        
+                                    }
                                 }
                             }
                         }
