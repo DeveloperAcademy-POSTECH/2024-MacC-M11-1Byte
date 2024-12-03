@@ -171,10 +171,10 @@ struct DetailGoalView: View {
                     
                 }, label: {
                     Text("저장")
-                        .foregroundStyle((newTitle == "" || isModified == false) ? .myA9C5A3 : .my538F53)
-                        .fontWeight((newTitle == "" || isModified == false) ? .regular : .bold)
+                        .foregroundStyle((newTitle == "" || isModified == false || (alertMon == false && alertTue == false && alertWed == false && alertThu == false && alertFri == false && alertSat == false && alertSun == false)) ? .myA9C5A3 : .my538F53)
+                        .fontWeight((newTitle == "" || isModified == false || (alertMon == false && alertTue == false && alertWed == false && alertThu == false && alertFri == false && alertSat == false && alertSun == false)) ? .regular : .bold)
                 })
-                .disabled(newTitle == "" || isModified == false)
+                .disabled(newTitle == "" || isModified == false || (alertMon == false && alertTue == false && alertWed == false && alertThu == false && alertFri == false && alertSat == false && alertSun == false))
             })
         }
         .padding(.horizontal, 16)
@@ -448,13 +448,13 @@ extension DetailGoalView {
             Text("반복 요일")
                 .font(.Pretendard.SemiBold.size16)
             HStack(spacing: 12) {
-                DayButton(title: "일", isSelected: $alertSun, isModified: $isModified)
                 DayButton(title: "월", isSelected: $alertMon, isModified: $isModified)
                 DayButton(title: "화", isSelected: $alertTue, isModified: $isModified)
                 DayButton(title: "수", isSelected: $alertWed, isModified: $isModified)
                 DayButton(title: "목", isSelected: $alertThu, isModified: $isModified)
                 DayButton(title: "금", isSelected: $alertFri, isModified: $isModified)
                 DayButton(title: "토", isSelected: $alertSat, isModified: $isModified)
+                DayButton(title: "일", isSelected: $alertSun, isModified: $isModified)
             }
         }
         
@@ -560,12 +560,14 @@ extension DetailGoalView {
                             if isRemind {
                                 requestNotificationPermission()
                             }
-                            viewModel.checkNotificationPermission{ isAllowed in
-                                if isAllowed {
-                                    isRemind = true
-                                } else {
-                                    allowAlert = true
-                                    
+                            if old == false {
+                                viewModel.checkNotificationPermission{ isAllowed in
+                                    if isAllowed {
+                                        isRemind = true
+                                    } else {
+                                        allowAlert = true
+                                        
+                                    }
                                 }
                             }
                         }
