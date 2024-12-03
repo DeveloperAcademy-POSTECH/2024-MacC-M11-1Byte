@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import Lottie
 
 // MARK: 루틴 메인 뷰
 struct RoutineMainView: View {
@@ -16,6 +17,8 @@ struct RoutineMainView: View {
     @Query var mainGoals: [MainGoal]
     @Query var clovers: [Clover]
     @Binding var isTabBarMainVisible: Bool
+    
+    @State private var isPlaying = false
     
     var body: some View {
         NavigationStack {
@@ -83,24 +86,31 @@ struct RoutineMainView: View {
     
     // MARK: 동기부여 메시지 뷰
     private func motivationMessageView() -> some View {
-        HStack(spacing: 0) {
+        HStack(spacing: 8) {
             Spacer()
             TurtleMessageView(message: viewModel.currentMessage)
-                .padding(.bottom, 30)
+                .padding(.bottom, 60)
             
-            Image("Turtle_Main")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 105, height: 85)
+            LottieView(animation: .named("RoutineTurtle"))
+                .playing()
                 .onTapGesture {
                     viewModel.updateRandomMessage()
                     viewModel.routineTurtleHaptic()
                 }
+                .frame(width: 105, height: 100)
+            
+            //            Image("Turtle_Main")
+            //                .resizable()
+            //                .scaledToFit()
+            //                .frame(width: 105, height: 85)
+            //                .onTapGesture {
+            //                    viewModel.updateRandomMessage()
+            //                    viewModel.routineTurtleHaptic()
+            //                }
         }
         .padding(.leading, 16)
         .padding(.trailing, 13)
-        .padding(.top, 28)
-        .padding(.bottom, 8)
+        .padding(.top, 14)
     }
     
     // MARK: Tabbar Picker 뷰
