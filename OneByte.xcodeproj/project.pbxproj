@@ -96,6 +96,7 @@
 		61FA4DF32CE77EDD00256B57 /* BackButtonToolbarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FA4DF22CE77EDD00256B57 /* BackButtonToolbarModifier.swift */; };
 		61FA4DF52CE7803600256B57 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FA4DF42CE7803600256B57 /* View+.swift */; };
 		A14A18E22CFD52950013050F /* SpecificTagger4192.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A14A18E12CFD52950013050F /* SpecificTagger4192.mlmodel */; };
+		A14A18E42CFE07120013050F /* SpecificTagger4342.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A14A18E32CFE07120013050F /* SpecificTagger4342.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -190,6 +191,7 @@
 		61FA4DF22CE77EDD00256B57 /* BackButtonToolbarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButtonToolbarModifier.swift; sourceTree = "<group>"; };
 		61FA4DF42CE7803600256B57 /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
 		A14A18E12CFD52950013050F /* SpecificTagger4192.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = SpecificTagger4192.mlmodel; sourceTree = "<group>"; };
+		A14A18E32CFE07120013050F /* SpecificTagger4342.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = SpecificTagger4342.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -395,6 +397,7 @@
 		1FA4208B2CC0DBD3001CB92D /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				A14A18E32CFE07120013050F /* SpecificTagger4342.mlmodel */,
 				A14A18E12CFD52950013050F /* SpecificTagger4192.mlmodel */,
 				6107A3CA2CF88E11001189FA /* SpecificTagger3942.mlmodel */,
 				1F79EDD12CC0A25E0079088B /* Assets.xcassets */,
@@ -709,6 +712,7 @@
 				615A0A0D2CC0AE8700908531 /* RoutineMainView.swift in Sources */,
 				1FD4052A2CECBFCB00403A19 /* RoutineModel.swift in Sources */,
 				1FB10A2C2CDF52E600D54EC5 /* OnboardingProgressBar.swift in Sources */,
+				A14A18E42CFE07120013050F /* SpecificTagger4342.mlmodel in Sources */,
 				1F599E282CE5F29500788D07 /* EditNicknameSheetView.swift in Sources */,
 				1F100F512CFCA62000130BA9 /* CloverCardProgressBar.swift in Sources */,
 				610595DD2CE2EA6C005ED7B4 /* DetailGoalView.swift in Sources */,

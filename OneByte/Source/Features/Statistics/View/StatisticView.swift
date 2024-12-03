@@ -370,7 +370,7 @@ struct StatisticView: View {
                         }
                         .padding(.leading, 140)
                 }
-                .padding(.bottom, 200/852 * UIScreen.main.bounds.height)
+                .padding(.bottom, 18)
             }
 
         }
