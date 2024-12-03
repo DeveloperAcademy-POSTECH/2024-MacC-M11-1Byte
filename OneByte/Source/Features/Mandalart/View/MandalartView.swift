@@ -288,7 +288,7 @@ extension MandalartView {
     func shareAlert() -> some View {
         VStack(spacing: 0) {
             if let image = capturedImage {
-                Text("\"오늘 할 수 있는 작은 일부터 시작해 보세요.\n꾸준함이 곧 당신의 습관이 될 거예요!\"")
+                Text("\"오늘 할 수 있는 작은 일부터 시작해 보세요\n꾸준함이 곧 당신의 습관이 될 거예요!\"")
                     .font(.Pretendard.Medium.size14)
                     .foregroundStyle(.black)
                     .multilineTextAlignment(.center)
