@@ -50,6 +50,7 @@ struct OuterGridView: View {
     @Binding var tabBarVisible: Bool
     @State private var showAlert = false
     @State private var isEdited = false
+    @State private var isClickedShare: Bool = false
     
     private let dateManager = DateManager()
     private let currentDate = Date()
@@ -73,78 +74,85 @@ struct OuterGridView: View {
     
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            // 날짜 및 공유, 설정 버튼
-            HStack(alignment: .center ,spacing: 0) {
-                // 한국 날짜 형식으로 오늘 날짜 표시
-                Text("클로버 심기")
-                    .font(.Pretendard.Bold.size22)
-                    .foregroundStyle(Color.myB4A99D)
+        ZStack {
+            if isClickedShare {
                 
+            }
+            
+            VStack(alignment: .leading, spacing: 0) {
+                // 날짜 및 공유, 설정 버튼
+                HStack(alignment: .center ,spacing: 0) {
+                    // 한국 날짜 형식으로 오늘 날짜 표시
+                    Text("클로버 심기")
+                        .font(.Pretendard.Bold.size22)
+                        .foregroundStyle(Color.myB4A99D)
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        isClickedShare = true
+                        if let capturedImage = capturedImage {
+                            viewModel.presentShareSheet(with: capturedImage)
+                        }
+                    }) {
+                        Label("", systemImage: "square.and.arrow.up")
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundStyle(Color.my566956)
+                            .font(.system(size: 20, weight: .medium))
+                    }
+                    .padding(.trailing, 14)
+                    
+                    
+                    NavigationLink {
+                        SettingView(isTabBarMainVisible: $isTabBarMainVisible)
+                    } label: {
+                        Image("SettingDark")
+                            .resizable()
+                            .frame(width: 24, height: 24)
+                    }
+                }
+                .padding(.horizontal, 10)
+                .padding(.top, 8)
+                
+                // 목표 & 만다라트 그리드
+                captureView()
                 Spacer()
                 
-                Button(action: {
-                    if let capturedImage = capturedImage {
-                        viewModel.presentShareSheet(with: capturedImage)
-                    }
-                }) {
-                    Label("", systemImage: "square.and.arrow.up")
-                        .aspectRatio(contentMode: .fit)
-                        .foregroundStyle(Color.my566956)
-                        .font(.system(size: 20, weight: .medium))
-                }
-                .padding(.trailing, 14)
-
-                
-                NavigationLink {
-                    SettingView(isTabBarMainVisible: $isTabBarMainVisible)
-                } label: {
-                    Image("SettingDark")
-                        .resizable()
-                        .frame(width: 24, height: 24)
-                }
-            }
-            .padding(.horizontal, 10)
-            .padding(.top, 8)
-            
-            // 목표 & 만다라트 그리드
-            captureView()
-            Spacer()
-            
-            // 다라 & comment
-            HStack() {
-                Button(action: {
-                    viewModel.triggerHapticOn()
-                    currentMessage = messages.randomElement() ?? currentMessage
-                }, label: {
-                    Image("Turtle_5")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 73/393 * UIScreen.main.bounds.width)
-                })
-                Text(currentMessage)
-                    .font(.Pretendard.Medium.size14)
-                    .multilineTextAlignment(.leading)
-                    .padding(EdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 15))
-                    .background(
-                        Image("comment")
+                // 다라 & comment
+                HStack() {
+                    Button(action: {
+                        viewModel.triggerHapticOn()
+                        currentMessage = messages.randomElement() ?? currentMessage
+                    }, label: {
+                        Image("Turtle_5")
                             .resizable()
-                            .scaledToFill()
-                    )
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 73/393 * UIScreen.main.bounds.width)
+                    })
+                    Text(currentMessage)
+                        .font(.Pretendard.Medium.size14)
+                        .multilineTextAlignment(.leading)
+                        .padding(EdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 15))
+                        .background(
+                            Image("comment")
+                                .resizable()
+                                .scaledToFill()
+                        )
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                .padding(.bottom, 47/852 * UIScreen.main.bounds.height)
+                Spacer()
             }
-            .padding(.bottom, 47/852 * UIScreen.main.bounds.height)
-            Spacer()
         }
         .onAppear {
             isTabBarMainVisible = true
             tabBarVisible = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                capturedImage = captureView()
-                    .padding()
-                    .padding(.top, -30) // 이부분은 캡처 화면을 자르기 위함!
-                    .background(.myFFFAF4)
-                    .snapshot()
+                let capImage = captureView()
+                    .padding(.horizontal)
+                    .padding(.top, -60) // 이부분은 캡처 화면을 자르기 위함!
+                    .background(.white)
+                capturedImage = capImage.snapshot()
             }
             currentMessage = messages.randomElement() ?? ""
         }
