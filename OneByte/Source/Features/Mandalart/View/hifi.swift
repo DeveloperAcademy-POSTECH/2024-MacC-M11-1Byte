@@ -13,12 +13,32 @@ struct hifi: View {
             Color.gray.opacity(0.2) // 배경 색상
             
             VStack(spacing: 16) {
-                Text("\"오늘 할 수 있는 작은 일부터 시작해 보세요.\n꾸준함이 곧 당신의 습관이 될 거예요!\"")
-                    .font(.Pretendard.Medium.size14)
-                    .foregroundStyle(.black)
-                    .multilineTextAlignment(.center)
-                    .padding(.top, 16)
-                
+                VStack {
+                    Spacer()
+                    HStack(spacing: 0) {
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundStyle(.my6FB56F)
+                            .background{
+                                Circle()
+                                    .foregroundStyle(.white)
+                                    .frame(width: 15, height: 15)
+                            }
+                            .padding(.leading, 20)
+                        Text("완료되었습니다!")
+                            .font(.Pretendard.Bold.size16)
+                            .foregroundStyle(.white)
+                            .padding(.leading, 8)
+                        Spacer()
+                    }
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 50)
+                    .blur(radius: 0.1)
+                    .background(Color.my271500.opacity(0.55))
+                    .cornerRadius(8)
+                }
+                .background(.regularMaterial)
+                .transition(.opacity)
+                .padding(.bottom, 40) // 화면 하단에서 여백
                 // 메인 카드
                 Image("hifi")
                     .resizable()

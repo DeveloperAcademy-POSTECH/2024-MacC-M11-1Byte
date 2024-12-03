@@ -15,6 +15,7 @@ struct MandalartView: View {
     @State var tabBarVisible: Bool = true
     @State private var isClickedShare: Bool = false
     @State private var capturedImage: UIImage? = nil
+    @State private var showToast: Bool = false
     
     @Binding var isTabBarMainVisible: Bool
     
@@ -45,6 +46,36 @@ struct MandalartView: View {
                         .ignoresSafeArea()
                         .padding(-40)
                     shareAlert()
+                }
+                
+                if showToast {
+                    VStack {
+                        Spacer()
+                        HStack(spacing: 0) {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundStyle(.my6FB56F)
+                                .background{
+                                    Circle()
+                                        .foregroundStyle(.white)
+                                        .frame(width: 15, height: 15)
+                                }
+                                .padding(.leading, 20)
+                            Text("완료되었습니다!")
+                                .font(.Pretendard.Bold.size16)
+                                .foregroundStyle(.white)
+                                .padding(.leading, 8)
+                            Spacer()
+                        }
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 50)
+                        .blur(radius: 0.1)
+                        .background(Color.my887B6D)
+                        .cornerRadius(8)
+                    }
+                    .padding(.bottom, 40)
+                    .padding(.horizontal)
+                    .animation(.easeInOut, value: showToast)
+                    .transition(.opacity)
                 }
             }
             
@@ -155,7 +186,6 @@ struct OuterGridView: View {
                                 .resizable()
                                 .scaledToFill()
                         )
-                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 .padding(.bottom, 47/852 * UIScreen.main.bounds.height)
                 Spacer()
@@ -264,49 +294,49 @@ extension MandalartView {
     @ViewBuilder
     func shareAlert() -> some View {
         VStack(spacing: 0) {
-            Text("\"오늘 할 수 있는 작은 일부터 시작해 보세요.\n꾸준함이 곧 당신의 습관이 될 거예요!\"")
-                .font(.Pretendard.Medium.size14)
-                .foregroundStyle(.black)
-                .multilineTextAlignment(.center)
-                .padding(.top, 20)
-            
-            // 메인 카드
             if let image = capturedImage {
+                Text("\"오늘 할 수 있는 작은 일부터 시작해 보세요.\n꾸준함이 곧 당신의 습관이 될 거예요!\"")
+                    .font(.Pretendard.Medium.size14)
+                    .foregroundStyle(.black)
+                    .multilineTextAlignment(.center)
+                    .padding(.top, 20)
+                
+                // 메인 카드
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
                     .clipShape(RoundedRectangle(cornerRadius: 12))
                     .frame(width: 251/393 * UIScreen.main.bounds.width)
                     .padding(.top, 12)
-                    
-            }
-            // 공유 및 저장 버튼
-            Button(action: {
-                if let capturedImage = capturedImage {
-                    viewModel.presentShareSheet(with: capturedImage, isClickedShare: $isClickedShare)
+                // 공유 및 저장 버튼
+                Button(action: {
+                    if let capturedImage = capturedImage {
+                        viewModel.presentShareSheet(with: capturedImage, isClickedShare: $isClickedShare, showToast: $showToast)
+                    }
+                }) {
+                    Text("공유하기")
+                        .font(.Pretendard.Medium.size16)
+                        .padding(EdgeInsets(top: 14, leading: 30, bottom: 10, trailing: 30))
+                        .foregroundStyle(.my235223)
                 }
-            }) {
-                Text("공유하기")
-                    .font(.Pretendard.Medium.size16)
-                    .padding(EdgeInsets(top: 14, leading: 30, bottom: 10, trailing: 30))
-                    .foregroundStyle(.my235223)
-            }
-            
-            Divider()
-                .padding(.horizontal, 22)
-            Button(action: {
-                if let imageToSave = capturedImage {
-                    UIImageWriteToSavedPhotosAlbum(imageToSave, nil, nil, nil)
+                
+                Divider()
+                    .padding(.horizontal, 22)
+                Button(action: {
+                    if let imageToSave = capturedImage {
+                        UIImageWriteToSavedPhotosAlbum(imageToSave, nil, nil, nil)
+                    }
+                    isClickedShare = false
+                    viewModel.showToastMessage(showToast: $showToast)
+                }) {
+                    Text("이미지 저장")
+                        .font(.Pretendard.Medium.size16)
+                        .padding(EdgeInsets(top: 10, leading: 30, bottom: 14, trailing: 30))
+                        .foregroundStyle(.my235223)
                 }
-                isClickedShare = false
-            }) {
-                Text("이미지 저장")
-                    .font(.Pretendard.Medium.size16)
-                    .padding(EdgeInsets(top: 10, leading: 30, bottom: 14, trailing: 30))
-                    .foregroundStyle(.my235223)
+                
+                Spacer()
             }
-            
-            Spacer()
         }
         .frame(width: 317/393 * UIScreen.main.bounds.width, height: 460/852 * UIScreen.main.bounds.height, alignment: .top)
         .background(.myF4F2F2)
