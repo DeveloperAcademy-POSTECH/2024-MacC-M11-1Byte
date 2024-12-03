@@ -15,9 +15,10 @@ struct TurtleMessageView: View {
         Text(message)
             .font(.Pretendard.Medium.size14)
             .foregroundStyle(.my3C3C3C)
-            .multilineTextAlignment(.center)
+            .multilineTextAlignment(.leading)
             .frame(height: 55)
-            .padding(.horizontal)
+            .kerning(0.24)
+            .padding(.horizontal, 20)
             .background(.myD4E5CC)
             .clipShape(RoundedRectangle(cornerRadius: 50.0, style: .continuous))
             .overlay(alignment: .bottomTrailing) {
