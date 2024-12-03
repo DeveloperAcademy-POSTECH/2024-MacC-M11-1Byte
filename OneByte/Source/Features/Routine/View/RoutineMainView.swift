@@ -90,12 +90,12 @@ struct RoutineMainView: View {
                 .padding(.bottom, 60)
             
             LottieView(animation: .named("RoutineTurtle"))
-                .looping()
+                .playing(loopMode: .repeat(2))
+                .frame(width: 105, height: 100)
                 .onTapGesture {
                     viewModel.updateRandomMessage()
                     viewModel.routineTurtleHaptic()
                 }
-                .frame(width: 105, height: 100)
         }
         .padding(.trailing, 10)
         .padding(.top, 14)
