@@ -73,6 +73,10 @@
 		1FE27C712CF0B7F600A4C6BE /* DaysCycleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE27C702CF0B7F600A4C6BE /* DaysCycleView.swift */; };
 		1FE27C752CF0C8AF00A4C6BE /* CompleteCycleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE27C742CF0C8AF00A4C6BE /* CompleteCycleView.swift */; };
 		1FE2B8D62CDFAF8600781E20 /* Int+GridExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE2B8D52CDFAF8600781E20 /* Int+GridExtensions.swift */; };
+		1FFD92942CFEA26B003E9D16 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 1FFD92932CFEA26B003E9D16 /* Lottie */; };
+		1FFD92962CFEA2D2003E9D16 /* RoutineTurtleLottie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFD92952CFEA2D2003E9D16 /* RoutineTurtleLottie.swift */; };
+		1FFD92982CFEA38B003E9D16 /* RoutineTurtle.json in Resources */ = {isa = PBXBuildFile; fileRef = 1FFD92972CFEA38B003E9D16 /* RoutineTurtle.json */; };
+		1FFD929A2CFECF5A003E9D16 /* MandalartTurtle.json in Resources */ = {isa = PBXBuildFile; fileRef = 1FFD92992CFECF5A003E9D16 /* MandalartTurtle.json */; };
 		610595CE2CE2140D005ED7B4 /* SubGoalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595CD2CE2140D005ED7B4 /* SubGoalCell.swift */; };
 		610595D22CE214CE005ED7B4 /* SubGoalDetailGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595D12CE214CE005ED7B4 /* SubGoalDetailGridView.swift */; };
 		610595D42CE21505005ED7B4 /* MainGoalSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595D32CE21505005ED7B4 /* MainGoalSheetView.swift */; };
@@ -168,6 +172,9 @@
 		1FE27C702CF0B7F600A4C6BE /* DaysCycleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysCycleView.swift; sourceTree = "<group>"; };
 		1FE27C742CF0C8AF00A4C6BE /* CompleteCycleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteCycleView.swift; sourceTree = "<group>"; };
 		1FE2B8D52CDFAF8600781E20 /* Int+GridExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+GridExtensions.swift"; sourceTree = "<group>"; };
+		1FFD92952CFEA2D2003E9D16 /* RoutineTurtleLottie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineTurtleLottie.swift; sourceTree = "<group>"; };
+		1FFD92972CFEA38B003E9D16 /* RoutineTurtle.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RoutineTurtle.json; sourceTree = "<group>"; };
+		1FFD92992CFECF5A003E9D16 /* MandalartTurtle.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MandalartTurtle.json; sourceTree = "<group>"; };
 		610595CD2CE2140D005ED7B4 /* SubGoalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubGoalCell.swift; sourceTree = "<group>"; };
 		610595D12CE214CE005ED7B4 /* SubGoalDetailGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubGoalDetailGridView.swift; sourceTree = "<group>"; };
 		610595D32CE21505005ED7B4 /* MainGoalSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGoalSheetView.swift; sourceTree = "<group>"; };
@@ -199,6 +206,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FFD92942CFEA26B003E9D16 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,6 +406,8 @@
 			isa = PBXGroup;
 			children = (
 				A14A18E12CFD52950013050F /* SpecificTagger4192.mlmodel */,
+				1FFD92992CFECF5A003E9D16 /* MandalartTurtle.json */,
+				1FFD92972CFEA38B003E9D16 /* RoutineTurtle.json */,
 				6107A3CA2CF88E11001189FA /* SpecificTagger3942.mlmodel */,
 				1F79EDD12CC0A25E0079088B /* Assets.xcassets */,
 				1F42BE742CDF824D00A59703 /* Font */,
@@ -476,6 +486,7 @@
 				1FD4053B2CED987700403A19 /* TurtleMessageView.swift */,
 				6107A3CE2CFED42E001189FA /* MandalartMessageView.swift */,
 				61CC00FC2CF0276B0009D063 /* DetailGoalColor.swift */,
+				1FFD92952CFEA2D2003E9D16 /* RoutineTurtleLottie.swift */,
 				1F100F3F2CFCA3A200130BA9 /* CustomTextModifier.swift */,
 			);
 			path = Helper;
@@ -599,6 +610,9 @@
 			dependencies = (
 			);
 			name = OneByte;
+			packageProductDependencies = (
+				1FFD92932CFEA26B003E9D16 /* Lottie */,
+			);
 			productName = OneByte;
 			productReference = 1F79EDCA2CC0A25D0079088B /* OneByte.app */;
 			productType = "com.apple.product-type.application";
@@ -627,6 +641,9 @@
 				Base,
 			);
 			mainGroup = 1F79EDC12CC0A25D0079088B;
+			packageReferences = (
+				1FFD92922CFEA26B003E9D16 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+			);
 			productRefGroup = 1F79EDCB2CC0A25D0079088B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -643,9 +660,11 @@
 			files = (
 				1F79EDD52CC0A25E0079088B /* Preview Assets.xcassets in Resources */,
 				1F42BE7F2CDF826D00A59703 /* Pretendard-Bold.otf in Resources */,
+				1FFD929A2CFECF5A003E9D16 /* MandalartTurtle.json in Resources */,
 				1F8591182CC0A68500253B38 /* .gitignore in Resources */,
 				1F42BE842CDF826D00A59703 /* Pretendard-Light.otf in Resources */,
 				1F42BE822CDF826D00A59703 /* Pretendard-Thin.otf in Resources */,
+				1FFD92982CFEA38B003E9D16 /* RoutineTurtle.json in Resources */,
 				1F42BE7E2CDF826D00A59703 /* Pretendard-ExtraBold.otf in Resources */,
 				1F42BE862CDF826D00A59703 /* Pretendard-ExtraLight.otf in Resources */,
 				1F42BE852CDF826D00A59703 /* Pretendard-Black.otf in Resources */,
@@ -713,6 +732,7 @@
 				615A0A0D2CC0AE8700908531 /* RoutineMainView.swift in Sources */,
 				1FD4052A2CECBFCB00403A19 /* RoutineModel.swift in Sources */,
 				1FB10A2C2CDF52E600D54EC5 /* OnboardingProgressBar.swift in Sources */,
+				1FFD92962CFEA2D2003E9D16 /* RoutineTurtleLottie.swift in Sources */,
 				1F599E282CE5F29500788D07 /* EditNicknameSheetView.swift in Sources */,
 				1F100F512CFCA62000130BA9 /* CloverCardProgressBar.swift in Sources */,
 				610595DD2CE2EA6C005ED7B4 /* DetailGoalView.swift in Sources */,
@@ -962,6 +982,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1FFD92922CFEA26B003E9D16 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1FFD92932CFEA26B003E9D16 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1FFD92922CFEA26B003E9D16 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1F79EDC22CC0A25D0079088B /* Project object */;
 }

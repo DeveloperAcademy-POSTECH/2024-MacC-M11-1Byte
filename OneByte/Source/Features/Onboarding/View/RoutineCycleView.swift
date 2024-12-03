@@ -46,7 +46,7 @@ struct RoutineCycleView: View {
                             .padding(.top, 14)
                         
                         Text(viewModel.targetSubGoal?.title ?? "서브목표")
-                            .font(.Pretendard.Medium.size20)
+                            .font(.Pretendard.ExtraBold.size20)
                             .foregroundStyle(.white)
                             .multilineTextAlignment(.center)
                             .padding(.top, 4)
