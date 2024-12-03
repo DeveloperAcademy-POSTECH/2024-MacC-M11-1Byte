@@ -343,12 +343,12 @@ struct StatisticView: View {
                                         .resizable()
                                         .frame(width: 12, height: 12)
                                     Text("초록 클로버")
-                                        .font(.Pretendard.SemiBold.size13)
+                                        .font(.Pretendard.SemiBold.size14)
                                         .foregroundStyle(.white)
                                 }
                                 .padding(.top, 14)
-                                Text("하나의 루틴이라도 계획대로 완수하면\n받을 수 있어요")
-                                    .font(.Pretendard.Regular.size13)
+                                Text("하나의 루틴이라도 계획대로\n완수하면 받을 수 있어요")
+                                    .font(.Pretendard.Regular.size14)
                                     .foregroundStyle(.white)
                                     .padding(.top, 4)
                                 HStack {
@@ -356,12 +356,12 @@ struct StatisticView: View {
                                         .resizable()
                                         .frame(width: 12, height: 12)
                                     Text("황금 클로버")
-                                        .font(.Pretendard.SemiBold.size13)
+                                        .font(.Pretendard.SemiBold.size14)
                                         .foregroundStyle(.white)
                                 }
                                 .padding(.top, 10)
                                 Text("모든 루틴을 계획대로 완수하면\n받을 수 있어요")
-                                    .font(.Pretendard.Regular.size13)
+                                    .font(.Pretendard.Regular.size14)
                                     .foregroundStyle(.white)
                                     .padding(.top, 4)
                             }
