@@ -6,6 +6,7 @@
 //
 import SwiftUI
 import SwiftData
+import Lottie
 
 struct MandalartView: View {
     @Environment(\.modelContext) private var modelContext
@@ -172,10 +173,10 @@ struct OuterGridView: View {
                         viewModel.triggerHapticOn()
                         currentMessage = messages.randomElement() ?? currentMessage
                     }, label: {
-                        Image("Turtle_5")
-                            .resizable()
+                        LottieView(animation: .named("MandalartTurtle"))
+                            .playing(loopMode: .repeat(2))
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 73/393 * UIScreen.main.bounds.width)
+                            .frame(width: 75/393 * UIScreen.main.bounds.width)
                     })
                     MandalartMessageView(message: currentMessage)
                         .padding(.bottom)

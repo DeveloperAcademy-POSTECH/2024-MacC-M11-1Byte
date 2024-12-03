@@ -21,7 +21,7 @@ struct SubGoalView: View {
     
     private let titleLimit = 20
     private let categoryLimit = 6
-    private let categories = ["건강", "학업", "여행", "저축", "자기계발", "취미 생활", "가족", "새로운 도전"]
+    private let categories = ["건강", "공부", "운동", "경제", "자기계발", "취미 생활", "일상", "집안일"]
     private let customCategoryLimit = 6
     
     private let viewModel = MandalartViewModel(
