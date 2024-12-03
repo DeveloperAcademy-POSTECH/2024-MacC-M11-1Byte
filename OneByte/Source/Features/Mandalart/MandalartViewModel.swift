@@ -11,6 +11,7 @@ import SwiftData
 import NaturalLanguage
 import CoreML
 import Combine
+import UIKit
 
 
 class MandalartViewModel: ObservableObject {
@@ -115,7 +116,7 @@ class MandalartViewModel: ObservableObject {
         return (category, isCustomCategoryActive)
     }
     
-    func presentShareSheet(with image: UIImage) {
+    func presentShareSheet(with image: UIImage, isClickedShare: Binding<Bool>, showToast: Binding<Bool>) {
         let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
 
         // 시트가 닫히는 시점을 감지
@@ -126,6 +127,8 @@ class MandalartViewModel: ObservableObject {
                 print("Sharing cancelled or failed.") // 공유 취소 또는 실패 시 동작
             }
             print("Share sheet dismissed.") // 시트가 닫힌 후 동작
+            isClickedShare.wrappedValue = false
+            self.showToastMessage(showToast: showToast)
         }
 
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
@@ -326,7 +329,16 @@ class MandalartViewModel: ObservableObject {
             return Color.myD6F3D4 // 기본 색상
         }
     }
-
+    
+    func showToastMessage(showToast: Binding<Bool>) {
+        showToast.wrappedValue = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            withAnimation {
+                showToast.wrappedValue = false
+            }
+        }
+    }
+    
 }
 
 struct TaggedWord {
