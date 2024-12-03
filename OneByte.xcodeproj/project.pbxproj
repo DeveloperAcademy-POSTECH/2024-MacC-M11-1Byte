@@ -76,6 +76,7 @@
 		1FFD92942CFEA26B003E9D16 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 1FFD92932CFEA26B003E9D16 /* Lottie */; };
 		1FFD92962CFEA2D2003E9D16 /* RoutineTurtleLottie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFD92952CFEA2D2003E9D16 /* RoutineTurtleLottie.swift */; };
 		1FFD92982CFEA38B003E9D16 /* RoutineTurtle.json in Resources */ = {isa = PBXBuildFile; fileRef = 1FFD92972CFEA38B003E9D16 /* RoutineTurtle.json */; };
+		1FFD929A2CFECF5A003E9D16 /* MandalartTurtle.json in Resources */ = {isa = PBXBuildFile; fileRef = 1FFD92992CFECF5A003E9D16 /* MandalartTurtle.json */; };
 		610595CE2CE2140D005ED7B4 /* SubGoalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595CD2CE2140D005ED7B4 /* SubGoalCell.swift */; };
 		610595D22CE214CE005ED7B4 /* SubGoalDetailGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595D12CE214CE005ED7B4 /* SubGoalDetailGridView.swift */; };
 		610595D42CE21505005ED7B4 /* MainGoalSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595D32CE21505005ED7B4 /* MainGoalSheetView.swift */; };
@@ -172,6 +173,7 @@
 		1FE2B8D52CDFAF8600781E20 /* Int+GridExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+GridExtensions.swift"; sourceTree = "<group>"; };
 		1FFD92952CFEA2D2003E9D16 /* RoutineTurtleLottie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineTurtleLottie.swift; sourceTree = "<group>"; };
 		1FFD92972CFEA38B003E9D16 /* RoutineTurtle.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RoutineTurtle.json; sourceTree = "<group>"; };
+		1FFD92992CFECF5A003E9D16 /* MandalartTurtle.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MandalartTurtle.json; sourceTree = "<group>"; };
 		610595CD2CE2140D005ED7B4 /* SubGoalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubGoalCell.swift; sourceTree = "<group>"; };
 		610595D12CE214CE005ED7B4 /* SubGoalDetailGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubGoalDetailGridView.swift; sourceTree = "<group>"; };
 		610595D32CE21505005ED7B4 /* MainGoalSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGoalSheetView.swift; sourceTree = "<group>"; };
@@ -402,6 +404,7 @@
 			isa = PBXGroup;
 			children = (
 				A14A18E12CFD52950013050F /* SpecificTagger4192.mlmodel */,
+				1FFD92992CFECF5A003E9D16 /* MandalartTurtle.json */,
 				1FFD92972CFEA38B003E9D16 /* RoutineTurtle.json */,
 				6107A3CA2CF88E11001189FA /* SpecificTagger3942.mlmodel */,
 				1F79EDD12CC0A25E0079088B /* Assets.xcassets */,
@@ -654,6 +657,7 @@
 			files = (
 				1F79EDD52CC0A25E0079088B /* Preview Assets.xcassets in Resources */,
 				1F42BE7F2CDF826D00A59703 /* Pretendard-Bold.otf in Resources */,
+				1FFD929A2CFECF5A003E9D16 /* MandalartTurtle.json in Resources */,
 				1F8591182CC0A68500253B38 /* .gitignore in Resources */,
 				1F42BE842CDF826D00A59703 /* Pretendard-Light.otf in Resources */,
 				1F42BE822CDF826D00A59703 /* Pretendard-Thin.otf in Resources */,

@@ -16,11 +16,11 @@ public struct RoutineTurtleLottie: View {
     public let loopMode: LottieLoopMode
     public let speed: CGFloat
     public enum LottieAnimationType: String {
-        case congratulations
+        case routineTurtle
         internal var filename: String {
             switch self {
-            case .congratulations:
-                "Congratulations"
+            case .routineTurtle:
+                "routineTurtle"
             }
         }
     }
@@ -40,5 +40,5 @@ public struct RoutineTurtleLottie: View {
 }
 
 #Preview {
-    RoutineTurtleLottie(.congratulations, loopMode: .loop, speed: 1.0)
+    RoutineTurtleLottie(.routineTurtle, loopMode: .loop, speed: 1.0)
 }
