@@ -63,7 +63,7 @@ struct AllRoutineView: View {
                             Text("아직 루틴이 없어요!")
                                 .font(.Pretendard.SemiBold.size18)
                                 .padding(.top)
-                            Text("만다라트에서 루틴을 추가해보세요.")
+                            Text("나의 목표에서 루틴을 추가해보세요.")
                                 .font(.Pretendard.Regular.size16)
                                 .foregroundStyle(Color.my878787)
                         }
