@@ -174,7 +174,7 @@ struct CloverCardView: View {
                     Text(data.category == "" ? "카테고리 없음" : data.category)
                         .font(.Pretendard.Bold.size12)
                         .foregroundStyle(.my505050)
-                        .frame(width: 62, alignment: .leading)
+                        .frame(width: 66, alignment: .leading)
                     CloverCardProgressBar(value: data.progress)
                         .progressViewStyle(LinearProgressViewStyle(tint: .myFFA64A))
                         .padding(.top, 3)
