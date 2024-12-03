@@ -17,6 +17,8 @@ struct StatisticView: View {
     @State private var isQuestionMarkClicked = false
     @Binding var isTabBarMainVisible: Bool
     
+    @State private var showCloverCardView: Bool = false  // 클로버 카드뷰 제어
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -60,6 +62,9 @@ struct StatisticView: View {
                     viewModel.setProfile(profile)
                 }
                 .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
+                .fullScreenCover(isPresented: $showCloverCardView) {
+                    CloverCardView()
+                }
             }
         }
     }
@@ -326,6 +331,7 @@ struct StatisticView: View {
                     }
                     Button(action: {
                         viewModel.isNextWeek.toggle()
+                        showCloverCardView.toggle()
                     }, label: {
                         HStack(alignment: .center, spacing: 10) {
                             Text("이번 주 마무리하고, 클로버 카드 받기")

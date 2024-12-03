@@ -81,14 +81,14 @@ struct TabBarManager: View {
                 }
             }
         }
-        .onChange(of: scenePhase) { oldPhase, newPhase in
-            if newPhase == .active {
-                isRoutineReset() // 앱이 활성화될 때마다 실행
-            }
-        }
-        .fullScreenCover(isPresented: $showCloverCardView) {
-            CloverCardView(selectedTab: $selectedTab)
-        }
+//        .onChange(of: scenePhase) { oldPhase, newPhase in
+//            if newPhase == .active {
+//                isRoutineReset() // 앱이 활성화될 때마다 실행
+//            }
+//        }
+//        .fullScreenCover(isPresented: $showCloverCardView) {
+//            CloverCardView(selectedTab: $selectedTab)
+//        }
     }
     
     // 초기화를 해야하는 새로운 주차인지 판별 -> true면 CloverView 로딩
