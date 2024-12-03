@@ -20,9 +20,46 @@ class MandalartViewModel: ObservableObject {
     @Published var detailGoalTitleText: String = ""
     private var cancellables = Set<AnyCancellable>()
     
-    private let mlModel: SpecificTagger6342
+    private let mlModel: SpecificTagger4192
     
     @Published var wwh: [Bool] = [false, false, false] // Where What HOW-MUCH 포함 여부 리스트
+    let whenList: [String] = [
+        "매일", "일일",
+        "매주", "주간",
+        "매달", "월간",
+        "매년", "연간",
+        "매시간", "매분", "매초",
+        "격주", "격월", "격년",
+        "매일매일",
+        "아침", "점심", "저녁",
+        "아침에", "점심에", "저녁에",
+        "오전", "오후", "밤", "새벽",
+        "오전에", "오후에", "밤에", "새벽에",
+        "월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"
+    ]
+    
+    let howMuchList: [String] = [
+        // 횟수
+        "한번", "두번", "세번", "네번", "다섯번", "여섯번", "일곱번", "여덟번", "아홉번", "열번", "하나", "둘", "셋", "넷", "다섯", "여섯", "일곱", "여덟", "아홉" ,"열", "두", "세",
+        
+        // 수량
+        "한개", "두개", "세개", "네개", "다섯개", "여섯개", "일곱개", "여덟개", "아홉개", "열개","한알", "두알", "세알", "네알",
+        
+        // 거리
+        "한바퀴", "두바퀴", "세바퀴", "네바퀴",
+        
+        // 시간
+        "한시간", "두시간", "세시간", "한차례", "두차례", "세차례",
+        
+        // 음료 및 음식
+        "한잔", "두잔", "세잔", "한접시", "두접시", "세접시", "한그릇", "두그릇", "세그릇", "한컵", "두컵", "세컵",
+        
+        // 운동
+        "한세트", "두세트", "세세트", "한회", "두회", "세회",
+        
+        //문제
+        "한문제", "두문제", "세문제"
+    ]
     
     private let createService: CreateGoalUseCase
     private let updateService: UpdateGoalUseCase
@@ -32,7 +69,7 @@ class MandalartViewModel: ObservableObject {
         self.createService = createService
         self.updateService = updateService
         self.deleteService = deleteService
-        self.mlModel = try! SpecificTagger6342(configuration: MLModelConfiguration())
+        self.mlModel = try! SpecificTagger4192(configuration: MLModelConfiguration())
         self.manageWordTagger()
     }
     
@@ -177,10 +214,6 @@ class MandalartViewModel: ObservableObject {
             return
         }
         do {
-            let input = SpecificTagger6342Input(text: detailGoalTitleText)
-            let output = try mlModel.prediction(input: input)
-            let tags = output.labels
-            
             let tokenizer = NLTokenizer(unit: .word)
             tokenizer.string = detailGoalTitleText
             var tokens: [String] = []
@@ -192,13 +225,14 @@ class MandalartViewModel: ObservableObject {
             }
             
             var results: [TaggedWord] = []
-            
-            for (word,tag) in zip(tokens, tags) {
-                let taggedWord = TaggedWord(word: word, tag: tag)
+            for word in tokens {
+                let input = SpecificTagger4192Input(text: word)
+                let output = try mlModel.prediction(input: input)
+                let tag = output.labels
+                let taggedWord = TaggedWord(word: word, tag: tag.first ?? "")
                 results.append(taggedWord)
             }
             wwh = convertToWWH(taggedWords: results)
-
         } catch {
             wwh = [false,false,false]
             print("Error loading model or making prediction: \(error)")
@@ -209,6 +243,13 @@ class MandalartViewModel: ObservableObject {
         var wwh: [Bool] = [false,false,false]
         
         for word in taggedWords {
+            if howMuchList.contains(word.word) {
+                wwh[2] = true
+                continue
+            }
+            if whenList.contains(word.word) {
+                continue
+            }
             if word.tag == "WHERE" {
                 print("WHERE: \(word.word)")
                 wwh[0] = true
