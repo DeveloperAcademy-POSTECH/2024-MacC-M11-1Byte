@@ -174,6 +174,10 @@ class MandalartViewModel: ObservableObject {
             return
         }
         do {
+            let input = SpecificTagger5267Input(text: detailGoalTitleText)
+            let output = try mlModel.prediction(input: input)
+            let tags = output.labels
+            
             let tokenizer = NLTokenizer(unit: .word)
             tokenizer.string = detailGoalTitleText
             var tokens: [String] = []
@@ -185,14 +189,13 @@ class MandalartViewModel: ObservableObject {
             }
             
             var results: [TaggedWord] = []
-            for word in tokens {
-                let input = SpecificTagger5267Input(text: word)
-                let output = try mlModel.prediction(input: input)
-                let tag = output.labels
-                let taggedWord = TaggedWord(word: word, tag: tag.first ?? "")
+            
+            for (word,tag) in zip(tokens, tags) {
+                let taggedWord = TaggedWord(word: word, tag: tag)
                 results.append(taggedWord)
             }
             wwh = convertToWWH(taggedWords: results)
+
         } catch {
             wwh = [false,false,false]
             print("Error loading model or making prediction: \(error)")
