@@ -23,10 +23,23 @@ class MandalartViewModel: ObservableObject {
     private let mlModel: SpecificTagger4192
     
     @Published var wwh: [Bool] = [false, false, false] // Where What HOW-MUCH 포함 여부 리스트
+    let whenList: [String] = [
+        "매일", "일일",
+        "매주", "주간",
+        "매달", "월간",
+        "매년", "연간",
+        "매시간", "매분", "매초",
+        "격주", "격월", "격년",
+        "매일매일",
+        "아침", "점심", "저녁",
+        "아침에", "점심에", "저녁에",
+        "오전", "오후", "밤", "새벽",
+        "오전에", "오후에", "밤에", "새벽에"
+    ]
     
     let howMuchList: [String] = [
         // 횟수
-        "한번", "두번", "세번", "네번", "다섯번", "여섯번", "일곱번", "여덟번", "아홉번", "열번", "하나", "둘", "셋", "넷", "다섯", "여섯", "일곱", "여덟", "아홉" ,"열",
+        "한번", "두번", "세번", "네번", "다섯번", "여섯번", "일곱번", "여덟번", "아홉번", "열번", "하나", "둘", "셋", "넷", "다섯", "여섯", "일곱", "여덟", "아홉" ,"열", "두", "세",
         
         // 수량
         "한개", "두개", "세개", "네개", "다섯개", "여섯개", "일곱개", "여덟개", "아홉개", "열개","한알", "두알", "세알", "네알",
@@ -231,6 +244,9 @@ class MandalartViewModel: ObservableObject {
         for word in taggedWords {
             if howMuchList.contains(word.word) {
                 wwh[2] = true
+                continue
+            }
+            if whenList.contains(word.word) {
                 continue
             }
             if word.tag == "WHERE" {
