@@ -20,7 +20,7 @@ class MandalartViewModel: ObservableObject {
     @Published var detailGoalTitleText: String = ""
     private var cancellables = Set<AnyCancellable>()
     
-    private let mlModel: SpecificTagger6232
+    private let mlModel: SpecificTagger6342
     
     @Published var wwh: [Bool] = [false, false, false] // Where What HOW-MUCH 포함 여부 리스트
     
@@ -32,7 +32,7 @@ class MandalartViewModel: ObservableObject {
         self.createService = createService
         self.updateService = updateService
         self.deleteService = deleteService
-        self.mlModel = try! SpecificTagger6232(configuration: MLModelConfiguration())
+        self.mlModel = try! SpecificTagger6342(configuration: MLModelConfiguration())
         self.manageWordTagger()
     }
     
@@ -177,7 +177,7 @@ class MandalartViewModel: ObservableObject {
             return
         }
         do {
-            let input = SpecificTagger6232Input(text: detailGoalTitleText)
+            let input = SpecificTagger6342Input(text: detailGoalTitleText)
             let output = try mlModel.prediction(input: input)
             let tags = output.labels
             
