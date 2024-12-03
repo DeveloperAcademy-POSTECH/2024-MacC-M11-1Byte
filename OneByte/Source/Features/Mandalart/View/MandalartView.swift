@@ -6,6 +6,7 @@
 //
 import SwiftUI
 import SwiftData
+import Lottie
 
 struct MandalartView: View {
     @Environment(\.modelContext) private var modelContext
@@ -13,25 +14,72 @@ struct MandalartView: View {
     @State var isPresented = false
     @State private var mainGoal: MainGoal?
     @State var tabBarVisible: Bool = true
+    @State private var isClickedShare: Bool = false
+    @State private var capturedImage: UIImage? = nil
+    @State private var showToast: Bool = false
     
     @Binding var isTabBarMainVisible: Bool
     
     @Query private var mainGoals: [MainGoal]
     
+    private let viewModel = MandalartViewModel(
+        createService: CreateService(),
+        updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []),
+        deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: [])
+    )
+    
     var body: some View {
         NavigationStack() {
             ZStack {
                 Color.myFFFAF4
-                    .ignoresSafeArea(edges: .top)
+                    .ignoresSafeArea(edges: .all)
                 if let firstMainGoal = mainGoals.first {
-                    OuterGridView(mainGoal: $mainGoal, isTabBarMainVisible: $isTabBarMainVisible, tabBarVisible: $tabBarVisible)
+                    OuterGridView(mainGoal: $mainGoal, isTabBarMainVisible: $isTabBarMainVisible, capturedImage:
+                                    $capturedImage, tabBarVisible: $tabBarVisible, isClickedShare: $isClickedShare)
                         .environment(\.modelContext, modelContext)
                         .onAppear {
                             mainGoal = firstMainGoal
                         }
                         .padding(.horizontal)
                 }
+                if isClickedShare {
+                    Color.black.opacity(0.3) // 배경 색상
+                        .ignoresSafeArea()
+                        .padding(-40)
+                    shareAlert()
+                }
+                
+                if showToast {
+                    VStack {
+                        Spacer()
+                        HStack(spacing: 0) {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundStyle(.my6FB56F)
+                                .background{
+                                    Circle()
+                                        .foregroundStyle(.white)
+                                        .frame(width: 15, height: 15)
+                                }
+                                .padding(.leading, 20)
+                            Text("완료되었습니다!")
+                                .font(.Pretendard.Bold.size16)
+                                .foregroundStyle(.white)
+                                .padding(.leading, 8)
+                            Spacer()
+                        }
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 50)
+                        .blur(radius: 0.1)
+                        .background(Color.my887B6D)
+                        .cornerRadius(8)
+                    }
+                    .padding(.bottom, 40)
+                    .padding(.horizontal)
+                    .animation(.easeInOut, value: showToast)
+                    .transition(.opacity)
+                }
             }
+            
         }
     }
 }
@@ -43,13 +91,14 @@ struct OuterGridView: View {
     @Binding var mainGoal: MainGoal?
     @Binding var isTabBarMainVisible: Bool
 
-    @State private var capturedImage: UIImage? = nil
+    @Binding var capturedImage: UIImage?
     @State var mainIsPresented: Bool = false
     @State private var selectedSubGoal: SubGoal? // 선택된 SubGoal을 관리
     @State private var isSubNavigationActive: Bool = false // 네비게이션 활성화 상태
     @Binding var tabBarVisible: Bool
     @State private var showAlert = false
     @State private var isEdited = false
+    @Binding var isClickedShare: Bool
     
     private let dateManager = DateManager()
     private let currentDate = Date()
@@ -73,79 +122,73 @@ struct OuterGridView: View {
     
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            // 날짜 및 공유, 설정 버튼
-            HStack(alignment: .center ,spacing: 0) {
-                // 한국 날짜 형식으로 오늘 날짜 표시
-                Text("클로버 심기")
-                    .font(.Pretendard.Bold.size22)
-                    .foregroundStyle(Color.myB4A99D)
+        ZStack {
+            VStack(alignment: .leading, spacing: 0) {
+                // 날짜 및 공유, 설정 버튼
+                HStack(alignment: .center ,spacing: 0) {
+                    // 한국 날짜 형식으로 오늘 날짜 표시
+                    Text("클로버 심기")
+                        .font(.Pretendard.Bold.size22)
+                        .foregroundStyle(Color.myB4A99D)
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        isClickedShare = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            let capImage = captureView()
+                                .padding(.horizontal)
+                                .padding(.top, -60) // 이부분은 캡처 화면을 자르기 위함!
+                                .background(.white)
+                            capturedImage = capImage.snapshot()
+                        }
+                        
+                    }) {
+                        Label("", systemImage: "square.and.arrow.up")
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundStyle(Color.my566956)
+                            .font(.system(size: 20, weight: .medium))
+                    }
+                    .padding(.trailing, 14)
+                    
+                    
+                    NavigationLink {
+                        SettingView(isTabBarMainVisible: $isTabBarMainVisible)
+                    } label: {
+                        Image("SettingDark")
+                            .resizable()
+                            .frame(width: 24, height: 24)
+                    }
+                }
+                .padding(.horizontal, 10)
+                .padding(.top, 8)
                 
+                // 목표 & 만다라트 그리드
+                captureView()
                 Spacer()
                 
-                Button(action: {
-                    if let capturedImage = capturedImage {
-                        viewModel.presentShareSheet(with: capturedImage)
-                    }
-                }) {
-                    Label("", systemImage: "square.and.arrow.up")
-                        .aspectRatio(contentMode: .fit)
-                        .foregroundStyle(Color.my566956)
-                        .font(.system(size: 20, weight: .medium))
+                // 다라 & comment
+                HStack() {
+                    Button(action: {
+                        viewModel.triggerHapticOn()
+                        currentMessage = messages.randomElement() ?? currentMessage
+                    }, label: {
+                        LottieView(animation: .named("MandalartTurtle"))
+                            .playing(loopMode: .repeat(2))
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 75/393 * UIScreen.main.bounds.width)
+                    })
+                    MandalartMessageView(message: currentMessage)
+                        .padding(.bottom)
                 }
-                .padding(.trailing, 14)
-
-                
-                NavigationLink {
-                    SettingView(isTabBarMainVisible: $isTabBarMainVisible)
-                } label: {
-                    Image("SettingDark")
-                        .resizable()
-                        .frame(width: 24, height: 24)
-                }
+                .padding(.bottom, 47/852 * UIScreen.main.bounds.height)
+                Spacer()
             }
-            .padding(.horizontal, 10)
-            .padding(.top, 8)
-            
-            // 목표 & 만다라트 그리드
-            captureView()
-            Spacer()
-            
-            // 다라 & comment
-            HStack() {
-                Button(action: {
-                    viewModel.triggerHapticOn()
-                    currentMessage = messages.randomElement() ?? currentMessage
-                }, label: {
-                    Image("Turtle_5")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 73/393 * UIScreen.main.bounds.width)
-                })
-                Text(currentMessage)
-                    .font(.Pretendard.Medium.size14)
-                    .multilineTextAlignment(.leading)
-                    .padding(EdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 15))
-                    .background(
-                        Image("comment")
-                            .resizable()
-                            .scaledToFill()
-                    )
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
-            .padding(.bottom, 47/852 * UIScreen.main.bounds.height)
-            Spacer()
         }
         .onAppear {
             isTabBarMainVisible = true
             tabBarVisible = true
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                capturedImage = captureView()
-                    .padding()
-                    .padding(.top, -30) // 이부분은 캡처 화면을 자르기 위함!
-                    .background(.myFFFAF4)
-                    .snapshot()
-            }
+            
             currentMessage = messages.randomElement() ?? ""
         }
         .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
@@ -186,17 +229,6 @@ extension OuterGridView {
                             MainGoalsheetView(mainGoal: $mainGoal, isPresented: $mainIsPresented, isEdited: $isEdited)
                                 .presentationDragIndicator(.visible)
                                 .presentationDetents([.height(244/852 * UIScreen.main.bounds.height)])
-                        }
-                        .onChange(of: mainIsPresented) { old, new in
-                            if mainIsPresented == false {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                    capturedImage = captureView()
-                                        .padding()
-                                        .padding(.top, -30) // 이부분은 캡처 화면을 자르기 위함!
-                                        .background(.myFFFAF4)
-                                        .snapshot()
-                                }
-                            }
                         }
                     }
                     if mainGoal?.title == "" {
@@ -249,6 +281,60 @@ extension OuterGridView {
             }
             Spacer()
         }
+    }
+}
+
+extension MandalartView {
+    @ViewBuilder
+    func shareAlert() -> some View {
+        VStack(spacing: 0) {
+            if let image = capturedImage {
+                Text("\"오늘 할 수 있는 작은 일부터 시작해 보세요\n꾸준함이 곧 당신의 습관이 될 거예요!\"")
+                    .font(.Pretendard.Medium.size14)
+                    .foregroundStyle(.black)
+                    .multilineTextAlignment(.center)
+                    .padding(.top, 20)
+                
+                // 메인 카드
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFit()
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .frame(width: 251/393 * UIScreen.main.bounds.width)
+                    .padding(.top, 12)
+                // 공유 및 저장 버튼
+                Button(action: {
+                    if let capturedImage = capturedImage {
+                        viewModel.presentShareSheet(with: capturedImage, isClickedShare: $isClickedShare, showToast: $showToast)
+                    }
+                }) {
+                    Text("공유하기")
+                        .font(.Pretendard.Medium.size16)
+                        .padding(EdgeInsets(top: 14, leading: 30, bottom: 10, trailing: 30))
+                        .foregroundStyle(.my235223)
+                }
+                
+                Divider()
+                    .padding(.horizontal, 22)
+                Button(action: {
+                    if let imageToSave = capturedImage {
+                        UIImageWriteToSavedPhotosAlbum(imageToSave, nil, nil, nil)
+                    }
+                    isClickedShare = false
+                    viewModel.showToastMessage(showToast: $showToast)
+                }) {
+                    Text("이미지 저장")
+                        .font(.Pretendard.Medium.size16)
+                        .padding(EdgeInsets(top: 10, leading: 30, bottom: 14, trailing: 30))
+                        .foregroundStyle(.my235223)
+                }
+                
+                Spacer()
+            }
+        }
+        .frame(width: 317/393 * UIScreen.main.bounds.width, height: 460/852 * UIScreen.main.bounds.height, alignment: .top)
+        .background(.myF4F2F2)
+        .cornerRadius(12)
     }
 }
 struct Photo: Transferable {
