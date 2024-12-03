@@ -127,6 +127,7 @@ struct StatisticView: View {
         : minMonth
         
         let currentWeekOfMonth = viewModel.currentWeekOfMonth
+        let currentWeekOfYear = viewModel.currentWeekOfYear
         ZStack(alignment: .topTrailing) {
             VStack(spacing: 12) {
                 VStack(spacing: 4) {
@@ -244,7 +245,7 @@ struct StatisticView: View {
                                         
                                         if let firstClover = cloverForWeek.first {
                                             // 이번 주차는 클로버 상태를 표시하지 않음
-                                            if firstClover.cloverWeekOfMonth == currentWeekOfMonth {
+                                            if firstClover.cloverWeekOfYear == currentWeekOfYear {
                                                 Image("Clover_Empty")
                                                     .resizable()
                                                     .frame(width: 41, height: 41)
