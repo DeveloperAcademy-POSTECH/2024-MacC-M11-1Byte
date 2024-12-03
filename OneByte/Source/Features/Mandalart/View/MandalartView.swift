@@ -177,15 +177,8 @@ struct OuterGridView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 73/393 * UIScreen.main.bounds.width)
                     })
-                    Text(currentMessage)
-                        .font(.Pretendard.Medium.size14)
-                        .multilineTextAlignment(.leading)
-                        .padding(EdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 15))
-                        .background(
-                            Image("comment")
-                                .resizable()
-                                .scaledToFill()
-                        )
+                    MandalartMessageView(message: currentMessage)
+                        .padding(.bottom)
                 }
                 .padding(.bottom, 47/852 * UIScreen.main.bounds.height)
                 Spacer()

@@ -80,7 +80,7 @@
 		610595D92CE2584D005ED7B4 /* MadalartShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595D82CE2584D005ED7B4 /* MadalartShape.swift */; };
 		610595DD2CE2EA6C005ED7B4 /* DetailGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595DC2CE2EA6C005ED7B4 /* DetailGoalView.swift */; };
 		6107A3CB2CF88E11001189FA /* SpecificTagger3942.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 6107A3CA2CF88E11001189FA /* SpecificTagger3942.mlmodel */; };
-		6107A3CD2CFE98F1001189FA /* hifi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6107A3CC2CFE98F1001189FA /* hifi.swift */; };
+		6107A3CF2CFED42E001189FA /* MandalartMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6107A3CE2CFED42E001189FA /* MandalartMessageView.swift */; };
 		613904E82CD20457008E591D /* MandalartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E72CD20457008E591D /* MandalartView.swift */; };
 		613904EA2CD21A0B008E591D /* MandalartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613904E92CD21A0B008E591D /* MandalartViewModel.swift */; };
 		615A0A0B2CC0ADA800908531 /* TabBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615A0A0A2CC0ADA800908531 /* TabBarManager.swift */; };
@@ -175,7 +175,7 @@
 		610595D82CE2584D005ED7B4 /* MadalartShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadalartShape.swift; sourceTree = "<group>"; };
 		610595DC2CE2EA6C005ED7B4 /* DetailGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGoalView.swift; sourceTree = "<group>"; };
 		6107A3CA2CF88E11001189FA /* SpecificTagger3942.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = SpecificTagger3942.mlmodel; path = Font/SpecificTagger3942.mlmodel; sourceTree = "<group>"; };
-		6107A3CC2CFE98F1001189FA /* hifi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hifi.swift; sourceTree = "<group>"; };
+		6107A3CE2CFED42E001189FA /* MandalartMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalartMessageView.swift; sourceTree = "<group>"; };
 		613904E72CD20457008E591D /* MandalartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalartView.swift; sourceTree = "<group>"; };
 		613904E92CD21A0B008E591D /* MandalartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MandalartViewModel.swift; sourceTree = "<group>"; };
 		615A0A0A2CC0ADA800908531 /* TabBarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarManager.swift; sourceTree = "<group>"; };
@@ -344,7 +344,6 @@
 				613904E72CD20457008E591D /* MandalartView.swift */,
 				610595CD2CE2140D005ED7B4 /* SubGoalCell.swift */,
 				610595D12CE214CE005ED7B4 /* SubGoalDetailGridView.swift */,
-				6107A3CC2CFE98F1001189FA /* hifi.swift */,
 				610595DE2CE2EACA005ED7B4 /* Sheet */,
 			);
 			path = View;
@@ -475,6 +474,7 @@
 				1FB10A2B2CDF52E600D54EC5 /* OnboardingProgressBar.swift */,
 				1F100F502CFCA62000130BA9 /* CloverCardProgressBar.swift */,
 				1FD4053B2CED987700403A19 /* TurtleMessageView.swift */,
+				6107A3CE2CFED42E001189FA /* MandalartMessageView.swift */,
 				61CC00FC2CF0276B0009D063 /* DetailGoalColor.swift */,
 				1F100F3F2CFCA3A200130BA9 /* CustomTextModifier.swift */,
 			);
@@ -678,13 +678,13 @@
 				1F599E362CE6648B00788D07 /* PrivacyPolicyRow.swift in Sources */,
 				1F599E3A2CE66AA300788D07 /* SettingViewModel.swift in Sources */,
 				1FD405302CECC42500403A19 /* AllRoutineViewModel.swift in Sources */,
-				6107A3CD2CFE98F1001189FA /* hifi.swift in Sources */,
 				1F599E2A2CE5F77000788D07 /* Profile.swift in Sources */,
 				1FE27C712CF0B7F600A4C6BE /* DaysCycleView.swift in Sources */,
 				1F42BE892CDF838500A59703 /* Font+.swift in Sources */,
 				1F4D8BF02CDF4F9E00A0B5CC /* OnboardingStartView.swift in Sources */,
 				1FB10A382CDF5FE800D54EC5 /* OnboardingExplain.swift in Sources */,
 				1F18DD862CEA3869000F0E3E /* Clover.swift in Sources */,
+				6107A3CF2CFED42E001189FA /* MandalartMessageView.swift in Sources */,
 				610595D62CE23653005ED7B4 /* DeleteService.swift in Sources */,
 				1F88AB412CD6101C0009730D /* Date+.swift in Sources */,
 				1F100F482CFCA47800130BA9 /* CloverCardViewModel.swift in Sources */,
