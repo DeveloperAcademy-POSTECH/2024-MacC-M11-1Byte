@@ -39,10 +39,10 @@ struct DaysCycleView: View {
                     .overlay (
                         VStack(spacing: 6) {
                             Text(viewModel.targetSubGoal?.title ?? "No SubGoal")
-                                .font(.Pretendard.Medium.size16)
+                                .font(.Pretendard.Bold.size16)
                                 .foregroundStyle(.my538F53)
                             Text(viewModel.targetDetailGoal?.title ?? "No DetailGoal")
-                                .font(.Pretendard.Medium.size20)
+                                .font(.Pretendard.SemiBold.size20)
                         }
                     )
                     .padding(.top, 32)

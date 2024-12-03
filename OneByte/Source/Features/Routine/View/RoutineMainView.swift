@@ -18,8 +18,6 @@ struct RoutineMainView: View {
     @Query var clovers: [Clover]
     @Binding var isTabBarMainVisible: Bool
     
-    @State private var isPlaying = false
-    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -86,7 +84,7 @@ struct RoutineMainView: View {
     
     // MARK: 동기부여 메시지 뷰
     private func motivationMessageView() -> some View {
-        HStack(spacing: 8) {
+        HStack(spacing: 6) {
             Spacer()
             TurtleMessageView(message: viewModel.currentMessage)
                 .padding(.bottom, 60)
@@ -98,18 +96,8 @@ struct RoutineMainView: View {
                     viewModel.routineTurtleHaptic()
                 }
                 .frame(width: 105, height: 100)
-            
-            //            Image("Turtle_Main")
-            //                .resizable()
-            //                .scaledToFit()
-            //                .frame(width: 105, height: 85)
-            //                .onTapGesture {
-            //                    viewModel.updateRandomMessage()
-            //                    viewModel.routineTurtleHaptic()
-            //                }
         }
-        .padding(.leading, 16)
-        .padding(.trailing, 13)
+        .padding(.trailing, 10)
         .padding(.top, 14)
     }
     
@@ -139,7 +127,6 @@ struct RoutineMainView: View {
         }
     }
 }
-
 
 #Preview {
     RoutineMainView(isTabBarMainVisible: .constant(true))

@@ -18,7 +18,7 @@ struct DaysCycleCell: View {
             Text(day)
                 .font(.Pretendard.Medium.size14)
                 .foregroundStyle(.white)
-                .frame(width: 28, height: 28)
+                .frame(width: 36, height: 36)
                 .background(.my6FB56F)
                 .clipShape(Circle())
         }

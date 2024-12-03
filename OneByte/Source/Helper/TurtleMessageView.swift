@@ -17,7 +17,7 @@ struct TurtleMessageView: View {
             .foregroundStyle(.my3C3C3C)
             .multilineTextAlignment(.leading)
             .frame(height: 55)
-            .kerning(0.28)
+            .kerning(0.24)
             .padding(.horizontal, 20)
             .background(.myD4E5CC)
             .clipShape(RoundedRectangle(cornerRadius: 50.0, style: .continuous))
