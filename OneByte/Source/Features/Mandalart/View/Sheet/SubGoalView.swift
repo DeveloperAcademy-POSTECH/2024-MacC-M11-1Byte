@@ -56,6 +56,9 @@ struct SubGoalView: View {
                 Button(action: {
                     isModified = false
                     subNavigation = false
+                    if isCustomCategoryActive == true {
+                        selectedCategory = customCategory
+                    }
                     if let subGoal = subGoal {
                         viewModel.updateSubGoal(
                             subGoal: subGoal,
