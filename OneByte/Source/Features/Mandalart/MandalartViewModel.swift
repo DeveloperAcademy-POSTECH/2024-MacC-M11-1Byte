@@ -20,7 +20,7 @@ class MandalartViewModel: ObservableObject {
     @Published var detailGoalTitleText: String = ""
     private var cancellables = Set<AnyCancellable>()
     
-    private let mlModel: SpecificTagger4192
+    private let mlModel: SpecificTagger6342
     
     @Published var wwh: [Bool] = [false, false, false] // Where What HOW-MUCH 포함 여부 리스트
     
@@ -32,7 +32,7 @@ class MandalartViewModel: ObservableObject {
         self.createService = createService
         self.updateService = updateService
         self.deleteService = deleteService
-        self.mlModel = try! SpecificTagger4192(configuration: MLModelConfiguration())
+        self.mlModel = try! SpecificTagger6342(configuration: MLModelConfiguration())
         self.manageWordTagger()
     }
     
@@ -177,6 +177,10 @@ class MandalartViewModel: ObservableObject {
             return
         }
         do {
+            let input = SpecificTagger6342Input(text: detailGoalTitleText)
+            let output = try mlModel.prediction(input: input)
+            let tags = output.labels
+            
             let tokenizer = NLTokenizer(unit: .word)
             tokenizer.string = detailGoalTitleText
             var tokens: [String] = []
@@ -188,14 +192,13 @@ class MandalartViewModel: ObservableObject {
             }
             
             var results: [TaggedWord] = []
-            for word in tokens {
-                let input = SpecificTagger4192Input(text: word)
-                let output = try mlModel.prediction(input: input)
-                let tag = output.labels
-                let taggedWord = TaggedWord(word: word, tag: tag.first ?? "")
+            
+            for (word,tag) in zip(tokens, tags) {
+                let taggedWord = TaggedWord(word: word, tag: tag)
                 results.append(taggedWord)
             }
             wwh = convertToWWH(taggedWords: results)
+
         } catch {
             wwh = [false,false,false]
             print("Error loading model or making prediction: \(error)")

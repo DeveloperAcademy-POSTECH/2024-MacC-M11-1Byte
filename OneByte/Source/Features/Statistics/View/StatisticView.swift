@@ -60,7 +60,7 @@ struct StatisticView: View {
                     viewModel.setProfile(profile)
                 }
                 .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
-                            }
+            }
         }
     }
     
@@ -81,7 +81,7 @@ struct StatisticView: View {
                 .fill(Color.my6FB56F)
                 .frame(maxWidth: .infinity)
                 .frame(height: 114)
-        
+            
             VStack(spacing: 0) {
                 HStack {
                     Spacer()
@@ -118,11 +118,11 @@ struct StatisticView: View {
         let maxMonth = viewModel.currentYearCloverMonthRange.max
         
         let throughMonth = (maxMonth - minMonth > 2)
-            ? (isOpenedWeeklyCloverInfo ? minMonth : maxMonth - 2)
-            : minMonth
+        ? (isOpenedWeeklyCloverInfo ? minMonth : maxMonth - 2)
+        : minMonth
         
         let currentWeekOfMonth = viewModel.currentWeekOfMonth
-        ZStack {
+        ZStack(alignment: .topTrailing) {
             VStack(spacing: 12) {
                 VStack(spacing: 4) {
                     HStack {
@@ -314,8 +314,8 @@ struct StatisticView: View {
             if (isQuestionMarkClicked) {
                 Group {
                     Image("Stat_Polygon")
-                        .padding(.leading, 333)
-                        .padding(.top, -97)
+                        .padding(.top, -8)
+                        .padding(.trailing, 4)
                     Rectangle()
                         .frame(width: 220, height: 178)
                         .foregroundStyle(.my897C6E)
@@ -343,12 +343,12 @@ struct StatisticView: View {
                                         .resizable()
                                         .frame(width: 12, height: 12)
                                     Text("초록 클로버")
-                                        .font(.Pretendard.SemiBold.size13)
+                                        .font(.Pretendard.SemiBold.size14)
                                         .foregroundStyle(.white)
                                 }
                                 .padding(.top, 14)
-                                Text("하나의 루틴이라도 계획대로 완수하면\n받을 수 있어요")
-                                    .font(.Pretendard.Regular.size13)
+                                Text("하나의 루틴이라도 계획대로\n완수하면 받을 수 있어요")
+                                    .font(.Pretendard.Regular.size14)
                                     .foregroundStyle(.white)
                                     .padding(.top, 4)
                                 HStack {
@@ -356,23 +356,21 @@ struct StatisticView: View {
                                         .resizable()
                                         .frame(width: 12, height: 12)
                                     Text("황금 클로버")
-                                        .font(.Pretendard.SemiBold.size13)
+                                        .font(.Pretendard.SemiBold.size14)
                                         .foregroundStyle(.white)
                                 }
                                 .padding(.top, 10)
                                 Text("모든 루틴을 계획대로 완수하면\n받을 수 있어요")
-                                    .font(.Pretendard.Regular.size13)
+                                    .font(.Pretendard.Regular.size14)
                                     .foregroundStyle(.white)
                                     .padding(.top, 4)
                             }
                             .padding(.leading, 12)
                             .padding(.bottom, 16)
                         }
-                        .padding(.leading, 140)
                 }
-                .padding(.bottom, 200/852 * UIScreen.main.bounds.height)
+                .padding(.top, 30)
             }
-
         }
     }
 }
