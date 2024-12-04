@@ -29,6 +29,9 @@ struct StatisticView: View {
                         Text("나의 클로버")
                             .font(.Pretendard.Bold.size22)
                             .foregroundStyle(Color.myB4A99D)
+                            .onTapGesture {
+                                viewModel.isNextWeek.toggle()
+                            }
                         
                         Spacer()
                         
@@ -63,7 +66,7 @@ struct StatisticView: View {
                 }
                 .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
                 .fullScreenCover(isPresented: $showCloverCardView) {
-                    CloverCardView()
+                    CloverCardView(isNextWeek: $viewModel.isNextWeek)
                 }
             }
         }
@@ -245,7 +248,7 @@ struct StatisticView: View {
                                         
                                         if let firstClover = cloverForWeek.first {
                                             // 이번 주차는 클로버 상태를 표시하지 않음
-                                            if firstClover.cloverWeekOfYear == currentWeekOfYear {
+                                            if firstClover.cloverWeekOfYear == currentWeekOfYear && firstClover.cloverWeekOfMonth == currentWeekOfMonth {
                                                 Image("Clover_Empty")
                                                     .resizable()
                                                     .frame(width: 41, height: 41)
@@ -331,7 +334,6 @@ struct StatisticView: View {
                         Spacer()
                     }
                     Button(action: {
-                        viewModel.isNextWeek.toggle()
                         showCloverCardView.toggle()
                     }, label: {
                         HStack(alignment: .center, spacing: 10) {
