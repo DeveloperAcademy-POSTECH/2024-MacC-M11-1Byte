@@ -203,7 +203,7 @@ class StatisticViewModel {
         
         for clover in clovers {
             // 이번 주 클로버는 아직 결정되지 않았음으로 계산되면 안 된다
-            if clover.cloverWeekOfYear == currentWeekOfYear && !isNextWeek {
+            if clover.cloverWeekOfYear == currentWeekOfYear && clover.cloverWeekOfMonth == currentWeekOfMonth && !isNextWeek {
                 continue
             } else {
                 switch clover.cloverState {
