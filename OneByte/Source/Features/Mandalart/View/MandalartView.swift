@@ -90,11 +90,12 @@ struct OuterGridView: View {
     @Environment(\.managedObjectContext) private var context
     @Binding var mainGoal: MainGoal?
     @Binding var isTabBarMainVisible: Bool
-
+    @Query var clovers: [Clover]
     @Binding var capturedImage: UIImage?
     @State var mainIsPresented: Bool = false
     @State private var selectedSubGoal: SubGoal? // 선택된 SubGoal을 관리
     @State private var isSubNavigationActive: Bool = false // 네비게이션 활성화 상태
+    @State private var showcaseAlert: Bool = false
     @Binding var tabBarVisible: Bool
     @State private var showAlert = false
     @State private var isEdited = false
@@ -127,9 +128,24 @@ struct OuterGridView: View {
                 // 날짜 및 공유, 설정 버튼
                 HStack(alignment: .center ,spacing: 0) {
                     // 한국 날짜 형식으로 오늘 날짜 표시
-                    Text("클로버 심기")
-                        .font(.Pretendard.Bold.size22)
-                        .foregroundStyle(Color.myB4A99D)
+                    Button(action: {
+                        showcaseAlert = true
+                    }, label: {
+                        Text("클로버 심기")
+                            .font(.Pretendard.Bold.size22)
+                            .foregroundStyle(Color.myB4A99D)
+                    })
+                    .alert("삭제할겨?", isPresented: $showcaseAlert) {
+                        Button("삭제하기", role: .destructive) {
+                            if let mainGoal = mainGoal {
+                                viewModel.delete1SubData(mainGoal: mainGoal, days: ["월", "화", "수", "목", "금", "토", "일"])
+                            }
+                            viewModel.showCaseResetCloverState(clovers: clovers)
+                        }
+                        Button("취소", role: .cancel) {}
+                    } message: {
+                        Text("[쇼케이스]사용자 입력데이터 삭제")
+                    }
                     
                     Spacer()
                     
