@@ -146,7 +146,6 @@ struct OuterGridView: View {
                         Text("쓴 거 사라짐니당")
                     }
                     
-                    
                     Spacer()
                     
                     Button(action: {
