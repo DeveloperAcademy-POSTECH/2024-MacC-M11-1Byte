@@ -234,7 +234,7 @@ extension SubGoalView {
     // MARK: 작은 목표 이름 텍스트 필드
     @ViewBuilder
     func WritingObject() -> some View {
-        Text("작은 목표 이름")
+        Text("목표 이름")
             .font(.Pretendard.SemiBold.size16)
             .padding(.leading, 4)
             .foregroundStyle(Color.my675542)
