@@ -14,9 +14,9 @@ struct CloverCardView: View {
     @Query var mainGoals: [MainGoal]
     @Query var clovers: [Clover]
     @Environment(\.modelContext) private var modelContext
-    
     @State var viewModel = CloverCardViewModel()
 //    @Binding var selectedTab: Int
+    @Binding var isNextWeek: Bool
     
     var body: some View {
         let cloverCardType = viewModel.getCloverCardType(for: viewModel.lastWeekCloverState)
@@ -25,6 +25,7 @@ struct CloverCardView: View {
             HStack {
                 Button {
                     dismiss()
+                    isNextWeek.toggle()
                 } label: {
                     HStack {
                         Image(systemName: "chevron.left")
@@ -132,6 +133,8 @@ struct CloverCardView: View {
             
             Button {
 //                selectedTab = 2 // 나의 클로버 뷰로 이동
+//                statViewModel.isNextWeek.toggle()
+                isNextWeek.toggle()
                 dismiss()
             } label: {
                 Text("클로버 모아보기")
