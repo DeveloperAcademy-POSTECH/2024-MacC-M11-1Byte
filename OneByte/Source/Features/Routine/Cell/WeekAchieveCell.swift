@@ -41,6 +41,7 @@ struct WeekAchieveCell: View {
             .padding(.top, 16)
             
             HStack {
+                let cumulativeAchieveCounts = calculateCumulativeAchieveCounts()
                 ForEach(0..<days.count, id: \.self) { index in
                     VStack(spacing: 4) {
                         Text(days[index])
@@ -67,11 +68,11 @@ struct WeekAchieveCell: View {
                                         .resizable()
                                         .scaledToFit()
                                 } else {
-                                    if isAchieved(for: index) { // 성취 판단
-                                        Image("Day7_Clover1")  // 성취한 경우
-                                        .resizable()
-                                        .scaledToFit()
-                                    } else {
+                                    if isAchieved(for: index) {
+                                                                            cloverImage(for: detailGoal.achieveGoal, achieveCount: cumulativeAchieveCounts[index])
+                                                                                .resizable()
+                                                                                .scaledToFit()
+                                                                        } else {
                                         Image("NoAchieve") // 미성취한 경우
                                             .resizable()
                                             .scaledToFit()
@@ -146,4 +147,19 @@ struct WeekAchieveCell: View {
         let cloverImageName = "Day\(achieveGoal)_Clover\(validAchieveCount)"
         return Image(cloverImageName)
     }
+    
+    // 성취했는데 지난요일들 클로버 종류별로 보여주기 위해 계산
+        private func calculateCumulativeAchieveCounts() -> [Int] {
+            var counts: [Int] = []
+            var cumulativeCount = 0
+
+            for index in 0..<days.count {
+                if isAchieved(for: index) {
+                    cumulativeCount += 1
+                }
+                counts.append(cumulativeCount)
+            }
+
+            return counts
+        }
 }
