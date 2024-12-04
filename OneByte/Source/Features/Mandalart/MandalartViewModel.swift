@@ -386,6 +386,21 @@ class MandalartViewModel: ObservableObject {
     func delete1SubData(mainGoal: MainGoal, days: [String]) {
         deleteService.delete1SubData(mainGoal: mainGoal, days: days)
     }
+    
+    func showCaseResetCloverState(clovers: [Clover]) {
+        // 현재 주차와 월차에 해당하는 Clover 객체를 찾음
+        if let matchingClover = clovers.first(where: {
+            $0.cloverYear == 2024 &&
+            $0.cloverMonth == 12 &&
+            $0.cloverWeekOfMonth == 1 &&
+            $0.cloverWeekOfYear == 49
+        }) {
+            print("🍀 Found matching Clover ID: \(matchingClover.id)")
+            
+            // CloverState 업데이트
+            matchingClover.cloverState = 0
+        }
+    }
 }
 
 struct TaggedWord {

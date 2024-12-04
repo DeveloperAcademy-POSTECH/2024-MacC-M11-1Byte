@@ -90,7 +90,7 @@ struct OuterGridView: View {
     @Environment(\.managedObjectContext) private var context
     @Binding var mainGoal: MainGoal?
     @Binding var isTabBarMainVisible: Bool
-
+    @Query var clovers: [Clover]
     @Binding var capturedImage: UIImage?
     @State var mainIsPresented: Bool = false
     @State private var selectedSubGoal: SubGoal? // 선택된 SubGoal을 관리
@@ -140,10 +140,11 @@ struct OuterGridView: View {
                             if let mainGoal = mainGoal {
                                 viewModel.delete1SubData(mainGoal: mainGoal, days: ["월", "화", "수", "목", "금", "토", "일"])
                             }
+                            viewModel.showCaseResetCloverState(clovers: clovers)
                         }
                         Button("취소", role: .cancel) {}
                     } message: {
-                        Text("쓴 거 사라짐니당")
+                        Text("[쇼케이스]사용자 입력데이터 삭제")
                     }
                     
                     Spacer()
