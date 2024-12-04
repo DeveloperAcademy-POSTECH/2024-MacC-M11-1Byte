@@ -197,7 +197,6 @@
 		61E28B812CEE01FE000F77FB /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		61FA4DF22CE77EDD00256B57 /* BackButtonToolbarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButtonToolbarModifier.swift; sourceTree = "<group>"; };
 		61FA4DF42CE7803600256B57 /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
-		A14A18F52CFFDF5B0013050F /* SpecificTagger4192.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = SpecificTagger4192.mlmodel; path = ../../../../../ML/Macro_Dataset/SpecificTagger4192.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -749,7 +748,6 @@
 				1F100F462CFCA45300130BA9 /* CloverCardView.swift in Sources */,
 				1FB10A292CDF515300D54EC5 /* ReadyCycleView.swift in Sources */,
 				1F4D8BF22CDF4FC300A0B5CC /* Onboarding.swift in Sources */,
-				A14A18F62CFFDF5B0013050F /* SpecificTagger4192.mlmodel in Sources */,
 				1F100F4F2CFCA5CF00130BA9 /* DaysCycleCellButton.swift in Sources */,
 				1F599E302CE6640600788D07 /* AchievedRow.swift in Sources */,
 				1F599E342CE6643B00788D07 /* FontRow.swift in Sources */,
@@ -891,7 +889,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"OneByte/Preview Content\"";
 				DEVELOPMENT_TEAM = WTK65UP9RZ;
 				ENABLE_PREVIEWS = YES;
@@ -928,7 +926,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"OneByte/Preview Content\"";
 				DEVELOPMENT_TEAM = WTK65UP9RZ;
 				ENABLE_PREVIEWS = YES;
