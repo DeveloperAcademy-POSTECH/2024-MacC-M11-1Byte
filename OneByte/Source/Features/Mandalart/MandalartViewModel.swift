@@ -383,6 +383,10 @@ class MandalartViewModel: ObservableObject {
         }
     }
     
+    func delete1SubData(mainGoal: MainGoal, days: [String]) {
+        deleteService.delete1SubData(mainGoal: mainGoal, days: days)
+    }
+    
 }
 
 struct TaggedWord {
