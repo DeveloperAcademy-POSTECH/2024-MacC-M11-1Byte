@@ -38,7 +38,7 @@ struct SubGoalView: View {
             if isCustomCategoryActive {
                 customCategoryView()
             }
-            // 작은 목표 입력란
+            // 목표 입력란
             WritingObject()
             
             Spacer()
@@ -231,16 +231,16 @@ extension SubGoalView {
         .padding(.top, -2)
     }
     
-    // MARK: 작은 목표 이름 텍스트 필드
+    // MARK: 목표 이름 텍스트 필드
     @ViewBuilder
     func WritingObject() -> some View {
-        Text("작은 목표 이름")
+        Text("목표 이름")
             .font(.Pretendard.SemiBold.size16)
             .padding(.leading, 4)
             .foregroundStyle(Color.my675542)
             .padding(.top, 18)
         
-        // 작은 목표 이름 입력란
+        // 목표 이름 입력란
         ZStack {
             TextField("2kg 감량하기, 규칙적인 수면패턴 갖기 등", text: $newTitle)
                 .padding(.horizontal)
