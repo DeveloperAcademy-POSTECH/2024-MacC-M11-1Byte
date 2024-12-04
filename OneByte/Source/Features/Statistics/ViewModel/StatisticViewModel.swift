@@ -14,7 +14,6 @@ class StatisticViewModel {
     var clovers: [Clover] = []
     var profile: [Profile] = []
     let calendar = Calendar(identifier: .iso8601)
-    var isNextWeek = false
     
     let monthInfoViewHeadPhraseDict: [String: String] = [
         "cloverX": "지난주는 바쁘셨나봐요. 괜찮아요!",
@@ -67,18 +66,10 @@ class StatisticViewModel {
     }
     
     var currentWeekOfMonth: Int {
-        if isNextWeek {
-            if let data = UserDefaults.calendarData.first(where: { $0.0 == currentYear && $0.3 == currentWeekOfYear }) {
-                return data.2 + 1
-            }
-            return calendar.component(.weekOfMonth, from: Date()) + 1
+        if let data = UserDefaults.calendarData.first(where: { $0.0 == currentYear && $0.3 == currentWeekOfYear }) {
+            return data.2
         }
-        else {
-            if let data = UserDefaults.calendarData.first(where: { $0.0 == currentYear && $0.3 == currentWeekOfYear }) {
-                return data.2
-            }
-            return calendar.component(.weekOfMonth, from: Date())
-        }
+        return calendar.component(.weekOfMonth, from: Date())
     }
     
     var lastWeekClover: [Clover] {
@@ -117,7 +108,7 @@ class StatisticViewModel {
         var maxMonth: Int
 
         if currentYear == installYear {
-            minMonth = 11 //installMonth ?? 0
+            minMonth = installMonth ?? 0
             maxMonth = currentMonth
             
             return (min: minMonth, max: maxMonth)
@@ -128,20 +119,6 @@ class StatisticViewModel {
             return (min: minMonth, max: maxMonth)
         }
     }
-    
-//    func addOneWeek() -> Void {
-//        if !isNextWeek {
-//            currentWeekOfMonth = currentWeekOfMonth + 1
-//            isNextWeek = true
-//        }
-//    }
-//    
-//    func subtractOneWeek() -> Void {
-//        if isNextWeek {
-//            currentWeekOfMonth = currentWeekOfMonth - 1
-//            isNextWeek = false
-//        }
-//    }
     
     func getMonthInfoViewPhrase() -> [String] {
         var state = ""
@@ -203,7 +180,7 @@ class StatisticViewModel {
         
         for clover in clovers {
             // 이번 주 클로버는 아직 결정되지 않았음으로 계산되면 안 된다
-            if clover.cloverWeekOfYear == currentWeekOfYear && !isNextWeek {
+            if clover.cloverWeekOfYear == currentWeekOfYear {
                 continue
             } else {
                 switch clover.cloverState {
