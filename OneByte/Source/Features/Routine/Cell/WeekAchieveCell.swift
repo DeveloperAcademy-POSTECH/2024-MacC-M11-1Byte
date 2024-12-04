@@ -41,6 +41,7 @@ struct WeekAchieveCell: View {
             .padding(.top, 16)
             
             HStack {
+                let cumulativeAchieveCounts = calculateCumulativeAchieveCounts()
                 ForEach(0..<days.count, id: \.self) { index in
                     VStack(spacing: 4) {
                         Text(days[index])
@@ -54,23 +55,23 @@ struct WeekAchieveCell: View {
                                 if Date().currentDay == days[index] {
                                     // 루틴이고 오늘인데
                                     if isAchieved(for: index) {
-                                           cloverImage(for: detailGoal.achieveGoal, achieveCount: detailGoal.achieveCount)
-                                               .resizable()
-                                               .scaledToFit()
-                                       } else {
-                                           Image("RoutineDay")
-                                               .resizable()
-                                               .scaledToFit()
-                                       }
+                                        cloverImage(for: detailGoal.achieveGoal, achieveCount: detailGoal.achieveCount)
+                                            .resizable()
+                                            .scaledToFit()
+                                    } else {
+                                        Image("RoutineDay")
+                                            .resizable()
+                                            .scaledToFit()
+                                    }
                                 } else if isFutureDay(index: index) {
                                     Image("RoutineNotYet")  // 루틴이긴한데 아직 오지 않은 요일은 회색 배경
                                         .resizable()
                                         .scaledToFit()
                                 } else {
-                                    if isAchieved(for: index) { // 성취 판단
-                                        Image("Day7_Clover1")  // 성취한 경우
-                                        .resizable()
-                                        .scaledToFit()
+                                    if isAchieved(for: index) {
+                                        cloverImage(for: detailGoal.achieveGoal, achieveCount: cumulativeAchieveCounts[index])
+                                            .resizable()
+                                            .scaledToFit()
                                     } else {
                                         Image("NoAchieve") // 미성취한 경우
                                             .resizable()
@@ -99,7 +100,7 @@ struct WeekAchieveCell: View {
         )
     }
     
-    // alert 요일중 True, False 확인하여 UI
+    // alert 요일 확인
     private func isAlertActive(for index: Int) -> Bool {
         switch index {
         case 0: return detailGoal.alertMon
@@ -113,13 +114,13 @@ struct WeekAchieveCell: View {
         }
     }
     
-    // alert가 true긴하지만, 아직 해당요일이 안됐을때 확인
+    // 미래 요일인지 확인
     private func isFutureDay(index: Int) -> Bool {
         let todayIndex = Date().mondayBasedIndex()
         return index > todayIndex
     }
     
-    // 요일별 Achieve 상태에 따라 UI
+    // 요일별 성취 상태 확인
     private func isAchieved(for index: Int) -> Bool {
         switch index {
         case 0: return detailGoal.achieveMon
@@ -133,8 +134,8 @@ struct WeekAchieveCell: View {
         }
     }
     
-    // 루틴이 주당 횟수당/현재 성추횟수당 클로버 이미지 적용값 계산
-    func cloverImage(for achieveGoal: Int, achieveCount: Int) -> Image {
+    // 클로버 이미지 생성
+    private func cloverImage(for achieveGoal: Int, achieveCount: Int) -> Image {
         // 주당 목표 횟수는 1 ~ 7로 가정
         guard achieveGoal >= 1 && achieveGoal <= 7 else {
             return Image("DefaultClover") // 기본 이미지 반환
@@ -145,5 +146,20 @@ struct WeekAchieveCell: View {
         // 클로버 이미지 이름 생성 및 반환
         let cloverImageName = "Day\(achieveGoal)_Clover\(validAchieveCount)"
         return Image(cloverImageName)
+    }
+    
+    // 성취했는데 지난요일들 클로버 종류별로 보여주기 위해 계산
+    private func calculateCumulativeAchieveCounts() -> [Int] {
+        var counts: [Int] = []
+        var cumulativeCount = 0
+        
+        for index in 0..<days.count {
+            if isAchieved(for: index) {
+                cumulativeCount += 1
+            }
+            counts.append(cumulativeCount)
+        }
+        
+        return counts
     }
 }
