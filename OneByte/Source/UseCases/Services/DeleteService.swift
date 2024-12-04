@@ -148,44 +148,4 @@ class DeleteService: DeleteGoalUseCase {
         }
     }
     
-    func delete1SubData(mainGoal: MainGoal, days: [String]) {
-        let targetIds: Set<Int> = [2, 4]
-        let filteredSubGoals = mainGoal.subGoals.filter { targetIds.contains($0.id) }
-        
-        for subGoal in filteredSubGoals {
-            subGoal.title = ""
-            subGoal.category = ""
-            
-            for detailGoal in subGoal.detailGoals {
-                for day in days {
-                    let identifier = "\(detailGoal.id)_\(day)"
-                    UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifier])
-                }
-                // 디버깅: 현재 등록된 알림 확인
-                UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
-                    for request in requests {
-                        print("현재 등록된 알림: \(request.identifier)")
-                    }
-                }
-            }
-            for detailGoal in subGoal.detailGoals {
-                detailGoal.title = ""
-                detailGoal.memo = ""
-                detailGoal.achieveCount = 0
-                detailGoal.achieveGoal = 0
-                detailGoal.alertMon = false
-                detailGoal.alertTue = false
-                detailGoal.alertWed  = false
-                detailGoal.alertThu = false
-                detailGoal.alertFri = false
-                detailGoal.alertSat = false
-                detailGoal.alertSun = false
-                detailGoal.isMorning = true
-                detailGoal.isAfternoon = false
-                detailGoal.isEvening = false
-                detailGoal.isNight = false
-                detailGoal.isFree = false
-            }
-        }
-    }
 }
