@@ -16,7 +16,7 @@ struct CloverCardView: View {
     @Environment(\.modelContext) private var modelContext
     
     @State var viewModel = CloverCardViewModel()
-    @Binding var selectedTab: Int
+//    @Binding var selectedTab: Int
     
     var body: some View {
         let cloverCardType = viewModel.getCloverCardType(for: viewModel.lastWeekCloverState)
@@ -41,11 +41,13 @@ struct CloverCardView: View {
             ScrollViewReader { proxy in
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 9) {
-                        Text(cloverCardType.cloverCardTitle) // 클로버 종류 획득 문구
+                        Text("초록 클로버를 획득했어요!")
+//                        Text(cloverCardType.cloverCardTitle) // 클로버 종류 획득 문구
                             .font(.Pretendard.Bold.size24)
                             .foregroundStyle(.white)
                             .kerning(0.48)
-                        Text(cloverCardType.cloverCardMessage) // 메세지
+                        Text("한 주 동안 너무 수고했어요\n이번 주에는 황금클로버에도 도전해봐요!")
+//                        Text(cloverCardType.cloverCardMessage) // 메세지
                             .font(.Pretendard.Medium.size16)
                             .foregroundStyle(.white.opacity(0.9))
                             .multilineTextAlignment(.center)
@@ -55,23 +57,24 @@ struct CloverCardView: View {
                     .padding(.top, 26)
                     
                     ZStack { // (around padding 12)
-                        Image(cloverCardType.cloverCardBackground) // 카드 배경
+                        Image("GreenCloverBackground")
+//                        Image(cloverCardType.cloverCardBackground) // 카드 배경
                             .resizable()
                             .scaledToFit()
                             .frame(width: 279, height: 360)
                         
                         VStack {
                             VStack(spacing: 2) {
-                                Text(viewModel.getLastWeekWeekofMonth()) // 이전 주차
+                                Text("12월 1주차") // 이전 주차
                                     .font(.Pretendard.Bold.size18)
-                                    .foregroundStyle(cloverCardType.cloverLastWeekDateColor)
-                                Text(cloverCardType.cloverType)
+                                    .foregroundStyle(.myD7FFD3)
+                                Text("초록 클로버")
                                     .font(.Pretendard.ExtraBold.size24)
                                     .foregroundStyle(.white)
                             }
                             .padding(.top, 48)
                             
-                            Image(cloverCardType.cloverCardClover ?? "") // 클로버 아이콘
+                            Image("GreenClover") // 클로버 아이콘
                                 .rotation3DEffect (
                                     .degrees(viewModel.rotationAngle),
                                     axis: (x: 0, y: 1, z: 0)
@@ -128,12 +131,12 @@ struct CloverCardView: View {
             }
             
             Button {
-                selectedTab = 2 // 나의 클로버 뷰로 이동
+//                selectedTab = 2 // 나의 클로버 뷰로 이동
                 dismiss()
             } label: {
                 Text("클로버 모아보기")
                     .font(.Pretendard.SemiBold.size17)
-                    .foregroundStyle(cloverCardType.buttonColor)
+                    .foregroundStyle(.my538F53)
                     .frame(maxWidth: .infinity)
                     .frame(height: 54)
                     .background(.myFFFAF4)
@@ -142,17 +145,27 @@ struct CloverCardView: View {
             .padding()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(cloverCardType.gradient.ignoresSafeArea(edges: .all))
+        .background(
+                   LinearGradient(
+                       gradient: Gradient(stops: [
+                           Gradient.Stop(color: .my3A933A, location: 0.0),
+                           Gradient.Stop(color: .my95D895, location: 1.0),
+                       ]),
+                       startPoint: .top,
+                       endPoint: .bottom
+                   )
+                   .ignoresSafeArea(edges: .all)
+               )
         .onAppear {
-            // 저번주의 CloverState 값 찾기
-            viewModel.lastWeekCloverState = viewModel.getLastWeekCloverState(clovers: clovers)
-            print("🚧 저번주의 CloverState : \(String(describing: viewModel.lastWeekCloverState))")
-            // 현재 루틴들의 achieve 계산하여 ProgressValue로 변환
+//            // 저번주의 CloverState 값 찾기
+//            viewModel.lastWeekCloverState = viewModel.getLastWeekCloverState(clovers: clovers)
+//            print("🚧 저번주의 CloverState : \(String(describing: viewModel.lastWeekCloverState))")
+//            // 현재 루틴들의 achieve 계산하여 ProgressValue로 변환
             if let subGoals = mainGoals.first?.subGoals {
                 viewModel.calculateProgressValues(for: subGoals)
             }
-            let resetManager = WeeklyResetManager()
-            resetManager.performReset(goals: mainGoals, modelContext: modelContext)
+//            let resetManager = WeeklyResetManager()
+//            resetManager.performReset(goals: mainGoals, modelContext: modelContext)
         }
     }
     
@@ -164,7 +177,7 @@ struct CloverCardView: View {
         }
         
         VStack(spacing: 12) {
-            Text("\(viewModel.getLastWeekWeekofMonth())의 루틴 완수율") // 이전 주차
+            Text("12월 1주차의 루틴 완수율") // 이전 주차
                 .font(.Pretendard.Bold.size17)
                 .foregroundStyle(.my575656)
                 .padding(.vertical, 10)
@@ -183,13 +196,13 @@ struct CloverCardView: View {
             }
         }
         .padding()
-        .background(cloverCardType.completionRateBackgroundColor)
+        .background(.myD5E3D5)
         .cornerRadius(16)
         .padding(.horizontal)
         .padding(.top, 2)
     }
 }
 
-#Preview {
-    CloverCardView(selectedTab: .constant(2))
-}
+//#Preview {
+//    CloverCardView(selectedTab: .constant(2))
+//}

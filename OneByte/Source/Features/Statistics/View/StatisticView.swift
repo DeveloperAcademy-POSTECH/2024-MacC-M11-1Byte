@@ -17,6 +17,8 @@ struct StatisticView: View {
     @State private var isQuestionMarkClicked = false
     @Binding var isTabBarMainVisible: Bool
     
+    @State private var showCloverCardView: Bool = false  // 클로버 카드뷰 제어
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -60,6 +62,9 @@ struct StatisticView: View {
                     viewModel.setProfile(profile)
                 }
                 .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
+                .fullScreenCover(isPresented: $showCloverCardView) {
+                    CloverCardView()
+                }
             }
         }
     }
@@ -122,6 +127,7 @@ struct StatisticView: View {
         : minMonth
         
         let currentWeekOfMonth = viewModel.currentWeekOfMonth
+        let currentWeekOfYear = viewModel.currentWeekOfYear
         ZStack(alignment: .topTrailing) {
             VStack(spacing: 12) {
                 VStack(spacing: 4) {
@@ -239,7 +245,7 @@ struct StatisticView: View {
                                         
                                         if let firstClover = cloverForWeek.first {
                                             // 이번 주차는 클로버 상태를 표시하지 않음
-                                            if firstClover.cloverWeekOfMonth == currentWeekOfMonth {
+                                            if firstClover.cloverWeekOfYear == currentWeekOfYear {
                                                 Image("Clover_Empty")
                                                     .resizable()
                                                     .frame(width: 41, height: 41)
@@ -309,6 +315,37 @@ struct StatisticView: View {
                         .frame(width: 56, height: 80)
                         .padding(.leading, 2 * CGFloat(currentWeekOfMonth)/12 + CGFloat(currentWeekOfMonth)/9 + CGFloat(currentWeekOfMonth)/6 + CGFloat(currentWeekOfMonth)/3 + 9 + 56 * CGFloat(currentWeekOfMonth))
                         .padding(.top, 96)
+                }
+                VStack(spacing: 4) {
+                    HStack {
+                        Text("클로버 카드 보기")
+                            .font(.Pretendard.SemiBold.size18)
+                            .padding(.leading, 5)
+                        Spacer()
+                    }
+                    HStack {
+                        Text("앱 체험을 위해 임시로 추가된 기능이에요")
+                            .font(.Pretendard.Medium.size14)
+                            .foregroundStyle(Color.my909090)
+                            .padding(.leading, 5)
+                        Spacer()
+                    }
+                    Button(action: {
+                        viewModel.isNextWeek.toggle()
+                        showCloverCardView.toggle()
+                    }, label: {
+                        HStack(alignment: .center, spacing: 10) {
+                            Text("이번 주 마무리하고, 클로버 카드 받기")
+                                .font(.Pretendard.Medium.size14)
+                                .foregroundStyle(.white)
+                        }
+                        .padding(.horizontal, 72)
+                        .padding(.vertical, 14)
+                        .frame(width: 361, height: 44, alignment: .center)
+                        .background(.my6FB56F)
+                        .cornerRadius(10)
+                    })
+                    .padding(.top, 18)
                 }
             }
             if (isQuestionMarkClicked) {
