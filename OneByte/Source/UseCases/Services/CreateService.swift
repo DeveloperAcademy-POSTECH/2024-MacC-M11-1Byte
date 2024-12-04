@@ -15,7 +15,7 @@ class CreateService: CreateGoalUseCase {
         var subGoalCounter = 1   // SubGoal ID 카운터
         var detailGoalCounter = 1 // DetailGoal ID 카운터
            
-           // MainGoal 생성
+           // MainGoal 생성 
            let newMainGoal = MainGoal(
                id: mainGoalCounter,
                title: "",
