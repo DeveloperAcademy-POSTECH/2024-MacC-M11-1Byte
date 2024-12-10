@@ -1,5 +1,5 @@
 ![Frame 7867](https://github.com/user-attachments/assets/de7f3895-7012-4360-8946-4fdea443bbb2)
-> AppleDeveloperAcademy Macro </br>
+> Apple Developer Academy Macro </br>
 > 2024.09.02 - 2024.11.29
 > 
 > 체계적으로 계획 세우기를 어려워하는 ADHD 환자가 개선된 만다라트 기법을 사용해 계획을 세분화하고 </br>
@@ -44,16 +44,10 @@
   <td colspan="1" align="center"><code>Designer</code></td>
 </tr>
     <tr>
-      <td align="center"><a href=""><img src="https://github.com/DeveloperAcademy-POSTECH/2024-MC2-M17-Kodari/assets/108053426/5dffc651-46ff-45a1-87eb-c29aa61feec4" width="150px;" alt=""/><br /><sub><b></b></sub></a></td>
+      <td align="center"><a href=""><img src="https://github.com/user-attachments/assets/142d05b4-448e-40a5-ac97-19b5d3fec456" width="150px;" alt=""/><br /><sub><b></b></sub></a></td>
       <td align="center"><a href=""><img src="https://github.com/user-attachments/assets/b621f31f-174d-4bf5-b51b-84dd8bbd31f5" width="150px;" alt=""/><br /><sub><b></b></sub></a></td>
-      <td align="center"><a href=""><img src="https://github.com/DeveloperAcademy-POSTECH/2024-MC2-M17-Kodari/assets/108053426/736e43cc-38d5-4c24-8f23-67408d5e6800" width="150px;" alt=""/><br /><sub><b></b></sub></a></td>
-       <td align="center"><a href=""><img src="https://github.com/DeveloperAcademy-POSTECH/2024-MC2-M17-Kodari/assets/108053426/0ff72136-9902-4d10-9db4-3f8acc96b783" width="150px;" alt=""/><br /><sub><b></b></sub></a></td>
-    </tr>
-    <tr>
-      <td colspan="1" align="center"><b>🍀</b></td>
-      <td colspan="1" align="center"><b>🍀</b></td>
-      <td colspan="1" align="center"><b>🍀</b></td>
-      <td colspan="1" align="center"><b>🍀</b></td>
+      <td align="center"><a href=""><img src="https://github.com/user-attachments/assets/3e391fc1-5328-4226-a212-07b603193730" width="150px;" alt=""/><br /><sub><b></b></sub></a></td>
+       <td align="center"><a href=""><img src="https://github.com/user-attachments/assets/6b1d0dc4-1f64-4e64-8f4b-d80fca0bb234" width="150px;" alt=""/><br /><sub><b></b></sub></a></td>
     </tr>
   </tbody>
 </table>
@@ -72,16 +66,10 @@
       <td colspan="1" align="center"><code>Developer</code></td>
     </tr>
     <tr>
-      <td align="center"><a href=""><img src="https://github.com/DeveloperAcademy-POSTECH/2024-MC2-M17-Kodari/assets/108053426/5dffc651-46ff-45a1-87eb-c29aa61feec4" width="150px;" alt=""/><br /><sub><b></b></sub></a></td>
+      <td align="center"><a href=""><img src="https://github.com/user-attachments/assets/edfb657c-d7ad-4864-b31c-8992ddca24f3" width="150px;" alt=""/><br /><sub><b></b></sub></a></td>
       <td align="center"><a href=""><img src="https://github.com/user-attachments/assets/9054dcd1-33d8-48f0-9dbb-3c4c48dcf95c" width="150px;" alt=""/><br /><sub><b></b></sub></a></td>
       <td align="center"><a href=""><img src="https://github.com/user-attachments/assets/7909810b-514a-4518-a241-48aac8b88cbe" width="150px;" alt=""/><br /><sub><b></b></sub></a></td>
        <td align="center"><a href=""><img src="https://github.com/user-attachments/assets/5dd0e973-fa51-4937-9038-30427fbb0cb4" width="150px;" alt=""/><br /><sub><b></b></sub></a></td>
-    </tr>
-    <tr>
-      <td colspan="1" align="center"><b>🍀</b></td>
-      <td colspan="1" align="center"><b>🍀</b></td>
-      <td colspan="1" align="center"><b>🍀</b></td>
-      <td colspan="1" align="center"><b>☄️</b></td>
     </tr>
   </tbody>
 </table>
@@ -115,5 +103,4 @@
     </tr>
   </tbody>
 </table>
-
 
