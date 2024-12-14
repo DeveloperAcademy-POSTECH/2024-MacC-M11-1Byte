@@ -68,7 +68,7 @@ struct TodayRoutineView: View {
                                     TodayRoutineCell(
                                         mainGoal: mainGoal,
                                         detailGoal: detailGoal,
-                                        subGoalCategory: subGoal.category,
+                                        subGoalTitle: subGoal.title,
                                         viewModel: viewModel,
                                         modelContext: modelContext,
                                         clovers: clovers
@@ -88,7 +88,7 @@ struct TodayRoutineView: View {
                                     TodayRoutineCell(
                                         mainGoal: mainGoal,
                                         detailGoal: detailGoal,
-                                        subGoalCategory: subGoal.category,
+                                        subGoalTitle: subGoal.title,
                                         viewModel: viewModel,
                                         modelContext: modelContext,
                                         clovers: clovers
@@ -109,7 +109,7 @@ struct TodayRoutineView: View {
                                     TodayRoutineCell(
                                         mainGoal: mainGoal,
                                         detailGoal: detailGoal,
-                                        subGoalCategory: subGoal.category,
+                                        subGoalTitle: subGoal.title,
                                         viewModel: viewModel,
                                         modelContext: modelContext,
                                         clovers: clovers
@@ -130,7 +130,7 @@ struct TodayRoutineView: View {
                                     TodayRoutineCell(
                                         mainGoal: mainGoal,
                                         detailGoal: detailGoal,
-                                        subGoalCategory: subGoal.category,
+                                        subGoalTitle: subGoal.title,
                                         viewModel: viewModel,
                                         modelContext: modelContext,
                                         clovers: clovers
@@ -151,7 +151,7 @@ struct TodayRoutineView: View {
                                     TodayRoutineCell(
                                         mainGoal: mainGoal,
                                         detailGoal: detailGoal,
-                                        subGoalCategory: subGoal.category,
+                                        subGoalTitle: subGoal.title,
                                         viewModel: viewModel,
                                         modelContext: modelContext,
                                         clovers: clovers
