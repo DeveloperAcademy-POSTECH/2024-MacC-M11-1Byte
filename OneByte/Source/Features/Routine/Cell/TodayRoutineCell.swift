@@ -12,7 +12,7 @@ struct TodayRoutineCell: View {
     
     let mainGoal: MainGoal
     let detailGoal: DetailGoal
-    let subGoalCategory: String
+    let subGoalTitle: String
     let viewModel: TodayRoutineViewModel
     let modelContext: ModelContext
     let clovers: [Clover]
@@ -35,7 +35,7 @@ struct TodayRoutineCell: View {
                     .foregroundStyle(detailGoal.isAchievedToday ? .my2B2B2B.opacity(0.7) : .my2B2B2B)
                     .strikethrough(detailGoal.isAchievedToday)
                 
-                Text(subGoalCategory)
+                Text(subGoalTitle)
                     .font(.Pretendard.Medium.size14)
                     .foregroundStyle(detailGoal.isAchievedToday ? .my428142.opacity(0.7) : .my428142)
                     .foregroundStyle(Color.my428142)

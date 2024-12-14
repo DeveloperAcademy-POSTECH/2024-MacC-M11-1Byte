@@ -54,8 +54,10 @@ struct SubgoalCycleView: View {
                     HStack(spacing: 0) {
                         Spacer()
                         Text("\(viewModel.userNewSubGoal.count)")
+                            .font(.Pretendard.Medium.size14)
                             .foregroundStyle(.my6C6C6C)
                         Text("/\(viewModel.subGoalLimit)")
+                            .font(.Pretendard.Medium.size14)
                             .foregroundStyle(.my6C6C6C.opacity(0.5))
                     }
                 }
