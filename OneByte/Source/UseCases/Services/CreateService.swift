@@ -84,7 +84,7 @@ class CreateService: CreateGoalUseCase {
     func createNotification(detailGoal: DetailGoal, newTitle: String, selectedDays: [String]) {
         guard let remindTime = detailGoal.remindTime else { return }
         
-        checkNotificationPermissionAndRequestIfNeeded()
+//        checkNotificationPermissionAndRequestIfNeeded()
         
         // 각 요일별로 알림 생성
         for day in selectedDays {

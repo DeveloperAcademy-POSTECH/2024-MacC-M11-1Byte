@@ -564,7 +564,16 @@ extension DetailGoalView {
                                 isModified = true
                             }
                             if isRemind {
-                                requestNotificationPermission()
+                                requestNotificationPermission { granted in
+                                    if granted  {
+                                        isRemind = true
+                                    } else {
+                                        DispatchQueue.main.async {
+                                            isRemind = false
+                                        }
+                                    }
+                                    
+                                }
                             }
                             if old == false {
                                 viewModel.checkNotificationPermission{ isAllowed in

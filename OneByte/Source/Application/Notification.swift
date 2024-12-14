@@ -7,22 +7,24 @@
 
 import UserNotifications
 
-func checkNotificationPermissionAndRequestIfNeeded() {
-    UNUserNotificationCenter.current().getNotificationSettings { settings in
-        if settings.authorizationStatus == .notDetermined {
-            requestNotificationPermission()
-        } else {
-            print("이미 알림 권한이 설정되었습니다: \(settings.authorizationStatus.rawValue)")
-        }
-    }
-}
+//func checkNotificationPermissionAndRequestIfNeeded() {
+//    UNUserNotificationCenter.current().getNotificationSettings { settings in
+//        if settings.authorizationStatus == .notDetermined {
+//            requestNotificationPermission()
+//        } else {
+//            print("이미 알림 권한이 설정되었습니다: \(settings.authorizationStatus.rawValue)")
+//        }
+//    }
+//}
 
-func requestNotificationPermission() {
+func requestNotificationPermission(completion: @escaping (Bool) -> Void) {
     UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
         if let error = error {
             print("Notification permission error: \(error.localizedDescription)")
+            completion(false)
         } else {
             print(granted ? "Permission granted" : "Permission denied")
+            completion(granted)
         }
     }
 }
