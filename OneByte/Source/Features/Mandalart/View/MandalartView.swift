@@ -46,6 +46,9 @@ struct MandalartView: View {
                     Color.black.opacity(0.3) // 배경 색상
                         .ignoresSafeArea()
                         .padding(-40)
+                        .onTapGesture {
+                            isClickedShare = false
+                        }
                     shareAlert()
                 }
                 
