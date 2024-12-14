@@ -133,6 +133,7 @@ struct OuterGridView: View {
                     Text("클로버 심기")
                         .font(.Pretendard.Bold.size22)
                         .foregroundStyle(Color.myB4A99D)
+                        .padding(.leading, 4)
                     
                     Spacer()
                     
@@ -163,7 +164,7 @@ struct OuterGridView: View {
                             .frame(width: 24, height: 24)
                     }
                 }
-                .padding(.horizontal, 10)
+                .padding(.trailing, 10)
                 .padding(.top, 8)
                 
                 // 목표 & 만다라트 그리드
