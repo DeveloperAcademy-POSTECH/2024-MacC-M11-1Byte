@@ -35,11 +35,11 @@
       <td colspan="1" align="center"><b>이예형(Ye)</b></td>
       <td colspan="1" align="center"><b>김예지(Nada)</b></td>
       <td colspan="1" align="center"><b>천정민(Zenith)</b></td>
-      <td colspan="1" align="center"><b>곽베로(Vero)</b></td>
+      <td colspan="1" align="center"><b>곽민준(Vero)</b></td>
     </tr>
     <tr>
-  <td colspan="1" align="center"><code>Project Manager</code></td>
-  <td colspan="1" align="center"><code>Project Manager</code></td>
+  <td colspan="1" align="center"><code>Product Manager</code></td>
+  <td colspan="1" align="center"><code>Product</code><br><code>Operations Manager</code></td>
   <td colspan="1" align="center"><code>Designer</code></td>
   <td colspan="1" align="center"><code>Designer</code></td>
 </tr>
