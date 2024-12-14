@@ -35,11 +35,11 @@
       <td colspan="1" align="center"><b>이예형(Ye)</b></td>
       <td colspan="1" align="center"><b>김예지(Nada)</b></td>
       <td colspan="1" align="center"><b>천정민(Zenith)</b></td>
-      <td colspan="1" align="center"><b>곽베로(Vero)</b></td>
+      <td colspan="1" align="center"><b>곽민준(Vero)</b></td>
     </tr>
     <tr>
-  <td colspan="1" align="center"><code>Project Manager</code></td>
-  <td colspan="1" align="center"><code>Project Manager</code></td>
+  <td colspan="1" align="center"><code>Product Manager</code></td>
+  <td colspan="1" align="center"><code>Product</code><br><code>Operations Manager</code></td>
   <td colspan="1" align="center"><code>Designer</code></td>
   <td colspan="1" align="center"><code>Designer</code></td>
 </tr>
@@ -103,4 +103,10 @@
     </tr>
   </tbody>
 </table>
+
+---
+
+#### 🟢 하고만다에 대한 더 자세한 정보
+[앱 블로그 바로가기](https://www.notion.so/14900197f9c98028adb1d7e57b75b1a5)
+
 

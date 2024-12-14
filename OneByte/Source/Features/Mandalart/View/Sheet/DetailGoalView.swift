@@ -59,6 +59,8 @@ struct DetailGoalView: View {
     private let titleLimit = 20 // 제목 글자수 제한
     private let memoLimit = 100 // 메모 글자수 제한
     
+    @FocusState private var isFocused: Bool // TextField 포커스 상태 관리
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
@@ -389,6 +391,7 @@ extension DetailGoalView {
             VStack(alignment: .leading) {
                 TextField("루틴에 대한 메모를 자유롭게 작성해보세요.", text: $newMemo, axis: .vertical)
                     .scrollContentBackground(.hidden)
+                    .focused($isFocused)
                     .padding()
                     .onChange(of: newMemo) { oldValue, newValue in
                         if newValue != detailGoal?.memo {
@@ -426,6 +429,9 @@ extension DetailGoalView {
                 .stroke(Color.myF0E8DF, lineWidth: 1)
         )
         .padding(.top, 10)
+        .onTapGesture {
+            isFocused = true // Cell 전체영역 터치 시 TextField에 포커스
+        }
     }
     
     // MARK: 요일 선택
@@ -558,7 +564,16 @@ extension DetailGoalView {
                                 isModified = true
                             }
                             if isRemind {
-                                requestNotificationPermission()
+                                requestNotificationPermission { granted in
+                                    if granted  {
+                                        isRemind = true
+                                    } else {
+                                        DispatchQueue.main.async {
+                                            isRemind = false
+                                        }
+                                    }
+                                    
+                                }
                             }
                             if old == false {
                                 viewModel.checkNotificationPermission{ isAllowed in
