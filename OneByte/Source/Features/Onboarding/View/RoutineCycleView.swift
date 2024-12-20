@@ -77,7 +77,7 @@ struct RoutineCycleView: View {
                                         .frame(width: 23, height: 23)
                                         .foregroundStyle(Color.myB9B9B9)
                                 }
-                                .opacity(viewModel.userNewDetailGoal.isEmpty ? 0 : 1)
+                                .opacity(viewModel.isVisibleXmark())
                                 .padding(.trailing)
                             }
                         }

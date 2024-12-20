@@ -147,6 +147,11 @@ class RoutineCycleViewModel {
         return "시간대 없음"
     }
     
+    // RoutineCycleView Xmark Visible State
+    func isVisibleXmark() -> Double {
+        return userNewDetailGoal.isEmpty ? 0 : 1
+    }
+    
     // 사용자 입력 DetailGoal 비우기
     func clearUserDetailGoal() {
         userNewDetailGoal = ""
