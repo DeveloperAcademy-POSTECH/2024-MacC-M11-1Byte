@@ -11,8 +11,6 @@ import SwiftData
 @Observable
 class RoutineMainViewModel {
     
-    //    private static let lastResetDateKey = "lastResetDate" // 마지막 초기화날짜
-    
     var mainDateManager = DateManager()
     var selectedPicker: routineTapInfo = .today
     var routineType: routineTapInfo
