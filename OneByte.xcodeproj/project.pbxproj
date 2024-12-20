@@ -72,7 +72,6 @@
 		1FD4053C2CED987700403A19 /* TurtleMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD4053B2CED987700403A19 /* TurtleMessageView.swift */; };
 		1FE27C712CF0B7F600A4C6BE /* DaysCycleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE27C702CF0B7F600A4C6BE /* DaysCycleView.swift */; };
 		1FE27C752CF0C8AF00A4C6BE /* CompleteCycleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE27C742CF0C8AF00A4C6BE /* CompleteCycleView.swift */; };
-		1FE2B8D62CDFAF8600781E20 /* Int+GridExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE2B8D52CDFAF8600781E20 /* Int+GridExtensions.swift */; };
 		1FFD92942CFEA26B003E9D16 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 1FFD92932CFEA26B003E9D16 /* Lottie */; };
 		1FFD92962CFEA2D2003E9D16 /* RoutineTurtleLottie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFD92952CFEA2D2003E9D16 /* RoutineTurtleLottie.swift */; };
 		1FFD92982CFEA38B003E9D16 /* RoutineTurtle.json in Resources */ = {isa = PBXBuildFile; fileRef = 1FFD92972CFEA38B003E9D16 /* RoutineTurtle.json */; };
@@ -170,7 +169,6 @@
 		1FD4053B2CED987700403A19 /* TurtleMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurtleMessageView.swift; sourceTree = "<group>"; };
 		1FE27C702CF0B7F600A4C6BE /* DaysCycleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysCycleView.swift; sourceTree = "<group>"; };
 		1FE27C742CF0C8AF00A4C6BE /* CompleteCycleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteCycleView.swift; sourceTree = "<group>"; };
-		1FE2B8D52CDFAF8600781E20 /* Int+GridExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+GridExtensions.swift"; sourceTree = "<group>"; };
 		1FFD92952CFEA2D2003E9D16 /* RoutineTurtleLottie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineTurtleLottie.swift; sourceTree = "<group>"; };
 		1FFD92972CFEA38B003E9D16 /* RoutineTurtle.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RoutineTurtle.json; sourceTree = "<group>"; };
 		1FFD92992CFECF5A003E9D16 /* MandalartTurtle.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MandalartTurtle.json; sourceTree = "<group>"; };
@@ -444,7 +442,6 @@
 				1FA420932CC0DC19001CB92D /* Color+.swift */,
 				1F88AB402CD6101C0009730D /* Date+.swift */,
 				1F42BE882CDF838500A59703 /* Font+.swift */,
-				1FE2B8D52CDFAF8600781E20 /* Int+GridExtensions.swift */,
 				61FA4DF42CE7803600256B57 /* View+.swift */,
 				1FA50DED2CE0B25C00369F7F /* UIApplication+.swift */,
 			);
@@ -739,7 +736,6 @@
 				1F599E382CE664B100788D07 /* TermsRow.swift in Sources */,
 				618FD0742CDF11210003450D /* CreateService.swift in Sources */,
 				1FD405232CEC74E800403A19 /* AllRoutineView.swift in Sources */,
-				1FE2B8D62CDFAF8600781E20 /* Int+GridExtensions.swift in Sources */,
 				610595CE2CE2140D005ED7B4 /* SubGoalCell.swift in Sources */,
 				618FD0762CDF11410003450D /* UpdateService.swift in Sources */,
 				61CC01052CF74D190009D063 /* SubGoalView.swift in Sources */,
