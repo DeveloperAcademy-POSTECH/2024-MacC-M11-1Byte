@@ -64,7 +64,7 @@ struct TodayRoutineCell: View {
         .cornerRadius(12)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
-                .stroke(Color(hex: "F0E8DF"), lineWidth: 1)
+                .stroke(Color.myF0E8DF, lineWidth: 1)
         )
     }
 }
