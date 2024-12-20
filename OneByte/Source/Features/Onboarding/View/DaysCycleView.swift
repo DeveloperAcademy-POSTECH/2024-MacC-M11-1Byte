@@ -51,6 +51,7 @@ struct DaysCycleView: View {
                 
                 selectTimesView() // 시간대 선택 뷰
             }
+            
             NextButton(isEnabled: viewModel.achieveGoal > 0 ) {
                 viewModel.performUpdateDetailGoal()
                 navigationManager.push(to: .onboardComplete)
@@ -59,7 +60,7 @@ struct DaysCycleView: View {
             }
             .padding(.vertical)
         }
-        .padding(.horizontal, 16)
+        .padding(.horizontal)
         .background(.myFFFAF4)
         .onAppear {
             // 사용자가 입력한 Subgoal id 1의 값을 targetSubGoal에 저장
@@ -95,7 +96,7 @@ struct DaysCycleView: View {
                 Text("반복 요일")
                     .font(.Pretendard.SemiBold.size16)
                     .kerning(0.2)
-                    .padding([.leading, .top], 16)
+                    .padding([.leading, .top])
                 Spacer()
             }
             
