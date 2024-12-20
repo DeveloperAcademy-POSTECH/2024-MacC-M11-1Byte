@@ -22,7 +22,7 @@ struct TodayRoutineCell: View {
             if let remindTime = detailGoal.remindTime {
                 VStack {
                     Text(remindTime.timeString)
-                        .font(.Pretendard.SemiBold.size14)
+                        .font(.setPretendard(weight: .semiBold, size: 14))
                         .foregroundStyle(detailGoal.isAchievedToday ? .my727272.opacity(0.6) : .my727272)
                     Spacer()
                 }
@@ -31,12 +31,12 @@ struct TodayRoutineCell: View {
             
             VStack(alignment: .leading, spacing: 4) {
                 Text(detailGoal.title)
-                    .font(.Pretendard.SemiBold.size16)
+                    .font(.setPretendard(weight: .semiBold, size: 16))
                     .foregroundStyle(detailGoal.isAchievedToday ? .my2B2B2B.opacity(0.7) : .my2B2B2B)
                     .strikethrough(detailGoal.isAchievedToday)
                 
                 Text(subGoalTitle)
-                    .font(.Pretendard.Medium.size14)
+                    .font(.setPretendard(weight: .medium, size: 14))
                     .foregroundStyle(detailGoal.isAchievedToday ? .my428142.opacity(0.7) : .my428142)
                     .foregroundStyle(.my428142)
                 Spacer()

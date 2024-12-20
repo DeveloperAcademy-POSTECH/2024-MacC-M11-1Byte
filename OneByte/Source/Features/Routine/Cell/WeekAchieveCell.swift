@@ -18,18 +18,18 @@ struct WeekAchieveCell: View {
             VStack(spacing: 4) {
                 HStack {
                     Text(detailGoal.title)
-                        .font(.Pretendard.Bold.size16)
+                        .font(.setPretendard(weight: .bold, size: 16))
                         .foregroundStyle(.my2B2B2B)
                     
                     Spacer()
                     
                     Text("달성한 횟수 \(detailGoal.achieveCount)/\(detailGoal.achieveGoal)개")
-                        .font(.Pretendard.Medium.size12)
+                        .font(.setPretendard(weight: .medium, size: 12))
                         .foregroundStyle(.my727272)
                 }
                 HStack {
                     Text(detailGoal.remindTime?.alertTimeString ?? "")
-                        .font(.Pretendard.Medium.size12)
+                        .font(.setPretendard(weight: .medium, size: 12))
                         .foregroundStyle(.my727272)
                     
                     Spacer()
@@ -42,7 +42,7 @@ struct WeekAchieveCell: View {
                 ForEach(0..<viewModel.days.count, id: \.self) { index in
                     VStack(spacing: 4) {
                         Text(viewModel.days[index])
-                            .font(.Pretendard.Medium.size11)
+                            .font(.setPretendard(weight: .medium, size: 11))
                             .foregroundStyle(.my7D7D7D)
                             .frame(width: 18, height: 18)
                             .clipShape(Circle())

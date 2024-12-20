@@ -16,7 +16,7 @@ struct EditNicknameSheetView: View {
     var body: some View {
         VStack {
             Text("닉네임 변경하기")
-                .font(.Pretendard.SemiBold.size17)
+                .font(.setPretendard(weight: .semiBold, size: 17))
             
             ZStack {
                 TextField("닉네임을 입력해주세요.", text: $viewModel.newNickname)
@@ -50,10 +50,10 @@ struct EditNicknameSheetView: View {
             HStack(spacing: 0) {
                 Spacer()
                 Text("\(viewModel.newNickname.count)")
-                    .font(.Pretendard.Medium.size12)
+                    .font(.setPretendard(weight: .medium, size: 12))
                     .foregroundStyle(Color.my6C6C6C)
                 Text("/10")
-                    .font(.Pretendard.Medium.size12)
+                    .font(.setPretendard(weight: .medium, size: 12))
                     .foregroundStyle(Color.my6C6C6C.opacity(0.5))
             }
             .padding(.trailing, 10)
@@ -67,7 +67,7 @@ struct EditNicknameSheetView: View {
                     viewModel.isEditNicknameSheet = false
                 } label: {
                     Text("취소")
-                        .font(.Pretendard.Medium.size16)
+                        .font(.setPretendard(weight: .medium, size: 16))
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color.my787880.opacity(0.2))
@@ -82,7 +82,7 @@ struct EditNicknameSheetView: View {
                     print("Button Tapped : 닉네임 변경 저장")
                 } label: {
                     Text("저장")
-                        .font(.Pretendard.Medium.size16)
+                        .font(.setPretendard(weight: .medium, size: 16))
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color.my538F53)

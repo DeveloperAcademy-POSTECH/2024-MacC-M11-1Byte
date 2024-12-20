@@ -39,11 +39,11 @@ struct CompleteCycleView: View {
                     .overlay (
                         VStack(spacing: 6) {
                             Text(viewModel.targetSubGoal?.title ?? "No SubGoal")
-                                .font(.Pretendard.Medium.size16)
+                                .font(.setPretendard(weight: .medium, size: 16))
                                 .foregroundStyle(.my538F53)
                                 .kerning(0.43)
                             Text(viewModel.targetDetailGoal?.title ?? "No DetailGoal")
-                                .font(.Pretendard.Medium.size20)
+                                .font(.setPretendard(weight: .medium, size: 20))
                                 .kerning(0.43)
                         }
                     )
@@ -51,7 +51,7 @@ struct CompleteCycleView: View {
                 
                 VStack(spacing: 8) {
                     Text("요일")
-                        .font(.Pretendard.Medium.size16)
+                        .font(.setPretendard(weight: .medium, size: 16))
                         .foregroundStyle(.myB4A99D)
                         .padding(.top, 24)
                         .kerning(0.43)
@@ -64,13 +64,13 @@ struct CompleteCycleView: View {
                     .padding(.top, 12)
                     
                     Text("시간대")
-                        .font(.Pretendard.Medium.size16)
+                        .font(.setPretendard(weight: .medium, size: 16))
                         .foregroundStyle(.myB4A99D)
                         .kerning(0.43)
                         .padding(.top, 28)
                     
                     Text(viewModel.getSelectedTime())
-                        .font(.Pretendard.Medium.size20)
+                        .font(.setPretendard(weight: .medium, size: 20))
                         .kerning(0.43)
                         .padding(.bottom, 30)
                     

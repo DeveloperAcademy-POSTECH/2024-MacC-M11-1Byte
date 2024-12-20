@@ -33,16 +33,16 @@ struct DaysCycleView: View {
                 .padding(.top, 31)
                 
                 RoundedRectangle(cornerRadius: 12)
-                    .fill(Color.myD6F3D4)
+                    .fill(.myD6F3D4)
                     .frame(maxWidth: .infinity)
                     .frame(height: 86)
                     .overlay (
                         VStack(spacing: 6) {
                             Text(viewModel.targetSubGoal?.title ?? "No SubGoal")
-                                .font(.Pretendard.Bold.size16)
+                                .font(.setPretendard(weight: .bold, size: 16))
                                 .foregroundStyle(.my538F53)
                             Text(viewModel.targetDetailGoal?.title ?? "No DetailGoal")
-                                .font(.Pretendard.SemiBold.size20)
+                                .font(.setPretendard(weight: .semiBold, size: 20))
                         }
                     )
                     .padding(.top, 32)
@@ -75,14 +75,14 @@ struct DaysCycleView: View {
         VStack(spacing: 2) {
             HStack {
                 Text("요일 선택")
-                    .font(.Pretendard.SemiBold.size17)
+                    .font(.setPretendard(weight: .semiBold, size: 17))
                     .foregroundStyle(.my675542)
                     .kerning(0.2)
                 Spacer()
             }
             HStack {
                 Text("루틴을 실행할 요일을 선택해주세요 " )
-                    .font(.Pretendard.Medium.size14)
+                    .font(.setPretendard(weight: .medium, size: 14))
                     .foregroundStyle(.myB4A99D)
                     .kerning(0.2)
                 Spacer()
@@ -94,7 +94,7 @@ struct DaysCycleView: View {
         VStack(spacing: 0) {
             HStack {
                 Text("반복 요일")
-                    .font(.Pretendard.SemiBold.size16)
+                    .font(.setPretendard(weight: .semiBold, size: 16))
                     .kerning(0.2)
                     .padding([.leading, .top])
                 Spacer()
@@ -126,14 +126,14 @@ struct DaysCycleView: View {
         VStack(spacing: 2) {
             HStack {
                 Text("시간대 선택")
-                    .font(.Pretendard.SemiBold.size17)
+                    .font(.setPretendard(weight: .semiBold, size: 17))
                     .foregroundStyle(.my675542)
                     .kerning(0.2)
                 Spacer()
             }
             HStack {
                 Text("루틴을 실행할 대략적인 시간대를 선택해주세요. " )
-                    .font(.Pretendard.Medium.size14)
+                    .font(.setPretendard(weight: .medium, size: 14))
                     .foregroundStyle(.myB4A99D)
                     .kerning(0.2)
                 Spacer()
@@ -145,13 +145,13 @@ struct DaysCycleView: View {
         VStack(spacing: 0) {
             HStack {
                 Text("루틴 시간대")
-                    .font(.Pretendard.SemiBold.size16)
+                    .font(.setPretendard(weight: .semiBold, size: 16))
                     .kerning(0.2)
                 Spacer()
                 Picker("Choose a times", selection: $viewModel.selectedTime) {
                     ForEach(viewModel.routineTimes, id: \.self) {
                         Text($0)
-                            .font(.Pretendard.Regular.size17)
+                            .font(.setPretendard(weight: .regular, size: 17))
                     }
                 }
                 .pickerStyle(.menu)

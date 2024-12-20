@@ -12,7 +12,7 @@ struct PrivacyPolicyRow: View {
     var body: some View {
         HStack {
             Text("개인정보 처리 방침")
-                .font(.Pretendard.SemiBold.size16)
+                .font(.setPretendard(weight: .semiBold, size: 16))
             Spacer()
         }
         .padding()

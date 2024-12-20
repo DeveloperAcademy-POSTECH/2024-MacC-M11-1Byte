@@ -57,11 +57,11 @@ struct RoutineMainView: View {
         HStack {
             HStack(alignment: .bottom) {
                 Text("\(Date().currentDateString)")
-                    .font(.Pretendard.Bold.size22)
+                    .font(.setPretendard(weight: .bold, size: 22))
                     .foregroundStyle(.white)
                 
                 Text(viewModel.getTodayWeekofMonth())
-                    .font(.Pretendard.SemiBold.size14)
+                    .font(.setPretendard(weight: .semiBold, size: 14))
                     .foregroundStyle(.myB0E4B0)
             }
             Spacer()
@@ -106,7 +106,7 @@ struct RoutineMainView: View {
             ForEach(routineTapInfo.allCases, id: \.self) { item in
                 VStack {
                     Text(item.rawValue)
-                        .font(.Pretendard.Bold.size17)
+                        .font(.setPretendard(weight: .bold, size: 17))
                         .frame(maxWidth: .infinity/4, minHeight: 50)
                         .foregroundStyle(viewModel.selectedPicker == item ? .my1D1D1D : .gray)
                     

@@ -42,11 +42,11 @@ struct CloverCardView: View {
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 9) {
                         Text(cloverCardType.cloverCardTitle) // 클로버 종류 획득 문구
-                            .font(.Pretendard.Bold.size24)
+                            .font(.setPretendard(weight: .bold, size: 24))
                             .foregroundStyle(.white)
                             .kerning(0.48)
                         Text(cloverCardType.cloverCardMessage) // 메세지
-                            .font(.Pretendard.Medium.size16)
+                            .font(.setPretendard(weight: .medium, size: 16))
                             .foregroundStyle(.white.opacity(0.9))
                             .multilineTextAlignment(.center)
                             .kerning(0.32)
@@ -63,10 +63,10 @@ struct CloverCardView: View {
                         VStack {
                             VStack(spacing: 2) {
                                 Text(viewModel.getLastWeekWeekofMonth()) // 이전 주차
-                                    .font(.Pretendard.Bold.size18)
+                                    .font(.setPretendard(weight: .bold, size: 18))
                                     .foregroundStyle(cloverCardType.cloverLastWeekDateColor)
                                 Text(cloverCardType.cloverType)
-                                    .font(.Pretendard.ExtraBold.size24)
+                                    .font(.setPretendard(weight: .extraBold, size: 24))
                                     .foregroundStyle(.white)
                             }
                             .padding(.top, 48)
@@ -95,11 +95,11 @@ struct CloverCardView: View {
                                 .foregroundStyle(.white)
                                 .bold()
                             Text("완수율 확인하기")
-                                .font(.Pretendard.Bold.size18)
+                                .font(.setPretendard(weight: .bold, size: 18))
                                 .foregroundStyle(.white)
                         } else {
                             Text("루틴 완수율 확인하기")
-                                .font(.Pretendard.Bold.size18)
+                                .font(.setPretendard(weight: .bold, size: 18))
                                 .foregroundStyle(.white)
                             Image(systemName: "chevron.down")
                                 .frame(width: 19, height: 11)
@@ -132,7 +132,7 @@ struct CloverCardView: View {
                 dismiss()
             } label: {
                 Text("클로버 모아보기")
-                    .font(.Pretendard.SemiBold.size17)
+                    .font(.setPretendard(weight: .semiBold, size: 17))
                     .foregroundStyle(cloverCardType.buttonColor)
                     .frame(maxWidth: .infinity)
                     .frame(height: 54)
@@ -168,14 +168,14 @@ struct CloverCardView: View {
         
         VStack(spacing: 12) {
             Text("\(viewModel.getLastWeekWeekofMonth())의 루틴 완수율") // 이전 주차
-                .font(.Pretendard.Bold.size17)
+                .font(.setPretendard(weight: .bold, size: 17))
                 .foregroundStyle(.my575656)
                 .padding(.vertical, 10)
             
             ForEach(progressData, id: \.id) { data in
                 HStack {
                     Text(data.category == "" ? "카테고리 없음" : data.category) // 나중에 온보딩에서 카테고리까지 선택하게되면, 수정 바람
-                        .font(.Pretendard.Bold.size12)
+                        .font(.setPretendard(weight: .bold, size: 12))
                         .foregroundStyle(.my505050)
                         .frame(width: 66, alignment: .leading)
                     CloverCardProgressBar(value: data.progress)

@@ -20,7 +20,7 @@ struct TodayRoutineTypeHeaderView: View {
                 .foregroundStyle(.my566956)
             
             Text(routineTimeType)
-                .font(.Pretendard.Bold.size18)
+                .font(.setPretendard(weight: .bold, size: 18))
                 .foregroundStyle(.my566956)
             Spacer()
         }

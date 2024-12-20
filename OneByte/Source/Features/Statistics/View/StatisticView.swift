@@ -25,7 +25,7 @@ struct StatisticView: View {
                 VStack(spacing: 0){
                     HStack {
                         Text("나의 클로버")
-                            .font(.Pretendard.Bold.size22)
+                            .font(.setPretendard(weight: .bold, size: 22))
                             .foregroundStyle(Color.myB4A99D)
                         
                         Spacer()
@@ -99,10 +99,10 @@ struct StatisticView: View {
             
             VStack(alignment: .leading, spacing: 10) {
                 Text(viewModel.getMonthInfoViewPhrase()[0])
-                    .font(.Pretendard.Bold.size18)
+                    .font(.setPretendard(weight: .bold, size: 18))
                     .foregroundStyle(.white)
                 Text(viewModel.getMonthInfoViewPhrase()[1])
-                    .font(.Pretendard.Medium.size16)
+                    .font(.setPretendard(weight: .medium, size: 16))
                     .foregroundStyle(Color.myDCECDC)
             }
             .padding(.leading, 20)
@@ -128,7 +128,7 @@ struct StatisticView: View {
                 VStack(spacing: 4) {
                     HStack {
                         Text("올해의 클로버")
-                            .font(.Pretendard.SemiBold.size18)
+                            .font(.setPretendard(weight: .semiBold, size: 18))
                             .padding(.leading, 5)
                         Spacer()
                         Button(action: {
@@ -144,7 +144,7 @@ struct StatisticView: View {
                     }
                     HStack {
                         Text("올해에 내가 수집한 클로버를 모아볼 수 있어요")
-                            .font(.Pretendard.Medium.size14)
+                            .font(.setPretendard(weight: .medium, size: 14))
                             .foregroundStyle(Color.my909090)
                             .padding(.leading, 5)
                         Spacer()
@@ -166,7 +166,7 @@ struct StatisticView: View {
                             VStack(spacing: 7) {
                                 HStack {
                                     Text("초록 클로버")
-                                        .font(.Pretendard.Medium.size14)
+                                        .font(.setPretendard(weight: .medium, size: 14))
                                         .foregroundStyle(Color.my909090)
                                 }
                                 HStack {
@@ -174,7 +174,7 @@ struct StatisticView: View {
                                         .resizable()
                                         .frame(width: 20, height: 20)
                                     Text("\(viewModel.currentYearCloverStates[1])개")
-                                        .font(.Pretendard.SemiBold.size16)
+                                        .font(.setPretendard(weight: .semiBold, size: 16))
                                 }
                             }
                             
@@ -186,7 +186,7 @@ struct StatisticView: View {
                             VStack(spacing: 7) {
                                 HStack {
                                     Text("황금 클로버")
-                                        .font(.Pretendard.Medium.size14)
+                                        .font(.setPretendard(weight: .medium, size: 14))
                                         .foregroundStyle(Color.my909090)
                                 }
                                 HStack {
@@ -194,7 +194,7 @@ struct StatisticView: View {
                                         .resizable()
                                         .frame(width: 20, height: 20)
                                     Text("\(viewModel.currentYearCloverStates[2])개")
-                                        .font(.Pretendard.SemiBold.size16)
+                                        .font(.setPretendard(weight: .semiBold, size: 16))
                                 }
                             }
                         }
@@ -203,19 +203,19 @@ struct StatisticView: View {
                         
                         HStack(spacing: 28.5) {
                             Text("1주차")
-                                .font(currentWeekOfMonth == 1 ? Font.Pretendard.Bold.size12 : Font.Pretendard.SemiBold.size12)
+                                .font(currentWeekOfMonth == 1 ? Font.setPretendard(weight: .bold, size: 12) : Font.setPretendard(weight: .semiBold, size: 12))
                                 .foregroundStyle(.my887E78)
                             Text("2주차")
-                                .font(currentWeekOfMonth == 2 ? Font.Pretendard.Bold.size12 : Font.Pretendard.SemiBold.size12)
+                                .font(currentWeekOfMonth == 2 ? Font.setPretendard(weight: .bold, size: 12) : Font.setPretendard(weight: .semiBold, size: 12))
                                 .foregroundStyle(.my887E78)
                             Text("3주차")
-                                .font(currentWeekOfMonth == 3 ? Font.Pretendard.Bold.size12 : Font.Pretendard.SemiBold.size12)
+                                .font(currentWeekOfMonth == 3 ? Font.setPretendard(weight: .bold, size: 12) : Font.setPretendard(weight: .semiBold, size: 12))
                                 .foregroundStyle(.my887E78)
                             Text("4주차")
-                                .font(currentWeekOfMonth == 4 ? Font.Pretendard.Bold.size12 : Font.Pretendard.SemiBold.size12)
+                                .font(currentWeekOfMonth == 4 ? Font.setPretendard(weight: .bold, size: 12) : Font.setPretendard(weight: .semiBold, size: 12))
                                 .foregroundStyle(.my887E78)
                             Text("5주차")
-                                .font(currentWeekOfMonth == 5 ? Font.Pretendard.Bold.size12 : Font.Pretendard.SemiBold.size12)
+                                .font(currentWeekOfMonth == 5 ? Font.setPretendard(weight: .bold, size: 12) : Font.setPretendard(weight: .semiBold, size: 12))
                                 .foregroundStyle(.my887E78)
                         }
                         .padding(.top, 38)
@@ -231,7 +231,7 @@ struct StatisticView: View {
                                         .frame(width: 41, height: 29)
                                         .overlay(
                                             Text("\(month)월")
-                                                .font(Font.Pretendard.SemiBold.size14)
+                                                .font(.setPretendard(weight: .semiBold, size: 14))
                                                 .foregroundStyle(.my887E78)
                                         )
                                     
@@ -286,14 +286,14 @@ struct StatisticView: View {
                                             .frame(width: 16, height: 17)
                                             .foregroundStyle(.my887E78)
                                         Text("접기")
-                                            .font(.Pretendard.SemiBold.size14)
+                                            .font(.setPretendard(weight: .semiBold, size: 14))
                                             .foregroundStyle(.my887E78)
                                     }
                                     .frame(width: 78)
                                 } else {
                                     VStack(spacing: 2) {
                                         Text("지난 달 더보기")
-                                            .font(.Pretendard.SemiBold.size14)
+                                            .font(.setPretendard(weight: .semiBold, size: 14))
                                             .foregroundStyle(.my887E78)
                                         Image(systemName: "chevron.down")
                                             .frame(width: 16, height: 17)
@@ -325,7 +325,7 @@ struct StatisticView: View {
                             VStack(alignment: .leading, spacing: 0) {
                                 HStack {
                                     Text("클로버 획득 방법")
-                                        .font(.Pretendard.Bold.size13)
+                                        .font(.setPretendard(weight: .bold, size: 13))
                                         .foregroundStyle(.white)
                                     Spacer()
                                     Button(action: {
@@ -344,12 +344,12 @@ struct StatisticView: View {
                                         .resizable()
                                         .frame(width: 12, height: 12)
                                     Text("초록 클로버")
-                                        .font(.Pretendard.SemiBold.size14)
+                                        .font(.setPretendard(weight: .semiBold, size: 14))
                                         .foregroundStyle(.white)
                                 }
                                 .padding(.top, 14)
                                 Text("하나의 루틴이라도 계획대로\n완수하면 받을 수 있어요")
-                                    .font(.Pretendard.Regular.size14)
+                                    .font(.setPretendard(weight: .regular, size: 14))
                                     .foregroundStyle(.white)
                                     .padding(.top, 4)
                                 HStack {
@@ -357,12 +357,12 @@ struct StatisticView: View {
                                         .resizable()
                                         .frame(width: 12, height: 12)
                                     Text("황금 클로버")
-                                        .font(.Pretendard.SemiBold.size14)
+                                        .font(.setPretendard(weight: .semiBold, size: 14))
                                         .foregroundStyle(.white)
                                 }
                                 .padding(.top, 10)
                                 Text("모든 루틴을 계획대로 완수하면\n받을 수 있어요")
-                                    .font(.Pretendard.Regular.size14)
+                                    .font(.setPretendard(weight: .regular, size: 14))
                                     .foregroundStyle(.white)
                                     .padding(.top, 4)
                             }

@@ -33,7 +33,7 @@ struct AllRoutineView: View {
                                             .clipShape(Circle())
                                         
                                         Text(subGoal.title.isEmpty ? "서브목표가 비어있어요." : subGoal.title)
-                                            .font(.Pretendard.Bold.size18)
+                                            .font(.setPretendard(weight: .bold, size: 18))
                                             .foregroundStyle(.my2B2B2B)
                                         Spacer()
                                     }
@@ -61,10 +61,10 @@ struct AllRoutineView: View {
                                 .frame(width: 101, height: 133)
                                 .padding(.top, 45)
                             Text("아직 루틴이 없어요!")
-                                .font(.Pretendard.SemiBold.size18)
+                                .font(.setPretendard(weight: .semiBold, size: 18))
                                 .padding(.top)
                             Text("나의 목표에서 루틴을 추가해보세요.")
-                                .font(.Pretendard.Regular.size16)
+                                .font(.setPretendard(weight: .regular, size: 16))
                                 .foregroundStyle(.my878787)
                         }
                     } else {
@@ -88,7 +88,7 @@ struct AllRoutineView: View {
                         .frame(maxWidth: .infinity / 5)
                         .frame(height: 55)
                     Text(viewModel.tabTitle(for: item, mainGoals: mainGoals))
-                        .font(.Pretendard.SemiBold.size12)
+                        .font(.setPretendard(weight: .semiBold, size: 12))
                 }
                 .onTapGesture {
                     viewModel.allRoutineTapPicker(to: item)

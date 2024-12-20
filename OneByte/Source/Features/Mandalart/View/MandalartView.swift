@@ -65,7 +65,7 @@ struct MandalartView: View {
                                 }
                                 .padding(.leading, 20)
                             Text("완료되었습니다!")
-                                .font(.Pretendard.Bold.size16)
+                                .font(.setPretendard(weight: .bold, size: 16))
                                 .foregroundStyle(.white)
                                 .padding(.leading, 8)
                             Spacer()
@@ -131,7 +131,7 @@ struct OuterGridView: View {
                 HStack(alignment: .center ,spacing: 0) {
                     // 한국 날짜 형식으로 오늘 날짜 표시
                     Text("클로버 심기")
-                        .font(.Pretendard.Bold.size22)
+                        .font(.setPretendard(weight: .bold, size: 22))
                         .foregroundStyle(Color.myB4A99D)
                         .padding(.leading, 4)
                     
@@ -218,7 +218,7 @@ extension OuterGridView {
                     HStack(spacing: 0) {
                         Text("나의 다짐")
                             .foregroundStyle(Color.myD5F3D1)
-                            .font(.Pretendard.Medium.size14)
+                            .font(.setPretendard(weight: .medium, size: 14))
                         Spacer()
                         Button(action: {
                             mainIsPresented = true
@@ -238,11 +238,11 @@ extension OuterGridView {
                     if mainGoal?.title == "" {
                         Text("아직 나의 다짐을 작성하지 않았어요.")
                             .foregroundStyle(.white.opacity(0.5))
-                            .font(.Pretendard.SemiBold.size16)
+                            .font(.setPretendard(weight: .semiBold, size: 16))
                     } else {
                         Text(mainGoal?.title ?? "")
                             .foregroundStyle(.white)
-                            .font(.Pretendard.Bold.size16)
+                            .font(.setPretendard(weight: .bold, size: 16))
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading) // 전체 너비에서 왼쪽 정렬
@@ -294,7 +294,7 @@ extension MandalartView {
         VStack(spacing: 0) {
             if let image = capturedImage {
                 Text("\"오늘 할 수 있는 작은 일부터 시작해 보세요\n꾸준함이 곧 당신의 습관이 될 거예요!\"")
-                    .font(.Pretendard.Medium.size14)
+                    .font(.setPretendard(weight: .medium, size: 14))
                     .foregroundStyle(.black)
                     .multilineTextAlignment(.center)
                     .padding(.top, 20)
@@ -313,7 +313,7 @@ extension MandalartView {
                     }
                 }) {
                     Text("공유하기")
-                        .font(.Pretendard.Medium.size16)
+                        .font(.setPretendard(weight: .medium, size: 16))
                         .padding(EdgeInsets(top: 14, leading: 30, bottom: 10, trailing: 30))
                         .foregroundStyle(.my235223)
                 }
@@ -328,7 +328,7 @@ extension MandalartView {
                     viewModel.showToastMessage(showToast: $showToast)
                 }) {
                     Text("이미지 저장")
-                        .font(.Pretendard.Medium.size16)
+                        .font(.setPretendard(weight: .medium, size: 16))
                         .padding(EdgeInsets(top: 10, leading: 30, bottom: 14, trailing: 30))
                         .foregroundStyle(.my235223)
                 }

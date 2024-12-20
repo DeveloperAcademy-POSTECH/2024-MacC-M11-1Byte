@@ -33,7 +33,7 @@ struct SubgoalCycleView: View {
                     }
                 
                 TextField("이루고 싶은 목표", text: $viewModel.userNewSubGoal, axis: .vertical)
-                    .font(.Pretendard.Medium.size20)
+                    .font(.setPretendard(weight: .medium, size: 20))
                     .foregroundStyle(.white)
                     .multilineTextAlignment(.center)
                     .focused($isFocused)
@@ -54,10 +54,10 @@ struct SubgoalCycleView: View {
                     HStack(spacing: 0) {
                         Spacer()
                         Text("\(viewModel.userNewSubGoal.count)")
-                            .font(.Pretendard.Medium.size14)
+                            .font(.setPretendard(weight: .medium, size: 14))
                             .foregroundStyle(.my6C6C6C)
                         Text("/\(viewModel.subGoalLimit)")
-                            .font(.Pretendard.Medium.size14)
+                            .font(.setPretendard(weight: .medium, size: 14))
                             .foregroundStyle(.my6C6C6C.opacity(0.5))
                     }
                 }

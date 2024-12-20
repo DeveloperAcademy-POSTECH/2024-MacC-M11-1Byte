@@ -25,7 +25,7 @@ struct WeekRoutineView : View {
                             .clipShape(Circle())
                         
                         Text(subGoal.title == "" ? "서브목표가 비어있어요." : subGoal.title)
-                            .font(.Pretendard.Bold.size18)
+                            .font(.setPretendard(weight: .bold, size: 18))
                             .foregroundStyle(.my2B2B2B)
                         Spacer()
                         Image(systemName: "questionmark.circle")
