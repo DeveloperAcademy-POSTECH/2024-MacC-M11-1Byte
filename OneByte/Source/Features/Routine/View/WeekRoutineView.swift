@@ -18,7 +18,7 @@ struct WeekRoutineView : View {
         ZStack {
             VStack(spacing: 0) {
                 ScrollView(.vertical, showsIndicators: false) {
-                    HStack {
+                    HStack(spacing: 8) {
                         Image(tapType.colorClover)
                             .resizable()
                             .frame(width: 29, height: 29)
@@ -29,14 +29,14 @@ struct WeekRoutineView : View {
                             .foregroundStyle(.my2B2B2B)
                         Spacer()
                         Image(systemName: "questionmark.circle")
-                            .bold()
                             .foregroundStyle(.myB4A99D)
                             .frame(width:20, height: 20)
                             .onTapGesture {
-                                isInfoVisible = true
+                                isInfoVisible.toggle()
                             }
                     }
-                    .padding(.horizontal)
+                    .padding(.leading, 16)
+                    .padding(.trailing, 20)
                     
                     VStack(spacing: 10) { // cell 사이 간격
                         // 빈 제목이 아닌 DetailGoal만 표시
@@ -51,20 +51,84 @@ struct WeekRoutineView : View {
             }
             .frame(maxWidth: .infinity)
             
-            // 팝업뷰
             if isInfoVisible {
-                Image("CloverPopup")
-                    .resizable()
-                    .frame(width: 162, height: 198)
-                    .transition(.opacity.combined(with: .scale)) // 부드러운 애니메이션
-                    .position(x: UIScreen.main.bounds.width - 81, y: 125)
-                    .onTapGesture {
-                        isInfoVisible = false
-                    }
+                infoPopupView()
+                    .padding(.top, 30)
             }
         }
-        .onTapGesture {
-            isInfoVisible = false
+    }
+    
+    @ViewBuilder
+    private func infoPopupView() -> some View {
+        VStack(spacing: -5) {
+            HStack {
+                Spacer()
+                Image("Stat_Polygon")
+                    .padding(.trailing, 22)
+            }
+            HStack {
+                Spacer()
+                Rectangle()
+                    .frame(width: 162, height: 190)
+                    .foregroundStyle(.my897C6E)
+                    .cornerRadius(8)
+                    .overlay {
+                        VStack(alignment: .leading, spacing: 8) {
+                            HStack {
+                                Text("진행도 상태 표시")
+                                    .font(.setPretendard(weight: .bold, size: 13))
+                                    .foregroundStyle(.white)
+                                Spacer()
+                                Button {
+                                    isInfoVisible = false
+                                } label: {
+                                    Image(systemName: "xmark")
+                                        .resizable()
+                                        .bold()
+                                        .frame(width: 10, height: 10)
+                                        .foregroundStyle(.white)
+                                }
+                            }
+                            
+                            HStack(spacing: 8) {
+                                Image("RoutinePopup1")
+                                    .resizable()
+                                    .frame(width: 28, height: 28)
+                                Text("루틴을 완료했어요")
+                                    .font(.setPretendard(weight: .semiBold, size: 13))
+                                    .foregroundStyle(.white)
+                            }
+                            .padding(.top, 4)
+                            
+                            HStack(spacing: 8) {
+                                Image("RoutinePopup2")
+                                    .resizable()
+                                    .frame(width: 28, height: 28)
+                                Text("루틴을 못했어요")
+                                    .font(.setPretendard(weight: .semiBold, size: 13))
+                                    .foregroundStyle(.white)
+                            }
+                            HStack(spacing: 8) {
+                                Image("RoutinePopup3")
+                                    .resizable()
+                                    .frame(width: 28, height: 28)
+                                Text("루틴을 해야해요")
+                                    .font(.setPretendard(weight: .semiBold, size: 13))
+                                    .foregroundStyle(.white)
+                            }
+                            HStack(spacing: 8) {
+                                Image("RoutinePopup4")
+                                    .resizable()
+                                    .frame(width: 28, height: 28)
+                                Text("루틴이 없어요")
+                                    .font(.setPretendard(weight: .semiBold, size: 13))
+                                    .foregroundStyle(.white)
+                            }
+                        }
+                        .padding(12)
+                    }
+            }
+            .padding(.trailing, 16)
         }
     }
 }
