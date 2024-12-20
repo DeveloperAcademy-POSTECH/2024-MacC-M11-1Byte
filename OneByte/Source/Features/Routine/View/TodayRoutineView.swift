@@ -165,6 +165,6 @@ struct TodayRoutineView: View {
             .padding([.top, .horizontal])
             .padding(.bottom, 32)
         }
-        .background(Color.myFFFAF4)
+        .background(.myFFFAF4)
     }
 }
