@@ -147,10 +147,13 @@ struct CloverCardView: View {
             // 저번주의 CloverState 값 찾기
             viewModel.lastWeekCloverState = viewModel.getLastWeekCloverState(clovers: clovers)
             print("🚧 저번주의 CloverState : \(String(describing: viewModel.lastWeekCloverState))")
+            
             // 현재 루틴들의 achieve 계산하여 ProgressValue로 변환
             if let subGoals = mainGoals.first?.subGoals {
                 viewModel.calculateProgressValues(for: subGoals)
             }
+            
+            // 주차 초기화
             let resetManager = WeeklyResetManager()
             resetManager.performReset(goals: mainGoals, modelContext: modelContext)
         }
@@ -171,7 +174,7 @@ struct CloverCardView: View {
             
             ForEach(progressData, id: \.id) { data in
                 HStack {
-                    Text(data.category == "" ? "카테고리 없음" : data.category)
+                    Text(data.category == "" ? "카테고리 없음" : data.category) // 나중에 온보딩에서 카테고리까지 선택하게되면, 수정 바람
                         .font(.Pretendard.Bold.size12)
                         .foregroundStyle(.my505050)
                         .frame(width: 66, alignment: .leading)

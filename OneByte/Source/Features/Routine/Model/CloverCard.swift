@@ -49,11 +49,11 @@ enum CloverCardType : String, CaseIterable {
     var cloverLastWeekDateColor: Color {
         switch self {
         case .noClover:
-            return Color.myE5E5E5
+            return .myE5E5E5
         case .greenClover:
-            return Color.myD7FFD3
+            return .myD7FFD3
         case .goldClover:
-            return Color.myFFF6D3
+            return .myFFF6D3
         }
     }
     
@@ -61,11 +61,11 @@ enum CloverCardType : String, CaseIterable {
     var completionRateBackgroundColor: Color {
         switch self {
         case .noClover:
-            return Color.myE0E0E0
+            return .myE0E0E0
         case .greenClover:
-            return Color.myD5E3D5
+            return .myD5E3D5
         case .goldClover:
-            return Color.myF2EAD0
+            return .myF2EAD0
         }
     }
     
@@ -73,7 +73,7 @@ enum CloverCardType : String, CaseIterable {
     var cloverCardBackground: String {
         switch self {
         case .noClover:
-            return "NoCloverBackground" // ⚠️ 디자인 생기면 수정
+            return "NoCloverBackground"
         case .greenClover:
             return "GreenCloverBackground"
         case .goldClover:
@@ -97,11 +97,11 @@ enum CloverCardType : String, CaseIterable {
     var buttonColor: Color {
         switch self {
         case .noClover:
-            return Color.my4F4F4F
+            return .my4F4F4F
         case .greenClover:
-            return Color.my538F53
+            return .my538F53
         case .goldClover:
-            return Color.myFBAC08
+            return .myFBAC08
         }
     }
     
