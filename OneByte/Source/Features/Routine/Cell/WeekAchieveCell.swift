@@ -19,26 +19,23 @@ struct WeekAchieveCell: View {
                 HStack {
                     Text(detailGoal.title)
                         .font(.Pretendard.Bold.size16)
-                        .foregroundStyle(Color.my2B2B2B)
+                        .foregroundStyle(.my2B2B2B)
                     
                     Spacer()
                     
                     Text("달성한 횟수 \(detailGoal.achieveCount)/\(detailGoal.achieveGoal)개")
                         .font(.Pretendard.Medium.size12)
-                        .foregroundStyle(Color.my727272)
+                        .foregroundStyle(.my727272)
                 }
                 HStack {
-                    if let remindTime = detailGoal.remindTime {
-                        Text(remindTime.alertTimeString)
-                            .font(.Pretendard.Medium.size12)
-                            .foregroundStyle(Color.my727272)
-                    } else {
-                        Text("")
-                    }
+                    Text(detailGoal.remindTime?.alertTimeString ?? "")
+                        .font(.Pretendard.Medium.size12)
+                        .foregroundStyle(.my727272)
+
                     Spacer()
                 }
             }
-            .padding(.top, 16)
+            .padding(.top)
             
             HStack {
                 let cumulativeAchieveCounts = calculateCumulativeAchieveCounts()
@@ -46,8 +43,8 @@ struct WeekAchieveCell: View {
                     VStack(spacing: 4) {
                         Text(days[index])
                             .font(.Pretendard.Medium.size11)
-                            .frame(width: 18, height: 18)
                             .foregroundStyle(.my7D7D7D)
+                            .frame(width: 18, height: 18)
                             .clipShape(Circle())
                         
                         ZStack {
@@ -96,7 +93,7 @@ struct WeekAchieveCell: View {
         .cornerRadius(12)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.myF0E8DF, lineWidth: 1)
+                .stroke(.myF0E8DF, lineWidth: 1)
         )
     }
     
