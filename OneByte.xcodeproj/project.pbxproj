@@ -214,8 +214,8 @@
 		1F100F4B2CFCA58200130BA9 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				1F100F4C2CFCA5B100130BA9 /* DaysCycleCell.swift */,
 				1F100F4E2CFCA5CF00130BA9 /* DaysCycleCellButton.swift */,
+				1F100F4C2CFCA5B100130BA9 /* DaysCycleCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -468,9 +468,8 @@
 			isa = PBXGroup;
 			children = (
 				1FB10A242CDF511600D54EC5 /* GoButton.swift */,
-				1F100F412CFCA3B300130BA9 /* OnboardingHeaderView.swift */,
 				1FB10A3B2CDF78C400D54EC5 /* NextButton.swift */,
-				61FA4DF22CE77EDD00256B57 /* BackButtonToolbarModifier.swift */,
+				1F100F412CFCA3B300130BA9 /* OnboardingHeaderView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -575,6 +574,7 @@
 		610595D72CE2582A005ED7B4 /* Mandalart */ = {
 			isa = PBXGroup;
 			children = (
+				61FA4DF22CE77EDD00256B57 /* BackButtonToolbarModifier.swift */,
 				61CC01002CF6CBD00009D063 /* DayButton.swift */,
 				610595D82CE2584D005ED7B4 /* MadalartShape.swift */,
 			);
