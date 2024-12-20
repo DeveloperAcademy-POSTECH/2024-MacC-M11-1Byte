@@ -361,7 +361,6 @@
 				1F7C9C172CD0737800BAC358 /* View */,
 				1FD4052E2CECC02900403A19 /* VM */,
 				1FC686342CF78268008F399F /* Cell */,
-				1FD405282CECBF9400403A19 /* Model */,
 			);
 			path = Routine;
 			sourceTree = "<group>";
@@ -434,6 +433,8 @@
 				1F599E292CE5F77000788D07 /* Profile.swift */,
 				1F4D8BF12CDF4FC300A0B5CC /* Onboarding.swift */,
 				1FB10A372CDF5FE800D54EC5 /* OnboardingExplain.swift */,
+				1FD405292CECBFCB00403A19 /* RoutineModel.swift */,
+				1F100F492CFCA49200130BA9 /* CloverCard.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -551,22 +552,13 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		1FD405282CECBF9400403A19 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				1FD405292CECBFCB00403A19 /* RoutineModel.swift */,
-				1F100F492CFCA49200130BA9 /* CloverCard.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		1FD4052E2CECC02900403A19 /* VM */ = {
 			isa = PBXGroup;
 			children = (
 				1FD4052B2CECBFF900403A19 /* RoutineMainViewModel.swift */,
 				1FD405372CECE7B400403A19 /* TodayRoutineViewModel.swift */,
-				1F100F472CFCA47800130BA9 /* CloverCardViewModel.swift */,
 				1FD4052F2CECC42500403A19 /* AllRoutineViewModel.swift */,
+				1F100F472CFCA47800130BA9 /* CloverCardViewModel.swift */,
 			);
 			path = VM;
 			sourceTree = "<group>";
