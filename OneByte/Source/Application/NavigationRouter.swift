@@ -53,7 +53,7 @@ extension PathType {
 }
 
 @Observable
-class NavigationManager {
+class NavigationRouter {
     var path: [PathType]
     init(
         path: [PathType] = []
@@ -62,7 +62,7 @@ class NavigationManager {
     }
 }
 
-extension NavigationManager {
+extension NavigationRouter {
     func push(to pathType: PathType) {
         path.append(pathType)
     }

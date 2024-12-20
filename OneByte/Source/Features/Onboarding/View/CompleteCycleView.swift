@@ -10,7 +10,7 @@ import SwiftData
 
 struct CompleteCycleView: View {
     
-    @Environment(NavigationManager.self) var navigationManager
+    @Environment(NavigationRouter.self) var navigationRouter
     @Environment(\.modelContext) private var modelContext
     @Query private var subGoals: [SubGoal]
     @State var viewModel = RoutineCycleViewModel(updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
@@ -20,7 +20,7 @@ struct CompleteCycleView: View {
     var body: some View {
         VStack(spacing: 0) {
             OnboardingHeaderView(progressValue: 4/5) {
-                navigationManager.pop()
+                navigationRouter.pop()
             }
             
             VStack(spacing: 12) {
@@ -87,7 +87,7 @@ struct CompleteCycleView: View {
             Spacer()
             
             GoButton {
-                navigationManager.push(to: .onboardFinish)
+                navigationRouter.push(to: .onboardFinish)
             } label: {
                 Text("다음")
             }
@@ -104,5 +104,5 @@ struct CompleteCycleView: View {
 
 #Preview {
     CompleteCycleView()
-        .environment(NavigationManager())
+        .environment(NavigationRouter())
 }

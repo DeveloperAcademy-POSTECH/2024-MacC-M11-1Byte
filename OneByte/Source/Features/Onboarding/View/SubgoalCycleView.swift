@@ -3,7 +3,7 @@ import SwiftData
 
 struct SubgoalCycleView: View {
     
-    @Environment(NavigationManager.self) var navigationManager
+    @Environment(NavigationRouter.self) var navigationRouter
     @Query private var mainGoals: [MainGoal]
     @State var viewModel = RoutineCycleViewModel(updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     
@@ -13,7 +13,7 @@ struct SubgoalCycleView: View {
     var body: some View {
         VStack(spacing: 0) {
             OnboardingHeaderView(progressValue: 1/5) {
-                navigationManager.pop()
+                navigationRouter.pop()
             }
             // 상단 텍스트
             VStack(spacing: 12) {
@@ -75,7 +75,7 @@ struct SubgoalCycleView: View {
                         newTitle: viewModel.userNewSubGoal,
                         category: subGoal.category
                     )
-                    navigationManager.push(to: .onboardDetailgoal)
+                    navigationRouter.push(to: .onboardDetailgoal)
                 }
             } label: {
                 Text("다음")
@@ -94,5 +94,5 @@ struct SubgoalCycleView: View {
 
 #Preview {
     SubgoalCycleView(nowOnboard: .subgoalCycle)
-        .environment(NavigationManager())
+        .environment(NavigationRouter())
 }

@@ -10,7 +10,7 @@ import SwiftData
 
 struct DaysCycleView: View {
     
-    @Environment(NavigationManager.self) var navigationManager
+    @Environment(NavigationRouter.self) var navigationRouter
     @Query private var subGoals: [SubGoal]
     @Query private var detailGoals: [DetailGoal]
     @State var viewModel = RoutineCycleViewModel(updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
@@ -20,7 +20,7 @@ struct DaysCycleView: View {
     var body: some View {
         VStack(spacing: 0) {
             OnboardingHeaderView(progressValue: 3/5) {
-                navigationManager.pop()
+                navigationRouter.pop()
             }
             
             ScrollView(.vertical, showsIndicators: false) {
@@ -54,7 +54,7 @@ struct DaysCycleView: View {
             
             NextButton(isEnabled: viewModel.achieveGoal > 0 ) {
                 viewModel.performUpdateDetailGoal()
-                navigationManager.push(to: .onboardComplete)
+                navigationRouter.push(to: .onboardComplete)
             } label: {
                 Text("다음")
             }
@@ -171,5 +171,5 @@ struct DaysCycleView: View {
 
 #Preview {
     DaysCycleView()
-        .environment(NavigationManager())
+        .environment(NavigationRouter())
 }

@@ -10,7 +10,7 @@ import SwiftData
 
 struct RoutineCycleView: View {
     
-    @Environment(NavigationManager.self) var navigationManager
+    @Environment(NavigationRouter.self) var navigationRouter
     @Query private var subGoals: [SubGoal]
     @State var viewModel = RoutineCycleViewModel(updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     @StateObject private var wwhVM = MandalartViewModel(
@@ -23,7 +23,7 @@ struct RoutineCycleView: View {
     var body: some View {
         VStack(spacing: 0) {
             OnboardingHeaderView(progressValue: 2/5) {
-                navigationManager.pop()
+                navigationRouter.pop()
             }
             
             VStack(spacing: 12) {
@@ -122,7 +122,7 @@ struct RoutineCycleView: View {
                         isNight: false,
                         isFree: false
                     )
-                    navigationManager.push(to: .onboardDays)
+                    navigationRouter.push(to: .onboardDays)
                 }
             } label: {
                 Text("다음")
@@ -188,5 +188,5 @@ struct RoutineCycleView: View {
 
 #Preview {
     RoutineCycleView(nowOnboard: .detailgoalCycle)
-        .environment(NavigationManager())
+        .environment(NavigationRouter())
 }

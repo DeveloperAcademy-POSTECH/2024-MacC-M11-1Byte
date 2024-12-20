@@ -11,7 +11,7 @@ import SwiftData
 @Observable
 class RoutineCycleViewModel {
     
-    var navigationManager = NavigationManager()
+    var navigationManager = NavigationRouter()
     
     // SubgoalCycleView
     var userNewSubGoal: String = "" // 사용자 SubGoal 입력 텍스트
