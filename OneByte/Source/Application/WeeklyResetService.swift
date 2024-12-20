@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct WeeklyResetManager {
+struct WeeklyResetService {
     
     private static let lastResetDateKey = "lastResetDate"
     
@@ -31,7 +31,7 @@ struct WeeklyResetManager {
         }
         
         // 마지막 초기화 날짜 가져오기
-        let lastResetDate = UserDefaults.standard.object(forKey: WeeklyResetManager.lastResetDateKey) as? Date
+        let lastResetDate = UserDefaults.standard.object(forKey: WeeklyResetService.lastResetDateKey) as? Date
 
         // 마지막 초기화 날짜와 현재 날짜가 같은 주에 속하는지 확인
         if let lastDate = lastResetDate {
@@ -64,7 +64,7 @@ struct WeeklyResetManager {
         }
         
         // 초기화된 날짜 새로 저장
-        UserDefaults.standard.set(Date(), forKey: WeeklyResetManager.lastResetDateKey)
+        UserDefaults.standard.set(Date(), forKey: WeeklyResetService.lastResetDateKey)
         
         do {
             try modelContext.save()

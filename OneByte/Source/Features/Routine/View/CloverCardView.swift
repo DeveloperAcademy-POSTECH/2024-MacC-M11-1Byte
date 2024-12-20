@@ -154,7 +154,7 @@ struct CloverCardView: View {
             }
             
             // 주차 초기화
-            let resetManager = WeeklyResetManager()
+            let resetManager = WeeklyResetService()
             resetManager.performReset(goals: mainGoals, modelContext: modelContext)
         }
     }

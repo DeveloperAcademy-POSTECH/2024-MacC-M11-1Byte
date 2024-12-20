@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct TabBarManager: View {
+struct MainTabView: View {
     
     @Environment(\.scenePhase) private var scenePhase // 앱 상태 감지 ( foreground <-> background )
     @Environment(\.modelContext) private var modelContext
@@ -94,7 +94,7 @@ struct TabBarManager: View {
     // 초기화를 해야하는 새로운 주차인지 판별 -> true면 CloverView 로딩
     private func isRoutineReset() {
         if !FirstOnboarding {
-            let resetManager = WeeklyResetManager()
+            let resetManager = WeeklyResetService()
             if resetManager.needsReset() {
                 showCloverCardView = true
             }
@@ -110,5 +110,5 @@ struct TabBarManager: View {
 
 
 #Preview {
-    TabBarManager()
+    MainTabView()
 }
