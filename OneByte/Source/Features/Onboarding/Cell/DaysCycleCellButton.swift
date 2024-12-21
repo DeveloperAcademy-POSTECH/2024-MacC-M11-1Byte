@@ -20,7 +20,7 @@ struct DaysCycleCellButton: View {
             onChange()
         } label: {
             Text(day)
-                .font(.Pretendard.Medium.size17)
+                .font(.setPretendard(weight: .medium, size: 17))
                 .foregroundStyle(isSelected ? .white : .white)
                 .frame(width: 36, height: 36)
                 .background(isSelected ? .my95D895 : .myCFCFCF)

@@ -157,13 +157,6 @@ class TodayRoutineViewModel {
             detailGoal.achieveCount -= 1// 미완료로 변경된 경우
         }
         updateCloverState(for: mainGoal) // MainGoal의 cloverState 업데이트 함수 호출
-        
-        // 변경 사항 저장
-        do {
-            try context.save()
-        } catch {
-            print("Error saving data: \(error)")
-        }
     }
     
     // MARK: MainGoal의 cloverState 업데이트

@@ -8,7 +8,7 @@ import SwiftUI
 
 struct ReadyCycleView: View {
     
-    @Environment(NavigationManager.self) var navigationManager
+    @Environment(NavigationRouter.self) var navigationRouter
     var nowOnboard: Onboarding = .ready
     
     var body: some View {
@@ -32,7 +32,7 @@ struct ReadyCycleView: View {
             Spacer()
             
             GoButton {
-                navigationManager.push(to: .onboardSubgoal)
+                navigationRouter.push(to: .onboardSubgoal)
             } label: {
                 Text("시작하기")
             }
@@ -45,5 +45,5 @@ struct ReadyCycleView: View {
 
 #Preview {
     ReadyCycleView()
-        .environment(NavigationManager())
+        .environment(NavigationRouter())
 }

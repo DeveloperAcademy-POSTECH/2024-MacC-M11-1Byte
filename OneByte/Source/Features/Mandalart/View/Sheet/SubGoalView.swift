@@ -118,7 +118,7 @@ extension SubGoalView {
     func categorySelectionGrid() -> some View {
         VStack(alignment: .leading, spacing: 9) {
             Text("카테고리")
-                .font(.Pretendard.SemiBold.size16)
+                .font(.setPretendard(weight: .semiBold, size: 16))
                 .padding(.leading, 4)
                 .foregroundStyle(Color.my675542)
                 .padding(.top)
@@ -170,7 +170,7 @@ extension SubGoalView {
             }
         }) {
             Text(category)
-                .font(selectedCategory == category ? .Pretendard.SemiBold.size16 : .Pretendard.Medium.size16)
+                .font(selectedCategory == category ? .setPretendard(weight: .semiBold, size: 16) : .setPretendard(weight: .medium, size: 16))
                 .padding(.vertical, 8)
                 .padding(.horizontal, 13)
                 .background(selectedCategory == category ? .my7FC77F : .clear)
@@ -225,10 +225,10 @@ extension SubGoalView {
         HStack(spacing: 0) {
             Spacer()
             Text("\(customCategory.count)")
-                .font(.Pretendard.Medium.size12)
+                .font(.setPretendard(weight: .medium, size: 12))
                 .foregroundStyle(Color.my6C6C6C)
             Text("/\(categoryLimit)")
-                .font(.Pretendard.Medium.size12)
+                .font(.setPretendard(weight: .medium, size: 12))
                 .foregroundStyle(Color.my6C6C6C.opacity(0.5))
         }
         .padding(.trailing, 10)
@@ -239,7 +239,7 @@ extension SubGoalView {
     @ViewBuilder
     func WritingObject() -> some View {
         Text("목표 이름")
-            .font(.Pretendard.SemiBold.size16)
+            .font(.setPretendard(weight: .semiBold, size: 16))
             .padding(.leading, 4)
             .foregroundStyle(Color.my675542)
             .padding(.top, 18)
@@ -282,10 +282,10 @@ extension SubGoalView {
         HStack(spacing: 0) {
             Spacer()
             Text("\(newTitle.count)")
-                .font(.Pretendard.Medium.size12)
+                .font(.setPretendard(weight: .medium, size: 12))
                 .foregroundStyle(Color.my6C6C6C)
             Text("/\(titleLimit)")
-                .font(.Pretendard.Medium.size12)
+                .font(.setPretendard(weight: .medium, size: 12))
                 .foregroundStyle(Color.my6C6C6C.opacity(0.5))
         }
         .padding(.trailing, 10)
@@ -303,7 +303,7 @@ extension SubGoalView {
                     .font(.system(size: 16))
                     .foregroundStyle(.red)
                 Text("목표 삭제하기")
-                    .font(.Pretendard.Medium.size16)
+                    .font(.setPretendard(weight: .medium, size: 16))
                     .foregroundStyle(.red)
             }
             .padding(.vertical, 14.5)

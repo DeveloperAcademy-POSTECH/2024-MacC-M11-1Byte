@@ -3,7 +3,7 @@ import SwiftData
 
 struct SubgoalCycleView: View {
     
-    @Environment(NavigationManager.self) var navigationManager
+    @Environment(NavigationRouter.self) var navigationRouter
     @Query private var mainGoals: [MainGoal]
     @State var viewModel = RoutineCycleViewModel(updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     
@@ -13,7 +13,7 @@ struct SubgoalCycleView: View {
     var body: some View {
         VStack(spacing: 0) {
             OnboardingHeaderView(progressValue: 1/5) {
-                navigationManager.pop()
+                navigationRouter.pop()
             }
             // 상단 텍스트
             VStack(spacing: 12) {
@@ -33,7 +33,7 @@ struct SubgoalCycleView: View {
                     }
                 
                 TextField("이루고 싶은 목표", text: $viewModel.userNewSubGoal, axis: .vertical)
-                    .font(.Pretendard.Medium.size20)
+                    .font(.setPretendard(weight: .medium, size: 20))
                     .foregroundStyle(.white)
                     .multilineTextAlignment(.center)
                     .focused($isFocused)
@@ -54,10 +54,10 @@ struct SubgoalCycleView: View {
                     HStack(spacing: 0) {
                         Spacer()
                         Text("\(viewModel.userNewSubGoal.count)")
-                            .font(.Pretendard.Medium.size14)
+                            .font(.setPretendard(weight: .medium, size: 14))
                             .foregroundStyle(.my6C6C6C)
                         Text("/\(viewModel.subGoalLimit)")
-                            .font(.Pretendard.Medium.size14)
+                            .font(.setPretendard(weight: .medium, size: 14))
                             .foregroundStyle(.my6C6C6C.opacity(0.5))
                     }
                 }
@@ -75,7 +75,7 @@ struct SubgoalCycleView: View {
                         newTitle: viewModel.userNewSubGoal,
                         category: subGoal.category
                     )
-                    navigationManager.push(to: .onboardDetailgoal)
+                    navigationRouter.push(to: .onboardDetailgoal)
                 }
             } label: {
                 Text("다음")
@@ -94,5 +94,5 @@ struct SubgoalCycleView: View {
 
 #Preview {
     SubgoalCycleView(nowOnboard: .subgoalCycle)
-        .environment(NavigationManager())
+        .environment(NavigationRouter())
 }

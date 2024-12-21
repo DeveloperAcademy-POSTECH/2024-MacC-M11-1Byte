@@ -13,7 +13,7 @@ struct TurtleMessageView: View {
     
     var body: some View {
         Text(message)
-            .font(.Pretendard.Medium.size14)
+            .font(.setPretendard(weight: .medium, size: 14))
             .foregroundStyle(.my3C3C3C)
             .multilineTextAlignment(.leading)
             .frame(height: 55)

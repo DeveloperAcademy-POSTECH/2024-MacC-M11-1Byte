@@ -31,7 +31,7 @@ struct OneByteApp: App {
     
     var body: some Scene {
         WindowGroup {
-            TabBarManager()
+            MainTabView()
                 .modelContainer(sharedModelContainer)
         }
     }

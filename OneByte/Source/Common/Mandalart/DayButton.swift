@@ -18,7 +18,7 @@ struct DayButton: View {
             isModified = true
         }) {
             Text(title)
-                .font(.Pretendard.Medium.size17)
+                .font(.setPretendard(weight: .medium, size: 17))
                 .foregroundStyle(.white)
                 .frame(width: 36, height: 36)
                 .background(isSelected ? Color.my538F53 : Color.myCFCFCF)

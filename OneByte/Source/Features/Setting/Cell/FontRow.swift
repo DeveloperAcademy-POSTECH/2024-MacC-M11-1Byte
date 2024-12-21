@@ -13,7 +13,7 @@ struct FontRow: View {
     var body: some View {
         HStack {
             Text("폰트 선택")
-                .font(.Pretendard.SemiBold.size16)
+                .font(.setPretendard(weight: .semiBold, size: 16))
             Spacer()
         }
         .padding()

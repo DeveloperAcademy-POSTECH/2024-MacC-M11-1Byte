@@ -14,8 +14,6 @@ struct RoutineMainView: View {
     
     @State var viewModel = RoutineMainViewModel(routineType: .today)
     @Namespace private var animation
-    @Query var mainGoals: [MainGoal]
-    @Query var clovers: [Clover]
     @Binding var isTabBarMainVisible: Bool
     
     var body: some View {
@@ -33,23 +31,29 @@ struct RoutineMainView: View {
                     VStack(spacing: 0) {
                         animate() // Tabbar Picker
                         Divider()
-                            .foregroundStyle(Color.myF0E8DF)
+                            .foregroundStyle(.myF0E8DF)
                         
                         ScrollView(.vertical, showsIndicators: false) { // Picker에 따른 2개 뷰
                             switch viewModel.selectedPicker {
                             case .today:
                                 TodayRoutineView() // 오늘의 루틴 탭
                             case .all:
-                                AllRoutineView() // 전체 루틴 탭
+                                AllRoutineView(isInfoVisible: $viewModel.isInfoVisible) // 전체 루틴 탭
                             }
                         }
                     }
-                    .background(Color.myFFFAF4)
+                    .background(.myFFFAF4)
                     .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
                 }
             }
+            .onTapGesture {
+                viewModel.isInfoVisible = false
+            }
             .onAppear {
                 isTabBarMainVisible = true
+            }
+            .onDisappear {
+                viewModel.isInfoVisible = false // 팝업뷰 on 상태에서 메인탭 이동시에도 dismiss 
             }
         }
     }
@@ -59,12 +63,12 @@ struct RoutineMainView: View {
         HStack {
             HStack(alignment: .bottom) {
                 Text("\(Date().currentDateString)")
-                    .font(.Pretendard.Bold.size22)
+                    .font(.setPretendard(weight: .bold, size: 22))
                     .foregroundStyle(.white)
                 
                 Text(viewModel.getTodayWeekofMonth())
-                    .font(.Pretendard.SemiBold.size14)
-                    .foregroundStyle(Color.myB0E4B0)
+                    .font(.setPretendard(weight: .semiBold, size: 14))
+                    .foregroundStyle(.myB0E4B0)
             }
             Spacer()
             
@@ -74,7 +78,7 @@ struct RoutineMainView: View {
                 Image("Setting")
                     .resizable()
                     .frame(width: 28, height: 28)
-                    .foregroundStyle(Color.myCEEDCE)
+                    .foregroundStyle(.myCEEDCE)
             }
         }
         .padding(.vertical, 8)
@@ -108,13 +112,13 @@ struct RoutineMainView: View {
             ForEach(routineTapInfo.allCases, id: \.self) { item in
                 VStack {
                     Text(item.rawValue)
-                        .font(.Pretendard.Bold.size17)
+                        .font(.setPretendard(weight: .bold, size: 17))
                         .frame(maxWidth: .infinity/4, minHeight: 50)
-                        .foregroundStyle(viewModel.selectedPicker == item ? Color.my1D1D1D : .gray)
+                        .foregroundStyle(viewModel.selectedPicker == item ? .my1D1D1D : .gray)
                     
                     if viewModel.selectedPicker == item {
                         Capsule()
-                            .foregroundStyle(Color.my95D895)
+                            .foregroundStyle(.my95D895)
                             .frame(height: 2)
                             .padding(.horizontal, 40)
                             .matchedGeometryEffect(id: "info", in: animation)

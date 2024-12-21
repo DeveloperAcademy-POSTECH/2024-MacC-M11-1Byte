@@ -11,7 +11,7 @@ import SwiftData
 @Observable
 class OnboardingStartViewModel {
     
-    var navigationManager = NavigationManager()
+    var navigationRouter = NavigationRouter()
     var nowOnboard: OnboardingExplain = .first
     var opacity = 0.0
     
@@ -87,7 +87,7 @@ class OnboardingStartViewModel {
         // 마지막 온보딩 페이지인지 확인
         if nowOnboard == OnboardingExplain.allCases.last {
             // 네비게이션으로 이동
-            navigationManager.push(to: .onboardReady)
+            navigationRouter.push(to: .onboardReady)
         } else {
             // 다음 페이지로 이동
             if let currentIndex = OnboardingExplain.allCases.firstIndex(of: nowOnboard),

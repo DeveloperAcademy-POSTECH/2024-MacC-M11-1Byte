@@ -42,7 +42,7 @@ enum Onboarding: CaseIterable {
         case .completeCycle:
             return Text("루틴 설정으로 이동하여\n")
                 + Text("알림기능")
-                .font(.Pretendard.SemiBold.size16)
+                .font(.setPretendard(weight: .semiBold, size: 16))
                 + Text("도 설정할 수 있어요")
         case .finish:
             return Text("남은 목표와 루틴들도 작성할 수 있어요\n목표를 이룰 수 있도록 만부기가 항상 응원할게요!")

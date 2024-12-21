@@ -9,7 +9,7 @@ import SwiftUI
 
 struct OnboardingFinishView: View {
     
-    @Environment(NavigationManager.self) var navigationManager
+    @Environment(NavigationRouter.self) var navigationRouter
     @AppStorage("FirstOnboarding") private var FirstOnboarding: Bool?
     
     var nowOnboard: Onboarding = .finish
@@ -17,7 +17,7 @@ struct OnboardingFinishView: View {
     var body: some View {
         VStack(spacing: 0) {
             OnboardingHeaderView(progressValue: 5/5) {
-                navigationManager.pop()
+                navigationRouter.pop()
             }
             VStack(spacing: 10) {
                 Text(nowOnboard.onboardingTitle)
@@ -47,5 +47,5 @@ struct OnboardingFinishView: View {
 
 #Preview {
     OnboardingFinishView()
-        .environment(NavigationManager())
+        .environment(NavigationRouter())
 }

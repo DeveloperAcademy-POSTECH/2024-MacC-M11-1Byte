@@ -27,7 +27,7 @@ struct NextButton<Content: View>: View {
             }
         }) {
             label
-                .font(.Pretendard.Medium.size18)
+                .font(.setPretendard(weight: .medium, size: 18))
                 .foregroundStyle(.white)
                 .frame(maxWidth: .infinity)
                 .frame(height: 53)

@@ -16,7 +16,7 @@ struct DaysCycleCell: View {
     var body: some View {
         VStack {
             Text(day)
-                .font(.Pretendard.Medium.size14)
+                .font(.setPretendard(weight: .medium, size: 14))
                 .foregroundStyle(.white)
                 .frame(width: 36, height: 36)
                 .background(.my6FB56F)

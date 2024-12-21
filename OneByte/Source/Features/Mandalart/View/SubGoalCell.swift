@@ -37,7 +37,7 @@ struct SubGoalCell: View {
                                 .padding(.vertical, 15)
                                 .frame(width: 78/393 * UIScreen.main.bounds.width, height: 78/852 * UIScreen.main.bounds.height)
                                 .background(Color.my95D895)
-                                .font(.Pretendard.Bold.size14)
+                                .font(.setPretendard(weight: .bold, size: 14))
                                 .cornerRadius(11)
                                 .foregroundStyle(.white)
                         } else {
@@ -49,7 +49,7 @@ struct SubGoalCell: View {
                                     .padding(10)
                                     .frame(width: 78/393 * UIScreen.main.bounds.width, height: 78/852 * UIScreen.main.bounds.height)
                                     .foregroundStyle(.black)
-                                    .font(.Pretendard.Medium.size12)
+                                    .font(.setPretendard(weight: .medium, size: 12))
                                     .background(viewModel.colorForGoal(achieveGoal: detailGoal.achieveGoal, achieveCount: detailGoal.achieveCount))
                                     .cornerRadius(cornerRadius, corners: cornerStyle, defaultRadius: 11)
                                     .cornerRadius(11)

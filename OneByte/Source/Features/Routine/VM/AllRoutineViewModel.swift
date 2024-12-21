@@ -10,6 +10,8 @@ import SwiftUI
 @Observable
 class AllRoutineViewModel {
     
+    let days: [String] = ["월","화","수","목","금","토","일"]
+    
     var selectedPicker: tapInfo = .all
     
     // 해당 탭의 Subgoal에 해당하는 DetailGoal 나타내기 위한 Subgoal Id 반환 메서드
@@ -81,5 +83,67 @@ class AllRoutineViewModel {
     func triggerHaptic() {
         let generator = UIImpactFeedbackGenerator(style: .medium)
         generator.impactOccurred()
+    }
+    
+    // WeekAchieveCell - alert 요일 확인
+    func isAlertActive(for detailGoal: DetailGoal, at index: Int) -> Bool {
+        switch index {
+        case 0: return detailGoal.alertMon
+        case 1: return detailGoal.alertTue
+        case 2: return detailGoal.alertWed
+        case 3: return detailGoal.alertThu
+        case 4: return detailGoal.alertFri
+        case 5: return detailGoal.alertSat
+        case 6: return detailGoal.alertSun
+        default: return false
+        }
+    }
+    
+    // WeekAchieveCell - 미래 요일인지 확인
+    func isFutureDay(index: Int) -> Bool {
+        let todayIndex = Date().mondayBasedIndex()
+        return index > todayIndex
+    }
+    
+    // WeekAchieveCell - 요일별 성취 상태 확인 메서드
+    func isAchieved(for detailGoal: DetailGoal, at index: Int) -> Bool {
+        switch index {
+        case 0: return detailGoal.achieveMon
+        case 1: return detailGoal.achieveTue
+        case 2: return detailGoal.achieveWed
+        case 3: return detailGoal.achieveThu
+        case 4: return detailGoal.achieveFri
+        case 5: return detailGoal.achieveSat
+        case 6: return detailGoal.achieveSun
+        default: return false
+        }
+    }
+    
+    // WeekAchieveCell - 성취했는데 지난요일들 클로버 종류별로 보여주기 위해 계산
+    func calculateCumulativeAchieveCounts(for detailGoal: DetailGoal) -> [Int]  {
+        var counts: [Int] = []
+        var cumulativeCount = 0
+        
+        for index in 0..<days.count {
+            if isAchieved(for: detailGoal, at: index) {
+                cumulativeCount += 1
+            }
+            counts.append(cumulativeCount)
+        }
+        return counts
+    }
+    
+    // WeekAchieveCell - 그라데이션 클로버 이미지 생성
+    func setGradationClover(for achieveGoal: Int, achieveCount: Int) -> Image {
+        // 주당 목표 횟수는 1 ~ 7로 가정
+        guard achieveGoal >= 1 && achieveGoal <= 7 else {
+            return Image("DefaultClover") // 기본 이미지 반환
+        }
+        // 달성 횟수는 목표 횟수(achieveGoal)를 초과하지 않도록 제한
+        let validAchieveCount = max(1, min(achieveCount, achieveGoal)) // 최소값 1로 보정
+        
+        // 클로버 이미지 이름 생성 및 반환
+        let cloverImageName = "Day\(achieveGoal)_Clover\(validAchieveCount)"
+        return Image(cloverImageName)
     }
 }

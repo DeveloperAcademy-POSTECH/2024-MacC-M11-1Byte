@@ -12,7 +12,7 @@ struct TermsRow: View {
     var body: some View {
         HStack {
             Text("이용 약관")
-                .font(.Pretendard.SemiBold.size16)
+                .font(.setPretendard(weight: .semiBold, size: 16))
             Spacer()
         }
         .padding()
