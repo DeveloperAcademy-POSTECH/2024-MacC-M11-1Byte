@@ -16,6 +16,8 @@ class RoutineMainViewModel {
     var routineType: routineTapInfo
     var todayDate = Date() // 헤더뷰
     
+    var isInfoVisible = false // 팝업 표시 상태
+    
     var currentMessage = "느리더라도 멈추지 않는다면\n결국 원하는 곳에 도달하게 돼요"
     private let randomMessages = [
         "완벽하지 않아도 괜찮아요\n중요한 것은 꾸준히 하는것이예요!",

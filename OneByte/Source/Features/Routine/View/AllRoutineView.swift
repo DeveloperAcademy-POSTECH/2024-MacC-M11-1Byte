@@ -13,6 +13,7 @@ struct AllRoutineView: View {
     @Namespace private var animation
     @Query var mainGoals: [MainGoal]
     @State var viewModel = AllRoutineViewModel()
+    @Binding var isInfoVisible: Bool
     
     var body: some View {
         ZStack {
@@ -42,7 +43,7 @@ struct AllRoutineView: View {
                                                 .frame(width:20, height: 20)
                                                 .padding(.trailing, 4) // WeekRoutineView의 questionmark와 위치를 맞춤
                                                 .onTapGesture {
-                                                    viewModel.isInfoVisible.toggle()
+                                                    isInfoVisible.toggle()
                                                 }
                                         }
                                         
@@ -77,20 +78,20 @@ struct AllRoutineView: View {
                             }
                         } else {
                             // 루틴이 있을시, 전체루틴 Cell을 보여줌
-                            WeekRoutineView(tapType: viewModel.selectedPicker, subGoal: selectedSubGoal)
+                            WeekRoutineView(isInfoVisible: $isInfoVisible, tapType: viewModel.selectedPicker, subGoal: selectedSubGoal)
                         }
                     }
                 }
             }
             .background(.myFFFAF4)
             
-            if viewModel.isInfoVisible {
-                RoutinePopUpView(isInfoVisible: $viewModel.isInfoVisible)
+            if isInfoVisible {
+                RoutinePopUpView(isInfoVisible: $isInfoVisible)
                     .padding(.top, 152)
             }
         }
         .onTapGesture {
-            viewModel.isInfoVisible = false
+            isInfoVisible = false
         }
     }
     
@@ -110,7 +111,7 @@ struct AllRoutineView: View {
                 .onTapGesture {
                     viewModel.allRoutineTapPicker(to: item)
                     viewModel.triggerHaptic()
-                    viewModel.isInfoVisible = false // PopUp 켜진채로 다른 목표 탭 이동시 off
+                    isInfoVisible = false // PopUp 켜진채로 다른 목표 탭 이동시 off
                 }
             }
         }

@@ -10,6 +10,7 @@ import SwiftUI
 struct WeekRoutineView : View {
     
     @State var viewModel = AllRoutineViewModel()
+    @Binding var isInfoVisible: Bool
     
     var tapType : tapInfo
     var subGoal: SubGoal
@@ -32,7 +33,7 @@ struct WeekRoutineView : View {
                             .foregroundStyle(.myB4A99D)
                             .frame(width:20, height: 20)
                             .onTapGesture {
-                                viewModel.isInfoVisible.toggle()
+                                isInfoVisible.toggle()
                             }
                     }
                     .padding(.leading, 16)
@@ -51,13 +52,13 @@ struct WeekRoutineView : View {
             }
             .frame(maxWidth: .infinity)
             
-            if viewModel.isInfoVisible {
-                RoutinePopUpView(isInfoVisible: $viewModel.isInfoVisible)
+            if isInfoVisible {
+                RoutinePopUpView(isInfoVisible: $isInfoVisible)
                     .padding(.top, 30)
             }
         }
         .onTapGesture {
-            viewModel.isInfoVisible = false
+            isInfoVisible = false
         }
     }
 }

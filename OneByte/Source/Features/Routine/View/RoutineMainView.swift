@@ -38,7 +38,7 @@ struct RoutineMainView: View {
                             case .today:
                                 TodayRoutineView() // 오늘의 루틴 탭
                             case .all:
-                                AllRoutineView() // 전체 루틴 탭
+                                AllRoutineView(isInfoVisible: $viewModel.isInfoVisible) // 전체 루틴 탭
                             }
                         }
                     }
@@ -46,8 +46,14 @@ struct RoutineMainView: View {
                     .clipShape(RoundedCorner(radius: 12, corners: [.topLeft, .topRight]))
                 }
             }
+            .onTapGesture {
+                viewModel.isInfoVisible = false
+            }
             .onAppear {
                 isTabBarMainVisible = true
+            }
+            .onDisappear {
+                viewModel.isInfoVisible = false // 팝업뷰 on 상태에서 메인탭 이동시에도 dismiss 
             }
         }
     }
