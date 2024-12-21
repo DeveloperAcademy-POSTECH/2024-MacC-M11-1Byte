@@ -13,6 +13,7 @@ class AllRoutineViewModel {
     let days: [String] = ["월","화","수","목","금","토","일"]
     
     var selectedPicker: tapInfo = .all
+    var isInfoVisible = false // 팝업 표시 상태
     
     // 해당 탭의 Subgoal에 해당하는 DetailGoal 나타내기 위한 Subgoal Id 반환 메서드
     func subGoalId(for tab: tapInfo) -> Int? {

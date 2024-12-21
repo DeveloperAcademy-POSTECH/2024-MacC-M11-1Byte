@@ -9,7 +9,7 @@ import SwiftUI
 
 struct WeekRoutineView : View {
     
-    @State private var isInfoVisible: Bool = false // 팝업 표시 상태
+    @State var viewModel = AllRoutineViewModel()
     
     var tapType : tapInfo
     var subGoal: SubGoal
@@ -32,7 +32,7 @@ struct WeekRoutineView : View {
                             .foregroundStyle(.myB4A99D)
                             .frame(width:20, height: 20)
                             .onTapGesture {
-                                isInfoVisible.toggle()
+                                viewModel.isInfoVisible.toggle()
                             }
                     }
                     .padding(.leading, 16)
@@ -51,7 +51,7 @@ struct WeekRoutineView : View {
             }
             .frame(maxWidth: .infinity)
             
-            if isInfoVisible {
+            if viewModel.isInfoVisible {
                 infoPopupView()
                     .padding(.top, 30)
             }
@@ -80,7 +80,7 @@ struct WeekRoutineView : View {
                                     .foregroundStyle(.white)
                                 Spacer()
                                 Button {
-                                    isInfoVisible = false
+                                    viewModel.isInfoVisible = false
                                 } label: {
                                     Image(systemName: "xmark")
                                         .resizable()
