@@ -10,7 +10,7 @@ import SwiftData
 
 struct RoutineCycleView: View {
     
-    @Environment(NavigationManager.self) var navigationManager
+    @Environment(NavigationRouter.self) var navigationRouter
     @Query private var subGoals: [SubGoal]
     @State var viewModel = RoutineCycleViewModel(updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []))
     @StateObject private var wwhVM = MandalartViewModel(
@@ -23,7 +23,7 @@ struct RoutineCycleView: View {
     var body: some View {
         VStack(spacing: 0) {
             OnboardingHeaderView(progressValue: 2/5) {
-                navigationManager.pop()
+                navigationRouter.pop()
             }
             
             VStack(spacing: 12) {
@@ -41,19 +41,19 @@ struct RoutineCycleView: View {
                 .overlay (
                     VStack(spacing: 0) {
                         Text("목표")
-                            .font(.Pretendard.Medium.size16)
+                            .font(.setPretendard(weight: .medium, size: 16))
                             .foregroundStyle(Color.myBFEBBB)
                             .padding(.top, 14)
                         
                         Text(viewModel.targetSubGoal?.title ?? "서브목표")
-                            .font(.Pretendard.ExtraBold.size20)
+                            .font(.setPretendard(weight: .extraBold, size: 20))
                             .foregroundStyle(.white)
                             .multilineTextAlignment(.center)
                             .padding(.top, 4)
                         
                         ZStack {
                             TextField("목표를 위한 루틴을 추가해보세요", text: $viewModel.userNewDetailGoal)
-                                .font(.Pretendard.Medium.size16)
+                                .font(.setPretendard(weight: .medium, size: 16))
                                 .multilineTextAlignment(.leading)
                                 .submitLabel(.done)
                                 .frame(height: 46)
@@ -77,7 +77,7 @@ struct RoutineCycleView: View {
                                         .frame(width: 23, height: 23)
                                         .foregroundStyle(Color.myB9B9B9)
                                 }
-                                .opacity(viewModel.userNewDetailGoal.isEmpty ? 0 : 1)
+                                .opacity(viewModel.isVisibleXmark())
                                 .padding(.trailing)
                             }
                         }
@@ -122,7 +122,7 @@ struct RoutineCycleView: View {
                         isNight: false,
                         isFree: false
                     )
-                    navigationManager.push(to: .onboardDays)
+                    navigationRouter.push(to: .onboardDays)
                 }
             } label: {
                 Text("다음")
@@ -149,7 +149,7 @@ struct RoutineCycleView: View {
                 .resizable()
                 .frame(width: 16, height: 16)
             Text("어디서")
-                .font(.Pretendard.SemiBold.size14)
+                .font(.setPretendard(weight: .semiBold, size: 14))
                 .foregroundStyle(wwhVM.wwh[0] ? .my385E38 : .white.opacity(0.6))
                 .kerning(0.2)
             Image(wwhVM.wwh[1] ? "Onboarding_Routine_Check" : "Onboarding_Routine_NoCheck")
@@ -157,7 +157,7 @@ struct RoutineCycleView: View {
                 .frame(width: 16, height: 16)
                 .padding(.leading, 8)
             Text("무엇을")
-                .font(.Pretendard.SemiBold.size14)
+                .font(.setPretendard(weight: .semiBold, size: 14))
                 .foregroundStyle(wwhVM.wwh[1] ? .my385E38 : .white.opacity(0.6))
                 .kerning(0.2)
             Image(wwhVM.wwh[2] ? "Onboarding_Routine_Check" : "Onboarding_Routine_NoCheck")
@@ -165,7 +165,7 @@ struct RoutineCycleView: View {
                 .frame(width: 16, height: 16)
                 .padding(.leading, 8)
             Text("얼마나")
-                .font(.Pretendard.SemiBold.size14)
+                .font(.setPretendard(weight: .semiBold, size: 14))
                 .foregroundStyle(wwhVM.wwh[2] ? .my385E38 : .white.opacity(0.6))
                 .kerning(0.2)
             
@@ -174,10 +174,10 @@ struct RoutineCycleView: View {
             HStack(spacing: 0) {
                 Spacer()
                 Text("\(viewModel.userNewDetailGoal.count)")
-                    .font(.Pretendard.Medium.size14)
+                    .font(.setPretendard(weight: .medium, size: 14))
                     .foregroundStyle(.myE8E8E8)
                 Text("/\(viewModel.detailGoalLimit)")
-                    .font(.Pretendard.Medium.size14)
+                    .font(.setPretendard(weight: .medium, size: 14))
                     .foregroundStyle(.white.opacity(0.5))
             }
         }
@@ -188,5 +188,5 @@ struct RoutineCycleView: View {
 
 #Preview {
     RoutineCycleView(nowOnboard: .detailgoalCycle)
-        .environment(NavigationManager())
+        .environment(NavigationRouter())
 }

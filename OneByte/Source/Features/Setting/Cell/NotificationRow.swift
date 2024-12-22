@@ -12,7 +12,7 @@ struct NotificationRow: View {
     var body: some View {
         HStack {
             Text("알림 설정")
-                .font(.Pretendard.SemiBold.size16)
+                .font(.setPretendard(weight: .semiBold, size: 16))
             Spacer()
         }
         .frame(maxWidth: .infinity)

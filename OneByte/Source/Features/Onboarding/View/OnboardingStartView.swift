@@ -15,7 +15,7 @@ struct OnboardingStartView: View {
     @State var viewModel = OnboardingStartViewModel(createService: CreateService())
     
     var body: some View {
-        NavigationStack(path: $viewModel.navigationManager.path) {
+        NavigationStack(path: $viewModel.navigationRouter.path) {
             VStack {
                 // 만다라트 설명 5페이지뷰 탭뷰
                 TabView(selection: $viewModel.nowOnboard) {
@@ -61,12 +61,12 @@ struct OnboardingStartView: View {
                 }
             }
         }
-        .environment(viewModel.navigationManager)
+        .environment(viewModel.navigationRouter)
     }
 }
 
 #Preview {
     OnboardingStartView()
-        .environment(NavigationManager())
+        .environment(NavigationRouter())
         .modelContainer(for: [MainGoal.self, SubGoal.self, DetailGoal.self], inMemory: true)
 }

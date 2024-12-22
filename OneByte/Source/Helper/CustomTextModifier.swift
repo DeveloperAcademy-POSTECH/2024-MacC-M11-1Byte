@@ -11,7 +11,7 @@ import SwiftUI
 struct CustomMainTitle: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .font(.Pretendard.Bold.size26)
+            .font(.setPretendard(weight: .bold, size: 26))
             .multilineTextAlignment(.center)
             .lineSpacing(3.6)
             .kerning(0.4)
@@ -22,7 +22,7 @@ struct CustomMainTitle: ViewModifier {
 struct CustomSubTitle: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .font(.Pretendard.Regular.size16)
+            .font(.setPretendard(weight: .regular, size: 16))
             .foregroundStyle(.my5A5A5A)
             .multilineTextAlignment(.center)
             .lineSpacing(2.4)
