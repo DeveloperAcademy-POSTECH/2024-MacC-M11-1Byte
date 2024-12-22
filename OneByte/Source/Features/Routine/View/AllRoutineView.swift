@@ -13,7 +13,7 @@ struct AllRoutineView: View {
     @Namespace private var animation
     @Query var mainGoals: [MainGoal]
     @State var viewModel = AllRoutineViewModel()
-    @Binding var isInfoVisible: Bool
+    @Binding var isPopUpVisible: Bool
     
     var body: some View {
         ZStack {
@@ -38,13 +38,6 @@ struct AllRoutineView: View {
                                                 .font(.setPretendard(weight: .bold, size: 18))
                                                 .foregroundStyle(.my2B2B2B)
                                             Spacer()
-                                            Image(systemName: "questionmark.circle")
-                                                .foregroundStyle(.myB4A99D)
-                                                .frame(width:20, height: 20)
-                                                .padding(.trailing, 4) // WeekRoutineView의 questionmark와 위치를 맞춤
-                                                .onTapGesture {
-                                                    isInfoVisible.toggle()
-                                                }
                                         }
                                         
                                         // ViewModel에서 DetailGoal 필터링
@@ -78,20 +71,15 @@ struct AllRoutineView: View {
                             }
                         } else {
                             // 루틴이 있을시, 전체루틴 Cell을 보여줌
-                            WeekRoutineView(isInfoVisible: $isInfoVisible, tapType: viewModel.selectedPicker, subGoal: selectedSubGoal)
+                            WeekRoutineView(isPopUpVisible: $isPopUpVisible, tapType: viewModel.selectedPicker, subGoal: selectedSubGoal)
                         }
                     }
                 }
             }
             .background(.myFFFAF4)
-            
-            if isInfoVisible {
-                RoutinePopUpView(isInfoVisible: $isInfoVisible)
-                    .padding(.top, 152)
-            }
         }
         .onTapGesture {
-            isInfoVisible = false
+            isPopUpVisible = false
         }
     }
     
@@ -111,7 +99,7 @@ struct AllRoutineView: View {
                 .onTapGesture {
                     viewModel.allRoutineTapPicker(to: item)
                     viewModel.triggerHaptic()
-                    isInfoVisible = false // PopUp 켜진채로 다른 목표 탭 이동시 off
+                    isPopUpVisible = false // PopUp 켜진채로 다른 목표 탭 이동시 off
                 }
             }
         }
