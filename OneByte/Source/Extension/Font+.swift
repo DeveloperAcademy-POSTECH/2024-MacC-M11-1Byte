@@ -22,6 +22,6 @@ extension Font {
     }
     
     static func setPretendard(weight: FontWeight, size: CGFloat) -> Font {
-        return .custom(weight.rawValue, size: size)
+        return .custom(weight.rawValue, fixedSize: size)
     }
 }
