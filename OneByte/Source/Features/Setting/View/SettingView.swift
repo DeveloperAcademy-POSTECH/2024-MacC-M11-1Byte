@@ -166,6 +166,7 @@ struct SettingView: View {
 
 extension UserDefaults {
     private static let nicknameKey = "nicknameKey"
+    private static let deviceUUID = UUID().uuidString
     
     static let calendarData = [
         // 2024년 ( 연도 / 월 / 월차 / 주차 / 클로버 스테이트 0 )
@@ -207,6 +208,10 @@ extension UserDefaults {
     // 닉네임 불러오기
     static func loadNickname() -> String {
         return UserDefaults.standard.string(forKey: nicknameKey) ?? ""
+    }
+    
+    static func saveDeviceUUID() {
+        UserDefaults.standard.set(deviceUUID, forKey: UUID().uuidString)
     }
     
     static func loadInstallYear() -> Int? {

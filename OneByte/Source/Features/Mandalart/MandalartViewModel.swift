@@ -12,6 +12,7 @@ import NaturalLanguage
 import CoreML
 import Combine
 import UIKit
+import FirebaseFirestore
 
 
 class MandalartViewModel: ObservableObject {
@@ -61,6 +62,9 @@ class MandalartViewModel: ObservableObject {
         "한문제", "두문제", "세문제"
     ]
     
+    let db = Firestore.firestore()
+        .collection("routines")
+    
     private let createService: CreateGoalUseCase
     private let updateService: UpdateGoalUseCase
     private let deleteService: DeleteService
@@ -85,7 +89,7 @@ class MandalartViewModel: ObservableObject {
         updateService.updateSubGoal(subGoal:subGoal,newTitle: newTitle, category: category)
     }
     
-    func updateDetailGoal(detailGoal: DetailGoal, newTitle: String, newMemo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool, isMorning: Bool, isAfternoon: Bool, isEvening: Bool, isNight: Bool, isFree: Bool) {
+    func updateDetailGoal(detailGoal: DetailGoal, newTitle: String, newMemo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool, isMorning: Bool, isAfternoon: Bool, isEvening: Bool, isNight: Bool, isFree: Bool) async {
         updateService.updateDetailGoal(
             detailGoal: detailGoal,
             title: newTitle,
@@ -114,6 +118,30 @@ class MandalartViewModel: ObservableObject {
             isNight: isNight,
             isFree: isFree
         )
+        do {
+            let ref = try await db.addDocument(data: [
+                "device_UUID": UserDefaults().string(forKey: "deviceUUID") ?? "None",
+                "title": newTitle,
+                "memo": newMemo,
+                "alertMon": alertMon,
+                "alertTue": alertTue,
+                "alertWed": alertWed,
+                "alertThu": alertThu,
+                "alertFri": alertFri,
+                "alertSat": alertSat,
+                "alertSun": alertSun,
+                "isMorning": isMorning,
+                "isAfternoon": isAfternoon,
+                "isEvening": isEvening,
+                "isNight": isNight,
+                "isFree": isFree,
+                "createdAt": FieldValue.serverTimestamp()
+                
+            ])
+            print("Document added with ID: \(ref.documentID)")
+        } catch {
+            print("Error adding document: \(error)")
+        }
     }
     
     func deleteMainGoal(mainGoal: MainGoal) {
