@@ -11,7 +11,7 @@ import SwiftData
 @Observable
 class RoutineCycleViewModel {
     
-    var navigationManager = NavigationManager()
+    var navigationManager = NavigationRouter()
     
     // SubgoalCycleView
     var userNewSubGoal: String = "" // 사용자 SubGoal 입력 텍스트
@@ -145,6 +145,11 @@ class RoutineCycleViewModel {
         if detailGoal.isFree { return "자율" }
         
         return "시간대 없음"
+    }
+    
+    // RoutineCycleView Xmark Visible State
+    func isVisibleXmark() -> Double {
+        return userNewDetailGoal.isEmpty ? 0 : 1
     }
     
     // 사용자 입력 DetailGoal 비우기

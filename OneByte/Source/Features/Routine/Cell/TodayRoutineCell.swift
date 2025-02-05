@@ -12,7 +12,7 @@ struct TodayRoutineCell: View {
     
     let mainGoal: MainGoal
     let detailGoal: DetailGoal
-    let subGoalCategory: String
+    let subGoalTitle: String
     let viewModel: TodayRoutineViewModel
     let modelContext: ModelContext
     let clovers: [Clover]
@@ -22,8 +22,8 @@ struct TodayRoutineCell: View {
             if let remindTime = detailGoal.remindTime {
                 VStack {
                     Text(remindTime.timeString)
-                        .font(.Pretendard.SemiBold.size14)
-                        .foregroundStyle(detailGoal.isAchievedToday ? .my727272.opacity(0.6) : Color.my727272)
+                        .font(.setPretendard(weight: .semiBold, size: 14))
+                        .foregroundStyle(detailGoal.isAchievedToday ? .my727272.opacity(0.6) : .my727272)
                     Spacer()
                 }
                 .padding(.top, 12)
@@ -31,14 +31,14 @@ struct TodayRoutineCell: View {
             
             VStack(alignment: .leading, spacing: 4) {
                 Text(detailGoal.title)
-                    .font(.Pretendard.SemiBold.size16)
+                    .font(.setPretendard(weight: .semiBold, size: 16))
                     .foregroundStyle(detailGoal.isAchievedToday ? .my2B2B2B.opacity(0.7) : .my2B2B2B)
                     .strikethrough(detailGoal.isAchievedToday)
                 
-                Text(subGoalCategory)
-                    .font(.Pretendard.Medium.size14)
+                Text(subGoalTitle)
+                    .font(.setPretendard(weight: .medium, size: 14))
                     .foregroundStyle(detailGoal.isAchievedToday ? .my428142.opacity(0.7) : .my428142)
-                    .foregroundStyle(Color.my428142)
+                    .foregroundStyle(.my428142)
                 Spacer()
             }
             .padding(.top, 12)
@@ -47,9 +47,7 @@ struct TodayRoutineCell: View {
             Button {
                 print("⚠️[DEBUG] 현재 완료 체크하는 id : \(detailGoal.id)")
                 print("⚠️[DEBUG] 현재 완료 체크하는 Title : \(detailGoal.title)")
-                print("⚠️[DEBUG] 오늘의 루틴 성취 완료 체크 전 : \(detailGoal.isAchievedToday)")
                 viewModel.toggleAchievement(for: detailGoal, in: mainGoal, context: modelContext)
-                print("⚠️[DEBUG] 오늘의 루틴 성취 완료 체크 후 : \(detailGoal.isAchievedToday)")
                 print("⚠️[DEBUG] MainGoal의 CloverState : \(mainGoal.cloverState)")
                 viewModel.calculateCurrentWeekAndMonthWeek(mainGoal: mainGoal, clovers: clovers, context: modelContext)
             } label: {
@@ -64,7 +62,7 @@ struct TodayRoutineCell: View {
         .cornerRadius(12)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
-                .stroke(Color(hex: "F0E8DF"), lineWidth: 1)
+                .stroke(.myF0E8DF, lineWidth: 1)
         )
     }
 }

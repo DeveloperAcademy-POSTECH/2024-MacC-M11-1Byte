@@ -25,7 +25,8 @@ struct SubGoalDetailGridView: View {
     private let viewModel = MandalartViewModel(
         createService: CreateService(),
         updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []),
-        deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: [])
+        deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []),
+        firebaseService: FirebaseService()
     )
     
     var body: some View {
@@ -63,7 +64,7 @@ struct SubGoalDetailGridView: View {
                                             detailNavigation = true
                                         }) {
                                             Text(detailGoal.title == "" ?  "눌러서 루틴 추가하기" : detailGoal.title)
-                                                .font(detailGoal.title == "" ? .Pretendard.Medium.size14 : .Pretendard.Medium.size16)
+                                                .font(detailGoal.title == "" ? Font.setPretendard(weight: .medium, size: 14) : Font.setPretendard(weight: .medium, size: 16))
                                                 .padding(14)
                                                 .padding(.top, detailGoalIndex == 0 || detailGoalIndex == 1 ? 4 : 0)
                                                 .padding(.leading, detailGoalIndex == 0 || detailGoalIndex == 3 ? 4 : 0)
@@ -133,7 +134,7 @@ struct SubGoalDetailGridView: View {
                 }, label: {
                     Text(isModified ? "완료": "편집")
                         .foregroundStyle(.my538F53)
-                        .font(.Pretendard.SemiBold.size17)
+                        .font(.setPretendard(weight: .semiBold, size: 17))
                 })
             })
         }
@@ -165,7 +166,8 @@ extension SubGoalDetailGridView {
                 }, label: {
                     Text(selectedSubGoal.title == "" ? "눌러서 목표 추가하기" : selectedSubGoal.title)
                         .padding()
-                        .font(selectedSubGoal.title == "" ? .Pretendard.Medium.size17: .Pretendard.Bold.size17)
+                        
+                        .font(selectedSubGoal.title == "" ? .setPretendard(weight: .medium, size: 17) : .setPretendard(weight: .bold, size: 17) )
                         .frame(width: 123/393 * UIScreen.main.bounds.width, height: 123/852 * UIScreen.main.bounds.height)
                         .foregroundStyle(selectedSubGoal.title == "" ? .white.opacity(0.7) : .white)
                         .cornerRadius(8)
@@ -213,7 +215,7 @@ extension SubGoalDetailGridView {
             if !filteredMemos.isEmpty {
                 VStack(alignment: .leading, spacing: 12) {
                     Text("메모 모아보기")
-                        .font(.Pretendard.SemiBold.size18)
+                        .font(.setPretendard(weight: .semiBold, size: 18))
                         .padding(.top, 47)
                     
                     ScrollView {
@@ -227,11 +229,11 @@ extension SubGoalDetailGridView {
                                     
                                     VStack(alignment: .leading, spacing: 4) {
                                         Text(detailGoal.title) // 디테일골 제목
-                                            .font(.Pretendard.Bold.size16)
+                                            .font(.setPretendard(weight: .bold, size: 16))
                                             .foregroundStyle(Color.my2D5C2D)
                                         
                                         Text(detailGoal.memo) // 디테일골 메모
-                                            .font(.Pretendard.Medium.size14)
+                                            .font(.setPretendard(weight: .medium, size: 14))
                                             .foregroundStyle(Color.my657665)
                                     }
                                     Spacer()
@@ -250,7 +252,7 @@ extension SubGoalDetailGridView {
             } else {
                 HStack(){
                     Text("메모 모아보기")
-                        .font(.Pretendard.SemiBold.size18)
+                        .font(.setPretendard(weight: .semiBold, size: 18))
                         .padding(.top, 47)
                     Spacer()
                 }
@@ -260,10 +262,10 @@ extension SubGoalDetailGridView {
                     .frame(height: 149/852 * UIScreen.main.bounds.height)
                     .padding(.top, 53)
                 Text("아직 메모가 없어요!")
-                    .font(.Pretendard.SemiBold.size16)
+                    .font(.setPretendard(weight: .semiBold, size: 16))
                     .padding(.vertical, 10)
                 Text("루틴에 대한 메모를 작성하고 확인해 보세요.")
-                    .font(.Pretendard.Medium.size14)
+                    .font(.setPretendard(weight: .medium, size: 14))
                     .foregroundStyle(Color.my878787)
                     .padding(.bottom, 79)
                 Spacer()

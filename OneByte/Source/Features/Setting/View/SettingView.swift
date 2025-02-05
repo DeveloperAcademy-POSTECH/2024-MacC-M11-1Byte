@@ -44,7 +44,7 @@ struct SettingView: View {
                         } label: {
                             HStack {
                                 Text("알림 설정")
-                                    .font(.Pretendard.SemiBold.size16)
+                                    .font(.setPretendard(weight: .semiBold, size: 16))
                                     .foregroundStyle(.black)
                                 Spacer()
                             }
@@ -85,8 +85,8 @@ struct SettingView: View {
                     
                     HStack {
                         Text("Version \(viewModel.appVersion)") // 앱 버전정보
-                            .font(.Pretendard.Medium.size16)
-                            .foregroundStyle(Color.myB4A99D)
+                            .font(.setPretendard(weight: .medium, size: 16))
+                            .foregroundStyle(.myB4A99D)
                     }
                     .padding(.top, 30)
                     
@@ -135,15 +135,15 @@ struct SettingView: View {
                     let nickname = UserDefaults.loadNickname()
                     if !nickname.isEmpty {
                         Text("\(nickname)님")
-                            .font(.Pretendard.Bold.size18)
+                            .font(.setPretendard(weight: .bold, size: 18))
                             .lineLimit(1)
                     } else {
                         Text("닉네임 설정")
-                            .font(.Pretendard.Bold.size18)
+                            .font(.setPretendard(weight: .bold, size: 18))
                     }
                     
                     Image(systemName: "chevron.right")
-                        .font(.Pretendard.Medium.size16)
+                        .font(.setPretendard(weight: .medium, size: 16))
                         .foregroundStyle(.black)
                     
                     Spacer()
@@ -154,8 +154,8 @@ struct SettingView: View {
                 
                 HStack {
                     Text("하고만다와 함께한지 \(viewModel.daysSinceInstall)일 째")
-                        .font(.Pretendard.SemiBold.size14)
-                        .foregroundStyle(Color.my566956)
+                        .font(.setPretendard(weight: .semiBold, size: 14))
+                        .foregroundStyle(.my566956)
                     Spacer()
                 }
             }

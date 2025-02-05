@@ -21,7 +21,7 @@ class MandalartViewModel: ObservableObject {
     @Published var detailGoalTitleText: String = ""
     private var cancellables = Set<AnyCancellable>()
     
-    private let mlModel: SpecificTagger4192
+    private let mlModel: WordClassifier4192
     
     @Published var wwh: [Bool] = [false, false, false] // Where What HOW-MUCH 포함 여부 리스트
     let whenList: [String] = [
@@ -62,26 +62,22 @@ class MandalartViewModel: ObservableObject {
         "한문제", "두문제", "세문제"
     ]
     
-    let db = Firestore.firestore()
-        .collection("routines")
-    
     private let createService: CreateGoalUseCase
     private let updateService: UpdateGoalUseCase
     private let deleteService: DeleteService
+    private let firebaseService: FirebaseUseCase
     
-    @Published var isConnected: Bool = false
-    
-    init(createService: CreateGoalUseCase, updateService: UpdateGoalUseCase, deleteService: DeleteService ) {
+    init(createService: CreateGoalUseCase, updateService: UpdateGoalUseCase, deleteService: DeleteService, firebaseService: FirebaseUseCase) {
         self.createService = createService
         self.updateService = updateService
         self.deleteService = deleteService
-        self.mlModel = try! SpecificTagger4192(configuration: MLModelConfiguration())
-        self.manageWordTagger()
-        
-        NetworkMonitor.shared.$isConnected
-            .receive(on: DispatchQueue.main)
-            .assign(to: \.isConnected, on: self)
-            .store(in: &cancellables)
+        self.firebaseService = firebaseService
+        self.mlModel = try! WordClassifier4192(configuration: MLModelConfiguration())
+        self.manageWordClassifier()
+    }
+    
+    func saveDetailGoalDateInFB(newTitle: String, newMemo: String, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool) async {
+        await firebaseService.saveDeatailGoalData(newTitle: newTitle, newMemo: newMemo, alertMon: alertMon, alertTue: alertTue, alertWed: alertWed, alertThu: alertThu, alertFri: alertFri, alertSat: alertSat, alertSun: alertSun)
     }
     
     func createGoals(modelContext: ModelContext) {
@@ -96,8 +92,8 @@ class MandalartViewModel: ObservableObject {
         updateService.updateSubGoal(subGoal:subGoal,newTitle: newTitle, category: category)
     }
     
-    func updateDetailGoal(detailGoal: DetailGoal, newTitle: String, newMemo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool, isMorning: Bool, isAfternoon: Bool, isEvening: Bool, isNight: Bool, isFree: Bool) async {
-        await updateService.updateDetailGoal(
+    func updateDetailGoal(detailGoal: DetailGoal, newTitle: String, newMemo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool, isMorning: Bool, isAfternoon: Bool, isEvening: Bool, isNight: Bool, isFree: Bool) {
+        updateService.updateDetailGoal(
             detailGoal: detailGoal,
             title: newTitle,
             memo: newMemo,
@@ -126,30 +122,8 @@ class MandalartViewModel: ObservableObject {
             isFree: isFree
         )
         
-        guard isConnected else {
-            print("🛜인터넷 연결이 되어있지 않아, 서버 통신 불가")
-            return
-        }
         
-        do {
-            let ref = try await db.addDocument(data: [
-                "device_UUID": UserDefaults.loadDeviceUUID(),
-                "title": newTitle,
-                "memo": newMemo,
-                "alertMon": alertMon,
-                "alertTue": alertTue,
-                "alertWed": alertWed,
-                "alertThu": alertThu,
-                "alertFri": alertFri,
-                "alertSat": alertSat,
-                "alertSun": alertSun,
-                "createdAt": FieldValue.serverTimestamp()
-                
-            ])
-            print("Document added with ID: \(ref.documentID)")
-        } catch {
-            print("Error adding document: \(error)")
-        }
+
     }
     
     func deleteMainGoal(mainGoal: MainGoal) {
@@ -235,16 +209,16 @@ class MandalartViewModel: ObservableObject {
         }
     }
     
-    func manageWordTagger() {
+    func manageWordClassifier() {
         $detailGoalTitleText
             .debounce(for: .seconds(0.3), scheduler: RunLoop.main)
             .sink { [weak self] newText in
-                self?.wordTagger()
+                self?.wordClassifier()
             }
             .store(in: &cancellables)
     }
 
-    func wordTagger() {
+    func wordClassifier() {
         guard !detailGoalTitleText.isEmpty else {
             wwh = [false,false,false]
             return
@@ -262,7 +236,7 @@ class MandalartViewModel: ObservableObject {
             
             var results: [TaggedWord] = []
             for word in tokens {
-                let input = SpecificTagger4192Input(text: word)
+                let input = WordClassifier4192Input(text: word)
                 let output = try mlModel.prediction(input: input)
                 let tag = output.labels
                 let taggedWord = TaggedWord(word: word, tag: tag.first ?? "")

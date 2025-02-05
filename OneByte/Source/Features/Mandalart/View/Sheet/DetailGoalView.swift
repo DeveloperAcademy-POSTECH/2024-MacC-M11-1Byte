@@ -14,7 +14,8 @@ struct DetailGoalView: View {
     @StateObject private var viewModel = MandalartViewModel(
         createService: CreateService(),
         updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []),
-        deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: [])
+        deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []),
+        firebaseService: FirebaseService()
     )
     @State private var newTitle: String = ""
     @State private var newMemo: String = ""
@@ -59,6 +60,8 @@ struct DetailGoalView: View {
     private let titleLimit = 20 // 제목 글자수 제한
     private let memoLimit = 100 // 메모 글자수 제한
     
+    @FocusState private var isFocused: Bool // TextField 포커스 상태 관리
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
@@ -127,7 +130,7 @@ struct DetailGoalView: View {
                                 remindTime = Date() // 현재 시간으로 설정
                             }
                             
-                            await viewModel.updateDetailGoal(
+                            viewModel.updateDetailGoal(
                                 detailGoal: detailGoal,
                                 newTitle: newTitle,
                                 newMemo: newMemo,
@@ -161,12 +164,14 @@ struct DetailGoalView: View {
                             let notSelectedDays = getNotSelectedDays()
                             // 알림 설정 호출
                             if isRemind {
-                                await viewModel.createNotification(detailGoal: detailGoal, newTitle: newTitle, selectedDays: selectedDays)
-                                await viewModel.deleteNotification(detailGoal: detailGoal, days: notSelectedDays)
+                                viewModel.createNotification(detailGoal: detailGoal, newTitle: newTitle, selectedDays: selectedDays)
+                                viewModel.deleteNotification(detailGoal: detailGoal, days: notSelectedDays)
                             } else {
-                                await viewModel.deleteNotification(detailGoal: detailGoal, days: ["월", "화", "수", "목", "금", "토", "일"])
+                                viewModel.deleteNotification(detailGoal: detailGoal, days: ["월", "화", "수", "목", "금", "토", "일"])
                             }
-                            
+                            Task {
+                                await viewModel.saveDetailGoalDateInFB(newTitle: newTitle, newMemo: newMemo, alertMon: alertMon, alertTue: alertTue, alertWed: alertWed, alertThu: alertThu, alertFri: alertFri, alertSat: alertSat, alertSun: alertSun)
+                            }
                         }
                         dismiss()
                     }
@@ -255,7 +260,7 @@ extension DetailGoalView {
     @ViewBuilder
     func detailGaolTitle() -> some View {
         Text("루틴 이름")
-            .font(.Pretendard.SemiBold.size16)
+            .font(.setPretendard(weight: .semiBold, size: 16))
             .padding(.leading, 4)
             .foregroundStyle(Color.my675542)
         
@@ -301,10 +306,10 @@ extension DetailGoalView {
         HStack(spacing: 0) {
             Spacer()
             Text("\(newTitle.count)")
-                .font(.Pretendard.Medium.size12)
+                .font(.setPretendard(weight: .medium, size: 12))
                 .foregroundStyle(Color.my6C6C6C)
             Text("/\(titleLimit)")
-                .font(.Pretendard.Medium.size12)
+                .font(.setPretendard(weight: .medium, size: 12))
                 .foregroundStyle(Color.my6C6C6C.opacity(0.5))
         }
         .padding(.trailing, 10)
@@ -315,7 +320,7 @@ extension DetailGoalView {
                 .resizable()
                 .frame(width: 16, height: 16)
             Text("어디서")
-                .font(.Pretendard.SemiBold.size14)
+                .font(.setPretendard(weight: .semiBold, size: 14))
                 .foregroundStyle(viewModel.wwh[0] ? .my6FB56F : .myC8B7A3)
                 .padding(.trailing, 8)
             
@@ -323,7 +328,7 @@ extension DetailGoalView {
                 .resizable()
                 .frame(width: 16, height: 16)
             Text("무엇을")
-                .font(.Pretendard.SemiBold.size14)
+                .font(.setPretendard(weight: .semiBold, size: 14))
                 .foregroundStyle(viewModel.wwh[1] ? .my6FB56F : .myC8B7A3)
                 .padding(.trailing, 8)
             
@@ -331,7 +336,7 @@ extension DetailGoalView {
                 .resizable()
                 .frame(width: 16, height: 16)
             Text("얼마나")
-                .font(.Pretendard.SemiBold.size14)
+                .font(.setPretendard(weight: .semiBold, size: 14))
                 .foregroundStyle(viewModel.wwh[2] ? .my6FB56F : .myC8B7A3)
                 .padding(.trailing, 8)
             
@@ -357,7 +362,7 @@ extension DetailGoalView {
                 .padding(.leading, 120)
             HStack(spacing: 4) {
                 Text("체크항목을 참고해서 루틴을 더 구체적으로 작성해보세요")
-                    .font(.Pretendard.Medium.size13)
+                    .font(.setPretendard(weight: .medium, size: 13))
                     .foregroundStyle(.myB4A99D)
                 Button(action: {
                     isQuestionMarkClicked = false
@@ -383,7 +388,7 @@ extension DetailGoalView {
     @ViewBuilder
     func DetailGoalMemo() -> some  View {
         Text("메모")
-            .font(.Pretendard.SemiBold.size16)
+            .font(.setPretendard(weight: .semiBold, size: 16))
             .padding(.leading, 4)
             .foregroundStyle(Color.my675542)
         
@@ -391,6 +396,7 @@ extension DetailGoalView {
             VStack(alignment: .leading) {
                 TextField("루틴에 대한 메모를 자유롭게 작성해보세요.", text: $newMemo, axis: .vertical)
                     .scrollContentBackground(.hidden)
+                    .focused($isFocused)
                     .padding()
                     .onChange(of: newMemo) { oldValue, newValue in
                         if newValue != detailGoal?.memo {
@@ -408,10 +414,10 @@ extension DetailGoalView {
                 HStack(spacing: 0){
                     Spacer()
                     Text("\(newMemo.count)")
-                        .font(.Pretendard.Medium.size12)
+                        .font(.setPretendard(weight: .medium, size: 12))
                         .foregroundStyle(Color.my6C6C6C)
                     Text("/\(memoLimit)")
-                        .font(.Pretendard.Medium.size12)
+                        .font(.setPretendard(weight: .medium, size: 12))
                         .foregroundStyle(Color.my6C6C6C.opacity(0.5))
                 }
                 .padding([.trailing, .bottom], 10)
@@ -428,6 +434,9 @@ extension DetailGoalView {
                 .stroke(Color.myF0E8DF, lineWidth: 1)
         )
         .padding(.top, 10)
+        .onTapGesture {
+            isFocused = true // Cell 전체영역 터치 시 TextField에 포커스
+        }
     }
     
     // MARK: 요일 선택
@@ -435,12 +444,12 @@ extension DetailGoalView {
     func selectDays() -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("요일 선택")
-                .font(.Pretendard.SemiBold.size16)
+                .font(.setPretendard(weight: .semiBold, size: 16))
                 .padding(.leading, 4)
                 .foregroundStyle(Color.my675542)
             
             Text("루틴을 실행할 요일을 선택해주세요.")
-                .font(.Pretendard.Medium.size14)
+                .font(.setPretendard(weight: .medium, size: 14))
                 .foregroundStyle(Color.myB4A99D)
                 .padding(.leading, 4)
         }
@@ -448,7 +457,7 @@ extension DetailGoalView {
         //실제 요일 선택
         VStack(alignment: .leading, spacing: 16){
             Text("반복 요일")
-                .font(.Pretendard.SemiBold.size16)
+                .font(.setPretendard(weight: .semiBold, size: 16))
             HStack(spacing: 12) {
                 DayButton(title: "월", isSelected: $alertMon, isModified: $isModified)
                 DayButton(title: "화", isSelected: $alertTue, isModified: $isModified)
@@ -459,7 +468,6 @@ extension DetailGoalView {
                 DayButton(title: "일", isSelected: $alertSun, isModified: $isModified)
             }
         }
-        
         .padding()
         .frame(maxWidth: .infinity)
         .frame(height: 105/852 * UIScreen.main.bounds.height)
@@ -477,12 +485,12 @@ extension DetailGoalView {
     func selectTime() -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("시간대 선택")
-                .font(.Pretendard.SemiBold.size16)
+                .font(.setPretendard(weight: .semiBold, size: 16))
                 .padding(.leading, 4)
                 .foregroundStyle(Color.my675542)
             
             Text("루틴을 실행할 대략적인 시간대를 선택해주세요.")
-                .font(.Pretendard.Medium.size14)
+                .font(.setPretendard(weight: .medium, size: 14))
                 .foregroundStyle(Color.myB4A99D)
                 .padding(.leading, 4)
         }
@@ -491,7 +499,7 @@ extension DetailGoalView {
         
         HStack {
             Text("루틴 시간대")
-                .font(.Pretendard.Medium.size16)
+                .font(.setPretendard(weight: .medium, size: 16))
             
             Spacer()
             
@@ -534,12 +542,12 @@ extension DetailGoalView {
     func remind() -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("리마인드 알림")
-                .font(.Pretendard.SemiBold.size16)
+                .font(.setPretendard(weight: .semiBold, size: 16))
                 .padding(.leading, 4)
                 .foregroundStyle(Color.my675542)
             
             Text("루틴을 시작할 때 받을 알림을 설정해주세요.")
-                .font(.Pretendard.Medium.size14)
+                .font(.setPretendard(weight: .medium, size: 14))
                 .foregroundStyle(Color.myB4A99D)
                 .padding(.leading, 4)
         }
@@ -549,7 +557,7 @@ extension DetailGoalView {
                 // 알림 설정 토글
                 HStack() {
                     Text("알림 설정")
-                        .font(.Pretendard.Medium.size16)
+                        .font(.setPretendard(weight: .medium, size: 16))
                         .foregroundStyle(.black)
                     Spacer()
                     
@@ -560,7 +568,16 @@ extension DetailGoalView {
                                 isModified = true
                             }
                             if isRemind {
-                                requestNotificationPermission()
+                                requestNotificationPermission { granted in
+                                    if granted  {
+                                        isRemind = true
+                                    } else {
+                                        DispatchQueue.main.async {
+                                            isRemind = false
+                                        }
+                                    }
+                                    
+                                }
                             }
                             if old == false {
                                 viewModel.checkNotificationPermission{ isAllowed in
@@ -601,7 +618,7 @@ extension DetailGoalView {
                     // 알림 시간 설정
                     HStack {
                         Text("알림 시간")
-                            .font(.Pretendard.Medium.size16)
+                            .font(.setPretendard(weight: .medium, size: 16))
                             .foregroundStyle(.black)
                         Spacer()
                         
@@ -646,7 +663,7 @@ extension DetailGoalView {
                     .font(.system(size: 16))
                     .foregroundStyle(.red)
                 Text("삭제하기")
-                    .font(.Pretendard.Medium.size16)
+                    .font(.setPretendard(weight: .medium, size: 16))
                     .foregroundStyle(.red)
             }
             .padding(.vertical, 14.5)

@@ -24,13 +24,14 @@ struct MainGoalsheetView: View {
     private let viewModel = MandalartViewModel(
         createService: CreateService(),
         updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []),
-        deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: [])
+        deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []),
+        firebaseService: FirebaseService()
     )
     
     var body: some View {
         VStack {
             Text("나의 다짐")
-                .font(.Pretendard.SemiBold.size17)
+                .font(.setPretendard(weight: .semiBold, size: 17))
             
             // 핵심 목표 제목 입력란
             ZStack {
@@ -41,7 +42,7 @@ struct MainGoalsheetView: View {
                 })
                 .padding()
                 .background(.white)
-                .font(.Pretendard.Medium.size16)
+                .font(.setPretendard(weight: .medium, size: 16))
                 .cornerRadius(12)
                 .onChange(of: newTitle) { oldValue, newValue in
                     if newValue.count > titleLimit {
@@ -70,10 +71,10 @@ struct MainGoalsheetView: View {
             HStack(spacing: 0) {
                 Spacer()
                 Text("\(newTitle.count)")
-                    .font(.Pretendard.Medium.size12)
+                    .font(.setPretendard(weight: .medium, size: 12))
                     .foregroundStyle(Color.my6C6C6C)
                 Text("/\(titleLimit)")
-                    .font(.Pretendard.Medium.size12)
+                    .font(.setPretendard(weight: .medium, size: 12))
                     .foregroundStyle(Color.my6C6C6C.opacity(0.5))
             }
             .padding(.trailing, 10)
@@ -87,7 +88,7 @@ struct MainGoalsheetView: View {
                 }) {
                     Text("취소")
                         .frame(maxWidth: .infinity)
-                        .font(.Pretendard.Medium.size16)
+                        .font(.setPretendard(weight: .medium, size: 16))
                         .padding()
                         .background(Color.my787880.opacity(0.2))
                         .foregroundStyle(Color.my3C3C43.opacity(0.6))
@@ -107,7 +108,7 @@ struct MainGoalsheetView: View {
                 }) {
                     Text("저장")
                         .frame(maxWidth: .infinity)
-                        .font(.Pretendard.Medium.size16)
+                        .font(.setPretendard(weight: .medium, size: 16))
                         .padding()
                         .background(newTitle == "" ? Color.my538F53.opacity(0.7) : Color.my538F53)
                         .foregroundStyle(newTitle == "" ? .white.opacity(0.7) : .white)
