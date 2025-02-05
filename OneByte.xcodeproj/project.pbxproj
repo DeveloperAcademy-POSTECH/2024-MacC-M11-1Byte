@@ -103,6 +103,7 @@
 		A18C55892D40DF8B00F5C9F6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A18C55882D40DF8A00F5C9F6 /* GoogleService-Info.plist */; };
 		A18C558C2D40E04A00F5C9F6 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = A18C558B2D40E04A00F5C9F6 /* FirebaseAnalytics */; };
 		A18C558F2D40F5DE00F5C9F6 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = A18C558E2D40F5DE00F5C9F6 /* FirebaseFirestore */; };
+		A18C55912D424F2A00F5C9F6 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18C55902D424F2A00F5C9F6 /* NetworkMonitor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -201,6 +202,7 @@
 		61FA4DF42CE7803600256B57 /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
 		A14A18F72D0022150013050F /* SpecificTagger4192.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = SpecificTagger4192.mlmodel; path = ../../../../../ML/Macro_Dataset/SpecificTagger4192.mlmodel; sourceTree = "<group>"; };
 		A18C55882D40DF8A00F5C9F6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A18C55902D424F2A00F5C9F6 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -468,6 +470,7 @@
 				61E28B812CEE01FE000F77FB /* Notification.swift */,
 				1F62B8F02CF18AE4004A3F0B /* WeeklyResetManager.swift */,
 				6178161F2CE5DF6A00834AAD /* DateManager.swift */,
+				A18C55902D424F2A00F5C9F6 /* NetworkMonitor.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -735,6 +738,7 @@
 				613904E82CD20457008E591D /* MandalartView.swift in Sources */,
 				1FA420942CC0DC19001CB92D /* Color+.swift in Sources */,
 				1FB10A342CDF593600D54EC5 /* OnboardingFinishView.swift in Sources */,
+				A18C55912D424F2A00F5C9F6 /* NetworkMonitor.swift in Sources */,
 				1FC686362CF78276008F399F /* TodayRoutineCell.swift in Sources */,
 				1F599E262CE5DEBE00788D07 /* SettingView.swift in Sources */,
 				1FB10A3C2CDF78C400D54EC5 /* NextButton.swift in Sources */,

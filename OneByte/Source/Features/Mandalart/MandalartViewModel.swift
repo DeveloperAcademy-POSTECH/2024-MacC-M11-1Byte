@@ -69,12 +69,19 @@ class MandalartViewModel: ObservableObject {
     private let updateService: UpdateGoalUseCase
     private let deleteService: DeleteService
     
+    @Published var isConnected: Bool = false
+    
     init(createService: CreateGoalUseCase, updateService: UpdateGoalUseCase, deleteService: DeleteService ) {
         self.createService = createService
         self.updateService = updateService
         self.deleteService = deleteService
         self.mlModel = try! SpecificTagger4192(configuration: MLModelConfiguration())
         self.manageWordTagger()
+        
+        NetworkMonitor.shared.$isConnected
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.isConnected, on: self)
+            .store(in: &cancellables)
     }
     
     func createGoals(modelContext: ModelContext) {
@@ -90,7 +97,7 @@ class MandalartViewModel: ObservableObject {
     }
     
     func updateDetailGoal(detailGoal: DetailGoal, newTitle: String, newMemo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool, isMorning: Bool, isAfternoon: Bool, isEvening: Bool, isNight: Bool, isFree: Bool) async {
-        updateService.updateDetailGoal(
+        await updateService.updateDetailGoal(
             detailGoal: detailGoal,
             title: newTitle,
             memo: newMemo,
@@ -118,9 +125,15 @@ class MandalartViewModel: ObservableObject {
             isNight: isNight,
             isFree: isFree
         )
+        
+        guard isConnected else {
+            print("🛜인터넷 연결이 되어있지 않아, 서버 통신 불가")
+            return
+        }
+        
         do {
             let ref = try await db.addDocument(data: [
-                "device_UUID": UserDefaults().string(forKey: "deviceUUID") ?? "None",
+                "device_UUID": UserDefaults.loadDeviceUUID(),
                 "title": newTitle,
                 "memo": newMemo,
                 "alertMon": alertMon,
@@ -130,11 +143,6 @@ class MandalartViewModel: ObservableObject {
                 "alertFri": alertFri,
                 "alertSat": alertSat,
                 "alertSun": alertSun,
-                "isMorning": isMorning,
-                "isAfternoon": isAfternoon,
-                "isEvening": isEvening,
-                "isNight": isNight,
-                "isFree": isFree,
                 "createdAt": FieldValue.serverTimestamp()
                 
             ])
