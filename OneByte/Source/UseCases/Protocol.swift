@@ -27,3 +27,7 @@ protocol DeleteGoalUseCase {
     func deleteSubDetailGoals(subGoal: SubGoal, days: [String])
     func deleteNotification(detailGoal: DetailGoal, days: [String])
 }
+
+protocol FirebaseUseCase {
+    func saveDeatailGoalData(newTitle: String, newMemo: String, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool) async
+}
