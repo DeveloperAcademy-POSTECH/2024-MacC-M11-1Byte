@@ -14,7 +14,8 @@ struct DetailGoalView: View {
     @StateObject private var viewModel = MandalartViewModel(
         createService: CreateService(),
         updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []),
-        deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: [])
+        deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []),
+        firebaseService: FirebaseService()
     )
     @State private var newTitle: String = ""
     @State private var newMemo: String = ""
@@ -116,60 +117,64 @@ struct DetailGoalView: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing, content: {
                 Button(action: {
-                    isModified = false
-                    if let detailGoal = detailGoal{
-                        // 요일 갯수 계산
-                        achieveGoal = [alertMon, alertTue, alertWed, alertThu, alertFri, alertSat, alertSun]
-                            .filter { $0 }
-                            .count
-                        
-                        // 알림 시간 기본값 설정
-                        if isRemind, remindTime == nil {
-                            remindTime = Date() // 현재 시간으로 설정
+                    Task {
+                        isModified = false
+                        if let detailGoal = detailGoal{
+                            // 요일 갯수 계산
+                            achieveGoal = [alertMon, alertTue, alertWed, alertThu, alertFri, alertSat, alertSun]
+                                .filter { $0 }
+                                .count
+                            
+                            // 알림 시간 기본값 설정
+                            if isRemind, remindTime == nil {
+                                remindTime = Date() // 현재 시간으로 설정
+                            }
+                            
+                            viewModel.updateDetailGoal(
+                                detailGoal: detailGoal,
+                                newTitle: newTitle,
+                                newMemo: newMemo,
+                                achieveCount: achieveCount,
+                                achieveGoal: achieveGoal,
+                                alertMon: alertMon,
+                                alertTue: alertTue,
+                                alertWed: alertWed,
+                                alertThu: alertThu,
+                                alertFri: alertFri,
+                                alertSat: alertSat,
+                                alertSun: alertSun,
+                                isRemind: isRemind,
+                                remindTime: remindTime,
+                                achieveMon: achieveMon,
+                                achieveTue: achieveTue,
+                                achieveWed: achieveWed,
+                                achieveThu: achieveThu,
+                                achieveFri: achieveFri,
+                                achieveSat: achieveSat,
+                                achieveSun: achieveSun,
+                                isMorning: isMorning,
+                                isAfternoon: isAfternoon,
+                                isEvening: isEvening,
+                                isNight: isNight,
+                                isFree: isFree
+                            )
+                            
+                            viewModel.updateTimePeriodStates(detailGoal: detailGoal, for: selectedTime)
+                            let selectedDays = getSelectedDays()
+                            let notSelectedDays = getNotSelectedDays()
+                            // 알림 설정 호출
+                            if isRemind {
+                                viewModel.createNotification(detailGoal: detailGoal, newTitle: newTitle, selectedDays: selectedDays)
+                                viewModel.deleteNotification(detailGoal: detailGoal, days: notSelectedDays)
+                            } else {
+                                viewModel.deleteNotification(detailGoal: detailGoal, days: ["월", "화", "수", "목", "금", "토", "일"])
+                            }
+                            Task {
+                                await viewModel.saveDetailGoalDateInFB(newTitle: newTitle, newMemo: newMemo, alertMon: alertMon, alertTue: alertTue, alertWed: alertWed, alertThu: alertThu, alertFri: alertFri, alertSat: alertSat, alertSun: alertSun)
+                            }
                         }
-                        
-                        viewModel.updateDetailGoal(
-                            detailGoal: detailGoal,
-                            newTitle: newTitle,
-                            newMemo: newMemo,
-                            achieveCount: achieveCount,
-                            achieveGoal: achieveGoal,
-                            alertMon: alertMon,
-                            alertTue: alertTue,
-                            alertWed: alertWed,
-                            alertThu: alertThu,
-                            alertFri: alertFri,
-                            alertSat: alertSat,
-                            alertSun: alertSun,
-                            isRemind: isRemind,
-                            remindTime: remindTime,
-                            achieveMon: achieveMon,
-                            achieveTue: achieveTue,
-                            achieveWed: achieveWed,
-                            achieveThu: achieveThu,
-                            achieveFri: achieveFri,
-                            achieveSat: achieveSat,
-                            achieveSun: achieveSun,
-                            isMorning: isMorning,
-                            isAfternoon: isAfternoon,
-                            isEvening: isEvening,
-                            isNight: isNight,
-                            isFree: isFree
-                        )
-                        
-                        viewModel.updateTimePeriodStates(detailGoal: detailGoal, for: selectedTime)
-                        let selectedDays = getSelectedDays()
-                        let notSelectedDays = getNotSelectedDays()
-                        // 알림 설정 호출
-                        if isRemind {
-                            viewModel.createNotification(detailGoal: detailGoal, newTitle: newTitle, selectedDays: selectedDays)
-                            viewModel.deleteNotification(detailGoal: detailGoal, days: notSelectedDays)
-                        } else {
-                            viewModel.deleteNotification(detailGoal: detailGoal, days: ["월", "화", "수", "목", "금", "토", "일"])
-                        }
-                        
+                        dismiss()
                     }
-                    dismiss()
                     
                 }, label: {
                     Text("저장")

@@ -166,6 +166,7 @@ struct SettingView: View {
 
 extension UserDefaults {
     private static let nicknameKey = "nicknameKey"
+    private static let deviceUUIDKey = "deviceUUIDKey"
     
     static let calendarData = [
         // 2024년 ( 연도 / 월 / 월차 / 주차 / 클로버 스테이트 0 )
@@ -209,6 +210,20 @@ extension UserDefaults {
         return UserDefaults.standard.string(forKey: nicknameKey) ?? ""
     }
     
+    static func saveDeviceUUID() {
+        if UserDefaults.standard.string(forKey: deviceUUIDKey) == nil {
+            let uuid = UUID().uuidString
+            UserDefaults.standard.set(uuid, forKey: deviceUUIDKey)
+            print("✅ UUID 저장 완료: \(uuid)")
+        }
+    }
+
+    static func loadDeviceUUID() -> String {
+        let uuid = UserDefaults.standard.string(forKey: deviceUUIDKey) ?? "None"
+        print("📤 UUID 불러오기: \(uuid)")
+        return uuid
+    }
+        
     static func loadInstallYear() -> Int? {
         guard let installDateString = UserDefaults.standard.string(forKey: "userInstallDate") else {
             print("❌ userInstallDate을 찾을 수 없습니다")

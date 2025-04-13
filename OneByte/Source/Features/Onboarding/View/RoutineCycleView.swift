@@ -16,7 +16,8 @@ struct RoutineCycleView: View {
     @StateObject private var wwhVM = MandalartViewModel(
         createService: CreateService(),
         updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []),
-        deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: [])
+        deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []),
+        firebaseService: FirebaseService()
     )
     var nowOnboard: Onboarding = .detailgoalCycle
     

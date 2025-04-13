@@ -78,7 +78,6 @@
 		1FFD92962CFEA2D2003E9D16 /* RoutineTurtleLottie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFD92952CFEA2D2003E9D16 /* RoutineTurtleLottie.swift */; };
 		1FFD92982CFEA38B003E9D16 /* RoutineTurtle.json in Resources */ = {isa = PBXBuildFile; fileRef = 1FFD92972CFEA38B003E9D16 /* RoutineTurtle.json */; };
 		1FFD929A2CFECF5A003E9D16 /* MandalartTurtle.json in Resources */ = {isa = PBXBuildFile; fileRef = 1FFD92992CFECF5A003E9D16 /* MandalartTurtle.json */; };
-		1FFD92A82D0D7EE9003E9D16 /* SpecificTagger4192.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1FFD92A72D0D7EE9003E9D16 /* SpecificTagger4192.mlmodel */; };
 		610595CE2CE2140D005ED7B4 /* SubGoalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595CD2CE2140D005ED7B4 /* SubGoalCell.swift */; };
 		610595D22CE214CE005ED7B4 /* SubGoalDetailGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595D12CE214CE005ED7B4 /* SubGoalDetailGridView.swift */; };
 		610595D42CE21505005ED7B4 /* MainGoalSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610595D32CE21505005ED7B4 /* MainGoalSheetView.swift */; };
@@ -101,6 +100,12 @@
 		61E28B822CEE01FE000F77FB /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E28B812CEE01FE000F77FB /* Notification.swift */; };
 		61FA4DF32CE77EDD00256B57 /* BackButtonToolbarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FA4DF22CE77EDD00256B57 /* BackButtonToolbarModifier.swift */; };
 		61FA4DF52CE7803600256B57 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FA4DF42CE7803600256B57 /* View+.swift */; };
+		A18C55892D40DF8B00F5C9F6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A18C55882D40DF8A00F5C9F6 /* GoogleService-Info.plist */; };
+		A18C558C2D40E04A00F5C9F6 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = A18C558B2D40E04A00F5C9F6 /* FirebaseAnalytics */; };
+		A18C558F2D40F5DE00F5C9F6 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = A18C558E2D40F5DE00F5C9F6 /* FirebaseFirestore */; };
+		A18C55912D424F2A00F5C9F6 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18C55902D424F2A00F5C9F6 /* NetworkMonitor.swift */; };
+		A18C55972D53513E00F5C9F6 /* WordClassifier4192.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A18C55962D53513E00F5C9F6 /* WordClassifier4192.mlmodel */; };
+		A18C55992D5361EE00F5C9F6 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18C55982D5361EE00F5C9F6 /* FirebaseService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -176,7 +181,6 @@
 		1FFD92952CFEA2D2003E9D16 /* RoutineTurtleLottie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineTurtleLottie.swift; sourceTree = "<group>"; };
 		1FFD92972CFEA38B003E9D16 /* RoutineTurtle.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RoutineTurtle.json; sourceTree = "<group>"; };
 		1FFD92992CFECF5A003E9D16 /* MandalartTurtle.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MandalartTurtle.json; sourceTree = "<group>"; };
-		1FFD92A72D0D7EE9003E9D16 /* SpecificTagger4192.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = SpecificTagger4192.mlmodel; path = ../../../../../Downloads/SpecificTagger4192.mlmodel; sourceTree = "<group>"; };
 		610595CD2CE2140D005ED7B4 /* SubGoalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubGoalCell.swift; sourceTree = "<group>"; };
 		610595D12CE214CE005ED7B4 /* SubGoalDetailGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubGoalDetailGridView.swift; sourceTree = "<group>"; };
 		610595D32CE21505005ED7B4 /* MainGoalSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGoalSheetView.swift; sourceTree = "<group>"; };
@@ -199,6 +203,10 @@
 		61E28B812CEE01FE000F77FB /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		61FA4DF22CE77EDD00256B57 /* BackButtonToolbarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButtonToolbarModifier.swift; sourceTree = "<group>"; };
 		61FA4DF42CE7803600256B57 /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
+		A18C55882D40DF8A00F5C9F6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A18C55902D424F2A00F5C9F6 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		A18C55962D53513E00F5C9F6 /* WordClassifier4192.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = WordClassifier4192.mlmodel; sourceTree = "<group>"; };
+		A18C55982D5361EE00F5C9F6 /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,7 +214,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A18C558C2D40E04A00F5C9F6 /* FirebaseAnalytics in Frameworks */,
 				1FFD92942CFEA26B003E9D16 /* Lottie in Frameworks */,
+				A18C558F2D40F5DE00F5C9F6 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,6 +282,7 @@
 				1F8591172CC0A68500253B38 /* .gitignore */,
 				1F79EDCC2CC0A25D0079088B /* OneByte */,
 				1F79EDCB2CC0A25D0079088B /* Products */,
+				A18C558D2D40F5DE00F5C9F6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -287,6 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				1F42BE872CDF82DF00A59703 /* Info.plist */,
+				A18C55882D40DF8A00F5C9F6 /* GoogleService-Info.plist */,
 				1FA4208C2CC0DBDB001CB92D /* Source */,
 				1FA4208B2CC0DBD3001CB92D /* Resource */,
 				1F79EDD32CC0A25E0079088B /* Preview Content */,
@@ -398,6 +410,7 @@
 				618FD0732CDF11210003450D /* CreateService.swift */,
 				618FD0752CDF11410003450D /* UpdateService.swift */,
 				610595D52CE23653005ED7B4 /* DeleteService.swift */,
+				A18C55982D5361EE00F5C9F6 /* FirebaseService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -414,8 +427,8 @@
 		1FA4208B2CC0DBD3001CB92D /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				A18C55962D53513E00F5C9F6 /* WordClassifier4192.mlmodel */,
 				1FFD92992CFECF5A003E9D16 /* MandalartTurtle.json */,
-				1FFD92A72D0D7EE9003E9D16 /* SpecificTagger4192.mlmodel */,
 				1FFD92972CFEA38B003E9D16 /* RoutineTurtle.json */,
 				1F79EDD12CC0A25E0079088B /* Assets.xcassets */,
 				1F42BE742CDF824D00A59703 /* Font */,
@@ -471,6 +484,7 @@
 				61E28B812CEE01FE000F77FB /* Notification.swift */,
 				1F62B8F02CF18AE4004A3F0B /* WeeklyResetService.swift */,
 				6178161F2CE5DF6A00834AAD /* DateManager.swift */,
+				A18C55902D424F2A00F5C9F6 /* NetworkMonitor.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -594,6 +608,13 @@
 			path = Sheet;
 			sourceTree = "<group>";
 		};
+		A18C558D2D40F5DE00F5C9F6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -612,6 +633,8 @@
 			name = OneByte;
 			packageProductDependencies = (
 				1FFD92932CFEA26B003E9D16 /* Lottie */,
+				A18C558B2D40E04A00F5C9F6 /* FirebaseAnalytics */,
+				A18C558E2D40F5DE00F5C9F6 /* FirebaseFirestore */,
 			);
 			productName = OneByte;
 			productReference = 1F79EDCA2CC0A25D0079088B /* OneByte.app */;
@@ -643,6 +666,7 @@
 			mainGroup = 1F79EDC12CC0A25D0079088B;
 			packageReferences = (
 				1FFD92922CFEA26B003E9D16 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				A18C558A2D40E04A00F5C9F6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 1F79EDCB2CC0A25D0079088B /* Products */;
 			projectDirPath = "";
@@ -660,6 +684,7 @@
 			files = (
 				1F79EDD52CC0A25E0079088B /* Preview Assets.xcassets in Resources */,
 				1F42BE7F2CDF826D00A59703 /* Pretendard-Bold.otf in Resources */,
+				A18C55892D40DF8B00F5C9F6 /* GoogleService-Info.plist in Resources */,
 				1FFD929A2CFECF5A003E9D16 /* MandalartTurtle.json in Resources */,
 				1F8591182CC0A68500253B38 /* .gitignore in Resources */,
 				1F42BE842CDF826D00A59703 /* Pretendard-Light.otf in Resources */,
@@ -695,6 +720,7 @@
 				1F100F442CFCA3F000130BA9 /* RoutineCycleViewModel.swift in Sources */,
 				1F62B8F12CF18AE4004A3F0B /* WeeklyResetService.swift in Sources */,
 				1F599E362CE6648B00788D07 /* PrivacyPolicyRow.swift in Sources */,
+				A18C55992D5361EE00F5C9F6 /* FirebaseService.swift in Sources */,
 				1F599E3A2CE66AA300788D07 /* SettingViewModel.swift in Sources */,
 				1FD405302CECC42500403A19 /* AllRoutineViewModel.swift in Sources */,
 				1FCBFF142D154F990095FCB4 /* WeekRoutineView.swift in Sources */,
@@ -711,7 +737,6 @@
 				1FB10A322CDF56E200D54EC5 /* RoutineCycleView.swift in Sources */,
 				615A0A0B2CC0ADA800908531 /* MainTabView.swift in Sources */,
 				1F100F402CFCA3A200130BA9 /* CustomTextModifier.swift in Sources */,
-				1FFD92A82D0D7EE9003E9D16 /* SpecificTagger4192.mlmodel in Sources */,
 				1F100F422CFCA3B300130BA9 /* OnboardingHeaderView.swift in Sources */,
 				1FB10A402CDF7F4B00D54EC5 /* OnboardingStartViewModel.swift in Sources */,
 				1F599E2D2CE6430D00788D07 /* StatisticViewModel.swift in Sources */,
@@ -721,6 +746,7 @@
 				613904E82CD20457008E591D /* MandalartView.swift in Sources */,
 				1FA420942CC0DC19001CB92D /* Color+.swift in Sources */,
 				1FB10A342CDF593600D54EC5 /* OnboardingFinishView.swift in Sources */,
+				A18C55912D424F2A00F5C9F6 /* NetworkMonitor.swift in Sources */,
 				1F9E16132D157C5D008A7533 /* MainTabViewModel.swift in Sources */,
 				1FC686362CF78276008F399F /* TodayRoutineCell.swift in Sources */,
 				1F599E262CE5DEBE00788D07 /* SettingView.swift in Sources */,
@@ -738,6 +764,7 @@
 				1F100F512CFCA62000130BA9 /* CloverCardProgressBar.swift in Sources */,
 				610595DD2CE2EA6C005ED7B4 /* DetailGoalView.swift in Sources */,
 				1FB10A3A2CDF60D100D54EC5 /* OnboardingExplainPageView.swift in Sources */,
+				A18C55972D53513E00F5C9F6 /* WordClassifier4192.mlmodel in Sources */,
 				61FA4DF32CE77EDD00256B57 /* BackButtonToolbarModifier.swift in Sources */,
 				1FB10A2E2CDF54B400D54EC5 /* EnterMaingoalView.swift in Sources */,
 				615A0A112CC0AEB800908531 /* StatisticView.swift in Sources */,
@@ -992,6 +1019,14 @@
 				minimumVersion = 4.5.0;
 			};
 		};
+		A18C558A2D40E04A00F5C9F6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.7.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -999,6 +1034,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1FFD92922CFEA26B003E9D16 /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
+		};
+		A18C558B2D40E04A00F5C9F6 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A18C558A2D40E04A00F5C9F6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		A18C558E2D40F5DE00F5C9F6 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A18C558A2D40E04A00F5C9F6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -12,6 +12,7 @@ import NaturalLanguage
 import CoreML
 import Combine
 import UIKit
+import FirebaseFirestore
 
 
 class MandalartViewModel: ObservableObject {
@@ -20,7 +21,7 @@ class MandalartViewModel: ObservableObject {
     @Published var detailGoalTitleText: String = ""
     private var cancellables = Set<AnyCancellable>()
     
-    private let mlModel: SpecificTagger4192
+    private let mlModel: WordClassifier4192
     
     @Published var wwh: [Bool] = [false, false, false] // Where What HOW-MUCH 포함 여부 리스트
     let whenList: [String] = [
@@ -64,13 +65,19 @@ class MandalartViewModel: ObservableObject {
     private let createService: CreateGoalUseCase
     private let updateService: UpdateGoalUseCase
     private let deleteService: DeleteService
+    private let firebaseService: FirebaseUseCase
     
-    init(createService: CreateGoalUseCase, updateService: UpdateGoalUseCase, deleteService: DeleteService ) {
+    init(createService: CreateGoalUseCase, updateService: UpdateGoalUseCase, deleteService: DeleteService, firebaseService: FirebaseUseCase) {
         self.createService = createService
         self.updateService = updateService
         self.deleteService = deleteService
-        self.mlModel = try! SpecificTagger4192(configuration: MLModelConfiguration())
-        self.manageWordTagger()
+        self.firebaseService = firebaseService
+        self.mlModel = try! WordClassifier4192(configuration: MLModelConfiguration())
+        self.manageWordClassifier()
+    }
+    
+    func saveDetailGoalDateInFB(newTitle: String, newMemo: String, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool) async {
+        await firebaseService.saveDeatailGoalData(newTitle: newTitle, newMemo: newMemo, alertMon: alertMon, alertTue: alertTue, alertWed: alertWed, alertThu: alertThu, alertFri: alertFri, alertSat: alertSat, alertSun: alertSun)
     }
     
     func createGoals(modelContext: ModelContext) {
@@ -114,6 +121,9 @@ class MandalartViewModel: ObservableObject {
             isNight: isNight,
             isFree: isFree
         )
+        
+        
+
     }
     
     func deleteMainGoal(mainGoal: MainGoal) {
@@ -199,16 +209,16 @@ class MandalartViewModel: ObservableObject {
         }
     }
     
-    func manageWordTagger() {
+    func manageWordClassifier() {
         $detailGoalTitleText
             .debounce(for: .seconds(0.3), scheduler: RunLoop.main)
             .sink { [weak self] newText in
-                self?.wordTagger()
+                self?.wordClassifier()
             }
             .store(in: &cancellables)
     }
 
-    func wordTagger() {
+    func wordClassifier() {
         guard !detailGoalTitleText.isEmpty else {
             wwh = [false,false,false]
             return
@@ -226,7 +236,7 @@ class MandalartViewModel: ObservableObject {
             
             var results: [TaggedWord] = []
             for word in tokens {
-                let input = SpecificTagger4192Input(text: word)
+                let input = WordClassifier4192Input(text: word)
                 let output = try mlModel.prediction(input: input)
                 let tag = output.labels
                 let taggedWord = TaggedWord(word: word, tag: tag.first ?? "")
