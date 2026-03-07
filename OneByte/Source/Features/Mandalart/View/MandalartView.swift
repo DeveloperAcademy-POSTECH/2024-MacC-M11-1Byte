@@ -174,7 +174,7 @@ struct OuterGridView: View {
                 // 다라 & comment
                 HStack() {
                     LottieView(animation: .named("MandalartTurtle"))
-                        .playing(loopMode: .repeat(2))
+                        .playing(loopMode: .loop)
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 75/393 * UIScreen.main.bounds.width)
                         .contentShape(Rectangle())

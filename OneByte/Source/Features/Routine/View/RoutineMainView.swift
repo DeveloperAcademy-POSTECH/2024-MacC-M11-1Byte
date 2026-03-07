@@ -94,7 +94,7 @@ struct RoutineMainView: View {
                 .padding(.bottom, 60)
             
             LottieView(animation: .named("RoutineTurtle"))
-                .playing(loopMode: .repeat(2))
+                .playing(loopMode: .loop)
                 .frame(width: 105, height: 100)
                 .onTapGesture {
                     viewModel.updateRandomMessage()
