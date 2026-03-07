@@ -173,15 +173,15 @@ struct OuterGridView: View {
                 
                 // 다라 & comment
                 HStack() {
-                    Button(action: {
-                        viewModel.triggerHapticOn()
-                        currentMessage = messages.randomElement() ?? currentMessage
-                    }, label: {
-                        LottieView(animation: .named("MandalartTurtle"))
-                            .playing(loopMode: .repeat(2))
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 75/393 * UIScreen.main.bounds.width)
-                    })
+                    LottieView(animation: .named("MandalartTurtle"))
+                        .playing(loopMode: .repeat(2))
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 75/393 * UIScreen.main.bounds.width)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            viewModel.triggerHapticOn()
+                            currentMessage = messages.randomElement() ?? currentMessage
+                        }
                     MandalartMessageView(message: currentMessage)
                         .padding(.bottom)
                 }
