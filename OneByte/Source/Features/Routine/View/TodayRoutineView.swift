@@ -166,5 +166,9 @@ struct TodayRoutineView: View {
             .padding(.bottom, 32)
         }
         .background(.myFFFAF4)
+        .onAppear {
+            // 오늘의 루틴 화면 진입 시 위젯 스냅샷을 최신 상태로 갱신
+            viewModel.syncWidgetSnapshot(mainGoals: mainGoals)
+        }
     }
 }

@@ -7,9 +7,17 @@
 
 import SwiftUI
 import SwiftData
+#if canImport(WidgetKit)
+import WidgetKit
+#endif
 
 @Observable
 class TodayRoutineViewModel {
+    private let widgetAppGroupID = "group.com.san.OneByte"
+    private let widgetTotalKey = "widget_today_total_count"
+    private let widgetCompletedKey = "widget_today_completed_count"
+    private let widgetDateKey = "widget_today_date_text"
+    private let widgetNextRoutineKey = "widget_today_next_routine"
     
     // 오늘의 루틴에서 오늘루틴을 보여주기 위해, 현재 요일 확인 함수
     func currentDay() -> String {
@@ -227,6 +235,54 @@ class TodayRoutineViewModel {
         } else {
             print("⚠️ 날짜 매칭 실패 for 연도: \(currentYear), 월: \(currentMonth), 월차: \(currentWeekOfMonth), 주차: \(currentWeekOfYear)")
         }
+    }
+
+    // MARK: Widget Sync
+    func syncWidgetSnapshot(mainGoals: [MainGoal]) {
+        let todayGoals = filterTodayGoals(from: mainGoals).filter { !$0.title.isEmpty }
+        let completedCount = todayGoals.filter { isAchievedToday($0) }.count
+        let nextRoutine = todayGoals
+            .filter { !isAchievedToday($0) }
+            .sorted { lhs, rhs in
+                let left = lhs.remindTime ?? Date.distantFuture
+                let right = rhs.remindTime ?? Date.distantFuture
+                return left < right
+            }
+            .first?.title ?? "오늘의 루틴을 확인해보세요"
+
+        guard let defaults = UserDefaults(suiteName: widgetAppGroupID) else {
+            print("❌ App Group UserDefaults 접근 실패: \(widgetAppGroupID)")
+            return
+        }
+        defaults.set(todayGoals.count, forKey: widgetTotalKey)
+        defaults.set(completedCount, forKey: widgetCompletedKey)
+        defaults.set(todayDateText(), forKey: widgetDateKey)
+        defaults.set(nextRoutine, forKey: widgetNextRoutineKey)
+
+        #if canImport(WidgetKit)
+        WidgetCenter.shared.reloadAllTimelines()
+        #endif
+    }
+
+    private func isAchievedToday(_ detailGoal: DetailGoal) -> Bool {
+        let todayIndex = Date().mondayBasedIndex()
+        switch todayIndex {
+        case 0: return detailGoal.achieveMon
+        case 1: return detailGoal.achieveTue
+        case 2: return detailGoal.achieveWed
+        case 3: return detailGoal.achieveThu
+        case 4: return detailGoal.achieveFri
+        case 5: return detailGoal.achieveSat
+        case 6: return detailGoal.achieveSun
+        default: return false
+        }
+    }
+
+    private func todayDateText() -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "M월 d일 EEEE"
+        return formatter.string(from: Date())
     }
 }
 

@@ -6,13 +6,16 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct MainTabView: View {
     
     @Environment(\.scenePhase) private var scenePhase // 앱 상태 감지 ( foreground <-> background )
+    @Query private var mainGoals: [MainGoal]
     @AppStorage("FirstOnboarding") private var FirstOnboarding: Bool = true
     @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding: Bool = false
     @State var viewModel = MainTabViewModel()
+    private let todayRoutineViewModel = TodayRoutineViewModel()
     
     init() {
         // UITabBarAppearance로 탭바 경계선 제거
@@ -60,6 +63,13 @@ struct MainTabView: View {
                     } else {
                         viewModel.selectedTab = 0
                     }
+                    DispatchQueue.main.async {
+                        todayRoutineViewModel.syncWidgetSnapshot(mainGoals: mainGoals)
+                    }
+                }
+                .onChange(of: mainGoals.count) { _, _ in
+                    // SwiftData Query 로딩 타이밍에 맞춰 위젯 데이터를 다시 동기화
+                    todayRoutineViewModel.syncWidgetSnapshot(mainGoals: mainGoals)
                 }
                 
                 if viewModel.isTabBarMainVisible { // 중앙탭 버튼
@@ -78,6 +88,7 @@ struct MainTabView: View {
         .onChange(of: scenePhase) { oldPhase, newPhase in
             if newPhase == .active {
                 isRoutineReset() // 앱이 활성화될 때마다 실행
+                todayRoutineViewModel.syncWidgetSnapshot(mainGoals: mainGoals)
             }
         }
         .fullScreenCover(isPresented: $viewModel.showCloverCardView) {

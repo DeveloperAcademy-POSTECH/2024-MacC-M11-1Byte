@@ -50,6 +50,7 @@ struct TodayRoutineCell: View {
                 viewModel.toggleAchievement(for: detailGoal, in: mainGoal, context: modelContext)
                 print("⚠️[DEBUG] MainGoal의 CloverState : \(mainGoal.cloverState)")
                 viewModel.calculateCurrentWeekAndMonthWeek(mainGoal: mainGoal, clovers: clovers, context: modelContext)
+                viewModel.syncWidgetSnapshot(mainGoals: [mainGoal])
             } label: {
                 Image(detailGoal.isAchievedToday ? "Day7_Clover1" : "RoutineCheck")
                     .resizable()
