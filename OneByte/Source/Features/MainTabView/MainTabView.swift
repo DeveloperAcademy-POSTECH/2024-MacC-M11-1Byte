@@ -11,7 +11,9 @@ import SwiftData
 struct MainTabView: View {
     
     @Environment(\.scenePhase) private var scenePhase // 앱 상태 감지 ( foreground <-> background )
+    @Environment(\.modelContext) private var modelContext
     @Query private var mainGoals: [MainGoal]
+    @Query private var clovers: [Clover]
     @AppStorage("FirstOnboarding") private var FirstOnboarding: Bool = true
     @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding: Bool = false
     @State var viewModel = MainTabViewModel()
@@ -64,6 +66,7 @@ struct MainTabView: View {
                         viewModel.selectedTab = 0
                     }
                     DispatchQueue.main.async {
+                        todayRoutineViewModel.applyPendingWidgetToggles(mainGoals: mainGoals, clovers: clovers, context: modelContext)
                         todayRoutineViewModel.syncWidgetSnapshot(mainGoals: mainGoals)
                     }
                 }
@@ -88,6 +91,7 @@ struct MainTabView: View {
         .onChange(of: scenePhase) { oldPhase, newPhase in
             if newPhase == .active {
                 isRoutineReset() // 앱이 활성화될 때마다 실행
+                todayRoutineViewModel.applyPendingWidgetToggles(mainGoals: mainGoals, clovers: clovers, context: modelContext)
                 todayRoutineViewModel.syncWidgetSnapshot(mainGoals: mainGoals)
             }
         }

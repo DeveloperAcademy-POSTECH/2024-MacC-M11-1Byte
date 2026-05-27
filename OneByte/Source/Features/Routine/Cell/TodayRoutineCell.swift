@@ -11,19 +11,21 @@ import SwiftData
 struct TodayRoutineCell: View {
     
     let mainGoal: MainGoal
+    let allMainGoals: [MainGoal]
     let detailGoal: DetailGoal
     let subGoalTitle: String
     let viewModel: TodayRoutineViewModel
     let modelContext: ModelContext
     let clovers: [Clover]
+    let targetDate: Date
     
     var body: some View {
-        HStack(spacing: 16) {
+        HStack(alignment: .top, spacing: 16) {
             if let remindTime = detailGoal.remindTime {
                 VStack {
                     Text(remindTime.timeString)
                         .font(.setPretendard(weight: .semiBold, size: 14))
-                        .foregroundStyle(detailGoal.isAchievedToday ? .my727272.opacity(0.6) : .my727272)
+                        .foregroundStyle(viewModel.isAchieved(detailGoal, on: targetDate) ? .my727272.opacity(0.6) : .my727272)
                     Spacer()
                 }
                 .padding(.top, 12)
@@ -32,33 +34,47 @@ struct TodayRoutineCell: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(detailGoal.title)
                     .font(.setPretendard(weight: .semiBold, size: 16))
-                    .foregroundStyle(detailGoal.isAchievedToday ? .my2B2B2B.opacity(0.7) : .my2B2B2B)
-                    .strikethrough(detailGoal.isAchievedToday)
+                    .foregroundStyle(viewModel.isAchieved(detailGoal, on: targetDate) ? .my2B2B2B.opacity(0.7) : .my2B2B2B)
+                    .strikethrough(viewModel.isAchieved(detailGoal, on: targetDate))
+                    .lineLimit(2)
                 
                 Text(subGoalTitle)
                     .font(.setPretendard(weight: .medium, size: 14))
-                    .foregroundStyle(detailGoal.isAchievedToday ? .my428142.opacity(0.7) : .my428142)
-                    .foregroundStyle(.my428142)
-                Spacer()
+                    .foregroundStyle(viewModel.isAchieved(detailGoal, on: targetDate) ? .my428142.opacity(0.7) : .my428142)
+                    .lineLimit(1)
             }
             .padding(.top, 12)
+            
+            if !Calendar.current.isDateInToday(targetDate) {
+                Text("어제")
+                    .font(.setPretendard(weight: .medium, size: 12))
+                    .foregroundStyle(.my878787)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(.myF7F3EE)
+                    .clipShape(Capsule())
+                    .padding(.top, 12)
+            }
             Spacer()
             
             Button {
                 print("⚠️[DEBUG] 현재 완료 체크하는 id : \(detailGoal.id)")
                 print("⚠️[DEBUG] 현재 완료 체크하는 Title : \(detailGoal.title)")
-                viewModel.toggleAchievement(for: detailGoal, in: mainGoal, context: modelContext)
+                viewModel.toggleAchievement(for: detailGoal, in: mainGoal, on: targetDate, context: modelContext)
                 print("⚠️[DEBUG] MainGoal의 CloverState : \(mainGoal.cloverState)")
                 viewModel.calculateCurrentWeekAndMonthWeek(mainGoal: mainGoal, clovers: clovers, context: modelContext)
-                viewModel.syncWidgetSnapshot(mainGoals: [mainGoal])
+                viewModel.syncWidgetSnapshot(mainGoals: allMainGoals)
             } label: {
-                Image(detailGoal.isAchievedToday ? "Day7_Clover1" : "RoutineCheck")
+                Image(viewModel.isAchieved(detailGoal, on: targetDate) ? "Day7_Clover1" : "RoutineCheck")
                     .resizable()
+                    .scaledToFit()
             }
             .frame(width: 32, height: 32)
+            .padding(.top, 12)
         }
-        .frame(height: 64)
+        .frame(minHeight: 64, alignment: .top)
         .padding(.horizontal)
+        .padding(.vertical, 12)
         .background(.white)
         .cornerRadius(12)
         .overlay(

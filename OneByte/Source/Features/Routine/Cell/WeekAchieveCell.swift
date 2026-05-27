@@ -20,12 +20,14 @@ struct WeekAchieveCell: View {
                     Text(detailGoal.title)
                         .font(.setPretendard(weight: .bold, size: 16))
                         .foregroundStyle(.my2B2B2B)
+                        .lineLimit(2)
                     
                     Spacer()
                     
                     Text("달성한 횟수 \(detailGoal.achieveCount)/\(detailGoal.achieveGoal)개")
                         .font(.setPretendard(weight: .medium, size: 12))
                         .foregroundStyle(.my727272)
+                        .multilineTextAlignment(.trailing)
                 }
                 HStack {
                     Text(detailGoal.remindTime?.alertTimeString ?? "")
@@ -81,6 +83,7 @@ struct WeekAchieveCell: View {
                                     .scaledToFit()
                             }
                         }
+                        .frame(width: 30, height: 30)
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.bottom, 18)

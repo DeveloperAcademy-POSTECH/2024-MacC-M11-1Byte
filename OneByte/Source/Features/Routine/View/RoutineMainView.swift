@@ -91,11 +91,11 @@ struct RoutineMainView: View {
         HStack(spacing: 6) {
             Spacer()
             TurtleMessageView(message: viewModel.currentMessage)
-                .padding(.bottom, 60)
+                .padding(.bottom, 48)
             
             LottieView(animation: .named("RoutineTurtle"))
                 .playing(loopMode: .loop)
-                .frame(width: 105, height: 100)
+                .frame(maxWidth: 105, maxHeight: 100)
                 .onTapGesture {
                     viewModel.updateRandomMessage()
                     viewModel.routineTurtleHaptic()
@@ -113,7 +113,7 @@ struct RoutineMainView: View {
                 VStack {
                     Text(item.rawValue)
                         .font(.setPretendard(weight: .bold, size: 17))
-                        .frame(maxWidth: .infinity/4, minHeight: 50)
+                        .frame(maxWidth: .infinity, minHeight: 50)
                         .foregroundStyle(viewModel.selectedPicker == item ? .my1D1D1D : .gray)
                     
                     if viewModel.selectedPicker == item {
@@ -124,6 +124,7 @@ struct RoutineMainView: View {
                             .matchedGeometryEffect(id: "info", in: animation)
                     }
                 }
+                .frame(maxWidth: .infinity)
                 .onTapGesture {
                     viewModel.routinePicker(to: item)
                 }

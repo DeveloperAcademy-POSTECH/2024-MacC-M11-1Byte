@@ -11,7 +11,7 @@ import SwiftUI
 @main
 struct OneByteWidgetExtensionBundle: WidgetBundle {
     var body: some Widget {
-        OneByteWidgetExtension()
+        OneByteTodayRoutineWidget()
         OneByteWidgetExtensionControl()
         OneByteWidgetExtensionLiveActivity()
     }

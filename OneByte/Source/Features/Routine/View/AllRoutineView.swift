@@ -91,11 +91,13 @@ struct AllRoutineView: View {
                     Image(viewModel.selectedPicker == item ? item.colorClover : item.grayClover)
                         .resizable()
                         .scaledToFit()
-                        .frame(maxWidth: .infinity / 5)
                         .frame(height: 55)
                     Text(viewModel.tabTitle(for: item, mainGoals: mainGoals))
                         .font(.setPretendard(weight: .semiBold, size: 12))
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.8)
                 }
+                .frame(maxWidth: .infinity)
                 .onTapGesture {
                     viewModel.allRoutineTapPicker(to: item)
                     viewModel.triggerHaptic()

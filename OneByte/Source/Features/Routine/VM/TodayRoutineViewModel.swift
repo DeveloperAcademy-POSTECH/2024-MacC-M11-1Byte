@@ -11,6 +11,45 @@ import SwiftData
 import WidgetKit
 #endif
 
+struct RoutineDisplayItem: Identifiable {
+    let id: String
+    let mainGoal: MainGoal
+    let detailGoal: DetailGoal
+    let subGoalTitle: String
+    let categoryTitle: String
+}
+
+private struct WidgetRoutineSnapshotPayload: Codable {
+    var dateText: String
+    var motivationText: String
+    var totalCount: Int
+    var completedCount: Int
+    var nextRoutine: String
+    var selectedCategoryIndex: Int
+    var focusedRoutineID: String?
+    var categories: [WidgetRoutineCategoryPayload]
+}
+
+private struct WidgetRoutineCategoryPayload: Codable {
+    var id: String
+    var title: String
+    var subtitle: String
+    var routines: [WidgetRoutineItemPayload]
+}
+
+private struct WidgetRoutineItemPayload: Codable {
+    var id: String
+    var title: String
+    var subtitle: String
+    var mainGoalTitle: String
+    var categoryTitle: String
+    var sectionTitle: String
+    var timeText: String
+    var isCompleted: Bool
+    var currentStreak: Int
+    var weeklyStates: [Bool]
+}
+
 @Observable
 class TodayRoutineViewModel {
     private let widgetAppGroupID = "group.com.san.OneByte"
@@ -18,13 +57,19 @@ class TodayRoutineViewModel {
     private let widgetCompletedKey = "widget_today_completed_count"
     private let widgetDateKey = "widget_today_date_text"
     private let widgetNextRoutineKey = "widget_today_next_routine"
+    private let widgetSnapshotKey = "widget_today_snapshot"
+    private let widgetPendingToggleKey = "widget_pending_toggle_routine_ids"
     
     // 오늘의 루틴에서 오늘루틴을 보여주기 위해, 현재 요일 확인 함수
     func currentDay() -> String {
+        currentDay(for: Date())
+    }
+
+    func currentDay(for date: Date) -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.dateFormat = "E" // "월", "화", "수", ...
-        return formatter.string(from: Date())
+        return formatter.string(from: date)
     }
     
     // DetailGoal이 오늘의 루틴인지 확인하는 함수
@@ -55,6 +100,23 @@ class TodayRoutineViewModel {
             .flatMap { $0.subGoals }
             .flatMap { $0.detailGoals }
             .filter { isTodayRoutine($0, for: today) }
+    }
+
+    func filterGoals(from mainGoals: [MainGoal], for date: Date) -> [DetailGoal] {
+        let day = currentDay(for: date)
+        return mainGoals
+            .flatMap { $0.subGoals }
+            .flatMap { $0.detailGoals }
+            .filter { isTodayRoutine($0, for: day) }
+    }
+
+    func filterCarryoverGoals(from mainGoals: [MainGoal]) -> [DetailGoal] {
+        guard let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) else {
+            return []
+        }
+
+        return filterGoals(from: mainGoals, for: yesterday)
+            .filter { !$0.title.isEmpty }
     }
     
     // MARK: 아침/점심/저녁/자기전/자율 루틴 필터링 및 시간순 정렬
@@ -137,14 +199,34 @@ class TodayRoutineViewModel {
             }
             .filter { $0.isFree }
     }
+
+    func displayItems(for goals: [DetailGoal], in mainGoals: [MainGoal]) -> [RoutineDisplayItem] {
+        goals.compactMap { goal in
+            for mainGoal in mainGoals {
+                for subGoal in mainGoal.subGoals {
+                    if let detailGoal = subGoal.detailGoals.first(where: { $0 === goal }) {
+                        return RoutineDisplayItem(
+                            id: "\(mainGoal.id)-\(subGoal.id)-\(detailGoal.id)",
+                            mainGoal: mainGoal,
+                            detailGoal: detailGoal,
+                            subGoalTitle: subGoal.title,
+                            categoryTitle: subGoal.category
+                        )
+                    }
+                }
+            }
+
+            return nil
+        }
+    }
     
     // MARK: 오늘의 루틴 목록 중에서 완료/미완료 여부에 따라 achieveMon 데이터 변경
-    func toggleAchievement(for detailGoal: DetailGoal, in mainGoal: MainGoal, context: ModelContext) {
-        let todayIndex = Date().mondayBasedIndex()  // 월요일 기준 인덱스
-        let isAchievedBeforeToggle = detailGoal.isAchievedToday
+    func toggleAchievement(for detailGoal: DetailGoal, in mainGoal: MainGoal, on date: Date = Date(), context: ModelContext) {
+        let targetIndex = date.mondayBasedIndex()  // 월요일 기준 인덱스
+        let isAchievedBeforeToggle = isAchieved(detailGoal, on: date)
         
         // 오늘의 요일에 해당하는 achieve 값을 토글
-        switch todayIndex {
+        switch targetIndex {
         case 0: detailGoal.achieveMon.toggle()
         case 1: detailGoal.achieveTue.toggle()
         case 2: detailGoal.achieveWed.toggle()
@@ -156,7 +238,7 @@ class TodayRoutineViewModel {
         }
         
         // 토글 후 새로운 상태를 가져옴
-        let isAchievedAfterToggle = detailGoal.isAchievedToday
+        let isAchievedAfterToggle = isAchieved(detailGoal, on: date)
         
         // 이전 상태와 새로운 상태를 비교하여 achieveCount 업데이트
         if isAchievedAfterToggle && !isAchievedBeforeToggle {
@@ -241,14 +323,15 @@ class TodayRoutineViewModel {
     func syncWidgetSnapshot(mainGoals: [MainGoal]) {
         let todayGoals = filterTodayGoals(from: mainGoals).filter { !$0.title.isEmpty }
         let completedCount = todayGoals.filter { isAchievedToday($0) }.count
-        let nextRoutine = todayGoals
-            .filter { !isAchievedToday($0) }
+        let todayItems = displayItems(for: todayGoals, in: mainGoals)
+        let nextRoutine = todayItems
+            .filter { !isAchievedToday($0.detailGoal) }
             .sorted { lhs, rhs in
-                let left = lhs.remindTime ?? Date.distantFuture
-                let right = rhs.remindTime ?? Date.distantFuture
+                let left = lhs.detailGoal.remindTime ?? Date.distantFuture
+                let right = rhs.detailGoal.remindTime ?? Date.distantFuture
                 return left < right
             }
-            .first?.title ?? "오늘의 루틴을 확인해보세요"
+            .first?.detailGoal.title ?? "오늘의 루틴을 확인해보세요"
 
         guard let defaults = UserDefaults(suiteName: widgetAppGroupID) else {
             print("❌ App Group UserDefaults 접근 실패: \(widgetAppGroupID)")
@@ -258,15 +341,187 @@ class TodayRoutineViewModel {
         defaults.set(completedCount, forKey: widgetCompletedKey)
         defaults.set(todayDateText(), forKey: widgetDateKey)
         defaults.set(nextRoutine, forKey: widgetNextRoutineKey)
+        saveWidgetSnapshot(todayItems: todayItems, completedCount: completedCount, totalCount: todayGoals.count, nextRoutine: nextRoutine, defaults: defaults)
 
         #if canImport(WidgetKit)
         WidgetCenter.shared.reloadAllTimelines()
         #endif
     }
 
+    private func saveWidgetSnapshot(
+        todayItems: [RoutineDisplayItem],
+        completedCount: Int,
+        totalCount: Int,
+        nextRoutine: String,
+        defaults: UserDefaults
+    ) {
+        let previousSnapshot = loadExistingSnapshot(from: defaults)
+        let categories = makeWidgetCategories(from: todayItems)
+        let safeSelectedIndex = min(previousSnapshot?.selectedCategoryIndex ?? 0, max(categories.count - 1, 0))
+        let preservedFocusID = previousSnapshot?.focusedRoutineID
+        let validFocusID = categories
+            .flatMap(\.routines)
+            .contains(where: { $0.id == preservedFocusID ?? "" })
+            ? preservedFocusID
+            : categories[safe: safeSelectedIndex]?.routines.first?.id
+
+        let snapshot = WidgetRoutineSnapshotPayload(
+            dateText: todayDateText(),
+            motivationText: widgetMotivationText(completedCount: completedCount, totalCount: totalCount),
+            totalCount: totalCount,
+            completedCount: completedCount,
+            nextRoutine: nextRoutine,
+            selectedCategoryIndex: safeSelectedIndex,
+            focusedRoutineID: validFocusID,
+            categories: categories
+        )
+
+        if let data = try? JSONEncoder().encode(snapshot) {
+            defaults.set(data, forKey: widgetSnapshotKey)
+        }
+    }
+
+    private func loadExistingSnapshot(from defaults: UserDefaults) -> WidgetRoutineSnapshotPayload? {
+        guard let data = defaults.data(forKey: widgetSnapshotKey) else { return nil }
+        return try? JSONDecoder().decode(WidgetRoutineSnapshotPayload.self, from: data)
+    }
+
+    private func makeWidgetCategories(from items: [RoutineDisplayItem]) -> [WidgetRoutineCategoryPayload] {
+        let orderedCategories = items.reduce(into: [String]()) { partialResult, item in
+            if !partialResult.contains(item.categoryTitle) {
+                partialResult.append(item.categoryTitle)
+            }
+        }
+
+        return orderedCategories.compactMap { categoryTitle in
+            let categoryItems = items.filter { $0.categoryTitle == categoryTitle }
+            guard !categoryItems.isEmpty else { return nil }
+
+            let routines = categoryItems.map { item in
+                WidgetRoutineItemPayload(
+                    id: item.id,
+                    title: item.detailGoal.title,
+                    subtitle: item.subGoalTitle,
+                    mainGoalTitle: item.subGoalTitle,
+                    categoryTitle: item.categoryTitle,
+                    sectionTitle: sectionTitle(for: item.detailGoal),
+                    timeText: timeText(for: item.detailGoal),
+                    isCompleted: isAchieved(item.detailGoal, on: Date()),
+                    currentStreak: currentStreak(for: item.detailGoal, on: Date()),
+                    weeklyStates: weeklyStates(for: item.detailGoal)
+                )
+            }
+
+            let completedInCategory = routines.filter { $0.isCompleted }.count
+            return WidgetRoutineCategoryPayload(
+                id: categoryTitle.lowercased(),
+                title: categoryTitle.isEmpty ? "루틴" : categoryTitle,
+                subtitle: "\(completedInCategory)/\(routines.count) completed",
+                routines: routines
+            )
+        }
+    }
+
+    private func weeklyStates(for detailGoal: DetailGoal) -> [Bool] {
+        [
+            detailGoal.achieveMon,
+            detailGoal.achieveTue,
+            detailGoal.achieveWed,
+            detailGoal.achieveThu,
+            detailGoal.achieveFri,
+            detailGoal.achieveSat,
+            detailGoal.achieveSun
+        ]
+    }
+
+    private func currentStreak(for detailGoal: DetailGoal, on date: Date) -> Int {
+        let states = weeklyStates(for: detailGoal)
+        let todayIndex = date.mondayBasedIndex()
+        guard states.indices.contains(todayIndex) else { return 0 }
+
+        var streak = 0
+        for index in stride(from: todayIndex, through: 0, by: -1) {
+            guard states[index] else { break }
+            streak += 1
+        }
+        return streak
+    }
+
+    private func sectionTitle(for detailGoal: DetailGoal) -> String {
+        if detailGoal.isMorning { return "Morning" }
+        if detailGoal.isAfternoon { return "Afternoon" }
+        if detailGoal.isEvening { return "Evening" }
+        if detailGoal.isNight { return "Night" }
+        return "Anytime"
+    }
+
+    private func timeText(for detailGoal: DetailGoal) -> String {
+        guard let remindTime = detailGoal.remindTime else {
+            return sectionTitle(for: detailGoal)
+        }
+
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "HH:mm"
+        return formatter.string(from: remindTime)
+    }
+
+    private func widgetMotivationText(completedCount: Int, totalCount: Int) -> String {
+        guard totalCount > 0 else {
+            return "오늘의 리듬을 가볍게 준비해보세요"
+        }
+
+        if completedCount == totalCount {
+            return "오늘도 충분히 잘하고 있어요"
+        }
+
+        if completedCount == 0 {
+            return "가장 작은 체크 하나로 시작해요"
+        }
+
+        return "지금 흐름이 좋아요, 한 칸만 더"
+    }
+
+    func applyPendingWidgetToggles(mainGoals: [MainGoal], clovers: [Clover], context: ModelContext) {
+        guard let defaults = UserDefaults(suiteName: widgetAppGroupID) else {
+            print("❌ App Group UserDefaults 접근 실패: \(widgetAppGroupID)")
+            return
+        }
+
+        let pendingIDs = defaults.stringArray(forKey: widgetPendingToggleKey) ?? []
+        guard !pendingIDs.isEmpty else { return }
+        guard !mainGoals.isEmpty else { return }
+
+        let todayGoals = filterTodayGoals(from: mainGoals).filter { !$0.title.isEmpty }
+        let todayItems = displayItems(for: todayGoals, in: mainGoals)
+
+        for routineID in pendingIDs {
+            guard let item = todayItems.first(where: { $0.id == routineID }) else {
+                continue
+            }
+
+            toggleAchievement(for: item.detailGoal, in: item.mainGoal, on: Date(), context: context)
+            calculateCurrentWeekAndMonthWeek(mainGoal: item.mainGoal, clovers: clovers, context: context)
+        }
+
+        defaults.removeObject(forKey: widgetPendingToggleKey)
+
+        do {
+            try context.save()
+        } catch {
+            print("❌ 위젯 루틴 체크 반영 저장 실패: \(error)")
+        }
+
+        syncWidgetSnapshot(mainGoals: mainGoals)
+    }
+
     private func isAchievedToday(_ detailGoal: DetailGoal) -> Bool {
-        let todayIndex = Date().mondayBasedIndex()
-        switch todayIndex {
+        isAchieved(detailGoal, on: Date())
+    }
+
+    func isAchieved(_ detailGoal: DetailGoal, on date: Date) -> Bool {
+        let targetIndex = date.mondayBasedIndex()
+        switch targetIndex {
         case 0: return detailGoal.achieveMon
         case 1: return detailGoal.achieveTue
         case 2: return detailGoal.achieveWed
@@ -286,3 +541,8 @@ class TodayRoutineViewModel {
     }
 }
 
+private extension Array {
+    subscript(safe index: Int) -> Element? {
+        indices.contains(index) ? self[index] : nil
+    }
+}
