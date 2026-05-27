@@ -216,7 +216,7 @@
 		615A0A0A2CC0ADA800908531 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		615A0A0C2CC0AE8700908531 /* RoutineMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineMainView.swift; sourceTree = "<group>"; };
 		615A0A102CC0AEB800908531 /* StatisticView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticView.swift; sourceTree = "<group>"; };
-		616F52882E816ED9003E650B /* SpecificTagger4192.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = SpecificTagger4192.mlmodel; sourceTree = "<group>"; };
+		616F52882E816ED9003E650B /* SpecificTagger4192.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = OneByte/Resource/SpecificTagger4192.mlmodel; sourceTree = SOURCE_ROOT; };
 		6178161F2CE5DF6A00834AAD /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		618FD0732CDF11210003450D /* CreateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateService.swift; sourceTree = "<group>"; };
 		618FD0752CDF11410003450D /* UpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateService.swift; sourceTree = "<group>"; };
