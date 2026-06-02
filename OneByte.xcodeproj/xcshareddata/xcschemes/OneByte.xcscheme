@@ -74,5 +74,23 @@
    <ArchiveAction
       buildConfiguration = "Release"
       revealArchiveInOrganizer = "YES">
+      <PreActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Bump Marketing Version"
+               scriptText = "set -e&#10;PROJECT_FILE=&quot;${SRCROOT}/OneByte.xcodeproj/project.pbxproj&quot;&#10;CURRENT=$(/usr/bin/grep -m1 &apos;MARKETING_VERSION = &apos; &quot;${PROJECT_FILE}&quot; | /usr/bin/sed -E &apos;s/.*= ([0-9]+\\.[0-9]+\\.[0-9]+);/\\1/&apos;)&#10;IFS=&apos;.&apos; read -r MAJOR MINOR PATCH &lt;&lt;EOF&#10;${CURRENT}&#10;EOF&#10;NEXT=&quot;${MAJOR}.${MINOR}.$((PATCH + 1))&quot;&#10;/usr/bin/sed -i &apos;&apos; -E &quot;s/MARKETING_VERSION = [0-9]+\\.[0-9]+\\.[0-9]+;/MARKETING_VERSION = ${NEXT};/g&quot; &quot;${PROJECT_FILE}&quot;&#10;/bin/echo &quot;[Archive PreAction] MARKETING_VERSION: ${CURRENT} -&gt; ${NEXT}&quot;&#10;">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "1F79EDC92CC0A25D0079088B"
+                     BuildableName = "OneByte.app"
+                     BlueprintName = "OneByte"
+                     ReferencedContainer = "container:OneByte.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+      </PreActions>
    </ArchiveAction>
 </Scheme>
