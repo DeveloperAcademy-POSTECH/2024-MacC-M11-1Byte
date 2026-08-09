@@ -6,92 +6,84 @@
 //
 
 import SwiftUI
+import SwiftData
 
-// MARK: 본체
 struct DetailGoalView: View {
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.managedObjectContext) private var context
+    @Environment(\.modelContext) private var modelContext
+    @Query private var mainGoals: [MainGoal]
+    @Query private var clovers: [Clover]
     @StateObject private var viewModel = MandalartViewModel(
         createService: CreateService(),
         updateService: UpdateService(mainGoals: [], subGoals: [], detailGoals: []),
         deleteService: DeleteService(mainGoals: [], subGoals: [], detailGoals: []),
         firebaseService: FirebaseService()
     )
-    @State private var newTitle: String = ""
-    @State private var newMemo: String = ""
+
+    @Binding var detailGoal: DetailGoal?
+
+    @State private var newTitle = ""
+    @State private var newMemo = ""
     @State private var achieveCount = 0
     @State private var achieveGoal = 0
-    @State private var requestNotification: Bool = false
-    @State private var allowAlert: Bool = false
-    @Binding var detailGoal: DetailGoal?
-    
-    // 알람 요일
-    @State private var alertMon: Bool = false
-    @State private var alertTue: Bool = false
-    @State private var alertWed: Bool = false
-    @State private var alertThu: Bool = false
-    @State private var alertFri: Bool = false
-    @State private var alertSat: Bool = false
-    @State private var alertSun: Bool = false
-    @State private var isRemind: Bool = false
+    @State private var alertMon = false
+    @State private var alertTue = false
+    @State private var alertWed = false
+    @State private var alertThu = false
+    @State private var alertFri = false
+    @State private var alertSat = false
+    @State private var alertSun = false
+    @State private var isRemind = false
     @State private var remindTime: Date? = nil
-    @State private var achieveMon: Bool = false
-    @State private var achieveTue: Bool = false
-    @State private var achieveWed: Bool = false
-    @State private var achieveThu: Bool = false
-    @State private var achieveFri: Bool = false
-    @State private var achieveSat: Bool = false
-    @State private var achieveSun: Bool = false
-    
-    @State private var isMorning: Bool = true
-    @State private var isAfternoon: Bool = false
-    @State private var isEvening: Bool = false
-    @State private var isNight: Bool = false
-    @State private var isFree: Bool = false
-    
-    @State private var showAlert = false
-    @State private var isModified: Bool = false
-    @State private var showBackAlert: Bool = false
-    
+    @State private var achieveMon = false
+    @State private var achieveTue = false
+    @State private var achieveWed = false
+    @State private var achieveThu = false
+    @State private var achieveFri = false
+    @State private var achieveSat = false
+    @State private var achieveSun = false
+    @State private var isMorning = true
+    @State private var isAfternoon = false
+    @State private var isEvening = false
+    @State private var isNight = false
+    @State private var isFree = false
+    @State private var repeatType: RoutineRepeatType = .weekday
+    @State private var scheduledDayOfMonth = 1
+
+    @State private var showDeleteAlert = false
+    @State private var showBackAlert = false
+    @State private var showPermissionAlert = false
+    @State private var isModified = false
     @State private var isQuestionMarkClicked = false
-    @State private var selectedTime: String = "아침"
-    
+    @State private var selectedTime = "아침"
+    @State private var titleError: String?
+    @State private var repeatError: String?
+
+    @FocusState private var isFocused: Bool
+
     private let timeOptions = ["아침", "점심", "저녁", "자기전", "자율"]
-    private let titleLimit = 20 // 제목 글자수 제한
-    private let memoLimit = 100 // 메모 글자수 제한
-    
-    @FocusState private var isFocused: Bool // TextField 포커스 상태 관리
+    private let titleLimit = 20
+    private let memoLimit = 100
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 0) {
-                // 타이틀 입력란
-                detailGaolTitle()
-                    .padding(.top, 28)
-                
-                // 메모 입력란
-                DetailGoalMemo()
-                    .padding(.top, -4)
-                // 요일 선택
-                selectDays()
-                    .padding(.top, 28)
-                // 시간대 선택
-                selectTime()
-                    .padding(.top, 28)
-                // 리마인드 알림
-                remind()
-                    .padding(.top, 28)
-                
+            VStack(alignment: .leading, spacing: 28) {
+                titleSection()
+                memoSection()
+                repeatSection()
+                timeSection()
+                remindSection()
+
                 if detailGoal?.title != "" {
-                    // 삭제 버튼
                     deleteButton()
-                        .padding(.top, 28)
                         .padding(.bottom, 53/852 * UIScreen.main.bounds.height)
                 }
-                Spacer()
             }
+            .padding(.horizontal, 16)
+            .padding(.top, 28)
         }
         .scrollIndicators(.hidden)
+        .background(Color.myFFFAF4)
         .contentShape(Rectangle())
         .onTapGesture {
             UIApplication.shared.endEditing()
@@ -107,130 +99,189 @@ struct DetailGoalView: View {
             }
         }
         .alert("작업을 중단하시겠습니까?", isPresented: $showBackAlert) {
-            Button("나가기", role: .destructive) {
-                dismiss() // 화면 닫기
-            }
+            Button("나가기", role: .destructive) { dismiss() }
             Button("계속하기", role: .cancel) {}
         } message: {
             Text("작성한 내용이 저장되지 않아요.")
         }
+        .alert("알림 설정이 꺼져있어요", isPresented: $showPermissionAlert) {
+            Button("취소", role: .cancel) {
+                isRemind = false
+            }
+            Button("이동하기") {
+                isRemind = false
+                openSystemNotificationSettings()
+            }
+        } message: {
+            Text("하고만다는 서버 없이 로컬 알림으로 루틴을 알려드려요.\n기기 설정에서 알림을 허용해주세요.")
+        }
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing, content: {
-                Button(action: {
-                    Task {
-                        isModified = false
-                        if let detailGoal = detailGoal{
-                            // 요일 갯수 계산
-                            achieveGoal = [alertMon, alertTue, alertWed, alertThu, alertFri, alertSat, alertSun]
-                                .filter { $0 }
-                                .count
-                            
-                            // 알림 시간 기본값 설정
-                            if isRemind, remindTime == nil {
-                                remindTime = Date() // 현재 시간으로 설정
-                            }
-                            
-                            viewModel.updateDetailGoal(
-                                detailGoal: detailGoal,
-                                newTitle: newTitle,
-                                newMemo: newMemo,
-                                achieveCount: achieveCount,
-                                achieveGoal: achieveGoal,
-                                alertMon: alertMon,
-                                alertTue: alertTue,
-                                alertWed: alertWed,
-                                alertThu: alertThu,
-                                alertFri: alertFri,
-                                alertSat: alertSat,
-                                alertSun: alertSun,
-                                isRemind: isRemind,
-                                remindTime: remindTime,
-                                achieveMon: achieveMon,
-                                achieveTue: achieveTue,
-                                achieveWed: achieveWed,
-                                achieveThu: achieveThu,
-                                achieveFri: achieveFri,
-                                achieveSat: achieveSat,
-                                achieveSun: achieveSun,
-                                isMorning: isMorning,
-                                isAfternoon: isAfternoon,
-                                isEvening: isEvening,
-                                isNight: isNight,
-                                isFree: isFree
-                            )
-                            
-                            viewModel.updateTimePeriodStates(detailGoal: detailGoal, for: selectedTime)
-                            let selectedDays = getSelectedDays()
-                            let notSelectedDays = getNotSelectedDays()
-                            // 알림 설정 호출
-                            if isRemind {
-                                viewModel.createNotification(detailGoal: detailGoal, newTitle: newTitle, selectedDays: selectedDays)
-                                viewModel.deleteNotification(detailGoal: detailGoal, days: notSelectedDays)
-                            } else {
-                                viewModel.deleteNotification(detailGoal: detailGoal, days: ["월", "화", "수", "목", "금", "토", "일"])
-                            }
-                            Task {
-                                await viewModel.saveDetailGoalDateInFB(newTitle: newTitle, newMemo: newMemo, alertMon: alertMon, alertTue: alertTue, alertWed: alertWed, alertThu: alertThu, alertFri: alertFri, alertSat: alertSat, alertSun: alertSun)
-                            }
-                        }
-                        dismiss()
-                    }
-                    
-                }, label: {
-                    Text("저장")
-                        .foregroundStyle((newTitle == "" || isModified == false || (alertMon == false && alertTue == false && alertWed == false && alertThu == false && alertFri == false && alertSat == false && alertSun == false)) ? .myA9C5A3 : .my538F53)
-                        .fontWeight((newTitle == "" || isModified == false || (alertMon == false && alertTue == false && alertWed == false && alertThu == false && alertFri == false && alertSat == false && alertSun == false)) ? .regular : .bold)
-                })
-                .disabled(newTitle == "" || isModified == false || (alertMon == false && alertTue == false && alertWed == false && alertThu == false && alertFri == false && alertSat == false && alertSun == false))
-            })
-        }
-        .padding(.horizontal, 16)
-        .onAppear {
-            if let detailGoal = detailGoal {
-                newTitle = detailGoal.title
-                newMemo = detailGoal.memo
-                achieveCount = detailGoal.achieveCount
-                achieveGoal = detailGoal.achieveGoal
-                alertMon = detailGoal.alertMon
-                alertTue = detailGoal.alertTue
-                alertWed = detailGoal.alertWed
-                alertThu = detailGoal.alertThu
-                alertFri = detailGoal.alertFri
-                alertSat = detailGoal.alertSat
-                alertSun = detailGoal.alertSun
-                isRemind = detailGoal.isRemind
-                remindTime = detailGoal.remindTime
-                achieveMon = detailGoal.achieveMon
-                achieveTue = detailGoal.achieveTue
-                achieveWed = detailGoal.achieveWed
-                achieveThu = detailGoal.achieveThu
-                achieveFri = detailGoal.achieveFri
-                achieveSat = detailGoal.achieveSat
-                achieveSun = detailGoal.achieveSun
-                isMorning = detailGoal.isMorning
-                isAfternoon = detailGoal.isAfternoon
-                isEvening = detailGoal.isEvening
-                isNight = detailGoal.isNight
-                isFree = detailGoal.isFree
-                
-                if detailGoal.isMorning {
-                    selectedTime = "아침"
-                } else if detailGoal.isAfternoon {
-                    selectedTime = "점심"
-                } else if detailGoal.isEvening {
-                    selectedTime = "저녁"
-                } else if detailGoal.isNight {
-                    selectedTime = "자기전"
-                } else if detailGoal.isFree {
-                    selectedTime = "자율"
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("저장") {
+                    saveRoutine()
                 }
-            } else { print("실패")}
+                .foregroundStyle(isModified ? .my538F53 : .myA9C5A3)
+                .fontWeight(isModified ? .bold : .regular)
+                .disabled(!isModified)
+            }
         }
-        .background(Color.myFFFAF4)
+        .onAppear {
+            loadDetailGoal()
+        }
     }
-    
-    // 선택된 요일을 필터링하여 배열로 반환하는 함수
-    func getSelectedDays() -> [String] {
+
+    private func loadDetailGoal() {
+        guard let detailGoal else { return }
+        newTitle = detailGoal.title
+        newMemo = detailGoal.memo
+        achieveCount = detailGoal.achieveCount
+        achieveGoal = detailGoal.achieveGoal
+        alertMon = detailGoal.alertMon
+        alertTue = detailGoal.alertTue
+        alertWed = detailGoal.alertWed
+        alertThu = detailGoal.alertThu
+        alertFri = detailGoal.alertFri
+        alertSat = detailGoal.alertSat
+        alertSun = detailGoal.alertSun
+        isRemind = detailGoal.isRemind
+        remindTime = detailGoal.remindTime
+        achieveMon = detailGoal.achieveMon
+        achieveTue = detailGoal.achieveTue
+        achieveWed = detailGoal.achieveWed
+        achieveThu = detailGoal.achieveThu
+        achieveFri = detailGoal.achieveFri
+        achieveSat = detailGoal.achieveSat
+        achieveSun = detailGoal.achieveSun
+        isMorning = detailGoal.isMorning
+        isAfternoon = detailGoal.isAfternoon
+        isEvening = detailGoal.isEvening
+        isNight = detailGoal.isNight
+        isFree = detailGoal.isFree
+        repeatType = detailGoal.repeatType
+        scheduledDayOfMonth = detailGoal.scheduledDayOfMonth ?? 1
+
+        if detailGoal.isAfternoon {
+            selectedTime = "점심"
+        } else if detailGoal.isEvening {
+            selectedTime = "저녁"
+        } else if detailGoal.isNight {
+            selectedTime = "자기전"
+        } else if detailGoal.isFree {
+            selectedTime = "자율"
+        } else {
+            selectedTime = "아침"
+        }
+    }
+
+    private func markModified() {
+        isModified = true
+    }
+
+    private func validateInputs() -> Bool {
+        titleError = newTitle.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "루틴 이름을 입력해주세요." : nil
+
+        switch repeatType {
+        case .weekday:
+            repeatError = hasSelectedWeekdays ? nil : "반복할 요일을 1개 이상 선택해주세요."
+        case .monthlyDate:
+            repeatError = (1...7).contains(scheduledDayOfMonth) ? nil : "주간 수행 횟수를 선택해주세요."
+        case .flexible:
+            repeatError = nil
+        }
+
+        return titleError == nil && repeatError == nil
+    }
+
+    private func saveRoutine() {
+        UIApplication.shared.endEditing()
+        guard validateInputs(), let detailGoal else { return }
+
+        let cleanedTitle = newTitle.trimmingCharacters(in: .whitespacesAndNewlines)
+        let effectiveReminder = isRemind
+        let selectedDays = repeatType == .weekday ? getSelectedDays() : []
+        let notSelectedDays = getNotSelectedDays()
+        achieveGoal = repeatType == .weekday ? selectedDays.count : scheduledDayOfMonth
+        achieveCount = RoutineProgressLogic.achievementCount(
+            storedCount: achieveCount,
+            weeklyStates: weeklyAchievementStates
+        )
+
+        if effectiveReminder, remindTime == nil {
+            remindTime = Date()
+        }
+
+        viewModel.updateDetailGoal(
+            detailGoal: detailGoal,
+            newTitle: cleanedTitle,
+            newMemo: newMemo,
+            achieveCount: achieveCount,
+            achieveGoal: achieveGoal,
+            alertMon: repeatType == .weekday ? alertMon : false,
+            alertTue: repeatType == .weekday ? alertTue : false,
+            alertWed: repeatType == .weekday ? alertWed : false,
+            alertThu: repeatType == .weekday ? alertThu : false,
+            alertFri: repeatType == .weekday ? alertFri : false,
+            alertSat: repeatType == .weekday ? alertSat : false,
+            alertSun: repeatType == .weekday ? alertSun : false,
+            isRemind: effectiveReminder,
+            remindTime: effectiveReminder ? remindTime : nil,
+            achieveMon: achieveMon,
+            achieveTue: achieveTue,
+            achieveWed: achieveWed,
+            achieveThu: achieveThu,
+            achieveFri: achieveFri,
+            achieveSat: achieveSat,
+            achieveSun: achieveSun,
+            isMorning: selectedTime == "아침",
+            isAfternoon: selectedTime == "점심",
+            isEvening: selectedTime == "저녁",
+            isNight: selectedTime == "자기전",
+            isFree: selectedTime == "자율",
+            repeatTypeRaw: repeatType.rawValue,
+            scheduledDayOfMonth: repeatType == .monthlyDate ? scheduledDayOfMonth : nil
+        )
+
+        if effectiveReminder {
+            viewModel.createNotification(detailGoal: detailGoal, newTitle: cleanedTitle, selectedDays: selectedDays)
+            viewModel.deleteNotification(detailGoal: detailGoal, days: notSelectedDays)
+        } else {
+            viewModel.deleteNotification(detailGoal: detailGoal, days: ["월", "화", "수", "목", "금", "토", "일"])
+        }
+
+        TodayRoutineViewModel().refreshNotificationSchedules(mainGoals: mainGoals)
+
+        if let mainGoal = mainGoal(containing: detailGoal) {
+            let routineViewModel = TodayRoutineViewModel()
+            routineViewModel.updateCloverState(for: mainGoal)
+            routineViewModel.calculateCurrentWeekAndMonthWeek(
+                mainGoal: mainGoal,
+                clovers: clovers,
+                context: modelContext
+            )
+            routineViewModel.syncWidgetSnapshot(mainGoals: mainGoals)
+        }
+
+        isModified = false
+        dismiss()
+    }
+
+    private var hasSelectedWeekdays: Bool {
+        alertMon || alertTue || alertWed || alertThu || alertFri || alertSat || alertSun
+    }
+
+    private var weeklyAchievementStates: [Bool] {
+        [achieveMon, achieveTue, achieveWed, achieveThu, achieveFri, achieveSat, achieveSun]
+    }
+
+    private func mainGoal(containing detailGoal: DetailGoal) -> MainGoal? {
+        mainGoals.first { mainGoal in
+            mainGoal.subGoals.contains { subGoal in
+                subGoal.detailGoals.contains { $0 === detailGoal }
+            }
+        }
+    }
+
+    private func getSelectedDays() -> [String] {
         var selected: [String] = []
         if alertMon { selected.append("월") }
         if alertTue { selected.append("화") }
@@ -241,388 +292,356 @@ struct DetailGoalView: View {
         if alertSun { selected.append("일") }
         return selected
     }
-    
-    func getNotSelectedDays() -> [String] {
-        var notSelected: [String] = []
-        if !alertMon { notSelected.append("월") }
-        if !alertTue { notSelected.append("화") }
-        if !alertWed { notSelected.append("수") }
-        if !alertThu { notSelected.append("목") }
-        if !alertFri { notSelected.append("금") }
-        if !alertSat { notSelected.append("토") }
-        if !alertSun { notSelected.append("일") }
-        return notSelected
+
+    private func getNotSelectedDays() -> [String] {
+        ["월", "화", "수", "목", "금", "토", "일"].filter { !getSelectedDays().contains($0) }
     }
 }
 
-extension DetailGoalView {
-    // MARK: 루틴 이름 입력
+private extension DetailGoalView {
     @ViewBuilder
-    func detailGaolTitle() -> some View {
-        Text("루틴 이름")
-            .font(.setPretendard(weight: .semiBold, size: 16))
-            .padding(.leading, 4)
-            .foregroundStyle(Color.my675542)
-        
-        // 할 일 제목 입력란
-        ZStack {
-            TextField("루틴을 입력해주세요.", text: $newTitle)
-                .padding()
-                .background(.white)
-                .cornerRadius(12)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.myF0E8DF, lineWidth: 1)
-                )
-                .onChange(of: newTitle) { oldValue, newValue in
-                    viewModel.detailGoalTitleText = newValue
-                    
-                    if newValue != detailGoal?.title {
-                        isModified = true
-                    }
-                    if newValue.count > titleLimit {
-                        newTitle = String(newValue.prefix(titleLimit))
-                    }
-                }
-            
-            HStack {
-                Spacer()
-                if newTitle != "" {
-                    Button(action: {
-                        newTitle = ""
-                    }, label: {
-                        Image(systemName: "xmark.circle.fill")
-                            .resizable()
-                            .frame(width: 23, height: 23)
-                            .foregroundStyle(Color.myB9B9B9)
-                    })
-                    .padding(.trailing)
-                }
-            }
-        }
-        .padding(.top, -20)
-        
-        // 글자수 부분
-        HStack(spacing: 0) {
-            Spacer()
-            Text("\(newTitle.count)")
-                .font(.setPretendard(weight: .medium, size: 12))
-                .foregroundStyle(Color.my6C6C6C)
-            Text("/\(titleLimit)")
-                .font(.setPretendard(weight: .medium, size: 12))
-                .foregroundStyle(Color.my6C6C6C.opacity(0.5))
-        }
-        .padding(.trailing, 10)
-        .padding(.top, -20)
-        
-        HStack(spacing: 4) {
-            Image(viewModel.wwh[0] ? "Routine_Check_Green" : "Routine_Check" )
-                .resizable()
-                .frame(width: 16, height: 16)
-            Text("어디서")
-                .font(.setPretendard(weight: .semiBold, size: 14))
-                .foregroundStyle(viewModel.wwh[0] ? .my6FB56F : .myC8B7A3)
-                .padding(.trailing, 8)
-            
-            Image(viewModel.wwh[1] ? "Routine_Check_Green" : "Routine_Check" )
-                .resizable()
-                .frame(width: 16, height: 16)
-            Text("무엇을")
-                .font(.setPretendard(weight: .semiBold, size: 14))
-                .foregroundStyle(viewModel.wwh[1] ? .my6FB56F : .myC8B7A3)
-                .padding(.trailing, 8)
-            
-            Image(viewModel.wwh[2] ? "Routine_Check_Green" : "Routine_Check" )
-                .resizable()
-                .frame(width: 16, height: 16)
-            Text("얼마나")
-                .font(.setPretendard(weight: .semiBold, size: 14))
-                .foregroundStyle(viewModel.wwh[2] ? .my6FB56F : .myC8B7A3)
-                .padding(.trailing, 8)
-            
-            Button(action: {
-                if isQuestionMarkClicked { isQuestionMarkClicked = false }
-                else { isQuestionMarkClicked = true }
-            }, label: {
-                Image(systemName: "questionmark.circle")
-                    .resizable()
-                    .frame(width: 16, height: 16)
-                    .foregroundStyle(.my8E8E8E)
-            })
-            Spacer()
-        }
-        .padding(.top, -41)
-        .padding(.leading, 8)
-        
-        ZStack {
-            Image("Polygon")
-                .resizable()
-                .frame(width: 26, height: 18)
-                .padding(.top, -22)
-                .padding(.leading, 120)
-            HStack(spacing: 4) {
-                Text("체크항목을 참고해서 루틴을 더 구체적으로 작성해보세요")
-                    .font(.setPretendard(weight: .medium, size: 13))
-                    .foregroundStyle(.myB4A99D)
-                Button(action: {
-                    isQuestionMarkClicked = false
-                }, label: {
-                    Image(systemName: "xmark")
-                        .resizable()
-                        .frame(width: 9, height: 9)
-                        .foregroundStyle(.myB4A99D)
-                })
-            }
-            .padding(.horizontal, 10)
-            .padding(.vertical, 8)
-            .background(Color.myF0E8DF)
-            .cornerRadius(8)
-            .padding(.leading, 4)
-            
-        }
-        .padding(.top, -44)
-        .opacity(isQuestionMarkClicked ? 1.0 : 0.0)
-    }
-    
-    // MARK: 메모 입력
-    @ViewBuilder
-    func DetailGoalMemo() -> some  View {
-        Text("메모")
-            .font(.setPretendard(weight: .semiBold, size: 16))
-            .padding(.leading, 4)
-            .foregroundStyle(Color.my675542)
-        
-        ZStack {
-            VStack(alignment: .leading) {
-                TextField("루틴에 대한 메모를 자유롭게 작성해보세요.", text: $newMemo, axis: .vertical)
-                    .scrollContentBackground(.hidden)
-                    .focused($isFocused)
-                    .padding()
-                    .onChange(of: newMemo) { oldValue, newValue in
-                        if newValue != detailGoal?.memo {
-                            isModified = true
-                        }
-                        if newValue.count > memoLimit {
-                            newMemo = String(newValue.prefix(memoLimit))
-                        }
-                    }
-                Spacer()
-            }
-            // 글자수 부분
-            VStack(spacing: 0){
-                Spacer()
-                HStack(spacing: 0){
-                    Spacer()
-                    Text("\(newMemo.count)")
-                        .font(.setPretendard(weight: .medium, size: 12))
-                        .foregroundStyle(Color.my6C6C6C)
-                    Text("/\(memoLimit)")
-                        .font(.setPretendard(weight: .medium, size: 12))
-                        .foregroundStyle(Color.my6C6C6C.opacity(0.5))
-                }
-                .padding([.trailing, .bottom], 10)
-            }
-        }
-        .frame(maxWidth: .infinity)
-        .frame(height: 133/852 * UIScreen.main.bounds.height)
-        .background(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(.white)
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.myF0E8DF, lineWidth: 1)
-        )
-        .padding(.top, 10)
-        .onTapGesture {
-            isFocused = true // Cell 전체영역 터치 시 TextField에 포커스
-        }
-    }
-    
-    // MARK: 요일 선택
-    @ViewBuilder
-    func selectDays() -> some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("요일 선택")
+    func titleSection() -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("루틴 이름")
                 .font(.setPretendard(weight: .semiBold, size: 16))
                 .padding(.leading, 4)
                 .foregroundStyle(Color.my675542)
-            
-            Text("루틴을 실행할 요일을 선택해주세요.")
+
+            ZStack {
+                TextField("루틴을 입력해주세요.", text: $newTitle)
+                    .padding()
+                    .background(.white)
+                    .cornerRadius(12)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(titleError == nil ? Color.myF0E8DF : .red.opacity(0.7), lineWidth: 1)
+                    )
+                    .onChange(of: newTitle) { _, newValue in
+                        viewModel.detailGoalTitleText = newValue
+                        if newValue.count > titleLimit {
+                            newTitle = String(newValue.prefix(titleLimit))
+                        }
+                        titleError = nil
+                        markModified()
+                    }
+
+                HStack {
+                    Spacer()
+                    if !newTitle.isEmpty {
+                        Button {
+                            newTitle = ""
+                            markModified()
+                        } label: {
+                            Image(systemName: "xmark.circle.fill")
+                                .resizable()
+                                .frame(width: 23, height: 23)
+                                .foregroundStyle(Color.myB9B9B9)
+                        }
+                        .padding(.trailing)
+                    }
+                }
+            }
+
+            HStack(spacing: 0) {
+                Spacer()
+                Text("\(newTitle.count)")
+                    .font(.setPretendard(weight: .medium, size: 12))
+                    .foregroundStyle(Color.my6C6C6C)
+                Text("/\(titleLimit)")
+                    .font(.setPretendard(weight: .medium, size: 12))
+                    .foregroundStyle(Color.my6C6C6C.opacity(0.5))
+            }
+            .padding(.trailing, 10)
+
+            if let titleError {
+                Text(titleError)
+                    .font(.setPretendard(weight: .medium, size: 13))
+                    .foregroundStyle(.red.opacity(0.85))
+                    .padding(.leading, 4)
+            }
+
+            wwhGuide()
+        }
+    }
+
+    @ViewBuilder
+    func wwhGuide() -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 4) {
+                Image(viewModel.wwh[0] ? "Routine_Check_Green" : "Routine_Check")
+                    .resizable()
+                    .frame(width: 16, height: 16)
+                Text("어디서")
+                    .font(.setPretendard(weight: .semiBold, size: 14))
+                    .foregroundStyle(viewModel.wwh[0] ? .my6FB56F : .myC8B7A3)
+
+                Image(viewModel.wwh[1] ? "Routine_Check_Green" : "Routine_Check")
+                    .resizable()
+                    .frame(width: 16, height: 16)
+                    .padding(.leading, 8)
+                Text("무엇을")
+                    .font(.setPretendard(weight: .semiBold, size: 14))
+                    .foregroundStyle(viewModel.wwh[1] ? .my6FB56F : .myC8B7A3)
+
+                Image(viewModel.wwh[2] ? "Routine_Check_Green" : "Routine_Check")
+                    .resizable()
+                    .frame(width: 16, height: 16)
+                    .padding(.leading, 8)
+                Text("얼마나")
+                    .font(.setPretendard(weight: .semiBold, size: 14))
+                    .foregroundStyle(viewModel.wwh[2] ? .my6FB56F : .myC8B7A3)
+
+                Button {
+                    isQuestionMarkClicked.toggle()
+                } label: {
+                    Image(systemName: "questionmark.circle")
+                        .foregroundStyle(.my8E8E8E)
+                }
+                Spacer()
+            }
+
+            if isQuestionMarkClicked {
+                Text("체크항목을 참고해서 루틴을 더 구체적으로 작성해보세요.")
+                    .font(.setPretendard(weight: .medium, size: 13))
+                    .foregroundStyle(.myB4A99D)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 8)
+                    .background(Color.myF0E8DF)
+                    .cornerRadius(8)
+            }
+        }
+    }
+
+    @ViewBuilder
+    func memoSection() -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("메모")
+                .font(.setPretendard(weight: .semiBold, size: 16))
+                .padding(.leading, 4)
+                .foregroundStyle(Color.my675542)
+
+            ZStack(alignment: .bottomTrailing) {
+                TextEditor(text: $newMemo)
+                    .scrollContentBackground(.hidden)
+                    .focused($isFocused)
+                    .font(.setPretendard(weight: .medium, size: 14))
+                    .foregroundStyle(Color.my2B2B2B)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 10)
+                    .onChange(of: newMemo) { _, newValue in
+                        if newValue.count > memoLimit {
+                            newMemo = String(newValue.prefix(memoLimit))
+                        }
+                        markModified()
+                    }
+
+                if newMemo.isEmpty {
+                    VStack {
+                        HStack {
+                            Text("루틴에 대한 메모를 자유롭게 작성해보세요.")
+                                .font(.setPretendard(weight: .medium, size: 14))
+                                .foregroundStyle(Color.myB9B9B9)
+                                .padding(.top, 18)
+                                .padding(.leading, 18)
+                            Spacer()
+                        }
+                        Spacer()
+                    }
+                    .allowsHitTesting(false)
+                }
+
+                Text("\(newMemo.count)/\(memoLimit)")
+                    .font(.setPretendard(weight: .medium, size: 12))
+                    .foregroundStyle(Color.my6C6C6C)
+                    .padding(.trailing, 10)
+                    .padding(.bottom, 10)
+            }
+            .frame(height: 133/852 * UIScreen.main.bounds.height)
+            .background(.white)
+            .cornerRadius(12)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color.myF0E8DF, lineWidth: 1)
+            )
+            .onTapGesture {
+                isFocused = true
+            }
+        }
+    }
+
+    @ViewBuilder
+    func repeatSection() -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("반복 유형")
+                .font(.setPretendard(weight: .semiBold, size: 16))
+                .padding(.leading, 4)
+                .foregroundStyle(Color.my675542)
+
+            Text("루틴이 언제 수행되는지 선택해주세요.")
                 .font(.setPretendard(weight: .medium, size: 14))
                 .foregroundStyle(Color.myB4A99D)
                 .padding(.leading, 4)
-        }
-        .padding(.leading, 4)
-        //실제 요일 선택
-        VStack(alignment: .leading, spacing: 16){
-            Text("반복 요일")
-                .font(.setPretendard(weight: .semiBold, size: 16))
-            HStack(spacing: 12) {
-                DayButton(title: "월", isSelected: $alertMon, isModified: $isModified)
-                DayButton(title: "화", isSelected: $alertTue, isModified: $isModified)
-                DayButton(title: "수", isSelected: $alertWed, isModified: $isModified)
-                DayButton(title: "목", isSelected: $alertThu, isModified: $isModified)
-                DayButton(title: "금", isSelected: $alertFri, isModified: $isModified)
-                DayButton(title: "토", isSelected: $alertSat, isModified: $isModified)
-                DayButton(title: "일", isSelected: $alertSun, isModified: $isModified)
+
+            VStack(alignment: .leading, spacing: 16) {
+                Picker("반복 유형", selection: $repeatType) {
+                    ForEach(RoutineRepeatType.selectableCases, id: \.self) { type in
+                        Text(type.title).tag(type)
+                    }
+                }
+                .pickerStyle(.segmented)
+                .onChange(of: repeatType) { _, newValue in
+                    repeatError = nil
+                    if newValue == .monthlyDate {
+                        alertMon = false
+                        alertTue = false
+                        alertWed = false
+                        alertThu = false
+                        alertFri = false
+                        alertSat = false
+                        alertSun = false
+                    }
+                    markModified()
+                }
+
+                if repeatType == .weekday {
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("반복 요일")
+                            .font(.setPretendard(weight: .semiBold, size: 16))
+
+                        HStack(spacing: 12) {
+                            DayButton(title: "월", isSelected: $alertMon, isModified: $isModified)
+                            DayButton(title: "화", isSelected: $alertTue, isModified: $isModified)
+                            DayButton(title: "수", isSelected: $alertWed, isModified: $isModified)
+                            DayButton(title: "목", isSelected: $alertThu, isModified: $isModified)
+                            DayButton(title: "금", isSelected: $alertFri, isModified: $isModified)
+                            DayButton(title: "토", isSelected: $alertSat, isModified: $isModified)
+                            DayButton(title: "일", isSelected: $alertSun, isModified: $isModified)
+                        }
+                    }
+                } else if repeatType == .monthlyDate {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("주간 수행 횟수")
+                            .font(.setPretendard(weight: .semiBold, size: 16))
+                        Stepper(value: $scheduledDayOfMonth, in: 1...7) {
+                            Text("주 \(scheduledDayOfMonth)회")
+                                .font(.setPretendard(weight: .medium, size: 16))
+                        }
+                        .onChange(of: scheduledDayOfMonth) { _, _ in
+                            repeatError = nil
+                            markModified()
+                        }
+                    }
+                }
+            }
+            .padding()
+            .background(.white)
+            .cornerRadius(12)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(repeatError == nil ? Color.myF0E8DF : .red.opacity(0.7), lineWidth: 1)
+            )
+
+            if let repeatError {
+                Text(repeatError)
+                    .font(.setPretendard(weight: .medium, size: 13))
+                    .foregroundStyle(.red.opacity(0.85))
+                    .padding(.leading, 4)
             }
         }
-        .padding()
-        .frame(maxWidth: .infinity)
-        .frame(height: 105/852 * UIScreen.main.bounds.height)
-        .background(.white)
-        .cornerRadius(12)
-        .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.myF0E8DF, lineWidth: 1)
-        )
-        .padding(.top, -18)
     }
-    
-    // MARK: 시간대 선택
+
     @ViewBuilder
-    func selectTime() -> some View {
-        VStack(alignment: .leading, spacing: 8) {
+    func timeSection() -> some View {
+        VStack(alignment: .leading, spacing: 10) {
             Text("시간대 선택")
                 .font(.setPretendard(weight: .semiBold, size: 16))
                 .padding(.leading, 4)
                 .foregroundStyle(Color.my675542)
-            
+
             Text("루틴을 실행할 대략적인 시간대를 선택해주세요.")
                 .font(.setPretendard(weight: .medium, size: 14))
                 .foregroundStyle(Color.myB4A99D)
                 .padding(.leading, 4)
-        }
-        .padding(.leading, 4)
-        //실제 요일 선택
-        
-        HStack {
-            Text("루틴 시간대")
-                .font(.setPretendard(weight: .medium, size: 16))
-            
-            Spacer()
-            
-            Picker("시간대", selection: $selectedTime) {
-                ForEach(timeOptions, id: \.self) { time in
-                    Text(time)
-                        .tag(time)
+
+            HStack {
+                Text("루틴 시간대")
+                    .font(.setPretendard(weight: .medium, size: 16))
+                Spacer()
+                Picker("시간대", selection: $selectedTime) {
+                    ForEach(timeOptions, id: \.self) { time in
+                        Text(time).tag(time)
+                    }
+                }
+                .pickerStyle(.menu)
+                .accentColor(.my3C3C43.opacity(0.6))
+                .onChange(of: selectedTime) { _, _ in
+                    markModified()
                 }
             }
-            .accentColor(.my3C3C43.opacity(0.6))
-            .pickerStyle(MenuPickerStyle())
-            .onChange(of: selectedTime) { old, newValue in
-                if let detailGoal = detailGoal {
-                    
-                    if (selectedTime == "아침" && detailGoal.isMorning) ||
-                        (selectedTime == "점심" && detailGoal.isAfternoon) ||
-                        (selectedTime == "저녁" && detailGoal.isEvening) ||
-                        (selectedTime == "자기전" && detailGoal.isNight) ||
-                        (selectedTime == "자율" && detailGoal.isFree) {
-                        isModified = false
-                    } else { isModified = true }
-                }
-            }
+            .padding()
+            .background(.white)
+            .cornerRadius(12)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color.myF0E8DF, lineWidth: 1)
+            )
         }
-        .pickerStyle(.menu)
-        .padding()
-        .frame(maxWidth: .infinity)
-        .frame(height: 51)
-        .background(.white)
-        .cornerRadius(12)
-        .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.myF0E8DF, lineWidth: 1)
-        )
-        .padding(.top, -18)
     }
-    
-    // MARK: 리마인드 선택
+
     @ViewBuilder
-    func remind() -> some View {
-        VStack(alignment: .leading, spacing: 8) {
+    func remindSection() -> some View {
+        VStack(alignment: .leading, spacing: 10) {
             Text("리마인드 알림")
                 .font(.setPretendard(weight: .semiBold, size: 16))
                 .padding(.leading, 4)
                 .foregroundStyle(Color.my675542)
-            
-            Text("루틴을 시작할 때 받을 알림을 설정해주세요.")
+
+            Text("하고만다는 서버 없이 로컬 알림으로 루틴 시작을 안내해드려요.")
                 .font(.setPretendard(weight: .medium, size: 14))
                 .foregroundStyle(Color.myB4A99D)
                 .padding(.leading, 4)
-        }
-        .padding(.leading, 4)
-        Section {
-            VStack(spacing: 0){
-                // 알림 설정 토글
-                HStack() {
+
+            VStack(spacing: 0) {
+                HStack {
                     Text("알림 설정")
                         .font(.setPretendard(weight: .medium, size: 16))
-                        .foregroundStyle(.black)
                     Spacer()
-                    
                     Toggle("", isOn: $isRemind)
-                        .toggleStyle(SwitchToggleStyle(tint: Color.my538F53)) // 초록색 토글
-                        .onChange(of: isRemind) { old, new in
-                            if new != detailGoal?.isRemind {
-                                isModified = true
-                            }
-                            if isRemind {
-                                requestNotificationPermission { granted in
-                                    if granted  {
+                        .toggleStyle(SwitchToggleStyle(tint: Color.my538F53))
+                        .onChange(of: isRemind) { _, newValue in
+                            markModified()
+                            guard newValue else { return }
+                            fetchNotificationAuthorizationState { state in
+                                DispatchQueue.main.async {
+                                    switch state {
+                                    case .authorized:
                                         isRemind = true
-                                    } else {
-                                        DispatchQueue.main.async {
-                                            isRemind = false
+                                    case .notDetermined:
+                                        requestNotificationPermission { granted in
+                                            DispatchQueue.main.async {
+                                                isRemind = granted
+                                                if !granted {
+                                                    showPermissionAlert = true
+                                                }
+                                            }
                                         }
-                                    }
-                                    
-                                }
-                            }
-                            if old == false {
-                                viewModel.checkNotificationPermission{ isAllowed in
-                                    if isAllowed {
-                                        isRemind = true
-                                    } else {
-                                        allowAlert = true
-                                        
+                                    case .denied:
+                                        isRemind = false
+                                        showPermissionAlert = true
                                     }
                                 }
-                            }
-                        }
-                        .alert("알림 설정이 꺼져있어요", isPresented: $allowAlert) {
-                            Button("취소", role: .cancel) {
-                                isRemind = false
-                            }
-                            Button("이동하기") {
-                                // 확인 버튼이 눌렸을 때 실행할 함수
-                                isRemind = false
-                                viewModel.openAppSettings()
-                            }
-                        } message: {
-                            Text("알림 기능을 사용하시려면\n기기설정에서 알림을 허용해주세요.")
-                        }
-                        .onAppear {
-                            // 앱이 포그라운드로 돌아왔을 때 allowAlert를 리셋
-                            NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { _ in
-                                allowAlert = false
                             }
                         }
                 }
+                .padding(.horizontal)
+                .padding(.vertical, 10)
+
                 if isRemind {
-                    Divider()
-                        .foregroundStyle(Color.myF0E8DF)
-                        .frame(height: 1)
-                        .padding(.vertical, 8)
-                    
-                    // 알림 시간 설정
+                    Divider().foregroundStyle(Color.myF0E8DF)
                     HStack {
                         Text("알림 시간")
                             .font(.setPretendard(weight: .medium, size: 16))
-                            .foregroundStyle(.black)
                         Spacer()
-                        
-                        // 알림 시간을 선택할 수 있는 DatePicker
                         DatePicker(
                             "",
                             selection: Binding(
@@ -631,33 +650,28 @@ extension DetailGoalView {
                             ),
                             displayedComponents: .hourAndMinute
                         )
-                        .labelsHidden() // 라벨 숨기기
-                        .onChange(of: remindTime) { old, new in
-                            if new != detailGoal?.remindTime {
-                                isModified = true
-                            }
+                        .labelsHidden()
+                        .onChange(of: remindTime) { _, _ in
+                            markModified()
                         }
                     }
+                    .padding()
                 }
             }
-            .padding(.horizontal)
-            .padding(.vertical, 10)
+            .background(.white)
+            .cornerRadius(12)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color.myF0E8DF, lineWidth: 1)
+            )
         }
-        .background(.white)
-        .cornerRadius(12)
-        .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.myF0E8DF, lineWidth: 1)
-        )
-        .padding(.top, -18)
     }
-    
-    // MARK: 삭제 버튼
+
     @ViewBuilder
     func deleteButton() -> some View {
-        Button(action: {
-            showAlert = true
-        }, label: {
+        Button {
+            showDeleteAlert = true
+        } label: {
             HStack(spacing: 8) {
                 Image(systemName: "trash")
                     .font(.system(size: 16))
@@ -670,13 +684,23 @@ extension DetailGoalView {
             .frame(maxWidth: .infinity)
             .background(Color.myF0E8DF)
             .cornerRadius(12)
-        })
-        .alert("루틴을 삭제하시겠습니까?", isPresented: $showAlert) {
+        }
+        .alert("루틴을 삭제하시겠습니까?", isPresented: $showDeleteAlert) {
             Button("삭제하기", role: .destructive) {
-                if let detailGoal = detailGoal {
+                if let detailGoal {
                     viewModel.deleteDetailGoal(detailGoal: detailGoal, days: ["월", "화", "수", "목", "금", "토", "일"])
+                    if let mainGoal = mainGoal(containing: detailGoal) {
+                        let routineViewModel = TodayRoutineViewModel()
+                        routineViewModel.updateCloverState(for: mainGoal)
+                        routineViewModel.calculateCurrentWeekAndMonthWeek(
+                            mainGoal: mainGoal,
+                            clovers: clovers,
+                            context: modelContext
+                        )
+                        routineViewModel.refreshNotificationSchedules(mainGoals: mainGoals)
+                        routineViewModel.syncWidgetSnapshot(mainGoals: mainGoals)
+                    }
                 }
-                // 버튼 누르면 SubGoalDetailGridView로 pop되게 하기
                 dismiss()
             }
             Button("취소", role: .cancel) {}
@@ -685,4 +709,3 @@ extension DetailGoalView {
         }
     }
 }
-

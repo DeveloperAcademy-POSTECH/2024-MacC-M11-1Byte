@@ -29,7 +29,7 @@ class UpdateService: UpdateGoalUseCase {
         subGoal.category = category
     }
     
-    func updateDetailGoal(detailGoal: DetailGoal,title: String, memo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool, isMorning: Bool, isAfternoon: Bool, isEvening: Bool, isNight: Bool, isFree: Bool) {
+    func updateDetailGoal(detailGoal: DetailGoal,title: String, memo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool, isMorning: Bool, isAfternoon: Bool, isEvening: Bool, isNight: Bool, isFree: Bool, repeatTypeRaw: String, scheduledDayOfMonth: Int?) {
         
         detailGoal.title = title
         detailGoal.memo = memo
@@ -56,5 +56,7 @@ class UpdateService: UpdateGoalUseCase {
         detailGoal.isEvening = isEvening
         detailGoal.isNight = isNight
         detailGoal.isFree = isFree
+        detailGoal.repeatTypeRaw = repeatTypeRaw
+        detailGoal.scheduledDayOfMonth = scheduledDayOfMonth
     }
 }

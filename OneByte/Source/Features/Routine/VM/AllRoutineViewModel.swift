@@ -7,6 +7,14 @@
 
 import SwiftUI
 
+enum WeekRoutineSlotState {
+    case achieved(Int)
+    case todayPending
+    case futurePending
+    case missed
+    case idle
+}
+
 @Observable
 class AllRoutineViewModel {
     
@@ -87,6 +95,10 @@ class AllRoutineViewModel {
     
     // WeekAchieveCell - alert 요일 확인
     func isAlertActive(for detailGoal: DetailGoal, at index: Int) -> Bool {
+        if detailGoal.repeatType == .monthlyDate {
+            return true
+        }
+
         switch index {
         case 0: return detailGoal.alertMon
         case 1: return detailGoal.alertTue
@@ -118,6 +130,10 @@ class AllRoutineViewModel {
         default: return false
         }
     }
+
+    func achievedCount(for detailGoal: DetailGoal) -> Int {
+        calculateCumulativeAchieveCounts(for: detailGoal).last ?? 0
+    }
     
     // WeekAchieveCell - 성취했는데 지난요일들 클로버 종류별로 보여주기 위해 계산
     func calculateCumulativeAchieveCounts(for detailGoal: DetailGoal) -> [Int]  {
@@ -131,6 +147,38 @@ class AllRoutineViewModel {
             counts.append(cumulativeCount)
         }
         return counts
+    }
+
+    func weekSlotState(for detailGoal: DetailGoal, at index: Int) -> WeekRoutineSlotState {
+        let cumulativeAchieveCounts = calculateCumulativeAchieveCounts(for: detailGoal)
+
+        if isAchieved(for: detailGoal, at: index) {
+            return .achieved(cumulativeAchieveCounts[index])
+        }
+
+        switch detailGoal.repeatType {
+        case .weekday:
+            guard isAlertActive(for: detailGoal, at: index) else {
+                return .idle
+            }
+
+            if Date().mondayBasedIndex() == index {
+                return .todayPending
+            }
+
+            return isFutureDay(index: index) ? .futurePending : .missed
+        case .monthlyDate:
+            let weeklyTarget = detailGoal.scheduledDayOfMonth ?? max(detailGoal.achieveGoal, 1)
+            let weeklyCompleted = achievedCount(for: detailGoal)
+
+            if Date().mondayBasedIndex() == index && weeklyCompleted < weeklyTarget {
+                return .todayPending
+            }
+
+            return .idle
+        case .flexible:
+            return .idle
+        }
     }
     
     // WeekAchieveCell - 그라데이션 클로버 이미지 생성

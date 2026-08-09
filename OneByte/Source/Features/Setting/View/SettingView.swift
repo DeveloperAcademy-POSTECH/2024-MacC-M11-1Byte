@@ -16,6 +16,7 @@ struct SettingView: View {
     @Binding var isTabBarMainVisible: Bool
     
     @State private var nickname: String = UserDefaults.loadNickname()
+    private let updateNotes: [UpdateVersionSection] = UpdateVersionSection.sampleNotes
 
     var body: some View {
         NavigationStack {
@@ -33,58 +34,35 @@ struct SettingView: View {
                     VStack {
                         Divider()
                             .foregroundStyle(.clear)
-                        
-                        //                        AchievedRow(isAppearAchieved: $viewModel.isAppearAchieved)
-                        
-                        //                        Divider()
-                        //                            .foregroundStyle(Color.myF0E8DF)
-                        
-                        Button {
-                            viewModel.openAppSettings()
+
+                        NavigationLink {
+                            SettingNotificationGuideView(viewModel: viewModel)
                         } label: {
-                            HStack {
-                                Text("알림 설정")
-                                    .font(.setPretendard(weight: .semiBold, size: 16))
-                                    .foregroundStyle(.black)
-                                Spacer()
-                            }
-                            .padding()
+                            SettingMenuRow(
+                                title: "알림 설정",
+                                subtitle: viewModel.notificationStatus.description
+                            )
                         }
-                        
+
                         Divider()
                             .foregroundStyle(Color.myF0E8DF)
-                        
-                        //                        NavigationLink(destination: Text("폰트 선택")) {
-                        //                            FontRow()
-                        //                                .foregroundStyle(.black)
-                        //                        }
-                        //                        Divider()
-                        //                            .foregroundStyle(.clear)
+
+                        NavigationLink {
+                            UpdateHistoryView(currentVersion: viewModel.appVersion, notes: updateNotes)
+                        } label: {
+                            SettingMenuRow(
+                                title: "업데이트 내역",
+                                subtitle: "Version \(viewModel.appVersion) 변경사항 보기"
+                            )
+                        }
+
+                        Divider()
+                            .foregroundStyle(.clear)
                     }
                     .background(.white)
-                    
-                    //                    VStack {
-                    //                        Divider()
-                    //                            .foregroundStyle(.clear)
-                    //
-                    //                        NavigationLink(destination: Text("개인정보 처리 방침")) {
-                    //                            PrivacyPolicyRow()
-                    //                                .foregroundStyle(.black)
-                    //                        }
-                    //                        Divider()
-                    //                            .foregroundStyle(Color.myF0E8DF)
-                    //
-                    //                        NavigationLink(destination: Text("이용 약관")) {
-                    //                            TermsRow()
-                    //                                .foregroundStyle(.black)
-                    //                        }
-                    //                        Divider()
-                    //                            .foregroundStyle(.clear)
-                    //                    }
-                    //                    .background(.white)
-                    
+
                     HStack {
-                        Text("Version \(viewModel.appVersion)") // 앱 버전정보
+                        Text("Version \(viewModel.appVersion)")
                             .font(.setPretendard(weight: .medium, size: 16))
                             .foregroundStyle(.myB4A99D)
                     }
@@ -114,6 +92,7 @@ struct SettingView: View {
             viewModel.settingViewTabBarVisible = false // 첫 진입시 Tabbar 숨김
             viewModel.readProfile(profile) // 닉네임 정보
             viewModel.getDaysSinceInstall() // 앱 설치한지 몇일 됐는지 계산
+            viewModel.refreshNotificationStatus()
         }
         .sheet(isPresented: $viewModel.isEditNicknameSheet) {
             EditNicknameSheetView(viewModel: viewModel)
@@ -161,6 +140,303 @@ struct SettingView: View {
             }
         }
         .padding(.vertical, 5)
+    }
+}
+
+private struct SettingMenuRow: View {
+    let title: String
+    let subtitle: String
+
+    var body: some View {
+        HStack(spacing: 12) {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(title)
+                    .font(.setPretendard(weight: .semiBold, size: 16))
+                    .foregroundStyle(.black)
+                Text(subtitle)
+                    .font(.setPretendard(weight: .medium, size: 13))
+                    .foregroundStyle(.my878787)
+                    .multilineTextAlignment(.leading)
+            }
+            Spacer()
+            Image(systemName: "chevron.right")
+                .foregroundStyle(.myB4A99D)
+        }
+        .padding()
+    }
+}
+
+private struct SettingNotificationGuideView: View {
+    @Query private var mainGoals: [MainGoal]
+    @Bindable var viewModel: SettingViewModel
+
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 16) {
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("로컬 알림 안내")
+                        .font(.setPretendard(weight: .bold, size: 20))
+                        .foregroundStyle(.my2B2B2B)
+                    Text("하고만다는 서버 없이 iPhone의 로컬 알림으로 루틴 시작 시간을 알려드려요.")
+                        .font(.setPretendard(weight: .medium, size: 15))
+                        .foregroundStyle(.my878787)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
+                .background(.white)
+                .cornerRadius(16)
+
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("현재 상태")
+                        .font(.setPretendard(weight: .semiBold, size: 16))
+                        .foregroundStyle(.my675542)
+                    Text(viewModel.notificationStatus.description)
+                        .font(.setPretendard(weight: .medium, size: 14))
+                        .foregroundStyle(.my2B2B2B)
+                    Button("iPhone 설정에서 알림 열기") {
+                        viewModel.openAppSettings()
+                    }
+                    .font(.setPretendard(weight: .semiBold, size: 15))
+                    .foregroundStyle(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 14)
+                    .background(Color.my6FB56F)
+                    .cornerRadius(12)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
+                .background(.white)
+                .cornerRadius(16)
+
+                VStack(alignment: .leading, spacing: 14) {
+                    Text("앱 알림 종류")
+                        .font(.setPretendard(weight: .semiBold, size: 16))
+                        .foregroundStyle(.my675542)
+
+                    notificationToggleRow(
+                        title: "루틴 시간 알림",
+                        description: "루틴 생성 시 설정한 시간의 알림을 받아요.",
+                        isOn: Binding(
+                            get: { viewModel.routineReminderEnabled },
+                            set: { viewModel.updateRoutineReminderEnabled($0, mainGoals: mainGoals) }
+                        )
+                    )
+
+                    Divider()
+
+                    notificationToggleRow(
+                        title: "미완료 루틴 알림",
+                        description: "설정한 시간에 오늘 아직 완료하지 않은 루틴을 알려드려요.",
+                        isOn: Binding(
+                            get: { viewModel.incompleteRoutineReminderEnabled },
+                            set: { viewModel.updateIncompleteRoutineReminderEnabled($0, mainGoals: mainGoals) }
+                        )
+                    )
+
+                    if viewModel.incompleteRoutineReminderEnabled {
+                        Divider()
+
+                        HStack(alignment: .center, spacing: 12) {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("미완료 알림 시간")
+                                    .font(.setPretendard(weight: .semiBold, size: 16))
+                                    .foregroundStyle(.my2B2B2B)
+                                Text("기본값은 오후 11시이며, 원하는 시간으로 바꿀 수 있어요.")
+                                    .font(.setPretendard(weight: .medium, size: 13))
+                                    .foregroundStyle(.my878787)
+                            }
+                            Spacer(minLength: 12)
+                            DatePicker(
+                                "",
+                                selection: Binding(
+                                    get: { viewModel.incompleteRoutineReminderTime },
+                                    set: { viewModel.updateIncompleteRoutineReminderTime($0, mainGoals: mainGoals) }
+                                ),
+                                displayedComponents: .hourAndMinute
+                            )
+                            .labelsHidden()
+                            .environment(\.locale, Locale(identifier: "ko_KR"))
+                        }
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
+                .background(.white)
+                .cornerRadius(16)
+            }
+            .padding()
+        }
+        .background(Color.myF0E8DF)
+        .navigationTitle("알림 설정")
+        .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            viewModel.refreshNotificationStatus()
+        }
+    }
+
+    @ViewBuilder
+    private func notificationToggleRow(title: String, description: String, isOn: Binding<Bool>) -> some View {
+        HStack(alignment: .center, spacing: 12) {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(title)
+                    .font(.setPretendard(weight: .semiBold, size: 16))
+                    .foregroundStyle(.my2B2B2B)
+                Text(description)
+                    .font(.setPretendard(weight: .medium, size: 13))
+                    .foregroundStyle(.my878787)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            Spacer(minLength: 16)
+            Toggle("", isOn: isOn)
+                .labelsHidden()
+                .tint(.my538F53)
+        }
+    }
+}
+
+private struct UpdateVersionSection: Identifiable {
+    struct Change: Identifiable {
+        let id = UUID()
+        let icon: String
+        let title: String
+        let description: String
+    }
+
+    let id = UUID()
+    let version: String
+    let date: String
+    let changes: [Change]
+
+    static let sampleNotes: [UpdateVersionSection] = [
+        UpdateVersionSection(
+            version: "1.2.2",
+            date: "2026.08.09",
+            changes: [
+                .init(icon: "checkmark.circle", title: "주 n회 루틴 안정화", description: "주간 수행 횟수가 정확하게 계산되고, 루틴을 체크하거나 편집해도 목록과 클로버가 자연스럽게 유지돼요."),
+                .init(icon: "calendar.badge.clock", title: "오늘과 어제 루틴 구분", description: "오늘 루틴을 먼저 보여주고 어제 미완료 루틴은 아래에 구분했어요. 오후 1시 이후에는 수정 불가 안내도 함께 보여줘요."),
+                .init(icon: "square.grid.3x3", title: "위젯 체크 동기화 개선", description: "위젯에서 체크한 루틴이 앱에 정확하게 반영되고, 오늘 수행할 수 없는 루틴은 회색으로 구분돼요."),
+                .init(icon: "bell.badge", title: "루틴 알림 정확도 개선", description: "주 n회 목표를 달성하면 해당 루틴 알림이 더 이상 예약되지 않도록 개선했어요."),
+                .init(icon: "wrench.and.screwdriver", title: "루틴 데이터 안정성 개선", description: "루틴을 삭제하거나 다시 만들 때 기존 체크 기록과 알림이 남지 않도록 정리했어요.")
+            ]
+        ),
+        UpdateVersionSection(
+            version: "1.2.1",
+            date: "2026.07.03",
+            changes: [
+                .init(icon: "square.grid.2x2", title: "Large Widget 추가", description: "메인화면과 같은 루틴을 Large Widget으로 확인하고, 체크 상태도 앱과 함께 동기화할 수 있어요."),
+                .init(icon: "arrow.triangle.2.circlepath", title: "위젯 루틴 표시 개선", description: "오늘 수행해야 하는 루틴은 연두색으로, 오늘 대상이 아닌 루틴은 연한 회색으로 구분해 더 쉽게 볼 수 있어요."),
+                .init(icon: "clock.badge.checkmark", title: "어제 미완료 루틴 규칙 정리", description: "전날 미완료한 루틴은 한국시간 오후 1시 전까지만 확인하고 체크할 수 있어요."),
+                .init(icon: "text.cursor", title: "루틴 생성 경험 개선", description: "텍스트 선택 메뉴를 한글로 맞추고, 요일 대신 주간 수행 횟수로 관리하는 루틴도 추가할 수 있어요."),
+                .init(icon: "bell", title: "알림 설정 고도화", description: "기존 루틴 알림과 미완료 루틴 알림을 각각 켜고 끌 수 있고, 미완료 알림 시간도 원하는 대로 바꿀 수 있어요.")
+            ]
+        )
+    ]
+}
+
+private struct UpdateHistoryView: View {
+    let currentVersion: String
+    let notes: [UpdateVersionSection]
+    private let detailURL = URL(string: "https://app.notion.com/p/7-391eee5969208047a469ecf25836a521?source=copy_link")
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("새로운 기능")
+                        .font(.setPretendard(weight: .bold, size: 24))
+                        .foregroundStyle(.my2B2B2B)
+                    Text("현재 버전 \(currentVersion)")
+                        .font(.setPretendard(weight: .medium, size: 14))
+                        .foregroundStyle(.my878787)
+                }
+                .padding(.horizontal)
+
+                HStack {
+                    Button {
+                        guard let detailURL else { return }
+                        UIApplication.shared.open(detailURL)
+                    }
+                label: {
+                        HStack(spacing: 6) {
+                            Text("자세히보기")
+                                .font(.setPretendard(weight: .semiBold, size: 14))
+                            Image(systemName: "arrow.up.right")
+                                .font(.system(size: 12, weight: .semibold))
+                        }
+                        .foregroundStyle(.white)
+                    }
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 10)
+                    .background(Color.my6FB56F)
+                    .cornerRadius(12)
+                    Spacer()
+                }
+                .padding(.horizontal)
+
+                ForEach(notes) { note in
+                    UpdateVersionCard(note: note)
+                }
+            }
+            .padding(.vertical)
+        }
+        .background(Color.myF0E8DF)
+        .navigationTitle("업데이트 내역")
+        .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+private struct UpdateVersionCard: View {
+    let note: UpdateVersionSection
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            Text(versionTitle)
+                .font(.setPretendard(weight: .bold, size: 20))
+                .foregroundStyle(.my2B2B2B)
+            Text(note.date)
+                .font(.setPretendard(weight: .medium, size: 13))
+                .foregroundStyle(.my878787)
+
+            ForEach(note.changes) { change in
+                UpdateChangeCard(change: change)
+            }
+        }
+        .padding()
+        .background(Color.myFFFAF4)
+        .cornerRadius(20)
+        .padding(.horizontal)
+    }
+
+    private var versionTitle: String {
+        "Version \(note.version)"
+    }
+}
+
+private struct UpdateChangeCard: View {
+    let change: UpdateVersionSection.Change
+
+    var body: some View {
+        HStack(alignment: .top, spacing: 12) {
+            Image(systemName: change.icon)
+                .foregroundStyle(.white)
+                .frame(width: 36, height: 36)
+                .background(Color.my6FB56F)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(change.title)
+                    .font(.setPretendard(weight: .semiBold, size: 16))
+                    .foregroundStyle(.my2B2B2B)
+                Text(change.description)
+                    .font(.setPretendard(weight: .medium, size: 14))
+                    .foregroundStyle(.my878787)
+            }
+
+            Spacer(minLength: 0)
+        }
+        .padding()
+        .background(Color.white)
+        .cornerRadius(16)
     }
 }
 

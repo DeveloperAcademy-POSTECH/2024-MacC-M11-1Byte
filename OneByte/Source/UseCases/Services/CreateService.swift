@@ -63,7 +63,9 @@ class CreateService: CreateGoalUseCase {
                        isAfternoon: false,
                        isEvening: false,
                        isNight: false,
-                       isFree: false
+                       isFree: false,
+                       repeatTypeRaw: RoutineRepeatType.weekday.rawValue,
+                       scheduledDayOfMonth: nil
                    )
                    detailGoalCounter += 1 // DetailGoal ID 증가
                    
@@ -83,12 +85,16 @@ class CreateService: CreateGoalUseCase {
     // 알림 생성
     func createNotification(detailGoal: DetailGoal, newTitle: String, selectedDays: [String]) {
         guard let remindTime = detailGoal.remindTime else { return }
-        
-//        checkNotificationPermissionAndRequestIfNeeded()
-        
-        // 각 요일별로 알림 생성
-        for day in selectedDays {
-            scheduleNotification(detailGoal: detailGoal, for: detailGoal.title, on: day, at: remindTime)
+
+        switch detailGoal.repeatType {
+        case .weekday:
+            for day in selectedDays {
+                scheduleWeeklyNotification(detailGoal: detailGoal, title: detailGoal.title, day: day, time: remindTime)
+            }
+        case .monthlyDate:
+            scheduleWeeklyCountNotification(detailGoal: detailGoal, title: detailGoal.title, time: remindTime)
+        case .flexible:
+            return
         }
     }
 }

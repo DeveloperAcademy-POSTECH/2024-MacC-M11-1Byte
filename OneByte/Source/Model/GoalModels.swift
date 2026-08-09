@@ -7,6 +7,24 @@
 import SwiftData
 import SwiftUI
 
+enum RoutineRepeatType: String, Codable, CaseIterable {
+    case weekday
+    case monthlyDate
+    case flexible
+
+    static var selectableCases: [RoutineRepeatType] {
+        [.weekday, .monthlyDate]
+    }
+
+    var title: String {
+        switch self {
+        case .weekday: return "요일 반복"
+        case .monthlyDate: return "주 n회"
+        case .flexible: return "날짜 미지정"
+        }
+    }
+}
+
 @Model
 class MainGoal {
     var id: Int
@@ -66,8 +84,10 @@ class DetailGoal {
     var isEvening: Bool
     var isNight: Bool
     var isFree: Bool
+    var repeatTypeRaw: String = RoutineRepeatType.weekday.rawValue
+    var scheduledDayOfMonth: Int? = nil
 
-    init(id: Int, title: String, memo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date? = nil, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool, isMorning: Bool, isAfternoon: Bool, isEvening: Bool, isNight: Bool, isFree: Bool) {
+    init(id: Int, title: String, memo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date? = nil, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool, isMorning: Bool, isAfternoon: Bool, isEvening: Bool, isNight: Bool, isFree: Bool, repeatTypeRaw: String = RoutineRepeatType.weekday.rawValue, scheduledDayOfMonth: Int? = nil) {
         self.id = id
         self.title = title
         self.memo = memo
@@ -94,5 +114,18 @@ class DetailGoal {
         self.isEvening = isEvening
         self.isNight = isNight
         self.isFree = isFree
+        self.repeatTypeRaw = repeatTypeRaw
+        self.scheduledDayOfMonth = scheduledDayOfMonth
+    }
+}
+
+extension DetailGoal {
+    var repeatType: RoutineRepeatType {
+        get { RoutineRepeatType(rawValue: repeatTypeRaw) ?? .weekday }
+        set { repeatTypeRaw = newValue.rawValue }
+    }
+
+    var hasSelectedWeekdays: Bool {
+        alertMon || alertTue || alertWed || alertThu || alertFri || alertSat || alertSun
     }
 }

@@ -11,24 +11,32 @@ import SwiftData
 struct TodayRoutineView: View {
     
     @Environment(\.modelContext) private var modelContext
-    @Query var mainGoals: [MainGoal] // 모든 MainGoal 데이터를 쿼리
+    @Environment(\.scenePhase) private var scenePhase
+    @Query var mainGoals: [MainGoal]
     @Query var clovers: [Clover]
     @State var viewModel = TodayRoutineViewModel()
     
     var body: some View {
+        let yesterdayDate = viewModel.carryoverReferenceDate() ?? Date()
         let todayGoals = viewModel.filterTodayGoals(from: mainGoals)
+        let yesterdayGoals = viewModel.filterCarryoverGoals(from: mainGoals)
         let allDetailGoals = viewModel.isAllDetailGoalTitlesEmpty(from: mainGoals)
+        let yesterdayItems = viewModel.displayItems(for: yesterdayGoals, in: mainGoals)
+        let morningItems = viewModel.displayItems(for: viewModel.filterMorning(from: todayGoals), in: mainGoals)
+        let afternoonItems = viewModel.displayItems(for: viewModel.filterAfternoon(from: todayGoals), in: mainGoals)
+        let eveningItems = viewModel.displayItems(for: viewModel.filterEvening(from: todayGoals), in: mainGoals)
+        let nightItems = viewModel.displayItems(for: viewModel.filterNight(from: todayGoals), in: mainGoals)
+        let freeItems = viewModel.displayItems(for: viewModel.filterFree(from: todayGoals), in: mainGoals)
         
         ScrollView {
             VStack(spacing: 12) {
-                // 오늘의 루틴이 비어있는데
-                if todayGoals.isEmpty {
-                    if allDetailGoals { // 전체 루틴모두 비어있을때
+                if todayGoals.isEmpty && yesterdayGoals.isEmpty {
+                    if allDetailGoals {
                         VStack(spacing: 0) {
                             Image("Turtle_Empty")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 101, height: 133)
+                                .frame(maxWidth: 101, maxHeight: 133)
                             Text("아직 루틴이 없어요!")
                                 .font(.setPretendard(weight: .semiBold, size: 16))
                                 .kerning(0.02)
@@ -39,12 +47,12 @@ struct TodayRoutineView: View {
                                 .padding(.top, 1)
                         }
                         .padding(.top, 114)
-                    } else { // 오늘의 루틴만 없을때
+                    } else {
                         VStack(spacing: 0) {
                             Image("Turtle_Empty2")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 122, height: 120)
+                                .frame(maxWidth: 122, maxHeight: 120)
                             Text("오늘 수행할 루틴이 없어요")
                                 .font(.setPretendard(weight: .semiBold, size: 16))
                                 .padding(.top, 19)
@@ -56,108 +64,117 @@ struct TodayRoutineView: View {
                         }
                         .padding(.top, 125)
                     }
-                } else { // 오늘의 루틴이 있을때
-                    // 아침 루틴 섹션
-                    if !viewModel.filterMorning(from: todayGoals).isEmpty {
+                } else {
+                    if !todayGoals.isEmpty {
+                        sectionTitle("오늘")
+                            .padding(.top, 12)
+                    }
+
+                    if !morningItems.isEmpty {
                         TodayRoutineTypeHeaderView(routineimage: "Routine_Morning", routineTimeType: "아침 루틴")
                             .padding(.top, 12)
-                        
-                        if let mainGoal = mainGoals.first {
-                            ForEach(viewModel.filterMorning(from: todayGoals), id: \.id) { detailGoal in
-                                if let subGoal = mainGoal.subGoals.first(where: { $0.detailGoals.contains(detailGoal) }) {
-                                    TodayRoutineCell(
-                                        mainGoal: mainGoal,
-                                        detailGoal: detailGoal,
-                                        subGoalTitle: subGoal.title,
-                                        viewModel: viewModel,
-                                        modelContext: modelContext,
-                                        clovers: clovers
-                                    )
-                                }
-                            }
+                        ForEach(morningItems) { item in
+                            TodayRoutineCell(
+                                mainGoal: item.mainGoal,
+                                allMainGoals: mainGoals,
+                                detailGoal: item.detailGoal,
+                                subGoalTitle: item.subGoalTitle,
+                                viewModel: viewModel,
+                                modelContext: modelContext,
+                                clovers: clovers,
+                                targetDate: Date()
+                            )
                         }
                     }
-                    // 점심 루틴 섹션
-                    if !viewModel.filterAfternoon(from: todayGoals).isEmpty {
+
+                    if !afternoonItems.isEmpty {
                         TodayRoutineTypeHeaderView(routineimage: "Routine_Afternoon", routineTimeType: "점심 루틴")
                             .padding(.top, 12)
-                        
-                        if let mainGoal = mainGoals.first {
-                            ForEach(viewModel.filterAfternoon(from: todayGoals), id: \.id) { detailGoal in
-                                if let subGoal = mainGoal.subGoals.first(where: { $0.detailGoals.contains(detailGoal) }) {
-                                    TodayRoutineCell(
-                                        mainGoal: mainGoal,
-                                        detailGoal: detailGoal,
-                                        subGoalTitle: subGoal.title,
-                                        viewModel: viewModel,
-                                        modelContext: modelContext,
-                                        clovers: clovers
-                                    )
-                                }
-                            }
+                        ForEach(afternoonItems) { item in
+                            TodayRoutineCell(
+                                mainGoal: item.mainGoal,
+                                allMainGoals: mainGoals,
+                                detailGoal: item.detailGoal,
+                                subGoalTitle: item.subGoalTitle,
+                                viewModel: viewModel,
+                                modelContext: modelContext,
+                                clovers: clovers,
+                                targetDate: Date()
+                            )
                         }
                     }
                     
-                    // 저녁 루틴 섹션
-                    if !viewModel.filterEvening(from: todayGoals).isEmpty {
+                    if !eveningItems.isEmpty {
                         TodayRoutineTypeHeaderView(routineimage: "Routine_Evening", routineTimeType: "저녁 루틴")
                             .padding(.top, 12)
-                        
-                        if let mainGoal = mainGoals.first {
-                            ForEach(viewModel.filterEvening(from: todayGoals), id: \.id) { detailGoal in
-                                if let subGoal = mainGoal.subGoals.first(where: { $0.detailGoals.contains(detailGoal) }) {
-                                    TodayRoutineCell(
-                                        mainGoal: mainGoal,
-                                        detailGoal: detailGoal,
-                                        subGoalTitle: subGoal.title,
-                                        viewModel: viewModel,
-                                        modelContext: modelContext,
-                                        clovers: clovers
-                                    )
-                                }
-                            }
+                        ForEach(eveningItems) { item in
+                            TodayRoutineCell(
+                                mainGoal: item.mainGoal,
+                                allMainGoals: mainGoals,
+                                detailGoal: item.detailGoal,
+                                subGoalTitle: item.subGoalTitle,
+                                viewModel: viewModel,
+                                modelContext: modelContext,
+                                clovers: clovers,
+                                targetDate: Date()
+                            )
                         }
                     }
                     
-                    // 밤 루틴 섹션
-                    if !viewModel.filterNight(from: todayGoals).isEmpty {
+                    if !nightItems.isEmpty {
                         TodayRoutineTypeHeaderView(routineimage: "Routine_Night", routineTimeType: "자기 전 루틴")
                             .padding(.top, 12)
-                        
-                        if let mainGoal = mainGoals.first {
-                            ForEach(viewModel.filterNight(from: todayGoals), id: \.id) { detailGoal in
-                                if let subGoal = mainGoal.subGoals.first(where: { $0.detailGoals.contains(detailGoal) }) {
-                                    TodayRoutineCell(
-                                        mainGoal: mainGoal,
-                                        detailGoal: detailGoal,
-                                        subGoalTitle: subGoal.title,
-                                        viewModel: viewModel,
-                                        modelContext: modelContext,
-                                        clovers: clovers
-                                    )
-                                }
-                            }
+                        ForEach(nightItems) { item in
+                            TodayRoutineCell(
+                                mainGoal: item.mainGoal,
+                                allMainGoals: mainGoals,
+                                detailGoal: item.detailGoal,
+                                subGoalTitle: item.subGoalTitle,
+                                viewModel: viewModel,
+                                modelContext: modelContext,
+                                clovers: clovers,
+                                targetDate: Date()
+                            )
                         }
                     }
                     
-                    // 자유 루틴 섹션
-                    if !viewModel.filterFree(from: todayGoals).isEmpty {
+                    if !freeItems.isEmpty {
                         TodayRoutineTypeHeaderView(routineimage: "Routine_Free", routineTimeType: "자율 루틴")
                             .padding(.top, 12)
-                        
-                        if let mainGoal = mainGoals.first {
-                            ForEach(viewModel.filterFree(from: todayGoals), id: \.id) { detailGoal in
-                                if let subGoal = mainGoal.subGoals.first(where: { $0.detailGoals.contains(detailGoal) }) {
-                                    TodayRoutineCell(
-                                        mainGoal: mainGoal,
-                                        detailGoal: detailGoal,
-                                        subGoalTitle: subGoal.title,
-                                        viewModel: viewModel,
-                                        modelContext: modelContext,
-                                        clovers: clovers
-                                    )
-                                }
-                            }
+                        ForEach(freeItems) { item in
+                            TodayRoutineCell(
+                                mainGoal: item.mainGoal,
+                                allMainGoals: mainGoals,
+                                detailGoal: item.detailGoal,
+                                subGoalTitle: item.subGoalTitle,
+                                viewModel: viewModel,
+                                modelContext: modelContext,
+                                clovers: clovers,
+                                targetDate: Date()
+                            )
+                        }
+                    }
+
+                    if !yesterdayItems.isEmpty {
+                        sectionTitle(
+                            "어제",
+                            lockMessage: viewModel.carryoverLockMessage(for: yesterdayDate)
+                        )
+                            .padding(.top, todayGoals.isEmpty ? 12 : 20)
+
+                        TodayRoutineTypeHeaderView(routineimage: "Routine_Evening", routineTimeType: "어제 미완료 루틴")
+
+                        ForEach(yesterdayItems) { item in
+                            TodayRoutineCell(
+                                mainGoal: item.mainGoal,
+                                allMainGoals: mainGoals,
+                                detailGoal: item.detailGoal,
+                                subGoalTitle: item.subGoalTitle,
+                                viewModel: viewModel,
+                                modelContext: modelContext,
+                                clovers: clovers,
+                                targetDate: yesterdayDate
+                            )
                         }
                     }
                 }
@@ -166,5 +183,44 @@ struct TodayRoutineView: View {
             .padding(.bottom, 32)
         }
         .background(.myFFFAF4)
+        .onAppear {
+            refreshWidgetState()
+        }
+        .onChange(of: scenePhase) { _, newPhase in
+            if newPhase == .active {
+                refreshWidgetState()
+            }
+        }
+        .onChange(of: mainGoals.count) { _, _ in
+            viewModel.refreshNotificationSchedules(mainGoals: mainGoals)
+            viewModel.syncWidgetSnapshot(mainGoals: mainGoals)
+        }
+    }
+
+    private func refreshWidgetState() {
+        viewModel.applyPendingWidgetToggles(mainGoals: mainGoals, clovers: clovers, context: modelContext)
+        viewModel.refreshNotificationSchedules(mainGoals: mainGoals)
+        viewModel.syncWidgetSnapshot(mainGoals: mainGoals)
+    }
+
+    private func sectionTitle(_ title: String, lockMessage: String? = nil) -> some View {
+        HStack {
+            Text(title)
+                .font(.setPretendard(weight: .bold, size: 20))
+                .foregroundStyle(.my2B2B2B)
+
+            if let lockMessage {
+                HStack(spacing: 4) {
+                    Image(systemName: "lock.fill")
+                    Text(lockMessage)
+                }
+                .font(.setPretendard(weight: .medium, size: 12))
+                .foregroundStyle(.my8E8E8E)
+                .lineLimit(1)
+                .minimumScaleFactor(0.75)
+            }
+
+            Spacer()
+        }
     }
 }

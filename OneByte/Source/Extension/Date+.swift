@@ -52,7 +52,9 @@ extension Date {
     
     // 월요일 시작(0) ~ 일요일(6)로 요일 인덱스를 반환
     func mondayBasedIndex() -> Int {
-        let weekday = Calendar.current.component(.weekday, from: self)
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "Asia/Seoul") ?? .current
+        let weekday = calendar.component(.weekday, from: self)
         return (weekday + 5) % 7
     }
     
