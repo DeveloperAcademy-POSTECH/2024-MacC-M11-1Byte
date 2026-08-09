@@ -10,6 +10,21 @@ import SwiftData
 
 @Observable
 class SettingViewModel{
+    enum NotificationStatusText {
+        case loading
+        case enabled
+        case disabled
+        case undecided
+
+        var description: String {
+            switch self {
+            case .loading: return "상태 확인 중"
+            case .enabled: return "iPhone 설정에서 알림이 허용되어 있어요"
+            case .disabled: return "iPhone 설정에서 알림을 켜야 루틴 알림을 받을 수 있어요"
+            case .undecided: return "앱에서 알림을 처음 켜면 권한을 요청해요"
+            }
+        }
+    }
     
     var settingViewTabBarVisible: Bool = false // 탭바 hidden 변수
     
@@ -19,6 +34,10 @@ class SettingViewModel{
     var newNickname: String = ""
     let nicknameLimit = 10
     var daysSinceInstall: Int = 0
+    var notificationStatus: NotificationStatusText = .loading
+    var routineReminderEnabled: Bool = isRoutineReminderEnabled()
+    var incompleteRoutineReminderEnabled: Bool = isIncompleteRoutineReminderEnabled()
+    var incompleteRoutineReminderTime: Date = loadIncompleteRoutineReminderTime()
     
     init() {
         self.isAppearAchieved = UserDefaults.standard.bool(forKey: "isAppearAchieved")
@@ -98,9 +117,51 @@ class SettingViewModel{
     
     // 하고만다 앱의 '휴대폰 설정'화면으로 이동
     func openAppSettings() {
-        if let appSettingsURL = URL(string: UIApplication.openSettingsURLString) {
-            if UIApplication.shared.canOpenURL(appSettingsURL) {
-                UIApplication.shared.open(appSettingsURL, options: [:], completionHandler: nil)
+        openSystemNotificationSettings()
+    }
+
+    func updateRoutineReminderEnabled(_ isEnabled: Bool, mainGoals: [MainGoal]) {
+        updateNotificationPreference(
+            isEnabled: isEnabled,
+            applyPreference: {
+                setRoutineReminderEnabled($0)
+                self.routineReminderEnabled = $0
+            },
+            mainGoals: mainGoals
+        )
+    }
+
+    func updateIncompleteRoutineReminderEnabled(_ isEnabled: Bool, mainGoals: [MainGoal]) {
+        updateNotificationPreference(
+            isEnabled: isEnabled,
+            applyPreference: {
+                setIncompleteRoutineReminderEnabled($0)
+                self.incompleteRoutineReminderEnabled = $0
+            },
+            mainGoals: mainGoals
+        )
+    }
+
+    func updateIncompleteRoutineReminderTime(_ date: Date, mainGoals: [MainGoal]) {
+        incompleteRoutineReminderTime = date
+        setIncompleteRoutineReminderTime(date)
+        TodayRoutineViewModel().refreshNotificationSchedules(mainGoals: mainGoals)
+    }
+
+    func refreshNotificationStatus() {
+        fetchNotificationAuthorizationState { [weak self] state in
+            DispatchQueue.main.async {
+                switch state {
+                case .authorized:
+                    self?.notificationStatus = .enabled
+                case .denied:
+                    self?.notificationStatus = .disabled
+                case .notDetermined:
+                    self?.notificationStatus = .undecided
+                }
+                self?.routineReminderEnabled = isRoutineReminderEnabled()
+                self?.incompleteRoutineReminderEnabled = isIncompleteRoutineReminderEnabled()
+                self?.incompleteRoutineReminderTime = loadIncompleteRoutineReminderTime()
             }
         }
     }
@@ -109,5 +170,43 @@ class SettingViewModel{
     var appVersion: String {
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
         return "\(version)"
+    }
+
+    private func updateNotificationPreference(
+        isEnabled: Bool,
+        applyPreference: @escaping (Bool) -> Void,
+        mainGoals: [MainGoal]
+    ) {
+        guard isEnabled else {
+            applyPreference(false)
+            TodayRoutineViewModel().refreshNotificationSchedules(mainGoals: mainGoals)
+            return
+        }
+
+        fetchNotificationAuthorizationState { [weak self] state in
+            switch state {
+            case .authorized:
+                DispatchQueue.main.async {
+                    applyPreference(true)
+                    TodayRoutineViewModel().refreshNotificationSchedules(mainGoals: mainGoals)
+                    self?.refreshNotificationStatus()
+                }
+            case .notDetermined:
+                requestNotificationPermission { granted in
+                    DispatchQueue.main.async {
+                        applyPreference(granted)
+                        if granted {
+                            TodayRoutineViewModel().refreshNotificationSchedules(mainGoals: mainGoals)
+                        }
+                        self?.refreshNotificationStatus()
+                    }
+                }
+            case .denied:
+                DispatchQueue.main.async {
+                    applyPreference(false)
+                    self?.refreshNotificationStatus()
+                }
+            }
+        }
     }
 }

@@ -92,7 +92,7 @@ class MandalartViewModel: ObservableObject {
         updateService.updateSubGoal(subGoal:subGoal,newTitle: newTitle, category: category)
     }
     
-    func updateDetailGoal(detailGoal: DetailGoal, newTitle: String, newMemo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool, isMorning: Bool, isAfternoon: Bool, isEvening: Bool, isNight: Bool, isFree: Bool) {
+    func updateDetailGoal(detailGoal: DetailGoal, newTitle: String, newMemo: String, achieveCount: Int, achieveGoal: Int, alertMon: Bool, alertTue: Bool, alertWed: Bool, alertThu: Bool, alertFri: Bool, alertSat: Bool, alertSun: Bool, isRemind: Bool, remindTime: Date?, achieveMon: Bool, achieveTue: Bool, achieveWed: Bool, achieveThu: Bool, achieveFri: Bool, achieveSat: Bool, achieveSun: Bool, isMorning: Bool, isAfternoon: Bool, isEvening: Bool, isNight: Bool, isFree: Bool, repeatTypeRaw: String, scheduledDayOfMonth: Int?) {
         updateService.updateDetailGoal(
             detailGoal: detailGoal,
             title: newTitle,
@@ -119,7 +119,9 @@ class MandalartViewModel: ObservableObject {
             isAfternoon: isAfternoon,
             isEvening: isEvening,
             isNight: isNight,
-            isFree: isFree
+            isFree: isFree,
+            repeatTypeRaw: repeatTypeRaw,
+            scheduledDayOfMonth: scheduledDayOfMonth
         )
         
         
@@ -399,4 +401,3 @@ struct TaggedWord {
     let word: String
     let tag: String
 }
-

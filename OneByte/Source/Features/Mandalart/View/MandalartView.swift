@@ -281,9 +281,10 @@ extension OuterGridView {
                     }
                 }
                 // 메인골 자리
-                RoundedRectangle(cornerSize: CGSize(width: 30, height: 30))
-                    .fill(Color.my538F53)
-                    .frame(width: 69, height: 69)
+                Image("GoldClover")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 72, height: 72)
             }
             Spacer()
         }

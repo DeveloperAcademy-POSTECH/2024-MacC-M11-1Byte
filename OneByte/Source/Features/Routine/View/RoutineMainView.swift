@@ -33,13 +33,11 @@ struct RoutineMainView: View {
                         Divider()
                             .foregroundStyle(.myF0E8DF)
                         
-                        ScrollView(.vertical, showsIndicators: false) { // Picker에 따른 2개 뷰
-                            switch viewModel.selectedPicker {
-                            case .today:
-                                TodayRoutineView() // 오늘의 루틴 탭
-                            case .all:
-                                AllRoutineView(isPopUpVisible: $viewModel.isPopUpVisible) // 전체 루틴 탭
-                            }
+                        switch viewModel.selectedPicker {
+                        case .today:
+                            TodayRoutineView() // 오늘의 루틴 탭
+                        case .all:
+                            AllRoutineView(isPopUpVisible: $viewModel.isPopUpVisible) // 전체 루틴 탭
                         }
                     }
                     .background(.myFFFAF4)

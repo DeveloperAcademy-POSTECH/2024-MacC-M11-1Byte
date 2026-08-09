@@ -23,7 +23,7 @@ struct WeekAchieveCell: View {
                     
                     Spacer()
                     
-                    Text("달성한 횟수 \(detailGoal.achieveCount)/\(detailGoal.achieveGoal)개")
+                    Text("달성한 횟수 \(viewModel.achievedCount(for: detailGoal))/\(detailGoal.achieveGoal)개")
                         .font(.setPretendard(weight: .medium, size: 12))
                         .foregroundStyle(.my727272)
                 }
@@ -38,7 +38,6 @@ struct WeekAchieveCell: View {
             .padding(.top)
             
             HStack {
-                let cumulativeAchieveCounts = viewModel.calculateCumulativeAchieveCounts(for: detailGoal)
                 ForEach(0..<viewModel.days.count, id: \.self) { index in
                     VStack(spacing: 4) {
                         Text(viewModel.days[index])
@@ -48,35 +47,25 @@ struct WeekAchieveCell: View {
                             .clipShape(Circle())
                         
                         ZStack {
-                            if viewModel.isAlertActive(for: detailGoal, at: index) {
-                                if Date().currentDay == viewModel.days[index] {
-                                    // 루틴이고 오늘인데
-                                    if viewModel.isAchieved(for: detailGoal, at: index) {
-                                        viewModel.setGradationClover(for: detailGoal.achieveGoal, achieveCount: detailGoal.achieveCount)
-                                            .resizable()
-                                            .scaledToFit()
-                                    } else {
-                                        Image("RoutineDay")
-                                            .resizable()
-                                            .scaledToFit()
-                                    }
-                                } else if viewModel.isFutureDay(index: index) {
-                                    Image("RoutineNotYet")  // 루틴이긴한데 아직 오지 않은 요일은 회색 배경
-                                        .resizable()
-                                        .scaledToFit()
-                                } else {
-                                    if viewModel.isAchieved(for: detailGoal, at: index) {
-                                        viewModel.setGradationClover(for: detailGoal.achieveGoal, achieveCount: cumulativeAchieveCounts[index])
-                                            .resizable()
-                                            .scaledToFit()
-                                    } else {
-                                        Image("NoAchieve") // 미성취한 경우
-                                            .resizable()
-                                            .scaledToFit()
-                                    }
-                                }
-                            } else {
-                                Image("NoRoutineDay") // 루틴이 없는 날
+                            switch viewModel.weekSlotState(for: detailGoal, at: index) {
+                            case .achieved(let count):
+                                viewModel.setGradationClover(for: detailGoal.achieveGoal, achieveCount: count)
+                                    .resizable()
+                                    .scaledToFit()
+                            case .todayPending:
+                                Image("RoutineDay")
+                                    .resizable()
+                                    .scaledToFit()
+                            case .futurePending:
+                                Image("RoutineNotYet")
+                                    .resizable()
+                                    .scaledToFit()
+                            case .missed:
+                                Image("NoAchieve")
+                                    .resizable()
+                                    .scaledToFit()
+                            case .idle:
+                                Image("NoRoutineDay")
                                     .resizable()
                                     .scaledToFit()
                             }
